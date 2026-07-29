@@ -1709,21 +1709,13 @@ These questions form the starting point for Level 2.
 
 # Understanding the Situation
 
-What does it mean to understand what a customer is actually asking?
+What does it mean to understand what a customer is actually asking, and how do we recognise when the customer's stated problem is not the real problem?
 
-How do we determine whether multiple messages belong to the same situation?
+How do we determine whether multiple messages belong to the same situation, and whether two seemingly different conversations are actually related?
 
-How do we determine whether two seemingly different conversations are actually related?
+How do we determine which information is relevant to the current situation, and which information should be ignored?
 
-How do we determine which information is relevant to the current situation?
-
-How do we determine which information should be ignored?
-
-How do we recognise ambiguity?
-
-How do we recognise uncertainty?
-
-How do we recognise that the customer's stated problem is not the real problem?
+How do we recognise ambiguity and uncertainty?
 
 ---
 
