@@ -778,9 +778,7 @@ The communication platform delivers the message to Tend.
 
 Tend receives the message.
 
-Tend determines what the customer is asking.
-
-Tend identifies the information needed to understand the situation.
+Tend understands the situation — building an explicit model of what the customer is actually asking, what is known, what is unknown, and what conflicts.
 
 Tend retrieves information from business systems when available.
 
@@ -1711,9 +1709,7 @@ These questions form the starting point for Level 2.
 
 # Understanding the Situation
 
-What does it mean to "understand" a customer situation?
-
-How do we determine what the customer is actually asking?
+What does it mean to understand what a customer is actually asking?
 
 How do we determine whether multiple messages belong to the same situation?
 
@@ -2047,7 +2043,7 @@ Only after the architecture is understood should we ask:
 
 "What technologies best implement that architecture?"
 
-# Complaince ans Security
+# Complaince and Security
 
 What are the compliances of each actors and each tech stack that we will be using
 
