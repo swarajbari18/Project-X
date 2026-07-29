@@ -68,6 +68,8 @@ The communication is only what the customer sees.
 
 Behind every message, Tend is helping the business understand what is happening, decide what should happen next, and act with the information that is available.
 
+**One of the biggest challendge Tend will face and attempt to solve is Inaction within the business (employess or other actors) by ways of escalation.**
+
 # 2. Why does Tend exist?
 
 Every business communicates with customers.
@@ -455,6 +457,8 @@ They define how Tend should behave, no matter how the product evolves.
 
 ---
 
+
+
 ## Understand before acting
 
 Tend should never take an action before understanding the situation.
@@ -466,6 +470,8 @@ Before replying or performing an action, Tend first gathers the information need
 If the situation is not clear, Tend continues collecting information instead of making assumptions.
 
 ---
+
+
 
 ## Never guess
 
@@ -479,6 +485,8 @@ If necessary, it should ask the right person or the right system before continui
 
 ---
 
+
+
 ## Use facts before opinions
 
 Business decisions should be based on information that can be verified.
@@ -489,6 +497,8 @@ If two sources disagree, Tend should identify the disagreement instead of hiding
 
 ---
 
+
+
 ## Communication is the final step
 
 Writing a reply is not the main job.
@@ -498,6 +508,8 @@ A reply is only the final result of understanding the situation.
 The quality of the communication depends on the quality of the understanding that comes before it.
 
 ---
+
+
 
 ## Help people, do not replace them
 
@@ -511,6 +523,8 @@ When a human is needed, Tend should involve the right person instead of trying t
 
 ---
 
+
+
 ## Let the system make predictable decisions
 
 Many decisions inside a business do not require intelligence.
@@ -523,6 +537,8 @@ This makes the system easier to understand, easier to test and more reliable.
 
 ---
 
+
+
 ## Every important action should be explainable
 
 The business should be able to understand why Tend reached a particular conclusion.
@@ -532,6 +548,8 @@ If Tend recommends an action, there should be a clear reason behind it.
 People should not have to blindly trust the system.
 
 ---
+
+
 
 ## Every important action should be traceable
 
@@ -544,6 +562,8 @@ It should be possible to understand what decisions were made.
 It should be possible to understand why the final outcome occurred.
 
 ---
+
+
 
 ## Fail safely
 
@@ -560,6 +580,8 @@ When this happens, Tend should fail in a way that keeps the business safe.
 If Tend cannot make a confident decision, it should stop, explain why, and ask for help instead of taking unnecessary risks.
 
 ---
+
+
 
 ## Learn from every interaction
 
@@ -595,6 +617,8 @@ Tend is designed to work with them, not replace them.
 
 ---
 
+
+
 ## Tend is not just another chatbot
 
 A chatbot focuses on replying to messages.
@@ -607,6 +631,8 @@ The reply is only one part of the process.
 
 ---
 
+
+
 ## Tend is not just an AI writing assistant
 
 Writing is only a small part of customer communication.
@@ -618,6 +644,8 @@ A perfectly written reply is still the wrong reply if it is based on incorrect i
 Tend focuses on helping the business reach the correct decision before generating any communication.
 
 ---
+
+
 
 ## Tend is not another CRM
 
@@ -634,6 +662,8 @@ Both have different responsibilities.
 Both can work together.
 
 ---
+
+
 
 ## Tend is not another workflow automation tool
 
@@ -655,6 +685,8 @@ Sometimes the business needs to make a completely new decision.
 
 ---
 
+
+
 ## Tend is not trying to replace people
 
 Businesses still need people.
@@ -673,6 +705,8 @@ It does not try to remove them from the process.
 
 ---
 
+
+
 ## Tend is not trying to automate everything
 
 Not every task should be automated.
@@ -688,6 +722,8 @@ Tend should recognise these situations.
 When necessary, it should stop and involve the right person instead of trying to continue automatically.
 
 ---
+
+
 
 ## Tend is not the owner of the business
 

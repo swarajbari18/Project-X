@@ -60,6 +60,8 @@ Help the business reach the correct decision with the information available at t
 
 Everything else in the system exists to support that objective.
 
+**One of the biggest challendge Tend will face and attempt to solve is Inaction within the business (employess or other actors) by ways of escalation.**
+
 ## 2. Assumptions
 
 This section lists the assumptions that currently shape our understanding of the problem.
@@ -74,6 +76,8 @@ The architecture should be flexible enough to adapt when they do.
 
 ---
 
+
+
 ### Businesses want correct decisions more than fast decisions
 
 We assume businesses value making the correct decision over making the fastest possible decision.
@@ -81,6 +85,8 @@ We assume businesses value making the correct decision over making the fastest p
 A delayed but correct response is usually better than a fast response based on incorrect information.
 
 ---
+
+
 
 ### Information is distributed
 
@@ -90,6 +96,8 @@ It is often spread across multiple business systems, employees and previous conv
 
 ---
 
+
+
 ### No single source always has the complete picture
 
 We assume no single system or person always knows everything needed to make a decision.
@@ -97,6 +105,8 @@ We assume no single system or person always knows everything needed to make a de
 Understanding usually requires combining information from multiple sources.
 
 ---
+
+
 
 ### Business knowledge changes over time
 
@@ -108,6 +118,8 @@ The system must work with changing information instead of assuming that knowledg
 
 ---
 
+
+
 ### Some situations require human judgement
 
 We assume not every customer interaction can be handled automatically.
@@ -118,6 +130,8 @@ The system should recognise these situations instead of trying to automate every
 
 ---
 
+
+
 ### Information may be incomplete
 
 We assume that important information will sometimes be missing.
@@ -125,6 +139,8 @@ We assume that important information will sometimes be missing.
 The system should continue working even when it cannot immediately reach a final decision.
 
 ---
+
+
 
 ### Information may conflict
 
@@ -136,6 +152,8 @@ The system should identify conflicts instead of hiding them.
 
 ---
 
+
+
 ### Businesses already have existing software
 
 We assume businesses already use software to manage different parts of their operations.
@@ -143,6 +161,8 @@ We assume businesses already use software to manage different parts of their ope
 Tend should work alongside these systems instead of assuming it owns every business process.
 
 ---
+
+
 
 ### Customer conversations are part of larger business operations
 
@@ -154,6 +174,8 @@ The system should treat conversations as entry points into business operations r
 
 ---
 
+
+
 ### AI is a tool, not the decision maker
 
 We assume artificial intelligence helps the business understand situations.
@@ -161,6 +183,14 @@ We assume artificial intelligence helps the business understand situations.
 The business remains responsible for its own policies and decisions.
 
 The system should assist people rather than replace their responsibility.
+
+Our product tend is not just AI. it uses AI as a tool for atificial intelligence at runtime
+
+Tend may make operational decisions.
+
+The business defines the policies within which those decisions are made.
+
+Whenever those policies cannot be applied confidently, Tend involves the appropriate person.
 
 ---
 
@@ -182,6 +212,8 @@ As we learn more from customers and real-world usage, these unknowns should grad
 
 ---
 
+
+
 ### How do businesses decide that they have enough information?
 
 Different businesses may require different levels of confidence before taking action.
@@ -194,6 +226,8 @@ We do not yet know how these decisions vary across businesses.
 
 ---
 
+
+
 ### Which business decisions can be standardised?
 
 Some operational decisions follow clear business rules.
@@ -204,6 +238,8 @@ We do not yet know where that boundary exists across different industries.
 
 ---
 
+
+
 ### How much variation exists between businesses?
 
 Businesses in different industries may handle similar customer situations in completely different ways.
@@ -212,6 +248,8 @@ We do not yet know which parts of Tend should be universal and which parts shoul
 
 ---
 
+
+
 ### Which sources of information do businesses trust most?
 
 When multiple systems provide different answers, businesses need a way to decide which information should be trusted.
@@ -219,6 +257,8 @@ When multiple systems provide different answers, businesses need a way to decide
 We do not yet understand how businesses establish that trust today.
 
 ---
+
+
 
 ### How should conflicting information be resolved?
 
@@ -230,6 +270,8 @@ We do not yet know what approaches are most common.
 
 ---
 
+
+
 ### When should a person become involved?
 
 Some situations can continue automatically.
@@ -240,6 +282,8 @@ We do not yet know what signals businesses use to make that decision.
 
 ---
 
+
+
 ### What information should be remembered?
 
 Not every conversation creates knowledge that is useful in the future.
@@ -248,6 +292,8 @@ We do not yet know which information businesses expect to retain and which infor
 
 ---
 
+
+
 ### How do businesses explain their own decisions?
 
 Businesses often need to explain decisions to customers, employees or regulators.
@@ -255,6 +301,8 @@ Businesses often need to explain decisions to customers, employees or regulators
 We do not yet know what level of explanation businesses expect from a system like Tend.
 
 ---
+
+
 
 ### How should success be measured?
 
@@ -267,6 +315,8 @@ Others may value fewer mistakes or greater consistency.
 We do not yet know which outcomes matter most across different types of businesses.
 
 ---
+
+
 
 ### How will these needs change as businesses grow?
 
@@ -294,6 +344,8 @@ Together they define the environment in which the product operates.
 
 ---
 
+
+
 ### Tend
 
 Tend is the system being designed.
@@ -316,7 +368,11 @@ Tend is the central actor that coordinates the interaction between all other act
 
 ---
 
+
+
 ## Business Actors
+
+
 
 ### Business
 
@@ -331,6 +387,8 @@ Tend supports those decisions.
 The responsibility always remains with the business.
 
 ---
+
+
 
 ### Employees
 
@@ -350,6 +408,8 @@ It does not replace them.
 
 ---
 
+
+
 ### Customers
 
 Customers contact the business to request products, services, support or information.
@@ -362,7 +422,11 @@ Customers interact with the business through Tend.
 
 ---
 
+
+
 ## External System Actors
+
+
 
 ### Business Systems
 
@@ -376,6 +440,8 @@ They may also receive updates from Tend.
 
 ---
 
+
+
 ### Communication Platforms
 
 Communication platforms transport messages.
@@ -385,6 +451,8 @@ Examples include email, WhatsApp, SMS, web chat and phone systems.
 They deliver messages between customers, employees and Tend.
 
 ---
+
+
 
 ### Identity Providers
 
@@ -398,6 +466,8 @@ Tend relies on them to establish trust.
 
 ---
 
+
+
 ### External Services
 
 Businesses often depend on external organisations.
@@ -407,6 +477,8 @@ Examples include payment providers, shipping companies, government services and 
 These services provide information or perform actions outside the business.
 
 ---
+
+
 
 ### Time
 
@@ -430,7 +502,11 @@ Tend observes those changes and responds when necessary.
 
 ---
 
+
+
 ## Product Lifecycle Actors
+
+
 
 ### Product Builder
 
@@ -449,6 +525,8 @@ They do not participate in day-to-day customer interactions.
 Instead, they shape how Tend operates before those interactions occur.
 
 ---
+
+
 
 ### Test & Simulation Environment
 
@@ -484,6 +562,8 @@ The goal is to describe how work is divided between the actors.
 
 ---
 
+
+
 ## Tend
 
 Tend receives information from customers, employees, business systems and external services.
@@ -514,6 +594,8 @@ Tend explains why it reached a particular recommendation or decision.
 
 ---
 
+
+
 ## Business
 
 The business defines how it operates.
@@ -531,6 +613,8 @@ The business decides which business systems Tend may use.
 The business remains responsible for every business decision, even when Tend assists with that decision.
 
 ---
+
+
 
 ## Employees
 
@@ -552,6 +636,8 @@ Employees use the information provided by Tend to make business decisions.
 
 ---
 
+
+
 ## Customers
 
 Customers contact the business.
@@ -568,6 +654,8 @@ Customers receive updates, questions and responses through the communication cha
 
 ---
 
+
+
 ## Business Systems
 
 Business systems store the information that they own.
@@ -579,6 +667,8 @@ Business systems receive updates from Tend when the business allows those update
 Business systems remain responsible for the accuracy of the information that they own.
 
 ---
+
+
 
 ## Communication Platforms
 
@@ -592,6 +682,8 @@ Communication platforms are responsible for transporting messages, not understan
 
 ---
 
+
+
 ## Identity Providers
 
 Identity Providers receive authentication requests from Tend.
@@ -604,6 +696,8 @@ They provide identity information that Tend uses to decide whether access should
 
 ---
 
+
+
 ## External Services
 
 External services receive requests from Tend.
@@ -613,6 +707,8 @@ They return information or perform actions that belong to their own systems.
 They remain responsible for the information and operations that they own.
 
 ---
+
+
 
 ## Time
 
@@ -627,6 +723,8 @@ Time causes business information to become outdated.
 Tend observes these changes and decides whether any action is required.
 
 ---
+
+
 
 ## Product Builder
 
@@ -643,6 +741,8 @@ The Product Builder tests the configuration before it is used by the business.
 The Product Builder updates the configuration as the business changes.
 
 ---
+
+
 
 ## Test & Simulation Environment
 
@@ -667,6 +767,8 @@ The actors then exchange information until the business reaches the correct next
 The purpose of these interactions is to understand how work flows through Tend.
 
 ---
+
+
 
 ## A customer starts a conversation
 
@@ -698,6 +800,8 @@ If another action should occur first, Tend performs or requests that action befo
 
 ---
 
+
+
 ## An employee signs in
 
 An employee opens Tend.
@@ -713,6 +817,8 @@ If authentication succeeds, Tend grants access according to the employee's permi
 If authentication fails, Tend denies access.
 
 ---
+
+
 
 ## An employee provides information
 
@@ -732,6 +838,8 @@ Tend re-evaluates whether enough information now exists to continue.
 
 ---
 
+
+
 ## Tend retrieves information from a business system
 
 Tend determines that information is required from a business system.
@@ -745,6 +853,8 @@ Tend evaluates the returned information.
 If additional information is required, Tend continues gathering it.
 
 ---
+
+
 
 ## Tend updates a business system
 
@@ -761,6 +871,8 @@ Tend records the outcome.
 If the update fails, Tend determines the next appropriate action.
 
 ---
+
+
 
 ## A business rule requires approval
 
@@ -780,7 +892,11 @@ If approved, Tend continues.
 
 If rejected, Tend follows the business policy for that situation.
 
+If there is inaction, Tend escalates as per business rules
+
 ---
+
+
 
 ## Time changes the situation
 
@@ -800,6 +916,8 @@ If action is required, Tend begins gathering the information needed for that sit
 
 ---
 
+
+
 ## The Product Builder configures Tend
 
 The Product Builder creates or updates the business configuration.
@@ -813,6 +931,8 @@ The Product Builder validates the configuration.
 The configuration becomes available for the business to use.
 
 ---
+
+
 
 ## The Test & Simulation Environment validates Tend
 
@@ -838,6 +958,8 @@ It also helps ensure that Tend does not take ownership of problems that belong s
 
 ---
 
+
+
 ## What belongs to Tend
 
 Tend is responsible for understanding customer situations.
@@ -861,6 +983,8 @@ Tend is responsible for recording important business events, decisions and outco
 Tend is responsible for explaining how it reached a recommendation or decision.
 
 ---
+
+
 
 ## What does not belong to Tend
 
@@ -900,6 +1024,8 @@ It requests information or actions from them.
 
 ---
 
+
+
 ## Shared responsibilities
 
 Some responsibilities require Tend and another actor to work together.
@@ -927,6 +1053,8 @@ Tend coordinates work.
 Other actors perform the responsibilities that belong to them.
 
 ---
+
+
 
 ## When the boundary is unclear
 
@@ -958,6 +1086,8 @@ If an invariant is violated, Tend is behaving incorrectly.
 
 ---
 
+
+
 ### Tend never guesses.
 
 If Tend does not have enough information, it does not invent an answer.
@@ -967,6 +1097,8 @@ It identifies what is missing.
 It asks for more information or stops until enough information is available.
 
 ---
+
+
 
 ### Every decision is based on the information available at that moment.
 
@@ -978,6 +1110,8 @@ If new information arrives later, Tend may reach a different decision.
 
 ---
 
+
+
 ### Every important decision can be explained.
 
 If Tend recommends an action, it should be able to explain why.
@@ -987,6 +1121,8 @@ The explanation should identify the information that influenced the recommendati
 People should never be expected to blindly trust the system.
 
 ---
+
+
 
 ### Every important action can be traced.
 
@@ -1001,6 +1137,8 @@ It should be possible to see:
 
 ---
 
+
+
 ### Tend never owns information that belongs to another system.
 
 Business systems remain responsible for the information that they own.
@@ -1013,6 +1151,8 @@ Tend does not become the source of truth for that information.
 
 ---
 
+
+
 ### Human responsibility always remains with humans.
 
 Tend may recommend actions.
@@ -1024,6 +1164,8 @@ The business remains responsible for its own decisions.
 When human approval is required, Tend waits for that approval.
 
 ---
+
+
 
 ### Tend always works with the latest known state.
 
@@ -1038,6 +1180,8 @@ Business systems change.
 Tend should always base its next decision on the latest information available.
 
 ---
+
+
 
 ### Every interaction moves the situation forward.
 
@@ -1055,6 +1199,8 @@ Tend should never perform work that does not help move the business towards the 
 
 ---
 
+
+
 ### Tend coordinates work.
 
 Other actors own their own responsibilities.
@@ -1068,6 +1214,8 @@ It does not compete with them.
 It coordinates them.
 
 ---
+
+
 
 ### The business remains in control.
 
@@ -1101,6 +1249,8 @@ This section describes the types of failures that Tend must expect.
 
 ---
 
+
+
 ## Missing information
 
 A decision cannot always be made immediately.
@@ -1119,6 +1269,8 @@ It should never guess.
 
 ---
 
+
+
 ## Conflicting information
 
 Different sources may provide different answers.
@@ -1135,6 +1287,8 @@ It should not silently choose one answer unless the business has explicitly defi
 
 ---
 
+
+
 ## Incorrect information
 
 Information may exist but still be wrong.
@@ -1148,6 +1302,8 @@ A business system may contain outdated information.
 Tend should work with the information it receives, but it should also make it possible for incorrect information to be corrected.
 
 ---
+
+
 
 ## Unavailable actors
 
@@ -1169,6 +1325,8 @@ If not, it should pause safely until the actor becomes available again.
 
 ---
 
+
+
 ## Authentication and authorisation failures
 
 A person may not be able to prove their identity.
@@ -1180,6 +1338,8 @@ Tend should deny access or prevent the action.
 It should not bypass business security rules.
 
 ---
+
+
 
 ## Business rule violations
 
@@ -1197,6 +1357,8 @@ It should follow the business policy instead of attempting to continue.
 
 ---
 
+
+
 ## Communication failures
 
 Messages may not reach their destination.
@@ -1212,6 +1374,8 @@ Tend should recognise that communication did not complete successfully.
 It should determine the appropriate next step instead of assuming the communication succeeded.
 
 ---
+
+
 
 ## Unexpected situations
 
@@ -1263,6 +1427,8 @@ These dimensions help us understand where future complexity will come from.
 
 ---
 
+
+
 ## More customers
 
 The business may serve more customers.
@@ -1274,6 +1440,8 @@ More conversations create more decisions.
 Tend should continue helping the business understand each situation without allowing one customer's work to affect another customer's work.
 
 ---
+
+
 
 ## More employees
 
@@ -1291,6 +1459,8 @@ Tend should help employees work together without creating confusion.
 
 ---
 
+
+
 ## More conversations
 
 The number of active conversations may increase.
@@ -1303,6 +1473,8 @@ Work on one conversation should not interfere with another.
 
 ---
 
+
+
 ## More business systems
 
 As businesses grow, they often adopt additional software.
@@ -1314,6 +1486,8 @@ Existing systems may be replaced.
 Tend should be able to work with changing business systems without changing its core purpose.
 
 ---
+
+
 
 ## More communication channels
 
@@ -1331,6 +1505,8 @@ The responsibility of understanding the customer should not.
 
 ---
 
+
+
 ## More business processes
 
 Businesses often introduce new products, services and operational procedures.
@@ -1342,6 +1518,8 @@ Existing workflows may change.
 Tend should adapt to those changes without changing its fundamental behaviour.
 
 ---
+
+
 
 ## More locations
 
@@ -1359,6 +1537,8 @@ Tend should support these differences while maintaining a consistent approach.
 
 ---
 
+
+
 ## More integrations
 
 Businesses may connect more external services over time.
@@ -1372,6 +1552,8 @@ New internal software may be connected.
 Tend should continue coordinating work regardless of which external systems participate.
 
 ---
+
+
 
 ## More knowledge
 
@@ -1407,6 +1589,8 @@ If a future feature falls into one of these areas, we should first decide whethe
 
 ---
 
+
+
 ## Running the business
 
 Tend helps businesses operate.
@@ -1417,6 +1601,8 @@ Business strategy, pricing, hiring, financial decisions and company policies rem
 
 ---
 
+
+
 ## Replacing existing business software
 
 Businesses already use software for accounting, inventory, customer management, scheduling and many other functions.
@@ -1426,6 +1612,8 @@ Tend works alongside those systems.
 Replacing them is outside the scope of Tend.
 
 ---
+
+
 
 ## Becoming the source of truth
 
@@ -1439,6 +1627,8 @@ Ownership remains with the appropriate business system.
 
 ---
 
+
+
 ## Defining business policies
 
 Every business operates differently.
@@ -1451,6 +1641,8 @@ The business remains responsible for defining them.
 
 ---
 
+
+
 ## Replacing human judgement
 
 Some business decisions require experience, accountability or legal responsibility.
@@ -1460,6 +1652,8 @@ Tend may assist those decisions.
 It does not replace the people responsible for making them.
 
 ---
+
+
 
 ## Solving every business problem
 
@@ -1474,6 +1668,8 @@ Some problems require people rather than automation.
 Tend should only take responsibility for problems that fall within its defined purpose.
 
 ---
+
+
 
 ## Technology decisions
 
@@ -1495,7 +1691,7 @@ Whenever a new feature is proposed, the first question should be:
 
 If the answer is no, the feature should not move forward until the scope of the product itself has been reconsidered.
 
-## 12. Engineering Questions (Level 2 Backlog)
+## 12. Engineering Questions (Level 2 Questions)
 
 This document defines the problem.
 
@@ -1510,6 +1706,8 @@ Others may require research, experimentation or customer interviews.
 These questions form the starting point for Level 2.
 
 ---
+
+
 
 # Understanding the Situation
 
@@ -1533,6 +1731,8 @@ How do we recognise that the customer's stated problem is not the real problem?
 
 ---
 
+
+
 # Gathering Information
 
 How do we determine what information is required before making a decision?
@@ -1552,6 +1752,8 @@ How do we handle information that arrives gradually?
 How do we handle information that changes while a situation is being analysed?
 
 ---
+
+
 
 # Trust and Evidence
 
@@ -1575,6 +1777,8 @@ How do we distinguish facts from assumptions?
 
 ---
 
+
+
 # Decision Making
 
 What does "enough information" mean?
@@ -1597,6 +1801,8 @@ How do we ensure different employees reach consistent decisions?
 
 ---
 
+
+
 # Human Collaboration
 
 When should Tend involve a person?
@@ -1616,6 +1822,8 @@ What happens when nobody responds?
 What happens when the responsible person is unavailable?
 
 ---
+
+
 
 # Memory and Knowledge
 
@@ -1641,6 +1849,8 @@ If so, what kind of learning is acceptable?
 
 ---
 
+
+
 # Communication
 
 When should Tend communicate?
@@ -1660,6 +1870,8 @@ How do we communicate uncertainty?
 How do we communicate conflicting information?
 
 ---
+
+
 
 # Authority and Ownership
 
@@ -1683,6 +1895,8 @@ How do we prevent responsibility from becoming unclear?
 
 ---
 
+
+
 # Coordination
 
 How do independent actors work together?
@@ -1703,6 +1917,8 @@ How do we recover interrupted work?
 
 ---
 
+
+
 # Time
 
 How should Tend react when time changes the situation?
@@ -1718,6 +1934,8 @@ When should waiting end automatically?
 How should forgotten work be rediscovered?
 
 ---
+
+
 
 # Failure
 
@@ -1739,6 +1957,8 @@ How do we keep the business safe while recovering?
 
 ---
 
+
+
 # Explainability and Observation
 
 How do we explain every recommendation?
@@ -1759,6 +1979,8 @@ How do we recognise that the system is behaving unexpectedly?
 
 ---
 
+
+
 # Growth and Evolution
 
 How do new business systems become part of Tend?
@@ -1776,6 +1998,8 @@ How do we support businesses that operate differently from one another?
 How do we evolve Tend without breaking existing businesses?
 
 ---
+
+
 
 # Architecture
 
@@ -1822,3 +2046,11 @@ Only after answering these questions should we ask:
 Only after the architecture is understood should we ask:
 
 "What technologies best implement that architecture?"
+
+# Complaince ans Security
+
+What are the compliances of each actors and each tech stack that we will be using
+
+How to make a software product secure? What are the best security practices
+
+How do I think and audit whatever I have implemented at each point with a particular security framework that I can apply to find gaps in compliances and security? This kind of a framework should be made

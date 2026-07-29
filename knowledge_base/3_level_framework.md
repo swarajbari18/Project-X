@@ -259,6 +259,20 @@ The output is a logical architecture rather than a technical one.
 
 Every subsystem should exist because it solves a specific responsibility discovered in Level 1.
 
+The goal is not to invent subsystems.
+
+The goal is to discover them.
+
+Start with a single responsibility.
+
+Identify the responsibilities that naturally change with it.
+
+Group those responsibilities together.
+
+Draw the boundary around the smallest complete problem that can be owned independently.
+
+That boundary becomes a subsystem.
+
 ---
 
 ## Process
