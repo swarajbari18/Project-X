@@ -4,7 +4,9 @@
 
 Before we design any system, we need to understand the problem the system exists to solve.
 
-Tend exists to help businesses make correct operational decisions during customer interactions.
+Tend exists to help a business understand what is happening in a customer interaction, decide the correct next step, and coordinate the people and systems needed to act.
+
+Tend is a communication layer. It is responsible for the work behind the message: gathering information, checking it, deciding what should happen, and communicating the result through the appropriate channel.
 
 Customer communication is the most visible part of the problem, but it is rarely the real problem.
 
@@ -60,7 +62,7 @@ Help the business reach the correct decision with the information available at t
 
 Everything else in the system exists to support that objective.
 
-**One of the biggest challendge Tend will face and attempt to solve is Inaction within the business (employess or other actors) by ways of escalation.**
+**The hardest problem Tend will face and try to solve is this: when the right next step requires a person to act, and that person does not act. Tend must make the inaction visible and keep the situation moving until someone safe takes responsibility.**
 
 ## 2. Assumptions
 
@@ -176,6 +178,32 @@ The system should treat conversations as entry points into business operations r
 
 
 
+### People move through different stages of a business relationship
+
+We assume a person who asks about a product is not automatically a customer.
+
+They may be a prospect, a customer waiting for an order, or a returning customer with a new need.
+
+The correct next step depends on which stage they are in.
+
+---
+
+
+
+### Communication channels have different rules
+
+We assume a business cannot start a message in the same way on every channel.
+
+Some channels allow a business to reply but limit when it may start a new conversation.
+
+The business must also respect the customer's consent and the rules that apply in the market where it operates.
+
+Tend must treat these rules as part of the business situation.
+
+---
+
+
+
 ### AI is a tool, not the decision maker
 
 We assume artificial intelligence helps the business understand situations.
@@ -184,7 +212,7 @@ The business remains responsible for its own policies and decisions.
 
 The system should assist people rather than replace their responsibility.
 
-Our product tend is not just AI. it uses AI as a tool for atificial intelligence at runtime
+Tend is not just an AI product. It uses AI as one tool at runtime.
 
 Tend may make operational decisions.
 
@@ -326,6 +354,46 @@ We do not yet understand how customer communication and operational decision-mak
 
 ---
 
+
+
+### How does a business decide when to follow up with a prospect?
+
+A prospect may not be ready to decide for a long time.
+
+Some conversations need a follow-up. Others should be left alone.
+
+Tend should follow up when following up adds value, and stay silent when silence is the better service.
+
+We do not yet understand what signals businesses use to tell these two apart.
+
+---
+
+
+
+### Who is allowed to represent the business in a meeting with a customer?
+
+Not every employee should take every kind of call.
+
+An employee may take sales calls but not support calls, or work only certain hours.
+
+Tend must use these preferences to choose the right person.
+
+We do not yet understand how a business wants to express and override these rules as situations change.
+
+---
+
+
+
+### When is the right time to ask a customer for feedback?
+
+Feedback is only useful after the customer has had time to use the product.
+
+But the right amount of time is different for every product.
+
+We do not yet understand how businesses want to set this, and how they want to route a bad review back into support.
+
+---
+
 These unknowns represent areas where further research is needed.
 
 They should guide customer interviews, product discovery and architectural exploration.
@@ -365,6 +433,20 @@ It communicates with people and systems.
 It records what happened.
 
 Tend is the central actor that coordinates the interaction between all other actors.
+
+It does not do all of that work alone. One part of Tend is a reasoning model, described separately below, that Tend uses when a decision has to be figured out at runtime rather than read from a fixed rule.
+
+---
+
+
+
+### The Reasoning Model
+
+The Reasoning Model is a part of Tend that runs at runtime.
+
+It helps Tend decide how its independent parts should work together when a situation cannot be handled by a fixed procedure.
+
+It does not own the business decision, override business rules, or remove the need for human approval.
 
 ---
 
@@ -422,6 +504,50 @@ Customers interact with the business through Tend.
 
 ---
 
+### Prospects
+
+A prospect is a person who has contacted the business but has not yet bought from it.
+
+They may want information about a product or service.
+
+They may be deciding whether the business is right for them.
+
+They may want to speak to a person before they decide.
+
+They expect an accurate and timely answer, the same as a customer does.
+
+But they are not yet a customer, and Tend must not treat them as if they were.
+
+Each prospect is at some point in the journey toward a decision, and the correct next step depends on where they are.
+
+Some prospects will become customers. Most will not.
+
+Tend keeps track of where each prospect is so that it responds correctly to where they are, not where the business wishes they were.
+
+---
+
+### Business Owners / Administrators
+
+The Business Owner is the person, or the group of people, who runs the business and carries final responsibility for it.
+
+They may not use Tend every day.
+
+They may delegate the setup to an assistant, an employee, or a family member who knows the business.
+
+Even when they do not touch the system often, they decide who is allowed to configure Tend, who is allowed to approve actions, and what the business rules are.
+
+The Owner does not care how many messages Tend handled or how reliably the service stayed online.
+
+What the Owner cares about is the state of the journey: how many prospects are waiting, how many are close to buying, which orders are stuck, which customers are at risk.
+
+When something needs a decision only the Owner can make, they want to step into that one situation, see what happened, decide, and let Tend continue.
+
+The Owner can delegate their authority, and Tend must respect who holds which part of that authority at any moment.
+
+---
+
+---
+
 
 
 ## External System Actors
@@ -475,6 +601,26 @@ Businesses often depend on external organisations.
 Examples include payment providers, shipping companies, government services and third-party APIs.
 
 These services provide information or perform actions outside the business.
+
+### External Business Partners
+
+An External Business Partner is a separate organisation the business depends on, such as a delivery company the business uses to ship orders.
+
+The partner does not belong to the business.
+
+It has its own employees, its own people to contact, and its own rules about what it can see and do.
+
+When a customer's problem depends on a partner paying, delivering, or investigating, the partner is a real actor in the situation.
+
+Tend may have to pass information to that partner so the partner can act.
+
+But the partner should only ever see the information it needs to do its job, never the full record of the customer or the business.
+
+What the partner is allowed to see is a decision the business controls, and Tend enforces it.
+
+The partner also owns its part of the work and is responsible for it.
+
+Tend does not pretend to have the answers the partner is responsible for. It facilitates the communication that gets the partner to act.
 
 ---
 
@@ -594,6 +740,26 @@ Tend explains why it reached a particular recommendation or decision.
 
 ---
 
+## Reasoning Model
+
+The reasoning model helps Tend decide how its independent parts should work together when a situation cannot be handled by a fixed procedure.
+
+Tend is not a single large model. It is made of several independent parts, grouped around responsibilities that change together.
+
+When the way those parts should work together is known ahead of time, Tend follows a fixed procedure.
+
+When the correct interaction has to be worked out at runtime because the situation is changing, Tend uses the reasoning model to figure it out.
+
+The reasoning model is a statistical model, commonly called a language model.
+
+It is probabilistic, so its answer is not guaranteed like a fixed rule. It is useful for reasoning about an open situation, but it must not be used where a fixed rule is enough.
+
+Tend uses the reasoning model where judgement is genuinely needed and keeps predictable decisions on rules that can be relied on.
+
+The reasoning model proposes how Tend should proceed. Tend still checks the result against the information available, the business rules, permissions, and the need for human approval.
+
+---
+
 
 
 ## Business
@@ -652,6 +818,48 @@ Customers confirm or correct information about themselves when requested.
 
 Customers receive updates, questions and responses through the communication channels supported by the business.
 
+
+---
+
+## Prospects
+
+Prospects contact the business to get information about products or services.
+
+Prospects ask questions and make decisions about whether to buy.
+
+Prospects provide information about themselves that only they know.
+
+Prospects may ask to speak to a person before they decide.
+
+Prospects expect an accurate and timely response, the same as customers do.
+
+Tend tracks where each prospect is in the journey and responds to where they are.
+
+A prospect is not the same as a customer, and the correct next step is different for each.
+
+When a prospect becomes a customer, Tend records that change and treats them as a customer from then on.
+
+
+## Business Owners / Administrators
+
+Business Owners carry final responsibility for the business and its decisions.
+
+They decide who may configure Tend, who may approve actions, and what the business rules are.
+
+They may delegate setup and daily work to an assistant, employee, or trusted family member.
+
+They decide how much authority each person holds, and Tend respects that.
+
+Owners do not need to watch message counts or system uptime.
+
+Owners need to see the state of the journey: prospects waiting, buyers close to deciding, deliveries stuck, customers at risk.
+
+When an Owner makes a decision, they step into the one situation that needs them, see what happened, decide, and let Tend continue.
+
+Owners can delegate their authority, and Tend must respect who holds each part of it.
+
+---
+
 ---
 
 
@@ -705,6 +913,23 @@ External services receive requests from Tend.
 They return information or perform actions that belong to their own systems.
 
 They remain responsible for the information and operations that they own.
+
+
+## External Business Partners
+
+External Business Partners receive requests from Tend and act on them within their own organisation.
+
+They include delivery companies, payment providers and other third parties the business depends on.
+
+They have their own staff, their own people to contact, and their own rules.
+
+They receive only the information they need to do their job, never the full record of the customer or the business.
+
+What a partner may see is controlled by the business, and Tend enforces it.
+
+The partner remains responsible for its part of the work.
+
+Tend facilitates the communication that lets the partner act; it does not do the partner's job.
 
 ---
 
@@ -916,6 +1141,100 @@ If action is required, Tend begins gathering the information needed for that sit
 
 
 
+## A prospect inquires about a product or service
+
+A prospect sends a message through one of the supported communication platforms.
+
+Tend receives the message.
+
+Tend understands what the prospect is actually asking.
+
+If the answer already exists in the knowledge the business has built up, Tend gives it directly.
+
+If no answer exists, Tend does not guess.
+
+Tend asks the employee most likely to know, gets the answer, and passes it on to the prospect.
+
+Tend records where this prospect is in the journey.
+
+Tend does not treat this prospect as a customer yet, because they have not bought.
+
+The correct next step depends on where the prospect is, and Tend uses that to decide what to do.
+
+---
+
+
+
+## A prospect wants to speak to a person
+
+A prospect decides they want to talk to a real person before they decide to buy.
+
+Tend finds the right employee for this kind of conversation.
+
+An employee may have a free calendar yet still be genuinely busy, so Tend does not rely on the calendar alone.
+
+Tend uses the employee's preferences, the type of call, and the rules the business has set to choose who is right for this prospect and this situation.
+
+Tend schedules the call only in a time that is actually open for that employee.
+
+When the call is scheduled, Tend records what was agreed and what should happen next.
+
+If the prospect buys after the call, Tend follows up with what comes next.
+
+If the prospect wants time to think, Tend gives them that time and does not forget them.
+
+---
+
+
+
+## A delivery problem reaches an external partner
+
+A customer's order is stuck and the business has not been able to move it.
+
+Tend prepares the full trail of what happened, in order, so the people acting can see exactly what led to this point.
+
+An employee inside the business who is working on the problem sees the whole picture.
+
+If the employee does not act, Tend escalates.
+
+When the situation needs the delivery partner, Tend contacts the partner's named person on the business's behalf.
+
+The partner only receives the information it needs to do its job, such as the tracking number.
+
+The partner does not receive the customer's private details or the full record of the situation.
+
+What the partner is allowed to see is decided by the business, and Tend enforces it.
+
+The partner acts, and Tend passes the result back to the business and the customer.
+
+Tend did not perform the partner's work. It made the communication that let the partner act.
+
+---
+
+
+
+## Tend asks a returned customer for feedback
+
+The customer has received the product, and the business wants a real answer about whether it met the promise.
+
+Tend waits until the customer has had time to actually use the product.
+
+How long to wait is a rule the business sets.
+
+When the time comes, Tend chooses a channel the business is allowed to start a message on.
+
+Not every channel allows a business to contact a customer first. WhatsApp and Telegram place strict limits on that, while email does not.
+
+Tend uses the channel the customer has agreed to.
+
+When the customer gives feedback, a low rating is not left to sit.
+
+Tend routes it to the right employee so the problem can be fixed, and the customer is told that the business acted on it.
+
+---
+
+
+
 ## The Product Builder configures Tend
 
 The Product Builder creates or updates the business configuration.
@@ -980,6 +1299,14 @@ Tend is responsible for recording important business events, decisions and outco
 
 Tend is responsible for explaining how it reached a recommendation or decision.
 
+Tend is responsible for deciding which channel it may use to start a message on its own.
+
+Not every channel allows a business to contact a customer first.
+
+Tend is responsible for knowing those rules and choosing the channel the customer has agreed to.
+
+Tend is responsible for watching the journey of each person, so that a prospect is not treated as a customer and a returned customer is not treated as new.
+
 ---
 
 
@@ -1019,6 +1346,12 @@ It uses the identities provided by the business and its identity systems.
 Tend does not control external services.
 
 It requests information or actions from them.
+
+Tend does not decide how an external partner performs its work.
+
+Tend does not give an external partner the full record of a customer or the business.
+
+It coordinates the partner through the information the business has allowed that partner to receive.
 
 ---
 
@@ -1160,6 +1493,38 @@ Tend may perform actions that the business has authorised.
 The business remains responsible for its own decisions.
 
 When human approval is required, Tend waits for that approval.
+
+---
+
+
+
+### Tend does not confuse a prospect with a customer.
+
+Tend records whether a person is still deciding, has bought, is receiving support, or has returned with a new need.
+
+It uses that stage when deciding what should happen next.
+
+---
+
+
+
+### Tend does not share more information than an actor needs.
+
+An employee may need the full history of a situation.
+
+An external partner may need only a tracking number or another limited piece of information.
+
+Tend follows the business's permission and data-sharing rules for each actor.
+
+---
+
+
+
+### Tend does not leave waiting work without a reason.
+
+When work is waiting for a person, a system, a time, or a response, the reason for waiting remains visible.
+
+The business can see what is being waited for and what should happen when waiting ends.
 
 ---
 
@@ -1375,6 +1740,28 @@ It should determine the appropriate next step instead of assuming the communicat
 
 
 
+## Business inaction
+
+Tend may ask an employee or an external partner to provide information or perform an action.
+
+The person may not respond.
+
+The request may be ignored because nobody knows who owns it.
+
+The assigned person may be unavailable, or may believe that somebody else is responsible.
+
+Tend should make the responsibility and the deadline visible.
+
+If the person does not act, Tend should follow the business's escalation rules.
+
+It may remind the person, send the request to somebody else, notify the owner, or pause safely until a person takes responsibility.
+
+Tend should never hide inaction or act as if the requested work was completed.
+
+---
+
+
+
 ## Unexpected situations
 
 A customer may ask something the business has never encountered before.
@@ -1574,6 +1961,34 @@ Growth should increase the amount of work.
 It should not require changing the purpose of Tend.
 
 If supporting a new type of growth requires changing the fundamental responsibilities of the system, we should first question whether that growth belongs within Tend's scope.
+
+---
+
+## A business can grow from one person to a large team without Tend changing shape
+
+The rules that make a one-person business work are the same rules that make a large team work.
+
+What changes is how detailed the rules are, not what the rules are.
+
+A one-person business may have one person who handles everything.
+
+A large team may have separate people for sales, support, delivery and accounts, with someone approving each step.
+
+Both are the same kind of work: understand the situation, decide the correct next step, act, and trace what happened.
+
+Tend is built so that adding people and adding levels of approval does not change what Tend fundamentally is.
+
+The same core serves a single founder and a large team. The difference is how much is configured, not different machinery.
+
+The same is true across countries and languages.
+
+The part of Tend that understands the customer is the same everywhere.
+
+What changes from market to market is which channels are popular, what the rules allow a business to send on its own, and which systems the business already uses.
+
+Those are configuration, not new product logic.
+
+That is why Tend keeps the decision-making the same and treats everything that differs between businesses and markets as settings the business controls.
 
 ## 11. Out of Scope
 
@@ -2034,6 +2449,58 @@ Only after answering these questions should we ask:
 Only after the architecture is understood should we ask:
 
 "What technologies best implement that architecture?"
+
+# Journey and Lifecycle
+
+How should Tend represent the difference between a prospect, a customer, and a returning customer?
+
+How should one customer have several open situations at the same time?
+
+How should a conversation that contains several problems be split into separate situations?
+
+How should waiting for a meeting, a delivery, a payment, a repair, or a feedback date be represented?
+
+How should Tend know when a waiting period has ended?
+
+---
+
+# Meetings and Human Work
+
+How should Tend decide which person is suitable for a meeting?
+
+How should employee availability, preferences, meeting type, and business rules work together?
+
+How should Tend handle a meeting that is cancelled, missed, or rescheduled?
+
+How should Tend represent who is responsible for the next step after a meeting?
+
+How should Tend escalate work when a person does not act?
+
+How should an external partner be contacted when the business has not acted?
+
+---
+
+# Channels and Permissions
+
+How should Tend represent what each communication channel allows a business to send?
+
+How should Tend record consent and the customer's preferred channel?
+
+How should Tend choose between replying in the current channel and starting a message in another channel?
+
+How should Tend decide what information each employee, customer, or external partner may see?
+
+---
+
+# Business View and Authority
+
+What should the business owner see in a snapshot of the business journey?
+
+Which events should require the owner's attention?
+
+How should an owner delegate setup, approval, and configuration responsibilities?
+
+How should authority change when an employee leaves, becomes unavailable, or changes role?
 
 # Complaince and Security
 

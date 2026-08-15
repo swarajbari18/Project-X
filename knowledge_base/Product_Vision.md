@@ -1,24 +1,20 @@
 # 1. What is Tend?
 
-Tend is a platform that helps a business handle all of its customer conversations from one place.
+Tend is a communication layer. That is the thing it owns, and it is why businesses should pay attention to it.
 
-A business receives messages every day.
+A business already has a way to store customers. It has a way to record orders. It has a way to manage payments. It has a way to track deliveries. What it does not have is one layer that understands what is actually happening in every customer interaction, and decides the correct next step, across all of those systems and all of the people who use them.
 
-These messages can arrive through email, WhatsApp, Telegram, a website chat, or other communication channels.
+When a customer contacts the business, the business does not have the whole story in one place.
 
-Some messages are simple.
+The customer may ask something that needs information from different people inside the business.
 
-Some messages need information from different people inside the business.
+It may need information from different software the business uses.
 
-Some messages need information from different software used by the business.
+It may depend on an earlier conversation that happened on a different channel.
 
-As a business grows, handling these conversations becomes difficult.
+As the business grows, the person who understands the situation is different from the person who knows the order status, which is different from the person who knows the payment status.
 
-Information gets scattered across different places.
-
-Different employees know different parts of the story.
-
-Different software stores different pieces of information.
+Every one of them sees a different piece of the story.
 
 Customers often ask questions that cannot be answered by looking at only one place.
 
@@ -68,7 +64,7 @@ The communication is only what the customer sees.
 
 Behind every message, Tend is helping the business understand what is happening, decide what should happen next, and act with the information that is available.
 
-**One of the biggest challendge Tend will face and attempt to solve is Inaction within the business (employess or other actors) by ways of escalation.**
+**The hardest problem Tend will face and try to solve is this: when the right next step requires a person to act, and that person does not act. Tend's job is to make the inaction visible and keep the situation moving until someone safe takes responsibility.**
 
 # 2. Why does Tend exist?
 
@@ -447,6 +443,40 @@ Every conversation is treated as a real business operation.
 
 Every reply is the result of understanding the situation first.
 
+## The journey is not one conversation
+
+The person who first contacts a business is not yet a customer.
+
+They want to know more. They ask what the business sells, whether it suits them, how much it costs, what happens after they pay. At this point they are a prospect, not a customer. The tools that only draft replies cannot see this distinction, so they treat every person who writes a message the same way. Tend does not. It keeps track of where each person is in the journey, and it treats each stage differently, because the correct next step is different at each stage.
+
+A new person contacts the business through a channel such as WhatsApp, Telegram, email or a website chat.
+
+Tend answers their questions where it can. If the answer already exists in the knowledge the business has built up, Tend gives it. If no answer exists, Tend does not guess. It asks the employee most likely to know, gets the answer, and passes it on. The prospect keeps asking. The same flow repeats, each time gathering what is missing and answering from what is now known.
+
+When the prospect is ready, they may want to speak to a real person before they decide to buy. Tend helps them do that. But arranging that call is not as simple as picking any free slot on a calendar. An employee may have a free calendar yet still be genuinely busy. Different employees take different kinds of calls. One person takes sales calls, another takes support calls, another takes onboarding calls. One prefers mornings, another will not take a call on a weekend. Tend uses the employee's preferences and the type of call to choose who is right for this person and this situation, and it schedules only in times that are genuinely open for that employee.
+
+After the call, two things can happen. The prospect may decide to buy. Or they may want time to think. Tend captures what was discussed and works out what to do next in either case. If they bought, Tend follows up with what comes next. If they want time, Tend gives them that time and does not pester them, but it does not forget them either.
+
+From that point the prospect has become a customer. Now there is an order to deliver.
+
+The customer asks where the order is. Tend answers directly from the live delivery information, not by telling the customer to open another website and type a tracking number. The customer should never have to leave the conversation to find out.
+
+If the delivery is genuinely delayed, Tend does not wait for the customer to complain. It notices that the order has not moved and tells the customer first, before the customer has to ask. But it is careful. A delivery update that stops for a while is not always a delay. Sometimes it is a planned pause while the parcel moves between points. Tend does not call it a delay unless the pause has gone on long enough that a person would reasonably worry.
+
+There is a difference between what the delivery company says and what actually happened. When the delivery partner reports that a parcel was delivered, but the customer says they never received it, that is not a normal delivery question. It is a separate problem with its own steps. Tend handles it as its own situation, not as the same "where is my order" question again.
+
+If a delivery has gone wrong and the business has to resolve it, the resolution often involves people outside the business. The business talks to its delivery partner, and the partner may need to investigate. Tend makes that communication possible. It prepares the full trail of what happened, in order, so the people who act can see exactly what led to this point. But it does not share everything it knows with everyone. The employee inside the business who is working on the problem sees the whole picture. The delivery partner outside the business only sees what it needs to see, such as the tracking number, not the customer's private details. How much of the customer's information each person receives is a rule the business controls.
+
+Once the customer has received their product, there is another question. Does it meet what the business promised? Some businesses will want a real answer to that, not just a review score. But they should not ask immediately. The customer needs time to actually use the product first. Tend lets the business decide how long to wait, and when the time comes, it asks. It can ask on a channel where the business is allowed to start a message on its own. Not every channel allows a business to contact a customer first. WhatsApp and Telegram place strict limits on a business starting a conversation, while email does not. So the channel that Tend uses to reach out is itself a decision the business makes, choosing the one the customer has agreed to.
+
+The customer who comes back is no longer a prospect. They are a returned customer. Only people who have never done business with the company before start as prospects. Tend remembers this, so a returning customer does not have to repeat their situation from the beginning.
+
+This whole journey, from the first inquiry to the customer who comes back, is what Tend is built to hold. A tool that only drafts replies sees each message as a separate chat. Tend sees the journey, and it treats every step as part of a real business operation.
+
+The same approach works whether the business is one person or a team of many. The business owner does not need to watch how many messages Tend handled, or how long the system stayed running. What the owner needs to see is the journey: how many prospects are waiting for a reply, how many are thinking about buying, how many became customers, which orders are stuck, which customers are at risk. When something needs an owner's decision, the owner can step into the situation, look at what happened, give an answer, and then let Tend continue from there.
+
+Because Tend understands the situation before it communicates, the same core works in every country and in every language. What changes from market to market is not the way Tend understands and decides. It is which channels are popular, what the rules allow a business to send on its own, and which systems the business already uses. The part that understands the customer is the same everywhere. The channels, the consent rules and the integrations are configured per market. That is why Tend is built the way it is: the decision-making stays the same, and everything that differs between one business and another is set as configuration, not written into the core.
+
 # 6. The principles behind Tend
 
 Everything Tend does is guided by a small set of principles.
@@ -501,9 +531,13 @@ If two sources disagree, Tend should identify the disagreement instead of hiding
 
 ## Communication is the final step
 
-Writing a reply is not the main job.
+Tend is a communication layer, but the message a customer sees is only the visible part.
 
-A reply is only the final result of understanding the situation.
+The communication layer owns the whole journey: collecting information, checking it, deciding the correct next step, and only then communicating.
+
+A reply is not the main job.
+
+It is only the final result of understanding the situation.
 
 The quality of the communication depends on the quality of the understanding that comes before it.
 
@@ -621,11 +655,15 @@ Tend is designed to work with them, not replace them.
 
 ## Tend is not just another chatbot
 
-A chatbot focuses on replying to messages.
+Many tools promise that a customer will not be left waiting. They do that by drafting a reply fast.
 
-Tend focuses on understanding the situation before replying.
+A chatbot that only replies fast still gives the same answer to someone who is about to buy and to someone whose delivery is stuck. It cannot tell the two apart.
 
-If a reply requires information from different systems or different people, Tend helps collect that information first.
+Tend does not start from the reply. It starts from understanding the situation.
+
+A reply that is fast but built on a wrong understanding makes the problem worse.
+
+Tend only replies after it understands what is happening, and it uses the people and systems the business already has to get there.
 
 The reply is only one part of the process.
 
@@ -798,3 +836,27 @@ Less time correcting mistakes.
 And more time solving problems, helping customers and growing the business.
 
 When that starts happening consistently, Tend has achieved its purpose.
+
+### What the owner sees
+
+It matters what the person who runs the business sees when they open Tend.
+
+If they only saw that Tend handled a thousand messages, that would tell them nothing useful. A business owner is not running Tend. A business owner is running a business.
+
+What the owner needs to see is the state of the journey.
+
+How many people are waiting for a reply.
+
+How many are thinking about buying.
+
+How many became customers.
+
+Which deliveries are stuck and need attention.
+
+Which customers were not properly served and are now at risk.
+
+Whether the business missed anyone who reached out.
+
+When something needs a decision, the owner should be able to step into that one situation, see exactly what happened from the start, decide, and then let Tend continue from there.
+
+That is the measure of success the owner cares about, and it is the measure Tend is built around.
