@@ -94,9 +94,31 @@ It gives back new claims and observations with their context:
 - What request produced the result
 - Which situation the result affects
 
+The operational result should be represented as a structured claim rather than only as a natural-language sentence. A later message may be written in natural language, but the situation model needs to preserve the claim, its source and its observation context so later Gathering work can match, compare and refresh it.
+
+The claim’s source may also be confidential. Tend may use it internally while applying the business’s rules about what source details each actor is allowed to see.
+
 The result may confirm an unknown, reveal a conflict, show that information is stale or prove that the message was routed incorrectly.
 
 Understanding then incorporates that result into a new complete situation-model version.
+
+The result may also be partial. In that case, Understanding incorporates what arrived while the missing claim, expected source and reason for waiting remain visible.
+
+## Partial information and waiting
+
+Gathering and Understanding do not need to wait for a complete answer before making useful progress.
+
+When only part of the required information arrives:
+
+- the arrived claim is recorded;
+- the remaining unknown is kept visible;
+- the expected actor or source is identified;
+- the situation remains open or waiting;
+- and the customer or another affected actor may receive a limited response when permitted.
+
+The missing information becomes an active follow-up or monitoring responsibility. When it arrives, the situation moves forward through a new complete version.
+
+This responsibility may eventually expire, escalate or require a human decision. A long wait must remain visible, but notification is still subject to channel, consent, confidentiality and business-policy rules.
 
 ## Conversation state and situation state
 
@@ -178,6 +200,10 @@ The new state becomes a new complete version.
 
 The reason for the correction stays visible.
 
+A new claim does not automatically create a new situation. The existing situation receives a new version when the underlying operational problem and resolution path remain the same. A linked situation is appropriate when the new event creates a different problem, owner, policy or resolution path.
+
+The new version must be used to re-evaluate affected conclusions, required information, pending monitoring, approvals, actions and communications. Re-evaluation does not mean starting from the entire business history again; it means examining which parts of the current understanding depend on what changed.
+
 ## Versioning in this relationship
 
 Versioning means that a situation has a complete state at each meaningful point in time.
@@ -191,6 +217,8 @@ Version one still matters because it shows what was known and believed earlier.
 A later state does not automatically prove that an earlier state was wrong.
 
 The earlier state may have been correct at that time and simply become outdated.
+
+Versioning also preserves what Tend communicated. If a new claim makes an earlier message incomplete or misleading, Communication should determine whether an update or correction is required. The update should be directed to the affected actor and should respect source confidentiality and channel rules.
 
 ## Tend’s own messages
 
@@ -210,6 +238,8 @@ If Tend previously told a customer that a refund was completed, a later gatherin
 If the source has changed, the new source state becomes part of the new situation version.
 
 The old outgoing message remains important because it tells us what the customer was led to believe.
+
+Tend should maintain an active but targeted communication loop when a changed claim affects the customer, an employee, a business owner or an external partner. Each actor receives the information needed for its responsibility, not the complete internal situation by default.
 
 ## Actors beyond customers
 
@@ -290,6 +320,8 @@ Gathering is not Human Collaboration.
 
 Gathering may ask an employee or partner for information. Human Collaboration decides ownership, routing, handoff and escalation.
 
+Gathering also distinguishes relevant information from authorised information. A required claim may be unavailable because the current actor is not permitted to access it. That is a permission or approval state, not a reason to retrieve it silently.
+
 Gathering is not Communication.
 
 Gathering provides the claims and uncertainty state. Communication expresses the decision that follows.
@@ -308,5 +340,4 @@ Decision Making uses the updated model.
 
 This is a loop, not a rigid one-way pipeline.
 
-The responsibilities stay separate so that a model can be incomplete without being invalid, a gathered claim can remain a claim without being treated as truth, and a correction can happen without erasing history.
-
+The responsibilities stay separate so that a model can be incomplete without being invalid, a gathered claim can remain a structured claim without being treated as unquestionable truth, a required claim can remain unauthorised without being exposed, and a correction can happen without erasing history.

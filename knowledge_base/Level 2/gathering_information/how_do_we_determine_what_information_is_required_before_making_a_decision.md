@@ -361,5 +361,11 @@ It creates a new complete situation-model version when the state changes.
 
 It does not fill every unknown, decide business policy, treat its own message as truth or become the owner of another actor’s information.
 
-This is the current understanding we will carry into the remaining Gathering questions.
+The later conversations about the other Gathering questions do not replace this answer. They make its boundaries clearer:
 
+- Required information is identified in relation to a decision, not in relation to a universal schema of fields.
+- A required claim may still be unavailable, stale, conflicting or unauthorised.
+- A structured claim should preserve its source and observation context so later Gathering work can check it.
+- A claim that is required but unauthorised is not silently retrieved. It remains a visible requirement until the appropriate authority permits access.
+
+This is the current understanding of Question 1 and the starting point for the remaining Gathering questions.

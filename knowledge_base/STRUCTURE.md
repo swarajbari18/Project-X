@@ -12,6 +12,17 @@ knowledge_base/
 ├── Level1_Problem_Framing_or_Expansion.md
 ├── STRUCTURE.md
 ├── Level 2/
+│   ├── gathering_information/
+│   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
+│   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
+│   │   ├── how_do_we_discover_where_information_lives.md
+│   │   ├── how_do_we_prioritise_which_information_to_retrieve_first.md
+│   │   ├── how_do_we_avoid_retrieving_unnecessary_information.md
+│   │   ├── how_do_we_know_when_information_is_sufficiently_current.md
+│   │   ├── how_do_we_handle_information_that_arrives_gradually.md
+│   │   ├── how_do_we_handle_information_that_changes_while_a_situation_is_being_analysed.md
+│   │   ├── relationship_between_understanding_and_gathering_information.md
+│   │   └── understanding_all_gathering_information_questions.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -52,7 +63,18 @@ knowledge_base/
 
 ### Level 2 — Conceptual solution questions
 
-`Level 2/` contains solution-oriented questions organised by problem area. The `understanding_the_situation/` subfolder focuses on how the system understands a customer’s situation, including:
+`Level 2/` contains solution-oriented questions organised by problem area. The `gathering_information/` subfolder focuses on how the system builds the current, traceable information context needed for a decision. Its eight questions cover:
+
+- required information;
+- ownership;
+- information locations;
+- retrieval priority;
+- unnecessary information;
+- currentness;
+- gradual arrival;
+- and information that changes during analysis.
+
+The `understanding_the_situation/` subfolder focuses on how the system understands a customer’s situation, including:
 
 - ambiguity and uncertainty;
 - what the customer is actually asking;

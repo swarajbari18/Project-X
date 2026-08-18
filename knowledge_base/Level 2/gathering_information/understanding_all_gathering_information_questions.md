@@ -12,9 +12,9 @@ They are really eight views of one problem:
 
 This document is a map for holding the whole category in mind.
 
-It is not a decision record for the questions we have not discussed yet.
+The individual question documents are the detailed conversation records. This map keeps them connected and makes clear where a question is settled, provisional or still open.
 
-So far, we have discussed the first question in detail. The others are still open, even though we can already understand what they are asking and how they connect.
+We have now walked through all eight questions. Their working answers are recorded, but they remain provisional where the conversation deliberately left business-specific thresholds, authority rules or implementation details open.
 
 ## The eight questions in plain language
 
@@ -53,6 +53,8 @@ An employee may provide a claim while the business owns the policy. A payment pr
 
 This question begins after Question 1 has identified what information matters.
 
+The conversation also separated ownership from truth, experience and permission to disclose. An organisation or system may own an operation while several people perform it. The source of a claim may be confidential, and the actor allowed to disclose it may be different from the owner.
+
 ### 3. How do we discover where information lives?
 
 This asks:
@@ -75,6 +77,8 @@ For example, an employee may own the responsibility for answering a question, bu
 
 Question 2 helps us identify who is responsible. Question 3 helps us discover where the information can be obtained.
 
+There is no universal hierarchy of locations. A source map records what each location can answer, how close it is to the operation, how current it may be, how authoritative it is for that claim and whether Tend is allowed to use it. Previous messages and situation versions provide traceable history rather than automatic current truth.
+
 ### 4. How do we prioritise which information to retrieve first?
 
 This asks:
@@ -91,6 +95,8 @@ The order may matter because:
 - One piece of information may have greater consequence if wrong
 
 This question depends on the first three questions. We need to know what matters, who can provide it and where it can be found before we can decide what to pursue first.
+
+The normal preference is to query the responsible business process or system before involving a person. Human involvement becomes a priority when the system is unavailable, stale, incomplete, contradictory or insufficient for the consequence of the decision. Cost, latency, urgency, expected information gain and customer commitments also affect order.
 
 ### 5. How do we avoid retrieving unnecessary information?
 
@@ -113,6 +119,8 @@ Information may be unnecessary because:
 
 Question 1 tells us what may matter. Question 5 protects the boundary around that requirement.
 
+Relevance and authorisation are separate. Relevant but unauthorised information remains a visible requirement and follows an approval or permission flow. Irrelevant information is left uncollected even when it is available and authorised. An LLM may help identify relevant claims, but it should not be given unrestricted access and expected to filter everything afterwards.
+
 ### 6. How do we know when information is sufficiently current?
 
 This asks:
@@ -132,6 +140,8 @@ Examples:
 Question 6 gives time a role in the meaning of information.
 
 It connects especially closely to Questions 3, 7 and 8 because source location, delayed information and changing information all affect currentness.
+
+Currentness depends on the decision, expected rate of change, source behaviour, progress, expected dwell time and business commitments. A recent movement may show that a tracking record is active while the delivery is still late. There is no universal freshness duration for every type of information.
 
 ### 7. How do we handle information that arrives gradually?
 
@@ -158,6 +168,8 @@ Tend needs to make visible:
 - Why the situation is waiting
 - What will happen when the next information arrives
 
+Partial information should create partial progress, not false completeness or total silence. Tend may give a limited response while keeping an active, bounded responsibility for the missing claim. Communication still depends on channel rules, consent and business policy.
+
 ### 8. How do we handle information that changes while a situation is being analysed?
 
 This asks:
@@ -175,6 +187,8 @@ Examples include:
 This question connects Gathering to the latest known state, conflicts, correction and versioning.
 
 The earlier information should not be erased. A meaningful change creates a new complete situation-model version with a reason explaining what changed.
+
+The new version must trigger re-evaluation of affected conclusions, required information, pending monitoring, approvals, actions and communications. A separate linked situation is needed only when the new event creates a different operational problem or resolution path.
 
 ## How the eight questions depend on each other
 
@@ -233,6 +247,8 @@ Questions 6 to 8 are about the changing state of information:
 This group prevents Tend from treating information as static.
 
 The two groups cannot be separated completely. A changed source can alter what should be gathered. A partial response can change which actor should be contacted next.
+
+The answers also form a loop rather than a one-time pipeline. A currentness failure can change retrieval priority. A permission restriction can create a waiting state. A new claim can make earlier information unnecessary, reveal a conflict or require a new situation-model version.
 
 ## The refund example across all eight questions
 
@@ -304,19 +320,31 @@ Memory and Knowledge determines what should become reusable business knowledge a
 
 ## What we have and have not decided
 
-We have worked through the first question:
+We have now worked through all eight questions. The current working answers are:
 
 > Required information is the decision-relevant set of claims, context and evidence whose absence, staleness, incorrectness or conflict could change the safe next step.
 
-We have also established the relationship between Gathering and Understanding, including references, provenance, versioning and actor-neutral conversations.
+> An actor owns information when it is responsible for the underlying information, record or operation across its lifecycle. Ownership is not the same as source, truth, experience or permission to disclose.
 
-We have not yet answered the remaining seven questions.
+> Information can live in multiple systems, people, conversations, documents and situation versions. Source location, source authority, freshness, cost and access permission must be considered separately.
 
-Their meaning is clear enough to discuss, but their conceptual solutions still need their own conversations.
+> Retrieval priority is context-dependent. The responsible business process or system is normally preferred before human involvement, but stale, incomplete, contradictory or high-consequence information may require another source or a person.
+
+> Tend should leave information uncollected when it cannot change the current decision. Relevance and authorisation are separate; required but unauthorised information waits for the appropriate permission or approval.
+
+> Information is current enough only when it still supports the decision in light of observation time, expected change, progress, deadlines and commitments.
+
+> Gradual information should produce partial progress, visible waiting and a bounded follow-up responsibility. Tend should communicate what is known when permitted and continue gathering what is missing.
+
+> When information changes, Tend preserves the earlier state, creates a new complete version and re-evaluates affected work. It keeps the same situation when the operational problem and resolution path remain the same, and creates a linked situation only when they genuinely differ.
+
+We have also established the relationship between Gathering and Understanding, including references, provenance, structured claims, versioning, communication state and actor-neutral conversations.
+
+The working answers do not settle every business-specific threshold, permission rule, source-authority policy, communication rule or implementation mechanism. Those remain visible questions for the relevant responsibilities and later levels.
 
 ## How to use this map
 
-When we begin Question 2, we should keep this whole map in view but discuss only one question at a time.
+When we continue the work, we should keep this whole map in view but discuss one unresolved boundary at a time.
 
 For each question, we can:
 
@@ -328,7 +356,6 @@ For each question, we can:
 - Decide what belongs inside this question
 - Leave neighbouring questions open where necessary
 
-The individual question documents will hold the detailed conversations and working decisions.
+The individual question documents hold the detailed conversations, raw reasoning, challenges, corrections and working decisions.
 
 This document exists so that those individual discussions do not become disconnected from one another.
-
