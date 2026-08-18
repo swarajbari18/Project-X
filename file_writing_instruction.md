@@ -1,0 +1,3 @@
+When Swaraj asks for a Level 1, Level 2 or Level 3 document, preserve the shared walkthrough: carry his raw thoughts, my interpretation, the challenges, corrections and working decisions into the document instead of turning it into an abstract formal specification.
+Before writing, briefly acknowledge what Swaraj said earlier, what I misunderstood or corrected, and what we decided; keep unresolved questions and provisional conclusions visible.
+The document must sound like the conversation with Swaraj and must not decide for him or introduce formal architecture-document language unless he explicitly asks for that style.
