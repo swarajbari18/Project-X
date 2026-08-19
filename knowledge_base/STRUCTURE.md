@@ -46,6 +46,17 @@ knowledge_base/
 │   │   ├── how_do_we_represent_business_policies.md
 │   │   ├── how_do_businesses_define_approval_rules.md
 │   │   └── how_do_we_ensure_consistent_next_behaviour.md
+│   ├── human_collaboration/
+│   │   ├── understanding_all_human_collaboration_questions.md
+│   │   ├── human_collaboration_conversation_and_discoveries.md
+│   │   ├── when_should_tend_involve_a_person.md
+│   │   ├── how_do_we_determine_the_correct_person.md
+│   │   ├── how_do_we_handle_multiple_people_working_on_the_same_situation.md
+│   │   ├── how_do_we_avoid_interrupting_people_unnecessarily.md
+│   │   ├── how_do_we_transfer_work_between_employees.md
+│   │   ├── how_do_we_represent_ownership_of_ongoing_work.md
+│   │   ├── what_happens_when_nobody_responds.md
+│   │   └── what_happens_when_the_responsible_person_is_unavailable.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -127,6 +138,21 @@ The `decision_making/` subfolder focuses on how Project X selects its own next b
 - and how Project X behaviour remains consistent.
 
 The folder also contains a conversational record of the brainstorming that clarified this boundary and identified later research.
+
+The `human_collaboration/` subfolder focuses on how Tend manages human participation and responsibility across business journeys. It covers:
+
+- when human participation is needed;
+- routing to the correct person, role, group, queue or partner;
+- multiple people working on one situation;
+- avoiding unnecessary interruption;
+- handoff and transfer;
+- ongoing ownership and accountability;
+- non-response and escalation; and
+- unavailability, coverage and delegation.
+
+The category includes customers, prospects, employees, owners, partners, investors, regulators and other interested parties. It does not define business policy, legal consent, authorization enforcement or the business outcome.
+
+The folder also contains a conversational record of the correction that broadened Human Collaboration beyond internal employee work and the research that clarified acknowledgement, stakeholder participation, handoff, escalation and corporate scaling.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
