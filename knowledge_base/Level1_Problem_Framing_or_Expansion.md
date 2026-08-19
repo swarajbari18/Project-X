@@ -2202,6 +2202,25 @@ How do businesses define approval rules?
 
 How do we ensure different employees reach consistent decisions?
 
+### Working clarification discovered during later Level 2 thinking
+
+The phrase “Decision Making” in this backlog means selecting **Project X’s next behaviour**, not deciding the business’s final outcome.
+
+Project X may decide to gather, wait, watch, ask an actor, communicate, create human work, escalate, invoke a capability, resolve a situation or stop safely. The business remains responsible for its goals, policies, decisions and accountability.
+
+Decision Making selects an intended behaviour. The system control layer enforces capability rules, authorization, approval, timeouts, execution and operational state. The reasoning model may propose a behaviour and explain its reasoning, but it does not control those enforcement mechanisms.
+
+This clarification revealed later research that should be handled in the relevant Level 1 unknowns, research documents and later implementation work:
+
+- safe defaults for each capability or tool;
+- capability-specific timeout, waiting, retry and escalation behaviour;
+- the consequence and reversibility of possible actions;
+- approval and delegation patterns;
+- policy contradiction and expiry handling;
+- communication, consent and channel constraints;
+- business-owner configuration needs;
+- and how consistency should be measured.
+
 ---
 
 
