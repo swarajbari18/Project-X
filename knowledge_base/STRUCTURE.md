@@ -34,12 +34,25 @@ knowledge_base/
 │   │   ├── when_should_conflicts_simply_be_presented_to_a_person.md
 │   │   ├── what_makes_one_source_more_authoritative_than_another.md
 │   │   └── how_do_we_distinguish_facts_from_assumptions.md
+│   ├── decision_making/
+│   │   ├── understanding_all_decision_making_questions.md
+│   │   ├── decision_making_conversation_and_discoveries.md
+│   │   ├── what_does_enough_information_mean.md
+│   │   ├── how_do_we_determine_whether_project_x_can_make_the_next_decision.md
+│   │   ├── which_decisions_can_always_be_automated.md
+│   │   ├── which_decisions_must_always_involve_a_person.md
+│   │   ├── which_decisions_depend_on_business_policy.md
+│   │   ├── how_should_uncertainty_influence_project_xs_next_behavior.md
+│   │   ├── how_do_we_represent_business_policies.md
+│   │   ├── how_do_businesses_define_approval_rules.md
+│   │   └── how_do_we_ensure_consistent_next_behaviour.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
 │       ├── how_do_we_determine_which_information_is_relevant_to_the_current_situation_and_which_information_should_be_ignored.md
 │       └── how_do_we_determine_whether_multiple_messages_belong_to_the_same_situation_and_whether_two_seemingly_different_conversations_are_actually_related.md
 └── research/
+    ├── decision_making_research_agenda.md
     ├── RESEARCH_BRIEF.md
     ├── business_journeys_map.md
     ├── channel_compliance_matrix.md
@@ -101,6 +114,19 @@ The `trust_and_evidence/` subfolder focuses on how Project X evaluates and struc
 - human presentation and approval;
 - source authority; and
 - the distinction between observations, claims, interpretations and decisions.
+
+The `decision_making/` subfolder focuses on how Project X selects its own next behaviour for the current situation. It does not decide the business’s final outcome and it does not enforce authorization. It covers:
+
+- what information is sufficient for a Project X behaviour;
+- whether Project X can select the next behaviour;
+- which behaviours may be automated;
+- when human involvement is needed;
+- how business policy constrains behaviour;
+- how uncertainty influences behaviour without a universal confidence score;
+- how policies and approval rules are represented conceptually;
+- and how Project X behaviour remains consistent.
+
+The folder also contains a conversational record of the brainstorming that clarified this boundary and identified later research.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
