@@ -23,6 +23,17 @@ knowledge_base/
 │   │   ├── how_do_we_handle_information_that_changes_while_a_situation_is_being_analysed.md
 │   │   ├── relationship_between_understanding_and_gathering_information.md
 │   │   └── understanding_all_gathering_information_questions.md
+│   ├── trust_and_evidence/
+│   │   ├── understanding_all_trust_and_evidence_questions.md
+│   │   ├── how_do_we_determine_whether_information_should_be_trusted.md
+│   │   ├── how_do_we_represent_confidence_without_pretending_certainty.md
+│   │   ├── how_do_we_compare_information_from_different_sources.md
+│   │   ├── how_do_we_identify_conflicting_information.md
+│   │   ├── how_do_we_resolve_conflicts.md
+│   │   ├── when_should_conflicts_automatically_stop_the_workflow.md
+│   │   ├── when_should_conflicts_simply_be_presented_to_a_person.md
+│   │   ├── what_makes_one_source_more_authoritative_than_another.md
+│   │   └── how_do_we_distinguish_facts_from_assumptions.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -81,6 +92,16 @@ The `understanding_the_situation/` subfolder focuses on how the system understan
 - which information is relevant;
 - whether messages and conversations belong to the same situation.
 
+The `trust_and_evidence/` subfolder focuses on how Project X evaluates and structures claims before exposing them as evidence to the reasoning model or using them in a business decision. It covers:
+
+- deterministic evidence evaluation;
+- confidence and explanation without quantitative scores;
+- comparison and conflict detection;
+- conflict resolution and workflow blocking;
+- human presentation and approval;
+- source authority; and
+- the distinction between observations, claims, interpretations and decisions.
+
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
 ### Research
@@ -95,7 +116,7 @@ Research supports the framework but does not replace the problem-framing or solu
 2. `Product_Vision.md`
 3. `3_level_framework.md`
 4. `Level1_Problem_Framing_or_Expansion.md`
-5. Relevant documents under `Level 2/`
+5. Relevant documents under `Level 2/`, including the category overview before its individual questions.
 6. Relevant supporting material under `research/`
 
 ## Organisation guidelines
