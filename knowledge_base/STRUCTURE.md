@@ -57,6 +57,26 @@ knowledge_base/
 │   │   ├── how_do_we_represent_ownership_of_ongoing_work.md
 │   │   ├── what_happens_when_nobody_responds.md
 │   │   └── what_happens_when_the_responsible_person_is_unavailable.md
+│   ├── memory_and_knowledge/
+│   │   ├── memory_and_knowledge_conversation_and_discoveries.md
+│   │   ├── understanding_all_memory_and_knowledge_questions.md
+│   │   ├── what_should_tend_remember.md
+│   │   ├── what_should_never_become_memory.md
+│   │   ├── what_belongs_in_conversation_history.md
+│   │   ├── what_belongs_in_long_term_business_knowledge.md
+│   │   ├── how_should_previous_conversations_influence_future_decisions.md
+│   │   ├── how_do_we_prevent_outdated_knowledge_from_influencing_new_decisions.md
+│   │   ├── how_do_we_update_knowledge_when_reality_changes.md
+│   │   ├── who_owns_business_knowledge.md
+│   │   ├── can_tend_learn_automatically.md
+│   │   ├── what_kind_of_learning_is_acceptable.md
+│   │   ├── how_should_memory_be_stored_conceptually.md
+│   │   ├── how_should_new_learning_be_reconciled_and_versioned.md
+│   │   ├── how_should_memory_be_retrieved.md
+│   │   ├── how_do_we_assemble_context_for_each_situation_phase.md
+│   │   ├── how_should_memory_be_scoped_between_businesses.md
+│   │   ├── how_should_tend_learn_from_its_own_mistakes.md
+│   │   └── how_do_we_evaluate_automatic_learning.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -153,6 +173,23 @@ The `human_collaboration/` subfolder focuses on how Tend manages human participa
 The category includes customers, prospects, employees, owners, partners, investors, regulators and other interested parties. It does not define business policy, legal consent, authorization enforcement or the business outcome.
 
 The folder also contains a conversational record of the correction that broadened Human Collaboration beyond internal employee work and the research that clarified acknowledgement, stakeholder participation, handoff, escalation and corporate scaling.
+
+The `memory_and_knowledge/` subfolder focuses on what Tend retains, what becomes reusable business knowledge, and how Tend learns to improve its own operation without changing business rules. It covers:
+
+- conversation history and situation history;
+- long-term business knowledge;
+- Tend's own experiences, mistakes and corrective lessons;
+- automatic learning and optional manual validation;
+- memory scope and business isolation;
+- semantic identity, references, reconciliation and versioning;
+- conceptual storage responsibilities;
+- retrieval and situation-phase-specific context assembly;
+- outdated knowledge, correction and retirement; and
+- evaluation of whether learning actually improves behaviour.
+
+This category deliberately separates the logical shape of memory from the technology used to store it. Project X may have graph-shaped references without requiring a graph database. Level 3 will decide how the conceptual responsibilities are implemented.
+
+The category also contains a conversation record preserving the correction that learning means Tend improving its own interpretation, tool use, reasoning and operational understanding, while business rules, authority, permissions and source ownership remain outside learning.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
