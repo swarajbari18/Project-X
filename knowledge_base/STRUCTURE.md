@@ -12,6 +12,17 @@ knowledge_base/
 ├── Level1_Problem_Framing_or_Expansion.md
 ├── STRUCTURE.md
 ├── Level 2/
+│   ├── communication/
+│   │   ├── communication_conversation_and_discoveries.md
+│   │   ├── understanding_all_communication_questions.md
+│   │   ├── when_should_tend_communicate.md
+│   │   ├── when_should_tend_wait.md
+│   │   ├── when_should_tend_ask_a_question_instead_of_performing_an_action.md
+│   │   ├── when_should_tend_explain_its_reasoning.md
+│   │   ├── how_much_explanation_should_different_users_receive.md
+│   │   ├── how_should_communication_differ_between_customers_and_employees.md
+│   │   ├── how_should_tend_communicate_uncertainty.md
+│   │   └── how_should_tend_communicate_conflicting_information.md
 │   ├── gathering_information/
 │   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
 │   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
@@ -128,6 +139,19 @@ knowledge_base/
 - currentness;
 - gradual arrival;
 - and information that changes during analysis.
+
+The `communication/` subfolder focuses on how Tend expresses a selected next behaviour to an actor. It covers:
+
+- when communication creates useful progress;
+- when Tend should wait instead of communicating;
+- when Tend should ask for information instead of acting;
+- when and how Tend should explain its reasoning;
+- how explanations should vary by recipient;
+- how communication should differ according to the actor's responsibility;
+- how uncertainty should be communicated; and
+- how conflicting information should be communicated.
+
+This category remains technology-neutral. Channel-specific rules, transport mechanisms, channel delivery behaviour, and other implementation details belong to Level 3.
 
 The `understanding_the_situation/` subfolder focuses on how the system understands a customer’s situation, including:
 
