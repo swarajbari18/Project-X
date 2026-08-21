@@ -2307,13 +2307,23 @@ When is Tend allowed to perform an action?
 
 When must Tend ask for approval?
 
-Can Tend ever override a human decision?
+Who may grant authority, and what authority does Tend have by default?
 
-Can a human override Tend?
+What is the business configuration capability, and who holds it?
 
-Who remains accountable after an automated action?
+Who remains accountable after an automated action, and how do we prevent responsibility from becoming unclear?
 
-How do we prevent responsibility from becoming unclear?
+How does a grant end, and how does authority change when an employee leaves, becomes unavailable, or changes role?
+
+How do identity and authority join, so that a verified person is the person the grant names?
+
+How should Tend communicate a refusal and offer escalation?
+
+### Working clarifications discovered during Level 2 thinking
+
+The two original questions "Can Tend override a human decision?" and "Can a human override Tend?" proved to be mis-framed. Tend never holds authority of its own, so there is no "override" inside Tend. A request to do something otherwise-forbidden either falls inside a grant (always allowed) or outside it (refused and escalated to a person who holds the authority). Because Tend cannot go above the delegator and invariants are unbreakable, these two questions are answered as "there is no override; it is a re-scope of the grant by a higher authority."
+
+The delegation and role-change questions originally listed under "Business View and Authority" belong to this category, because they are about the grant lifecycle, not about what the owner sees. The owner's snapshot of the business journey stays with Observation and Explainability.
 
 ---
 
@@ -2511,15 +2521,13 @@ How should Tend decide what information each employee, customer, or external par
 
 ---
 
-# Business View and Authority
+# Business View and Observation
 
 What should the business owner see in a snapshot of the business journey?
 
 Which events should require the owner's attention?
 
-How should an owner delegate setup, approval, and configuration responsibilities?
-
-How should authority change when an employee leaves, becomes unavailable, or changes role?
+> The delegation and role-change questions that were listed here now live under "Authority and Ownership", because they are about the grant lifecycle. This section keeps only what the owner observes.
 
 # Complaince and Security
 

@@ -23,6 +23,21 @@ knowledge_base/
 │   │   ├── how_should_communication_differ_between_customers_and_employees.md
 │   │   ├── how_should_tend_communicate_uncertainty.md
 │   │   └── how_should_tend_communicate_conflicting_information.md
+│   ├── authority_and_ownership/
+│   │   ├── authority_and_ownership_conversation_and_discoveries.md
+│   │   ├── understanding_all_authority_and_ownership_questions.md
+│   │   ├── who_may_grant_authority_and_what_comes_by_default.md
+│   │   ├── the_business_configuration_capability.md
+│   │   ├── which_actor_owns_each_type_of_information.md
+│   │   ├── which_actor_owns_each_decision.md
+│   │   ├── which_actor_owns_each_action.md
+│   │   ├── when_is_tend_allowed_to_perform_an_action.md
+│   │   ├── when_must_tend_ask_for_approval.md
+│   │   ├── can_tend_override_a_human_decision.md
+│   │   ├── who_remains_accountable_after_an_automated_action.md
+│   │   ├── how_does_a_grant_end_and_how_does_role_change_affect_authority.md
+│   │   ├── how_do_identity_and_authority_join.md
+│   │   └── how_should_tend_communicate_a_refusal_and_offer_escalation.md
 │   ├── gathering_information/
 │   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
 │   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
@@ -182,6 +197,19 @@ The `decision_making/` subfolder focuses on how Project X selects its own next b
 - and how Project X behaviour remains consistent.
 
 The folder also contains a conversational record of the brainstorming that clarified this boundary and identified later research.
+
+The `authority_and_ownership/` subfolder focuses on how the business grants, enforces and ends delegated authority for Tend, and on who answers for an action. It covers:
+
+- ownership of information, decisions and actions, kept separate from source, truth and permission;
+- the delegated-range boundary model: Tend acts freely inside its granted range, never above the delegator;
+- when Tend may act and when it must ask or escalate;
+- approval at grant time versus approval at execution time;
+- why Tend does not hold an "override" capability;
+- accountability after automated actions, resolved through the grant;
+- role change, delegation and the end of a grant; and
+- the hard, unbreakable product invariant line that even configuration cannot cross.
+
+The category absorbs the delegation and role-change questions that previously sat under "Business View and Authority", while the owner's snapshot of the business journey stays with observation and explanation. The folder contains a conversation record preserving the correction that separated business rules (configurable) from product invariants (behaviour, unbreakable), and the knowledge-versus-behaviour contrast that reconciles learning with fine-tuning.
 
 The `human_collaboration/` subfolder focuses on how Tend manages human participation and responsibility across business journeys. It covers:
 
