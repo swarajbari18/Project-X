@@ -8,7 +8,9 @@ This folder contains the product knowledge and system-design thinking for Projec
 knowledge_base/
 ├── README_FIRST.md
 ├── Product_Vision.md
-├── 3_level_framework.md
+├── three_level_framework/
+│   ├── 3_level_framework.md
+│   └── level2_method.md
 ├── Level1_Problem_Framing_or_Expansion.md
 ├── STRUCTURE.md
 ├── Level 2/
@@ -153,10 +155,16 @@ knowledge_base/
 
 - `README_FIRST.md` explains the overall approach, the current product placeholder name, and the Cloudflare-first way of thinking.
 - `Product_Vision.md` records the intended product direction and business context.
-- `3_level_framework.md` defines the design process:
-  - **Level 1:** frame and expand the problem.
-  - **Level 2:** develop conceptual solutions without choosing technologies.
-  - **Level 3:** select the technology stack to implement the chosen concepts.
+- `three_level_framework/` defines the design process and how we work through it:
+  - `3_level_framework.md` — the framework itself:
+    - **Level 1:** frame and expand the problem.
+    - **Level 2:** develop conceptual solutions without choosing technologies.
+    - **Level 3:** select the technology stack to implement the chosen concepts.
+  - `level2_method.md` — the method we apply when working through a Level 2 category: establish the status quo first, mine the knowledge base before re-deriving, work with Swaraj's raw thought, and get an explicit readiness go before writing files.
+  - A Level 3 method file will be added when we reach Level 3. Its contents are not yet known.
+- At the project root there are two **constitution files** alongside `conversation with swaraj.md`:
+  - `status_quo.md` — the method for establishing the standing state at the start of a chat (read the current knowledge base and reconstruct where things stand; it is a method, not a running snapshot).
+  - `handoff_prompt.md` — the method/template for writing handoffs at the end of a chat so continuity survives a new chat (it is a constitution, not a single handoff). Per-batch handoffs are written by applying it.
 - `STRUCTURE.md` describes how this knowledge base is organised.
 
 ### Level 1 — Problem framing
@@ -289,7 +297,7 @@ Research supports the framework but does not replace the problem-framing or solu
 
 1. `README_FIRST.md`
 2. `Product_Vision.md`
-3. `3_level_framework.md`
+3. `three_level_framework/3_level_framework.md`
 4. `Level1_Problem_Framing_or_Expansion.md`
 5. Relevant documents under `Level 2/`, including the category overview before its individual questions.
 6. Relevant supporting material under `research/`

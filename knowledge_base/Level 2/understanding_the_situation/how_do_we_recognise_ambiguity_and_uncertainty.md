@@ -4,7 +4,7 @@
 
 Answered — pending review.
 
-This answer follows the Level 2 process in [`3_level_framework.md`](../../3_level_framework.md). It defines a logical responsibility and makes a conceptual design decision. It does not choose technologies.
+This answer follows the Level 2 process in [`3_level_framework.md`](../../three_level_framework/3_level_framework.md) and the method in [`level2_method.md`](../../three_level_framework/level2_method.md). It defines a logical responsibility and makes a conceptual design decision. It does not choose technologies.
 
 It builds on:
 

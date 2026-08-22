@@ -42,7 +42,7 @@ Level 2 is all about solution — it is never about tech stack. So instead of Re
 Tech stack only comes at **Level 3**, where we decide which technologies to use to implement the solution we came up with at Level 2.
 
 
-P.S. explined in detail at @3_level_framework.md.
+P.S. explined in detail at @three_level_framework/3_level_framework.md.
 ---
 
 ## Cloudflare-First Thinking
