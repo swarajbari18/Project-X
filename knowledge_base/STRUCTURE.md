@@ -27,6 +27,7 @@ knowledge_base/
 │   │   ├── authority_and_ownership_conversation_and_discoveries.md
 │   │   ├── understanding_all_authority_and_ownership_questions.md
 │   │   ├── who_may_grant_authority_and_what_comes_by_default.md
+│   │   ├── default_authorization_range_research.md
 │   │   ├── the_business_configuration_capability.md
 │   │   ├── which_actor_owns_each_type_of_information.md
 │   │   ├── which_actor_owns_each_decision.md
@@ -103,6 +104,26 @@ knowledge_base/
 │   │   ├── how_should_memory_be_scoped_between_businesses.md
 │   │   ├── how_should_tend_learn_from_its_own_mistakes.md
 │   │   └── how_do_we_evaluate_automatic_learning.md
+│   ├── coordination/
+│   │   ├── coordination_conversation_and_discoveries.md
+│   │   ├── understanding_all_coordination_questions.md
+│   │   ├── how_do_independent_actors_work_together.md
+│   │   ├── how_do_we_coordinate_long_running_work.md
+│   │   ├── how_do_we_know_a_piece_of_work_is_still_active.md
+│   │   ├── how_do_we_represent_work_that_is_waiting.md
+│   │   ├── how_do_we_represent_work_that_is_blocked.md
+│   │   ├── how_do_multiple_business_processes_interact.md
+│   │   ├── how_do_we_prevent_duplicated_work.md
+│   │   └── how_do_we_recover_interrupted_work.md
+│   ├── time/
+│   │   ├── time_conversation_and_discoveries.md
+│   │   ├── understanding_all_time_questions.md
+│   │   ├── how_should_tend_react_when_time_changes_the_situation.md
+│   │   ├── how_should_deadlines_influence_decisions.md
+│   │   ├── how_should_scheduled_work_begin.md
+│   │   ├── how_should_waiting_be_represented.md
+│   │   ├── when_should_waiting_end_automatically.md
+│   │   └── how_should_forgotten_work_be_rediscovered.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -209,7 +230,7 @@ The `authority_and_ownership/` subfolder focuses on how the business grants, enf
 - role change, delegation and the end of a grant; and
 - the hard, unbreakable product invariant line that even configuration cannot cross.
 
-The category absorbs the delegation and role-change questions that previously sat under "Business View and Authority", while the owner's snapshot of the business journey stays with observation and explanation. The folder contains a conversation record preserving the correction that separated business rules (configurable) from product invariants (behaviour, unbreakable), and the knowledge-versus-behaviour contrast that reconciles learning with fine-tuning.
+The category absorbs the delegation and role-change questions that previously sat under "Business View and Authority", while the owner's snapshot of the business journey stays with observation and explanation. The folder contains a conversation record preserving the correction that separated business rules (configurable) from product invariants (behaviour, unbreakable), and the knowledge-versus-behaviour contrast that reconciles learning with fine-tuning. It also carries research on Tend's default authorization range for a fresh small business (`default_authorization_range_research.md`), which grounds the default set recorded in `who_may_grant_authority_and_what_comes_by_default.md`.
 
 The `human_collaboration/` subfolder focuses on how Tend manages human participation and responsibility across business journeys. It covers:
 
@@ -242,6 +263,19 @@ The `memory_and_knowledge/` subfolder focuses on what Tend retains, what becomes
 This category deliberately separates the logical shape of memory from the technology used to store it. Project X may have graph-shaped references without requiring a graph database. Level 3 will decide how the conceptual responsibilities are implemented.
 
 The category also contains a conversation record preserving the correction that learning means Tend improving its own interpretation, tool use, reasoning and operational understanding, while business rules, authority, permissions and source ownership remain outside learning.
+
+The `coordination/` subfolder focuses on how a situation that involves several actors, systems and pieces of work stays coherent and alive over time. It covers:
+
+- how independent actors work together through the shared situation record;
+- long-running work and how a situation keeps re-entering the decision loop;
+- the states running / waiting / blocked / completed and what "still active" means;
+- how waiting is represented (the shared wait spine with Time);
+- how blocked work is represented after escalation is spent;
+- how multiple business processes interact through the situation graph;
+- why duplicated work is prevented structurally; and
+- how interrupted work is recovered from durable records.
+
+The `time/` subfolder focuses on how Tend reacts when time changes the situation without any actor acting. It covers deadlines, the response promise versus resolution promise, scheduled work, the representation of waiting, automatic ends of waiting, and the situation-level check-in that makes forgotten work impossible. It deliberately shares the wait spine, its definitions and the three wait levels (tool/operation, situation, time/scheduled) with the Coordination category, so the two categories do not maintain two different models of waiting.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 

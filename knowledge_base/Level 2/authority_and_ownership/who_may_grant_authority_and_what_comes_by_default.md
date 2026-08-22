@@ -27,12 +27,12 @@ Tend is not a blank slate. For a fresh, small business it ships with a **sensibl
 
 The default is not "everything is allowed" and not "nothing is allowed." It is a careful default for a small business that matches how real small businesses actually operate:
 
-- **Read and understand** what is already in the connected business systems (in a small business the owner already sees everything).
-- **Communicate** within the channels the business has connected, following the channel rules.
+- **Read and understand** what is already in the connected business systems (in a small business the owner already sees everything). The read is capped by what the business itself can read, and it never on its own sends anything outward.
+- **Reply inside an open, non-committal conversation** within the channels the business connected, following the channel rules (for example, inside WhatsApp's customer-service window). Tend sends these replies; this is exactly the "don't miss / reply fast" job the product exists for.
 - **Maintain its own situation and understanding model** — create, update and link its own records of what is happening. That is Tend's own domain and needs no external grant.
-- **Use per-call approval** for anything that changes a business system's record, sends a message on behalf of the business, spends money, commits to something, or discloses protected information.
+- **Ask for per-call approval** for anything that changes a record a business system owns, starts a new conversation or a nurture step, makes a promise or commitment, spends money, or reveals protected information outward.
 
-The default does **not** include (by default): writing to a system that owns business records without an explicit grant, creating tickets that appear to other people, sending messages on the business's behalf, or accessing records that the business rule marks as confidential.
+The default does **not** include (by default): writing to a system that owns business records without an explicit grant, creating records that other people can see, launching a new conversation with a customer who has not written, making a commitment or spending money, or accessing records that the business rule marks as confidential.
 
 This default is a **configuration default**, not a product invariant. It is meant to be changed by the configurator.
 
@@ -53,6 +53,21 @@ This closes the earlier "autonomy vs approval" contradiction with a concrete mec
 - Reached inside a configured grant → the configurator's grant (naming an approver) is the approval.
 - Outside the granted set → not a grant of that range, so Tend asks or escalates.
 
-## What still needs research
+## How the default grows (compositional, not a redesign)
 
-The default set above is a working default for small businesses. The next research question is what changes for a larger business or a corporate that is already big — same shape as used to scale, because the product is meant to scale to any corporate. The default range may be narrower for a large team than for a solo owner.
+The default set above is the decision for a fresh small business. The same grant, enforcement
+and end-of-grant machinery carries a larger business — the shape does not change. What changes
+with size is captured by one rule plus the dimensional extensions recorded in `research/smb_vs_corporate_scaling.md`:
+
+> The default read range is as wide as the widest single credible reader the business can grant.
+> A solo owner sees the whole business, so Tend's read default is as wide as that owner. The
+> moment a second role exists, each role's default narrows and visibility becomes per-role.
+
+Everything else extends compositionally: writes go from per-call approval to multi-level
+approval gates; the same channel and consent rules accumulate more tiers; visibility of
+records becomes role-scoped. The default always narrows as distinct roles and readers grow.
+A larger business narrows the default and assigns roles; it does not get a different product.
+
+The grounded evidence, the resolved default table, and the traceable sources for each row
+live in [`default_authorization_range_research.md`](default_authorization_range_research.md).
+That document is the research companion; this one is the decision.
