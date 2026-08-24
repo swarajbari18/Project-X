@@ -126,6 +126,17 @@ knowledge_base/
 │   │   ├── how_should_waiting_be_represented.md
 │   │   ├── when_should_waiting_end_automatically.md
 │   │   └── how_should_forgotten_work_be_rediscovered.md
+│   ├── failure/
+│   │   ├── failure_conversation_and_discoveries.md
+│   │   ├── understanding_all_failure_questions.md
+│   │   ├── how_do_we_recognise_failure.md
+│   │   ├── how_do_we_distinguish_failure_from_uncertainty.md
+│   │   ├── how_do_we_recover_after_failures.md
+│   │   ├── which_failures_require_immediate_attention.md
+│   │   ├── which_failures_can_safely_wait.md
+│   │   ├── how_do_we_continue_working_when_only_part_of_the_system_is_unavailable.md
+│   │   ├── how_do_we_avoid_repeating_the_same_failed_action_forever.md
+│   │   └── how_do_we_keep_the_business_safe_while_recovering.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -284,6 +295,14 @@ The `coordination/` subfolder focuses on how a situation that involves several a
 - how interrupted work is recovered from durable records.
 
 The `time/` subfolder focuses on how Tend reacts when time changes the situation without any actor acting. It covers deadlines, the response promise versus resolution promise, scheduled work, the representation of waiting, automatic ends of waiting, and the situation-level check-in that makes forgotten work impossible. It deliberately shares the wait spine, its definitions and the three wait levels (tool/operation, situation, time/scheduled) with the Coordination category, so the two categories do not maintain two different models of waiting.
+
+The `failure/` subfolder focuses on how Tend recognises when a wait can no longer resolve, sorts a recognised failure (rush versus can-wait), and recovers without repeating the same action forever or bending the safety invariants. It covers:
+
+- how a wait becomes a declared, recorded failure (the bound) and how failure differs from uncertainty;
+- the recovery moves: tool-layer retry, idempotency or polling for unconfirmed effects, handoff to a person, and the safe-hold;
+- triage by responsibility, then consequence, then severity tier, then promise;
+- how Tend keeps working honestly when only part of the system is unavailable; and
+- the safety floor that stays true while recovering.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 

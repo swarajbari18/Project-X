@@ -2433,6 +2433,24 @@ How do we evolve Tend without breaking existing businesses?
 
 
 
+## Research needed before Architecture
+
+Two research threads are reserved for the time before the Architecture category is attempted, because they will shape how the agent surface is designed.
+
+### 1. Agent memory and agency research
+Study products and material on agent memory and heavy-agent behaviour before defining the architecture, so the design builds on what already exists rather than re-inventing it. Specific threads named during the conversation:
+
+- Hermes agent — its ideas on agent behaviour and capability.
+- Super memory — how an agent's long and working memory is actually organised.
+- Bodhi.ai and similar products — products that carry a very high repertoire for agents, memory, and agentic things; what they assume about agency and memory.
+- General agentic-memory and agency-heavy product research.
+
+The point is to inform how "Tend has agency inside a granted range" is expressed in the architecture, and how memory and the reasoning surface cooperate.
+
+### 2. Prompt engineering
+Research how the agent's operating instructions are engineered and governed, because this is where the agent's constitution lives — what it is allowed to do, how it argues a consequence, and where the deterministic system overrides it. This is deliberately placed after the conceptual Level 2 work and before the Architecture category, because the prompt surface can only be designed once the responsibilities it sits on top of are known.
+
+---
 # Architecture
 
 What are the major responsibilities that naturally belong together?
