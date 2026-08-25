@@ -137,6 +137,17 @@ knowledge_base/
 │   │   ├── how_do_we_continue_working_when_only_part_of_the_system_is_unavailable.md
 │   │   ├── how_do_we_avoid_repeating_the_same_failed_action_forever.md
 │   │   └── how_do_we_keep_the_business_safe_while_recovering.md
+│   ├── explainability_and_observation/
+│   │   ├── explainability_and_observation_conversation_and_discoveries.md
+│   │   ├── understanding_all_explainability_and_observation_questions.md
+│   │   ├── how_do_we_explain_every_recommendation.md
+│   │   ├── how_do_we_explain_every_action.md
+│   │   ├── how_do_we_explain_every_failure.md
+│   │   ├── what_information_should_always_be_visible_to_the_business.md
+│   │   ├── what_information_should_only_be_visible_to_administrators.md
+│   │   ├── how_do_we_reconstruct_an_entire_business_situation_after_it_has_finished.md
+│   │   ├── how_do_we_observe_the_health_of_the_overall_system.md
+│   │   └── how_do_we_recognise_that_the_system_is_behaving_unexpectedly.md
 │   └── understanding_the_situation/
 │       ├── how_do_we_recognise_ambiguity_and_uncertainty.md
 │       ├── what_does_it_mean_to_understand_what_a_customer_is_actually_asking.md
@@ -303,6 +314,16 @@ The `failure/` subfolder focuses on how Tend recognises when a wait can no longe
 - triage by responsibility, then consequence, then severity tier, then promise;
 - how Tend keeps working honestly when only part of the system is unavailable; and
 - the safety floor that stays true while recovering.
+
+The `explainability_and_observation/` subfolder focuses on who can see the durable record, at what depth, and how the system watches itself through it. It covers:
+
+- trace always, explain on demand — every important action preserves a reason record; delivery stays audience-dependent (Communication's rules);
+- capability-absent as a declared, non-failure conclusion that also doubles as product signal;
+- the always-visible business baseline (situation-level, plus a business-value view; never operational metrics);
+- the administrator/configurator's default set: configuration, grants and approvals, audit trail, masked traces with reasoning summaries but no internal chain-of-thought;
+- reconstruction of finished situations as viewer-dependent rendering (linear for business viewers, graph for builders) of records that already exist;
+- the observer as a first-class responsibility emitting observation events onto the shared event fabric, watching both hulls — provider model drift and harness behaviour;
+- five anomaly classes with scope-based routing into situation models, Failure triage and traces.
 
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
