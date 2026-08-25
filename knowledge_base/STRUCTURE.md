@@ -41,6 +41,23 @@ knowledge_base/
 │   │   ├── how_does_a_grant_end_and_how_does_role_change_affect_authority.md
 │   │   ├── how_do_identity_and_authority_join.md
 │   │   └── how_should_tend_communicate_a_refusal_and_offer_escalation.md
+│   ├── business_view_and_observation/
+│   │   ├── business_view_and_observation_conversation_and_discoveries.md
+│   │   ├── understanding_all_business_view_and_observation_questions.md
+│   │   ├── what_should_the_business_owner_see_in_a_snapshot_of_the_business_journey.md
+│   │   ├── which_events_should_require_the_owners_attention.md
+│   │   └── what_information_should_the_business_always_be_able_to_see.md
+│   ├── journey_and_lifecycle/
+│   │   ├── journey_and_lifecycle_conversation_and_discoveries.md
+│   │   ├── understanding_all_journey_and_lifecycle_questions.md
+│   │   ├── how_should_tend_represent_the_difference_between_a_prospect_a_customer_and_a_returning_customer.md
+│   │   ├── how_should_one_customer_have_several_open_situations_at_the_same_time.md
+│   │   ├── how_should_a_conversation_that_contains_several_problems_be_split_into_separate_situations.md
+│   │   ├── how_should_waiting_for_a_meeting_a_delivery_a_payment_a_repair_or_a_feedback_date_be_represented.md
+│   │   ├── how_should_tend_know_when_a_waiting_period_has_ended.md
+│   │   ├── how_is_the_person_level_journey_derived_from_the_situation_graph.md
+│   │   ├── how_should_tend_hold_the_stakeholders_who_want_to_know_how_the_business_is_doing.md
+│   │   └── how_should_tend_think_about_followup_and_nurture_versus_outreach.md
 │   ├── gathering_information/
 │   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
 │   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
@@ -167,8 +184,10 @@ knowledge_base/
     ├── gaps_beyond_rant.md
     ├── global_market_readiness.md
     ├── public_signal_source_map.md
+    ├── research_owner_stakeholder_journeys.md
     ├── smb_vs_corporate_scaling.md
-    └── wa_compliance.md
+    ├── wa_compliance.md
+    └── why_situation_model_holds_both_commercial_and_non_commercial_relationships.md
 ```
 
 ## Areas and responsibilities
@@ -325,11 +344,27 @@ The `explainability_and_observation/` subfolder focuses on who can see the durab
 - the observer as a first-class responsibility emitting observation events onto the shared event fabric, watching both hulls — provider model drift and harness behaviour;
 - five anomaly classes with scope-based routing into situation models, Failure triage and traces.
 
+The `journey_and_lifecycle/` subfolder focuses on how Tend represents the person against the situation graph. It covers:
+
+- the commercial lifecycle (prospect → customer → returning customer), kept to Product Vision's three stages;
+- the person-level journey as a derived projection, not a stored record;
+- the "unknown first, tag later" rule for every new contact;
+- stakeholders (non-commercial relationships) held as situations with an obligation/ask ribbon, not as a lifecycle;
+- follow-up / nurture versus outreach (relationship-based follow-up in scope; cold outreach out);
+- and pointer documents that reuse Understanding-the-Situation (splitting) and Coordination/Time (waiting) instead of re-writing them.
+
+The `business_view_and_observation/` subfolder focuses on the aggregate owner snapshot and the owner-attention filter. It covers:
+
+- the derived cross-situation owner view (prospects, buyers close to deciding, stuck orders, at-risk customers, deadlines, what needs the owner);
+- the owner-attention filter (decisions only the owner can make, owner-risking deadlines/notices, escalations that drifted past delegated people);
+- the layered risk computation (deterministic base + LLM suggestions that land on a deterministic rule);
+- and a pointer that reserves the per-situation visibility baseline in Explainability and Observation.
+
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
 ### Research
 
-`research/` contains evidence, findings, maps, and analyses that inform product decisions. It includes research briefs, customer and business journeys, channel and compliance considerations, escalation expectations, market readiness, scaling comparisons, and findings from public sources and specific channels.
+`research/` contains evidence, findings, maps, and analyses that inform product decisions. It includes research briefs, customer and business journeys, channel and compliance considerations, escalation expectations, market readiness, scaling comparisons, and findings from public sources and specific channels. Newer files also include the business-owner/stakeholder research run for the Journey and Business View categories (`research_owner_stakeholder_journeys.md`), which separates the breadth pass (Grok social mining) from the depth pass (published figures), plus a concept document on why the situation model holds both commercial and non-commercial relationships.
 
 Research supports the framework but does not replace the problem-framing or solution documents. When research changes an assumption or exposes a new problem, update the relevant framework document as well.
 
