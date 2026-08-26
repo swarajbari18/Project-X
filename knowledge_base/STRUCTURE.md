@@ -58,6 +58,16 @@ knowledge_base/
 │   │   ├── how_is_the_person_level_journey_derived_from_the_situation_graph.md
 │   │   ├── how_should_tend_hold_the_stakeholders_who_want_to_know_how_the_business_is_doing.md
 │   │   └── how_should_tend_think_about_followup_and_nurture_versus_outreach.md
+│   ├── meetings_and_human_work/
+│   │   ├── meetings_and_human_work_conversation_and_discoveries.md
+│   │   ├── understanding_all_meetings_and_human_work_questions.md
+│   │   ├── the_meeting_as_a_wait_spine_bridge.md
+│   │   ├── how_should_tend_decide_which_person_is_suitable_for_a_meeting.md
+│   │   ├── how_should_employee_availability_preferences_meeting_type_and_business_rules_work_together.md
+│   │   ├── how_should_tend_handle_a_meeting_that_is_cancelled_missed_or_rescheduled.md
+│   │   ├── how_does_tend_represent_who_is_responsible_for_the_next_step_after_a_meeting.md
+│   │   ├── how_should_tend_escalate_work_when_a_person_does_not_act.md
+│   │   └── how_should_an_external_partner_be_contacted_when_the_business_has_not_acted.md
 │   ├── gathering_information/
 │   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
 │   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
@@ -352,6 +362,15 @@ The `journey_and_lifecycle/` subfolder focuses on how Tend represents the person
 - stakeholders (non-commercial relationships) held as situations with an obligation/ask ribbon, not as a lifecycle;
 - follow-up / nurture versus outreach (relationship-based follow-up in scope; cold outreach out);
 - and pointer documents that reuse Understanding-the-Situation (splitting) and Coordination/Time (waiting) instead of re-writing them.
+
+The `meetings_and_human_work/` subfolder focuses on choosing a person to meet and keeping a reserved human time honest. It covers:
+
+- the meeting as a wait on the shared Coordination/Time spine — a decision, then a wait whose subject is people and a date, then the outcome as human work — via `the_meeting_as_a_wait_spine_bridge.md`;
+- eligibility, calendared availability and each participant's expressed intent intersecting into a real slot ("free on the calendar is not genuinely available");
+- intent gathered once and booked inside, with stored, expiring, override-able employee preferences (absolute-and-inform for routine, check-first for decision points);
+- the two counter-floors (story = re-express intent before re-booking; person = the repeat-booker guard that escalates to a senior), both derived from recorded meeting events, never a silent rejection;
+- a terminal meeting escalation to the senior, with the senior's own inaction still surfaced through the owner/Failure machinery;
+- and reuse of Human Collaboration (responsibility target, ownership, escalation) and the external-partner case.
 
 The `business_view_and_observation/` subfolder focuses on the aggregate owner snapshot and the owner-attention filter. It covers:
 
