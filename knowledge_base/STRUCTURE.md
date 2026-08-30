@@ -68,6 +68,32 @@ knowledge_base/
 │   │   ├── how_does_tend_represent_who_is_responsible_for_the_next_step_after_a_meeting.md
 │   │   ├── how_should_tend_escalate_work_when_a_person_does_not_act.md
 │   │   └── how_should_an_external_partner_be_contacted_when_the_business_has_not_acted.md
+│   ├── channels_and_permissions/
+│   │   ├── channels_and_permissions_conversation_and_discoveries.md
+│   │   ├── understanding_all_channels_and_permissions_questions.md
+│   │   ├── how_should_tend_represent_what_each_communication_channel_allows_a_business_to_send.md
+│   │   ├── how_should_tend_record_consent_and_the_customers_preferred_channel.md
+│   │   ├── how_should_tend_choose_between_replying_in_the_current_channel_and_starting_a_message_in_another_channel.md
+│   │   └── how_should_tend_decide_what_information_each_employee_customer_or_external_partner_may_see.md
+│   ├── growth_and_evolution/
+│   │   ├── growth_and_evolution_conversation_and_discoveries.md
+│   │   ├── understanding_all_growth_and_evolution_questions.md
+│   │   ├── how_do_new_business_systems_become_part_of_tend.md
+│   │   ├── how_do_new_communication_channels_become_part_of_tend.md
+│   │   ├── how_do_new_business_policies_become_part_of_tend.md
+│   │   ├── how_do_new_workflows_become_part_of_tend.md
+│   │   ├── how_do_businesses_customise_tend_without_changing_its_core_behaviour.md
+│   │   ├── how_do_we_support_businesses_that_operate_differently_from_one_another.md
+│   │   └── how_do_we_evolve_tend_without_breaking_existing_businesses.md
+│   ├── compliance_and_security/
+│   │   ├── compliance_and_security_conversation_and_discoveries.md
+│   │   ├── understanding_all_compliance_and_security_questions.md
+│   │   ├── what_are_the_compliances_of_each_actor_and_tech_stack.md
+│   │   ├── how_do_we_make_a_software_product_secure.md
+│   │   ├── the_security_audit_framework.md
+│   │   ├── when_do_we_need_a_formal_audit_soc2_iso27001_or_pentest.md
+│   │   └── how_do_we_apply_security_while_coding_with_agentic_tools.md
+│   ├── gathering_information/
 │   ├── gathering_information/
 │   │   ├── how_do_we_determine_what_information_is_required_before_making_a_decision.md
 │   │   ├── how_do_we_know_which_actor_owns_each_piece_of_information.md
@@ -379,11 +405,42 @@ The `business_view_and_observation/` subfolder focuses on the aggregate owner sn
 - the layered risk computation (deterministic base + LLM suggestions that land on a deterministic rule);
 - and a pointer that reserves the per-situation visibility baseline in Explainability and Observation.
 
+The `channels_and_permissions/` subfolder focuses on what a business may send on each channel and what each person may see. It covers:
+
+- a channel-agnostic core with a communication-manager adapter layer (channel is transport, not business logic); a fallback lane always exists and an absent channel is a visible, first-class gap, never a refusal;
+- consent as directional — an active conversation and an employee are not consent problems; consent matters only for customer-initiated outbound contact, combined with the channel window (two gates);
+- reply stays in the current channel; starting a message follows an ordered, gated sequence (preferred → template+consent → email → human/wait); a channel window is a wait on the shared Coordination/Time spine;
+- employee reachability = a reachability preference + a guaranteed fallback lane;
+- and actor visibility as Path 2 — pre-written role/partner scopes with a narrow default, a governed "widen within legal limits" white-list zone, and business assignment of seats and partners (default narrow by law; legal floor carries to Compliance & Security).
+
+The `growth_and_evolution/` subfolder focuses on how new things become part of Tend and how Tend changes without breaking existing businesses. It covers:
+
+- a capability as one purposeful action a business switches on from a pre-built catalogue (a connectors menu), with one join lifecycle for systems, channels, policies and workflows — request → evaluate → author → contract → validate → test → enable → monitor → retire;
+- capability authoring as product-team work over connector tool definitions, with no LLM-led auto-integration;
+- a typed configuration registry — the business fills values and assignment, the product pre-writes schemas and legal bounds, and the core/config boundary test is "if a knob needs core change, it was mis-categorised";
+- the change-semantics spine: facts live; platform rules live + interrupt (fallback absorbs); grants live; business policies and workflows pinned at situation open with notice and deliberate human migration;
+- and an absent capability as a visible, first-class gap (a build signal), never a refusal.
+
+The exact legal values carry to Compliance & Security; connector transport carries to Level 3.
+
+The `compliance_and_security/` subfolder holds the Level 2 category for every rule Tend must obey and every way the product must stay safe. It covers:
+
+- compliance as one folder holding every rule source — the government's rules (DPDP, GDPR, CAN-SPAM), the platforms' rules (WhatsApp windows/templates, Telegram, email spam laws), the buyers' rules (SOC 2, ISO 27001, questionnaires), and any future rule kind;
+- the actor-by-actor and component-by-component compliance map (what data flows, who made the rule, what Tend must mechanically guarantee);
+- the security spine — the model proposes, a deterministic control layer decides — with the control plane (verified identity → immutable shop context → policy decision → execute → append-only audit);
+- three new product invariants added to Level 1 §8: no cross-business data visibility, model proposals never authorised by the model, model output is data never instructions;
+- the list of what can never be left to the LLM (the deterministic list), and two test suites (T-A isolation, T-B injection) that must stay red if a control breaks;
+- the security audit framework: five moments (design, implement, review, release, operate) plus the two natural-language audit prompts the founder runs with an agent;
+- the formal-audit sequencing decision: pentest + security packet now; SOC 2 Type I only when a named buyer or an unanswered questionnaire demands it; Type II only when a repeatable ICP requires it;
+- the SDLC process for building with agentic coding tools (standing rules, review gates, release gates, TypeScript-specific defences).
+
+The evidence base lives in `research/`: `security_and_compliance_research_record.md` (verified facts, reported figures, named incidents, practitioner consensus vs hype) and the three raw Grok transcripts (breadth taxonomy, tenant-isolation/LLM deep dive, social chatter).
+
 These documents should remain technology-neutral. Technology choices belong to Level 3, which is not yet represented as a dedicated folder here.
 
 ### Research
 
-`research/` contains evidence, findings, maps, and analyses that inform product decisions. It includes research briefs, customer and business journeys, channel and compliance considerations, escalation expectations, market readiness, scaling comparisons, and findings from public sources and specific channels. Newer files also include the business-owner/stakeholder research run for the Journey and Business View categories (`research_owner_stakeholder_journeys.md`), which separates the breadth pass (Grok social mining) from the depth pass (published figures), plus a concept document on why the situation model holds both commercial and non-commercial relationships.
+`research/` contains evidence, findings, maps, and analyses that inform product decisions. It includes research briefs, customer and business journeys, channel and compliance considerations, escalation expectations, market readiness, scaling comparisons, and findings from public sources and specific channels. Newer files also include the business-owner/stakeholder research run for the Journey and Business View categories (`research_owner_stakeholder_journeys.md`), which separates the breadth pass (Grok social mining) from the depth pass (published figures), plus a concept document on why the situation model holds both commercial and non-commercial relationships. The Compliance and Security batch added `security_and_compliance_research_record.md` — the verified-facts / reported-figures / named-incidents evidence record — plus three raw Grok research transcripts (`security_taxonomy_grok_breadth_transcript.md`, `security_tenant_isolation_and_llm_deep_dive_transcript.md`, `security_social_chatter_grok_transcript.md`).
 
 Research supports the framework but does not replace the problem-framing or solution documents. When research changes an assumption or exposes a new problem, update the relevant framework document as well.
 

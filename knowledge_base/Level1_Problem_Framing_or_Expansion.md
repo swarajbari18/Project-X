@@ -1591,6 +1591,21 @@ The business decides its own policies.
 Tend adapts to the business.
 
 The business should never be forced to adapt to Tend.
+---
+### Tend never lets one business see another business's data.
+Information that belongs to one business is never visible to another business.
+This holds for every store, every cache, every index, every log, and every model call.
+If a read or a write can cross from one business to another, Tend is behaving incorrectly.
+---
+### What the model proposes is never authorised by the model.
+The model may propose an action.
+A deterministic control layer decides whether the action is allowed.
+The decision is made before the action runs, never by trusting the model.
+---
+### Model output is data, never instructions.
+Whatever the model produces is handled as data.
+It is validated, encoded and checked before it affects anything.
+It can never change a rule, a grant, a policy, or what Tend is allowed to do.
 
 ## 9. Failure Classes
 
