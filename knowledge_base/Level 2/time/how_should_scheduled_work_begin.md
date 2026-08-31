@@ -11,6 +11,7 @@ Scheduled work is not a different kind of work. It is work whose resume trigger 
 - A feedback window of two weeks ends → time wait fires → loop runs the feedback behaviour.
 - A delivery is due Friday → due-date wait → loop checks the delivery state when Friday arrives and decides next behaviour.
 - A prospect "wants time to think" with a follow-up date → the follow-up date is a time wait.
+- A business gives Tend a list of people to contact and a rule to follow up after three days if there is no reply → each person's situation gets its own time wait.
 - A recurring internal check (e.g. "review stuck orders every morning") is the same record, repeating.
 
 The business journeys that make this concrete are enumerated in [business_journeys_map.md](../../research/business_journeys_map.md).
@@ -23,7 +24,7 @@ The wait record carries the resume trigger "at time T". When T arrives, the wait
 2. decides the scheduled behaviour (remind, escalate, close, or continue);
 3. creates the next wait if the work still needs a further moment.
 
-Scheduled starts are therefore never silently dropped, and never repeat blindly. If the state has changed (the delivery arrived early), the loop does not send the unneeded reminder — it decides with the latest state.
+Scheduled starts are therefore never silently dropped, and never repeat blindly. If the state has changed (the delivery arrived early, the person replied or the owner closed the situation), the loop does not send the unneeded reminder — it decides with the latest state.
 
 ## Example
 

@@ -1,193 +1,112 @@
 # 1. What is Tend?
 
-Tend is a communication layer. That is the thing it owns, and it is why businesses should pay attention to it.
+Tend is the agency layer for a business.
 
-A business already has a way to store customers. It has a way to record orders. It has a way to manage payments. It has a way to track deliveries. What it does not have is one layer that understands what is actually happening in every customer interaction, and decides the correct next step, across all of those systems and all of the people who use them.
+It owns the communication and operational coordination that happens between the business and everyone around it: customers, prospects, employees, suppliers, partners, external services, other agents and business systems.
 
-When a customer contacts the business, the business does not have the whole story in one place.
+The business may already have software for customers, orders, payments, delivery, accounting, scheduling and internal work. Each system may do its own job well. What is missing is the layer that understands what is happening across those systems and keeps the right situation moving when the world changes.
 
-The customer may ask something that needs information from different people inside the business.
+Tend does not wait for a person to reopen a chat and tell it what to do every time something changes.
 
-It may need information from different software the business uses.
+A new message can change a situation.
 
-It may depend on an earlier conversation that happened on a different channel.
+A payment can arrive.
 
-As the business grows, the person who understands the situation is different from the person who knows the order status, which is different from the person who knows the payment status.
+A delivery can stop moving.
 
-Every one of them sees a different piece of the story.
+An employee can answer a question.
 
-Customers often ask questions that cannot be answered by looking at only one place.
+An external agent can return a list of leads.
 
-Someone has to collect the information.
+A prospect can reply, go quiet, ask for a meeting or decide to buy.
 
-Someone has to understand what is happening.
+A deadline can arrive.
 
-Someone has to decide what should happen next.
+Each of these is an event. An event may change the situation, and a changed situation may require Tend to act.
 
-Only then can a useful reply be sent.
+Tend keeps the situation alive, understands the new state, gathers what is missing, checks the business rules and decides what should happen next. If the next step is inside the range the business has granted Tend, Tend performs it. If the step needs a person, Tend creates and follows the human work. If it must wait, Tend records what it is waiting for and wakes the situation when the relevant event occurs.
 
-Tend helps the business perform this entire process.
+This is Tend's agency.
 
-It collects the information that is needed.
+Agency does not mean that Tend invents the business's goals or acts without limits. The business decides what it wants, what Tend may do, which information it may use, and when a person must decide. Tend owns the ongoing operational movement inside those boundaries.
+
+The situation is one storyline, not one chat.
+
+The storyline may begin with a customer message, an owner's instruction, a lead list, a business-system event, an employee handoff, an external agent's result or a scheduled responsibility. It may involve several conversations, several people, several systems and several agents. Tend keeps those pieces connected without flattening them into one undifferentiated conversation.
+
+The business owner does not need to sit in a chat with Tend to make progress. Tend should show the business what is happening through useful artifacts: active situations, work that is waiting, changes that need attention, people who are engaged, decisions that are blocked and outcomes that have been reached. A chat is still useful, but mainly as a way to search, ask for an explanation, inspect a situation or give a new instruction. It is not the primary representation of the business.
+
+Tend therefore does more than generate messages.
 
 It understands the situation.
 
 It finds missing information.
 
-It finds conflicting information.
+It finds conflicts.
 
 It follows the rules defined by the business.
 
-It decides when enough information is available.
+It decides when enough information is available for the next safe behaviour.
 
-If something cannot be answered safely, it asks the right person instead of guessing.
+It communicates with the right people and systems.
 
-When enough information is available, Tend helps the business respond to the customer or perform the required business action.
+It waits for events and resumes when the situation changes.
+
+It keeps responsibility visible until the situation is resolved, transferred or safely stopped.
 
 The goal of Tend is not simply to reply to messages.
 
-The goal is to help a business make correct operational decisions during real customer conversations.
+The goal is to make the business capable of carrying its communication and operational responsibility across people, systems, channels and time.
 
-Every decision has consequences.
-
-Sending the wrong reply can lose a customer.
-
-Giving incorrect information can create confusion.
-
-Approving the wrong action can cost the business money.
-
-Ignoring an important message can damage trust.
-
-Because of this, Tend treats every conversation as part of a real business operation, not as a chat.
-
-The communication is only what the customer sees.
-
-Behind every message, Tend is helping the business understand what is happening, decide what should happen next, and act with the information that is available.
-
-**The hardest problem Tend will face and try to solve is this: when the right next step requires a person to act, and that person does not act. Tend's job is to make the inaction visible and keep the situation moving until someone safe takes responsibility.**
+**The hardest problem Tend will face and try to solve is this: when a situation changes, the right next step must happen, but the business does not have one person continuously watching everything. Tend's job is to notice the change, choose the next safe behaviour, make inaction visible, and keep the situation moving until someone safe takes responsibility.**
 
 # 2. Why does Tend exist?
 
-Every business communicates with customers.
+Every business has work that crosses people, systems and time.
 
-At first, this is easy.
+The work may be customer support, a sale, a delivery, a payment, a supplier question, an employee handoff, an onboarding task or an owner asking someone to contact a specific person.
 
-A few customers send a few messages every day.
+At first, one person can keep all of it in their head.
 
-One or two people can answer everything.
+As the business grows, that stops working.
 
-As the business grows, things start changing.
+More people become involved.
 
-More customers start reaching out.
+More software stores different pieces of the truth.
 
-More employees join the business.
+More channels carry communication.
 
-Different employees become responsible for different work.
+More situations remain open after the current interaction ends.
 
-The business also starts using more software.
+The business now has to keep asking:
 
-One software stores customer information.
+- What changed?
+- Which situation did it change?
+- What do we know now?
+- What is still missing or conflicting?
+- Who should act next?
+- Is Tend allowed to act, or does a person need to decide?
+- What happens if the person, system or agent does not respond?
 
-Another software stores invoices.
+Most existing software answers one part of this problem. A CRM stores contacts. An order system stores orders. An inbox stores messages. A task system stores assignments. An automation tool runs predefined steps.
 
-Another software stores jobs.
+The business still has to connect the pieces and notice when a change requires a new action.
 
-Another software stores inventory.
+That is the problem Tend exists to solve.
 
-Another software stores payments.
+Tend gives the business one operational layer that carries a situation from the event that starts it through the changes that affect it and the work that resolves it.
 
-Each system knows only a small part of the business.
+Consider a simple sales example. An owner gives Tend a list of thirty people and says, "Reach out to these people about our product, understand whether it is relevant, answer their questions, follow up when useful, and bring me the people who want a meeting or are ready to buy."
 
-The employees also know different parts of the business.
+Tend does not treat the list as one conversation.
 
-The sales team knows what was promised.
+It creates a separate situation model for each person because each person has a different identity, source, history, response, interest, objection, timing and next step.
 
-The support team knows what went wrong.
+The owner does not need to open thirty chats. They see an artifact showing the thirty situations and their states. They can open one person's storyline, filter for people waiting for a reply, search for a question about pricing, or ask Tend to explain why three people were escalated.
 
-The accounts team knows whether payment was received.
+The same pattern works when the event is a customer message or a delivery update. The entry event changes, but the underlying responsibility is the same: understand the situation, coordinate the work, communicate appropriately and keep moving when the next event arrives.
 
-The operations team knows what is happening on the ground.
-
-The customer does not care where the information exists.
-
-The customer simply asks a question.
-
-The business now has a problem.
-
-Answering the question is no longer just about writing a reply.
-
-The business first has to understand what is happening.
-
-Someone has to collect information from different people.
-
-Someone has to collect information from different software.
-
-Sometimes the information agrees.
-
-Sometimes it does not.
-
-Sometimes important information is missing.
-
-Sometimes nobody knows the answer immediately.
-
-While all this is happening, the customer is still waiting for a reply.
-
-Many businesses solve this by asking employees to manually collect the information.
-
-This takes time.
-
-It also creates mistakes.
-
-Different employees may reach different conclusions.
-
-Important messages may be forgotten.
-
-The same customer may have to explain the same problem multiple times.
-
-As the business grows, this becomes harder to manage.
-
-The communication starts becoming chaotic.
-
-The real problem, however, is not communication.
-
-The real problem is that the business does not have all the information it needs at the moment a decision has to be made.
-
-Communication is only where this problem becomes visible.
-
-A customer asking,
-
-"Where is my order?"
-
-is not asking for a message.
-
-The customer is asking for an answer.
-
-To answer that question, the business may need to know:
-
-- Has the order been confirmed?
-- Has the payment been received?
-- Has the item been dispatched?
-- Is there a delay?
-- Has the customer already been informed?
-- Has someone inside the business already taken action?
-
-Only after these questions are answered can the business send a useful reply.
-
-This same pattern appears everywhere.
-
-A customer asks a question.
-
-The business first has to understand the situation.
-
-The business then has to decide what should happen next.
-
-Only then can it communicate with confidence.
-
-Tend exists to help businesses perform this process consistently.
-
-Instead of treating every message as an isolated conversation, Tend treats every message as part of a real business operation.
-
-Its purpose is to help the business understand the situation before responding, so that every reply and every action is based on the best information available at that moment.
+Tend exists because a business needs this responsibility to continue even when nobody is actively watching a chat.
 
 # 3. Why existing software does not completely solve these problems
 
@@ -209,7 +128,7 @@ Each of these systems is built to solve a specific problem.
 
 Most of them solve that problem very well.
 
-The difficulty begins when a customer asks a question that requires information from more than one place.
+The difficulty begins when a situation crosses more than one system, person or moment in time.
 
 For example, a customer may ask,
 
@@ -267,103 +186,75 @@ Verifying that information is also work.
 
 Deciding whether the information is enough is another piece of work.
 
-Only after all of this can communication happen.
+Only after all of this can a safe next behaviour be chosen.
+
+Sometimes that behaviour is communication.
+
+Sometimes it is a system update, a human assignment, a request to an external service, a wait for an event or a safe stop.
 
 This is the gap that Tend is designed to fill.
 
 Tend does not try to replace the software a business already uses.
 
-It also does not try to replace the people working inside the business.
+It also does not try to replace every person who works inside or around the business.
 
-Instead, Tend works alongside both.
+Instead, Tend owns the operational thread that connects them.
 
-It helps collect the information that already exists.
+It receives events from those actors and systems.
 
-It helps connect information from different places.
+It builds and updates the relevant situation model.
 
-It helps identify when important information is missing.
+It gathers the information that already exists.
 
-It helps identify when different sources disagree.
+It identifies missing or conflicting information.
 
-It helps decide whether enough information is available to take the next step.
+It decides what it can do next.
 
-If the information is not enough, Tend asks for more information instead of making assumptions.
+It triggers the next permitted action.
 
-The goal is not to replace existing software.
-
-The goal is to help existing software and the people using it work together more effectively during real customer conversations.
+It records what happened and stays responsible for the situation until it is resolved, handed over or safely stopped.
 
 # 4. What Tend does differently
 
 Tend starts from a simple belief.
 
-A good reply comes from a good understanding of the situation.
+A business should not have to keep watching every conversation, system and pending task to know what needs to happen next.
 
-Because of this, Tend does not treat customer communication as a writing problem.
+An event should be enough to wake the relevant situation.
 
-It treats it as an understanding problem.
+The situation should be enough to give Tend the context it needs.
 
-Whenever a customer sends a message, Tend first tries to understand what the customer is actually asking.
+The business's rules and granted range should be enough to tell Tend whether it may act.
 
-Sometimes the question is obvious.
+If it may act, Tend should act.
 
-Sometimes the customer is asking for something indirectly.
+If it cannot act safely, it should create the right human work, wait for the right event or stop visibly.
 
-Sometimes the customer is asking about one thing, but the real problem is something else.
+This is different from a chatbot that waits for a user to ask the next question.
 
-After understanding the request, Tend looks for the information needed to answer it.
+It is also different from a writing assistant that produces a message but leaves the business to decide what happens before and after it.
 
-Some of that information may already be available.
+Tend is event-driven and situation-driven.
 
-Some of it may exist inside another business system.
+It does not treat every message as a new task.
 
-Some of it may exist only with another employee.
+It does not treat every situation as a single chat.
 
-Sometimes the information does not exist at all.
+It understands what changed, updates the one storyline that changed, gathers what is needed, chooses the next behaviour and triggers it.
 
-Tend does not stop after finding information.
+The trigger may come from a customer, an employee, an owner, a business system, a communication platform, an external service, another agent or time.
 
-It also checks whether the information is enough.
+The result may be a message, a system action, a human work item, an external-agent request, a wait, an escalation or a visible safe stop.
 
-If different sources disagree with each other, Tend identifies the conflict.
+The owner does not need to direct every step through chat.
 
-If important information is missing, Tend identifies what is missing.
+Tend presents the current work as artifacts that can be inspected and acted on: situation cards, state changes, pending asks, waiting items, evidence, decisions, outcomes and owner attention.
 
-If a decision cannot be made safely, Tend asks for help instead of guessing.
-
-Once enough information is available, Tend helps the business decide what should happen next.
-
-Sometimes the correct action is to reply to the customer.
-
-Sometimes the correct action is to ask another employee for information.
-
-Sometimes the correct action is to update another business system.
-
-Sometimes the correct action is to wait until more information becomes available.
-
-Communication is only one possible outcome.
-
-The real work happens before the communication.
-
-Tend also remembers previous interactions.
-
-It understands that every new conversation is connected to the history of that customer.
-
-A customer should not have to explain the same problem every time they contact the business.
-
-Tend helps the business build on what it already knows instead of starting from the beginning every time.
+Chat remains useful as a control and search surface. An owner can ask, "What is happening with these thirty leads?", "Show me everyone waiting for pricing information," or "Why did this situation stop?" But the answer should bring the relevant artifact in front of them, not force them to reconstruct the business from a long transcript.
 
 The purpose of Tend is not to make communication automatic.
 
-The purpose is to help the business make better decisions during customer interactions.
-
-When better decisions are made, communication naturally becomes faster, more accurate and more consistent.
-
-The customer sees better communication.
-
-The business benefits from better operational decisions.
-
-Both improve together.
+The purpose is to give the business an operating layer that can understand and carry communication and operational work across the people, systems, agents and time that the business already owns or uses.
 
 # 5. A day in the life of Tend
 
@@ -437,25 +328,75 @@ From the customer's point of view, they simply receive a timely and helpful resp
 
 From the business owner's point of view, everyone spends less time searching for information and more time solving the actual problem.
 
-This is how Tend approaches every customer interaction.
+This is how Tend approaches every business interaction and situation.
 
 Every conversation is treated as a real business operation.
 
 Every reply is the result of understanding the situation first.
 
+## An owner gives Tend a list of people to contact
+
+Now consider a situation that does not begin with an incoming message.
+
+The owner gives Tend a list of thirty people and says:
+
+> "Reach out to these people about our product. Use the information we have, explain why it may be relevant, answer their questions, follow up when it is useful, and bring me the people who want a meeting or are ready to buy."
+
+The list is not one conversation.
+
+It is an event that creates thirty possible business situations.
+
+Tend creates one situation model for each person because each person has a different identity, source, history, response, interest, objection, timing and next step.
+
+For one person, Tend may need to verify what they do before sending anything.
+
+For another, it may already know enough to send an approved introduction.
+
+One person may ask for pricing.
+
+Another may ask for a technical explanation.
+
+Another may say they are interested but unavailable for a month.
+
+Another may request a meeting.
+
+Another may never respond.
+
+Tend does not need the employee to open thirty chats and direct every follow-up.
+
+The business sees an artifact showing the thirty situations and their current states: not started, preparing, message sent, waiting for reply, engaged, needs employee information, meeting requested, ready for owner, paused, closed or unable to proceed.
+
+The employee can search that artifact, filter it, open one person's storyline, inspect the evidence behind a proposed message, or ask Tend to explain why a situation is waiting.
+
+When a reply arrives, that event wakes only the relevant person's situation.
+
+When a follow-up date arrives, the relevant situation wakes again.
+
+When a person asks a question Tend cannot answer safely, Tend creates work for the employee who can answer it.
+
+When a person wants a meeting, Tend finds the right representative and coordinates the meeting.
+
+When someone is ready to buy, Tend continues into the business's purchase or onboarding process if the required capability and authority exist.
+
+When nothing happens, Tend does not silently forget the situation. It follows the configured next step, escalates or closes it with a visible reason.
+
+This is not a separate sales product bolted onto Tend.
+
+It is the same agency applied to a situation that began from a business instruction instead of a customer message.
+
 ## The journey is not one conversation
 
-The person who first contacts a business is not yet a customer.
+The person who first appears in a business situation is not automatically a customer.
 
-They want to know more. They ask what the business sells, whether it suits them, how much it costs, what happens after they pay. At this point they are a prospect, not a customer. The tools that only draft replies cannot see this distinction, so they treat every person who writes a message the same way. Tend does not. It keeps track of where each person is in the journey, and it treats each stage differently, because the correct next step is different at each stage.
+They may have contacted the business, or the business may have received their details from an employee, a CRM, an event, a partner or another agent.
 
-A new person contacts the business through a channel such as WhatsApp, Telegram, email or a website chat.
+At first, Tend may know only that the person is connected to a possible business situation. They may be a prospect, a customer, a returning customer, a partner or another stakeholder. Tend should not invent the relationship. It should derive it from evidence or ask when the distinction changes what it may do.
 
-Tend answers their questions where it can. If the answer already exists in the knowledge the business has built up, Tend gives it. If no answer exists, Tend does not guess. It asks the employee most likely to know, gets the answer, and passes it on. The prospect keeps asking. The same flow repeats, each time gathering what is missing and answering from what is now known.
+If the situation is commercial, the person may ask what the business sells, whether it suits them, how much it costs, what happens after they pay or whether they can speak to someone. Tend answers from the business's knowledge, gathers missing information, keeps the person's questions in the same storyline and chooses the next behaviour.
 
-When the prospect is ready, they may want to speak to a real person before they decide to buy. Tend helps them do that. But arranging that call is not as simple as picking any free slot on a calendar. An employee may have a free calendar yet still be genuinely busy. Different employees take different kinds of calls. One person takes sales calls, another takes support calls, another takes onboarding calls. One prefers mornings, another will not take a call on a weekend. Tend uses the employee's preferences and the type of call to choose who is right for this person and this situation, and it schedules only in times that are genuinely open for that employee.
+If the person wants to speak to a real person before deciding to buy, Tend finds the right representative. An employee may have a free calendar yet still be genuinely busy. Different employees take different kinds of calls. Tend uses the employee's role, preferences, availability, the type of call and the situation's needs to choose who is right.
 
-After the call, two things can happen. The prospect may decide to buy. Or they may want time to think. Tend captures what was discussed and works out what to do next in either case. If they bought, Tend follows up with what comes next. If they want time, Tend gives them that time and does not pester them, but it does not forget them either.
+After the call, the person may buy, ask for time, ask another question or disappear. Tend records what changed and decides what should happen next. If they bought, Tend continues into what comes next. If they need time, Tend waits without pestering them and wakes the situation when the agreed follow-up event arrives.
 
 From that point the prospect has become a customer. Now there is an order to deliver.
 
@@ -467,15 +408,17 @@ There is a difference between what the delivery company says and what actually h
 
 If a delivery has gone wrong and the business has to resolve it, the resolution often involves people outside the business. The business talks to its delivery partner, and the partner may need to investigate. Tend makes that communication possible. It prepares the full trail of what happened, in order, so the people who act can see exactly what led to this point. But it does not share everything it knows with everyone. The employee inside the business who is working on the problem sees the whole picture. The delivery partner outside the business only sees what it needs to see, such as the tracking number, not the customer's private details. How much of the customer's information each person receives is a rule the business controls.
 
-Once the customer has received their product, there is another question. Does it meet what the business promised? Some businesses will want a real answer to that, not just a review score. But they should not ask immediately. The customer needs time to actually use the product first. Tend lets the business decide how long to wait, and when the time comes, it asks. It can ask on a channel where the business is allowed to start a message on its own. Not every channel allows a business to contact a customer first. WhatsApp and Telegram place strict limits on a business starting a conversation, while email does not. So the channel that Tend uses to reach out is itself a decision the business makes, choosing the one the customer has agreed to.
+Once the customer has received their product, there is another question. Does it meet what the business promised? Some businesses will want a real answer to that, not just a review score. But they should not ask immediately. The customer needs time to actually use the product first. Tend lets the business decide how long to wait, and when the time comes, it asks. The communication is still governed by the permission and channel rules that apply to that person and situation. Those rules may make one channel available and another unavailable. Tend treats that as a decision and a possible wait, not as a reason to forget the responsibility.
 
 The customer who comes back is no longer a prospect. They are a returned customer. Only people who have never done business with the company before start as prospects. Tend remembers this, so a returning customer does not have to repeat their situation from the beginning.
 
-This whole journey, from the first inquiry to the customer who comes back, is what Tend is built to hold. A tool that only drafts replies sees each message as a separate chat. Tend sees the journey, and it treats every step as part of a real business operation.
+This whole journey, from the event that starts the situation to the next situation that follows it, is what Tend is built to hold. A tool that only drafts replies sees each message as a separate chat. A chatbot waits for someone to ask it the next question. Tend sees the storyline, watches for changes and acts when the situation requires it.
 
-The same approach works whether the business is one person or a team of many. The business owner does not need to watch how many messages Tend handled, or how long the system stayed running. What the owner needs to see is the journey: how many prospects are waiting for a reply, how many are thinking about buying, how many became customers, which orders are stuck, which customers are at risk. When something needs an owner's decision, the owner can step into the situation, look at what happened, give an answer, and then let Tend continue from there.
+The same approach works whether the business is one person or a team of many. The business owner does not need to watch how many messages Tend handled, or how long the system stayed running. What the owner needs to see is the state of the work: which situations are waiting, which are engaged, which need information, which are close to buying, which need an employee, which are at risk and which require the owner's decision.
 
-Because Tend understands the situation before it communicates, the same core works in every country and in every language. What changes from market to market is not the way Tend understands and decides. It is which channels are popular, what the rules allow a business to send on its own, and which systems the business already uses. The part that understands the customer is the same everywhere. The channels, the consent rules and the integrations are configured per market. That is why Tend is built the way it is: the decision-making stays the same, and everything that differs between one business and another is set as configuration, not written into the core.
+The owner sees this through artifacts rather than a wall of chats. A list, board, timeline, evidence view, decision card or attention feed can show the right part of the work. When something needs an owner's decision, the owner opens that situation, sees the story and the reason for the ask, gives the decision, and lets Tend continue.
+
+Because Tend understands the situation before it communicates, the same core works in every country and in every language. What changes from market to market is not the way Tend understands and decides. It is which channels are popular, what the rules allow a business to send on its own, and which systems the business already uses. The part that understands the situation is the same everywhere. The channels, the consent rules and the integrations are configured per market. That is why Tend is built the way it is: the decision-making stays the same, and everything that differs between one business and another is set as configuration, not written into the core.
 
 # 6. The principles behind Tend
 
@@ -493,7 +436,7 @@ They define how Tend should behave, no matter how the product evolves.
 
 Tend should never take an action before understanding the situation.
 
-Every customer message is only the beginning.
+Every incoming message or business event is only the beginning.
 
 Before replying or performing an action, Tend first gathers the information needed to understand what is happening.
 
@@ -531,15 +474,47 @@ If two sources disagree, Tend should identify the disagreement instead of hiding
 
 ## Communication is the final step
 
-Tend is a communication layer, but the message a customer sees is only the visible part.
+Tend owns communication, but the message another person sees is only the visible part.
 
-The communication layer owns the whole journey: collecting information, checking it, deciding the correct next step, and only then communicating.
+The communication layer owns the whole journey around the interaction: collecting information, checking it, deciding the correct next step, communicating, waiting for what happens next and acting again when the situation changes.
 
-A reply is not the main job.
+A message is the final step of one decision cycle, not necessarily the end of the situation.
 
-It is only the final result of understanding the situation.
+The next event may start another cycle.
 
-The quality of the communication depends on the quality of the understanding that comes before it.
+The quality of communication depends on the quality of understanding, coordination and agency that come before and after it.
+
+---
+
+
+
+## Agency is the centre of Tend
+
+Tend should not need a person to keep prompting it through a situation.
+
+An event changes the situation.
+
+Tend notices the change, updates the storyline, gathers what is needed, decides its next permitted behaviour and triggers it.
+
+The event may be an incoming message, a reply, a payment, a delivery update, an employee answer, an owner instruction, an external-agent result, a deadline or a scheduled moment.
+
+Agency is not unlimited independence.
+
+The business still decides the goal, the policy, the information Tend may use and the range of actions Tend may perform. Tend's agency is the ability to carry out the business's delegated operational responsibility without requiring a new prompt for every step.
+
+If Tend cannot proceed safely, agency means it creates the right work, asks the right person, waits for the right event, escalates or stops visibly. It never means silently improvising authority.
+
+---
+
+
+
+## Artifacts are the primary business surface
+
+The business should not have to understand its operation by reading raw agent chats.
+
+Tend should show the work as artifacts that can be inspected, searched and acted on: situation cards, state changes, pending questions, waits, evidence, decisions, owner attention, handoffs and outcomes.
+
+Chat remains valuable as a way to search, ask for an explanation, inspect an unusual situation or give Tend a new instruction. It is a control surface around the artifacts, not the main representation of the business.
 
 ---
 
@@ -547,13 +522,15 @@ The quality of the communication depends on the quality of the understanding tha
 
 ## Help people, do not replace them
 
-Tend is designed to work alongside the people inside a business.
+Tend is designed to carry delegated work alongside the people inside and around a business.
 
 Some situations can be handled automatically.
 
 Some situations require human judgement.
 
-When a human is needed, Tend should involve the right person instead of trying to do everything itself.
+When a human is needed, Tend should involve the right person instead of pretending that automation has removed responsibility.
+
+Tend may remove repetitive communication and coordination work from a human employee or virtual assistant. It must not remove the human responsibility for business judgement, policy or consequential decisions.
 
 ---
 
@@ -619,15 +596,16 @@ If Tend cannot make a confident decision, it should stop, explain why, and ask f
 
 ## Learn from every interaction
 
-Every conversation helps the business understand its customers better.
+Every interaction and event helps the business understand its relationships and work better.
 
 Tend should help preserve useful knowledge from previous interactions.
 
-The next conversation should start with a better understanding than the previous one.
+The next situation should start with a better understanding than the previous one.
 
 The goal is not simply to remember conversations.
 
-The goal is to help the business make better decisions every time a customer comes back.
+The goal is to help the business make better decisions every time a person, system, agent or
+business event returns to the work.
 
 # 7. What Tend is NOT
 
@@ -659,17 +637,35 @@ Many tools promise that a customer will not be left waiting. They do that by dra
 
 A chatbot that only replies fast still gives the same answer to someone who is about to buy and to someone whose delivery is stuck. It cannot tell the two apart.
 
-Tend does not start from the reply. It starts from understanding the situation.
+Tend does not start from the chat box. It starts from the situation and the events that change it.
 
-A reply that is fast but built on a wrong understanding makes the problem worse.
+A reply that is fast but built on a wrong understanding makes the problem worse. A reply that is correct but leaves the next operational step undone also leaves the business incomplete.
 
-Tend only replies after it understands what is happening, and it uses the people and systems the business already has to get there.
+Tend understands what is happening, uses the people and systems the business already has, and acts again when new information arrives.
 
-The reply is only one part of the process.
+The reply is only one artifact produced by the process.
 
 ---
 
+## Tend is an operational virtual assistant, not a chat-only agent
 
+A human virtual assistant can watch channels, remember the business, contact people, update
+systems, follow up and bring exceptions to the owner. A chat-only agent can be useful when a
+person is actively talking to it, but it generally waits for the next prompt and presents its
+work as a conversation.
+
+Tend is software that takes a bounded operational responsibility from the business. It keeps
+the situation model alive, watches for relevant events, coordinates the business's people,
+systems, channels and connected agents, and continues the work without the owner becoming the
+runtime router. It can perform much of the repetitive communication and coordination a human VA
+would perform, but it preserves the business's authority, human judgement and accountability.
+
+The difference is therefore not only memory or knowledge. It is agency: the combination of a
+durable situation, event-driven continuation, delegated authority, operational capabilities,
+visible artifacts and safe escalation. The business can see what Tend owns and intervene when
+needed, without having to keep a chat open.
+
+---
 
 ## Tend is not just an AI writing assistant
 
@@ -737,9 +733,9 @@ People define business policies.
 
 People decide how the business should operate.
 
-Tend helps people make better decisions.
+Tend helps people make better decisions and removes repetitive coordination work where the business has granted it permission.
 
-It does not try to remove them from the process.
+It does not try to remove human judgement, human responsibility or the need for a person in situations that require one.
 
 ---
 
@@ -757,7 +753,7 @@ Some situations require approval.
 
 Tend should recognise these situations.
 
-When necessary, it should stop and involve the right person instead of trying to continue automatically.
+Agency includes knowing when not to continue. When necessary, Tend should stop the unsafe action, create the right human work and keep the situation visible instead of trying to continue automatically.
 
 ---
 
@@ -781,82 +777,46 @@ The responsibility for running the business always remains with the business its
 
 # 8. What success looks like
 
-The purpose of Tend is not simply to send more replies.
+The purpose of Tend is not simply to send more replies or complete more isolated tasks.
 
-The purpose is to help businesses make better decisions during customer interactions.
+The purpose is to make the business's communication and operational responsibility continue reliably across events, people, systems, agents and time.
 
-If Tend is successful, the business should start noticing changes in the way it operates.
+If Tend is successful, the business should notice that:
 
-Customers should receive more accurate answers.
+- important changes wake the right situations;
+- situations do not disappear because nobody is watching a chat;
+- customers, prospects, employees and partners receive the right next interaction;
+- employees spend less time searching, repeating context and asking for routine updates;
+- the business can see what is waiting, what is blocked and what needs a decision;
+- different people receive the context and evidence needed for their responsibility;
+- the business knows why Tend acted, waited, asked or stopped;
+- every important action and handoff can be traced;
+- external systems and agents can participate without becoming hidden sources of authority; and
+- owners spend their attention on the situations that genuinely require them.
 
-Customers should spend less time waiting for updates.
+The business should see fewer dropped handoffs, fewer repeated questions, fewer contradictory answers and fewer situations where nobody knows what should happen next.
 
-Customers should not have to repeat the same information every time they contact the business.
-
-Employees should spend less time searching for information.
-
-Employees should spend less time asking each other for routine updates.
-
-Employees should have a clearer understanding of what needs to happen next.
-
-Different employees should reach the same conclusion when looking at the same situation.
-
-Business decisions should become more consistent.
-
-The business should have fewer situations where different systems or different people give different answers.
-
-Important information should be easier to find.
-
-Important conversations should be easier to follow.
-
-The business should be able to understand why a particular decision was made.
-
-The business should be able to trace every important action.
-
-The business should have greater confidence in the information it uses to make decisions.
-
-As Tend becomes part of the business, communication should begin to feel simpler.
-
-Not because communication itself has changed.
-
-But because the confusion behind the communication has been reduced.
-
-The greatest success for Tend is not that people notice it.
-
-The greatest success is that the business spends less time dealing with operational confusion.
-
-People spend less time searching.
-
-Less time waiting.
-
-Less time repeating work.
-
-Less time correcting mistakes.
-
-And more time solving problems, helping customers and growing the business.
-
-When that starts happening consistently, Tend has achieved its purpose.
+The result may be better support, more completed sales, faster onboarding, fewer delivery failures or stronger partner coordination. Those outcomes differ by business. The shared success is that the business can carry its responsibility without manually watching every interaction.
 
 ### What the owner sees
 
 It matters what the person who runs the business sees when they open Tend.
 
-If they only saw that Tend handled a thousand messages, that would tell them nothing useful. A business owner is not running Tend. A business owner is running a business.
+If they only saw that Tend handled a thousand messages, that would tell them almost nothing useful. A business owner is running a business, not monitoring an agent.
 
-What the owner needs to see is the state of the journey.
+The owner should see artifacts that answer:
 
-How many people are waiting for a reply.
+- What situations are active?
+- What changed recently?
+- What is waiting for a person, system, agent or date?
+- What is progressing without attention?
+- What is blocked or at risk?
+- Which prospects are engaged, waiting, ready for a meeting or ready to buy?
+- Which customers, employees or partners need something?
+- What requires the owner's decision?
 
-How many are thinking about buying.
+The owner should be able to search and filter those artifacts, open one person's or one situation's storyline, see the evidence and decisions behind it, give an instruction or decision, and let Tend continue.
 
-How many became customers.
-
-Which deliveries are stuck and need attention.
-
-Which customers were not properly served and are now at risk.
-
-Whether the business missed anyone who reached out.
-
-When something needs a decision, the owner should be able to step into that one situation, see exactly what happened from the start, decide, and then let Tend continue from there.
+Chat can help the owner find or understand an artifact. It should not be the only place where the state of the business exists.
 
 That is the measure of success the owner cares about, and it is the measure Tend is built around.

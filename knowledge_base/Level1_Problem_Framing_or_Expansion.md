@@ -4,65 +4,41 @@
 
 Before we design any system, we need to understand the problem the system exists to solve.
 
-Tend exists to help a business understand what is happening in a customer interaction, decide the correct next step, and coordinate the people and systems needed to act.
+Tend exists to carry a business's communication and operational responsibility across the events, people, systems, channels and agents involved in its work.
 
-Tend is a communication layer. It is responsible for the work behind the message: gathering information, checking it, deciding what should happen, and communicating the result through the appropriate channel.
+Tend is therefore an agency layer, not only a message layer.
 
-Customer communication is the most visible part of the problem, but it is rarely the real problem.
+It receives or creates a situation from an event. It builds the situation model, gathers the information needed for the next decision, checks evidence and business rules, chooses the next permitted behaviour, performs or requests that behaviour, and keeps the situation alive until it is resolved, transferred or safely stopped.
 
-A customer usually contacts a business because they need an answer, an update or an action.
+The event may be a customer message, an employee handoff, an owner instruction, a lead list, a payment, a delivery change, an external-agent result, a calendar moment, a deadline or a change in business data.
 
-Providing the correct response often requires information from multiple places.
+Customer communication is one visible part of the problem, but it is rarely the whole problem.
 
-That information may exist in business software.
+An owner may give Tend a list of thirty people and ask it to introduce a product, understand relevance, answer questions, follow up when useful and bring back people who want a meeting or are ready to buy.
 
-It may exist with different employees.
+That instruction does not create one conversation.
 
-It may exist in previous conversations.
+It creates thirty related business situations. Each person has a different identity, source, history, response, interest, objection, timing and next step. Tend must hold one storyline for each person and let each storyline change independently.
 
-Sometimes it does not exist yet.
+The same pattern appears when a customer asks about an order, when a payment changes, when an employee is waiting for information, when a delivery partner is investigating a failure or when another agent returns a result.
 
-Before the business can respond, it must first understand the situation.
+The business should not need a person to keep opening a chat and prompting Tend through every step.
 
-Today, that understanding is often created manually.
+When the situation changes, Tend should notice the event, update the situation model, decide what should happen next and trigger the next permitted action.
 
-Employees search through different systems.
+Sometimes that action is communication.
 
-They ask other employees for information.
+Sometimes it is a system update, a request to another agent, a human work item, a wait, an escalation or a safe stop.
 
-They compare conflicting information.
+Tend must not invent the business's goals, policies or authority. The business remains responsible for deciding what it wants, what information is trusted, what Tend may do and when a person must decide. Tend owns the ongoing operational movement within that boundary.
 
-They decide whether they have enough information to act.
+The business should not have to understand this work by reading a collection of agent chats. Its primary view should be artifacts that show active situations, changes, waits, asks, evidence, decisions, responsibility and outcomes. Chat may help a person search, inspect or instruct, but it is not the primary representation of the business.
 
-Only then do they communicate with the customer.
+The objective is always the same:
 
-This process is slow.
+> When a relevant event changes a business situation, Tend should understand the change, choose the correct next behaviour and keep the work moving until a safe outcome or a visible handoff is reached.
 
-It is difficult to keep consistent.
-
-It becomes harder as the business grows.
-
-Tend exists to support this process.
-
-Its primary responsibility is not to generate replies.
-
-Its primary responsibility is to help the business understand the current situation well enough to make the correct next decision.
-
-Sometimes that decision is to reply to the customer.
-
-Sometimes it is to ask another employee for information.
-
-Sometimes it is to update a business system.
-
-Sometimes it is to wait until more information becomes available.
-
-The objective is always the same.
-
-Help the business reach the correct decision with the information available at that moment.
-
-Everything else in the system exists to support that objective.
-
-**The hardest problem Tend will face and try to solve is this: when the right next step requires a person to act, and that person does not act. Tend must make the inaction visible and keep the situation moving until someone safe takes responsibility.**
+**The hardest problem Tend will face and try to solve is this: a situation changes, but no person is continuously watching everything to decide what happens next. Tend must notice the change, act within its granted range, make inaction visible and keep the situation moving until someone safe takes responsibility.**
 
 ## 2. Assumptions
 
@@ -124,7 +100,7 @@ The system must work with changing information instead of assuming that knowledg
 
 ### Some situations require human judgement
 
-We assume not every customer interaction can be handled automatically.
+We assume not every business situation can be handled automatically.
 
 Some situations require business experience, policy decisions or approvals.
 
@@ -166,13 +142,33 @@ Tend should work alongside these systems instead of assuming it owns every busin
 
 
 
-### Customer conversations are part of larger business operations
+### Communication is part of larger business situations
 
-We assume a customer conversation is rarely an isolated event.
+We assume communication is rarely an isolated event.
 
-A single message may involve sales, operations, finance, logistics, customer support or other parts of the business.
+A message may involve sales, operations, finance, logistics, customer support or other parts of the business. A business situation may also begin without an incoming customer message: an owner may assign a lead, an employee may hand over work, a system may report a change, or another agent may return information.
 
-The system should treat conversations as entry points into business operations rather than as isolated chat sessions.
+The system should treat messages and other events as entry points into business situations rather than as isolated chat sessions.
+
+The situation is one storyline. It may contain many interactions, many actors and many events.
+
+### Tend must continue work without a new prompt
+
+We assume a business needs Tend to act when a relevant situation changes, even when nobody is actively talking to it.
+
+The system should be event-driven and situation-driven. Time, messages, system changes, employee responses, owner instructions and external-agent results should be able to wake a situation.
+
+The situation should then re-enter the normal process of understanding, gathering, deciding and acting.
+
+Agency means Tend can carry out this delegated operational work without requiring a person to direct every intermediate step. Agency does not give Tend permission to invent goals, expand its authority or replace human judgement.
+
+### The business needs artifacts, not only conversations
+
+We assume a business cannot manage its operation through raw chat transcripts alone.
+
+The system should show active situations, changes, waits, pending asks, evidence, decisions, responsibility and outcomes as artifacts that people can inspect, search and act on.
+
+A chat interface may help a person find or understand an artifact. It should not be the only place where the state of the business is visible.
 
 ---
 
@@ -180,11 +176,11 @@ The system should treat conversations as entry points into business operations r
 
 ### People move through different stages of a business relationship
 
-We assume a person who asks about a product is not automatically a customer.
+We assume a person who appears in a business situation is not automatically a customer.
 
-They may be a prospect, a customer waiting for an order, or a returning customer with a new need.
+They may be a lead supplied by the business, a prospect who has not bought, a customer waiting for an order, a returning customer, a partner or another stakeholder.
 
-The correct next step depends on which stage they are in.
+The direction in which the first message travelled does not determine the relationship. The correct next step depends on the evidence and the situation.
 
 ---
 
@@ -204,21 +200,15 @@ Tend must treat these rules as part of the business situation.
 
 
 
-### AI is a tool, not the decision maker
+### AI is a part of an agentic system, not the source of agency
 
-We assume artificial intelligence helps the business understand situations.
+We assume the language model can help interpret situations and propose behaviour, but it is not the whole product and it is not the source of permission.
 
-The business remains responsible for its own policies and decisions.
+Tend's agency belongs to the complete system: durable situation state, event handling, information gathering, decision making, capabilities, communication, waiting, human work and control rules.
 
-The system should assist people rather than replace their responsibility.
+The business remains responsible for its own policies and decisions. Tend may make operational decisions inside those policies and granted capabilities.
 
-Tend is not just an AI product. It uses AI as one tool at runtime.
-
-Tend may make operational decisions.
-
-The business defines the policies within which those decisions are made.
-
-Whenever those policies cannot be applied confidently, Tend involves the appropriate person.
+Whenever the situation cannot be handled safely, Tend involves the appropriate person, waits for the required event, escalates or stops visibly.
 
 ---
 
@@ -418,7 +408,7 @@ Together they define the environment in which the product operates.
 
 Tend is the system being designed.
 
-Its responsibility is to help businesses make correct operational decisions during customer interactions.
+Its responsibility is to help businesses make correct operational decisions during business situations.
 
 It gathers information.
 
@@ -432,7 +422,13 @@ It communicates with people and systems.
 
 It records what happened.
 
-Tend is the central actor that coordinates the interaction between all other actors.
+Tend is the central actor that coordinates the interaction between all other actors. It owns the operational thread without becoming the owner of the business's data, goals or final decisions.
+
+It watches for events that may change an active situation.
+
+It triggers the next permitted behaviour when the situation changes.
+
+It creates human work, waits, escalates or stops visibly when it cannot safely continue.
 
 It does not do all of that work alone. One part of Tend is a reasoning model, described separately below, that Tend uses when a decision has to be figured out at runtime rather than read from a fixed rule.
 
@@ -458,13 +454,17 @@ It does not own the business decision, override business rules, or remove the ne
 
 ### Business
 
-The business owns the customer relationship.
+The business owns its relationships, goals, policies and decisions.
 
 It defines policies, processes and operational goals.
 
 It decides how the business should operate.
 
-Tend supports those decisions.
+It may give Tend a situation directly, such as a list of people to contact and a product to introduce.
+
+It may connect Tend to systems or other agents that create or enrich situations.
+
+It decides the range within which Tend may act.
 
 The responsibility always remains with the business.
 
@@ -484,9 +484,11 @@ They perform operational tasks.
 
 They resolve situations that require human judgement.
 
-Tend assists employees.
+Employees may also give Tend work, answer Tend's questions, review its artifacts, take ownership of a situation or correct its understanding.
 
-It does not replace them.
+Tend assists employees and may perform repetitive communication and coordination work that the business has delegated to it.
+
+Human judgement and responsibility remain with the appropriate person.
 
 ---
 
@@ -494,7 +496,9 @@ It does not replace them.
 
 ### Customers
 
-Customers contact the business to request products, services, support or information.
+Customers may contact the business to request products, services, support or information.
+
+The business may also contact a customer because an active situation, commitment or business event requires an update.
 
 They provide information about their situation.
 
@@ -506,7 +510,9 @@ Customers interact with the business through Tend.
 
 ### Prospects
 
-A prospect is a person who has contacted the business but has not yet bought from it.
+A prospect is a person or organisation in a possible commercial relationship who has not yet bought from the business.
+
+They may have contacted the business, or the business may have received their details from an owner, employee, CRM, event, partner or external agent.
 
 They may want information about a product or service.
 
@@ -514,7 +520,7 @@ They may be deciding whether the business is right for them.
 
 They may want to speak to a person before they decide.
 
-They expect an accurate and timely answer, the same as a customer does.
+They should receive communication that is accurate, relevant, permitted and timely when the business has a reason and authority to contact them.
 
 But they are not yet a customer, and Tend must not treat them as if they were.
 
@@ -522,7 +528,7 @@ Each prospect is at some point in the journey toward a decision, and the correct
 
 Some prospects will become customers. Most will not.
 
-Tend keeps track of where each prospect is so that it responds correctly to where they are, not where the business wishes they were.
+Tend keeps track of where each prospect is so that it acts according to the evidence and the situation, not according to where the business wishes they were.
 
 ---
 
@@ -538,9 +544,9 @@ Even when they do not touch the system often, they decide who is allowed to conf
 
 The Owner does not care how many messages Tend handled or how reliably the service stayed online.
 
-What the Owner cares about is the state of the journey: how many prospects are waiting, how many are close to buying, which orders are stuck, which customers are at risk.
+What the Owner cares about is the state of the work: which situations are active, what changed, what is waiting, what is stuck, which prospects are engaged or close to buying, which customers are at risk and what needs the Owner.
 
-When something needs a decision only the Owner can make, they want to step into that one situation, see what happened, decide, and let Tend continue.
+The Owner should see this through artifacts rather than needing to read every chat. They can open one situation, see what happened, inspect the evidence, make a decision or give an instruction, and let Tend continue.
 
 The Owner can delegate their authority, and Tend must respect who holds which part of that authority at any moment.
 
@@ -598,9 +604,11 @@ Tend relies on them to establish trust.
 
 Businesses often depend on external organisations.
 
-Examples include payment providers, shipping companies, government services and third-party APIs.
+Examples include payment providers, shipping companies, government services, third-party APIs and external agents that find, enrich or process information.
 
 These services provide information or perform actions outside the business.
+
+An external agent may return a list of possible leads or a result from a long-running task. Tend treats that result as information from an external actor. It evaluates the source, applies the business's rules and decides what to do next. The external agent does not grant Tend authority and its output is never treated as instructions automatically.
 
 ### External Business Partners
 
@@ -642,9 +650,9 @@ Scheduled work starts.
 
 Time does not make decisions.
 
-It changes the state of the world.
+It changes the state of the world and creates events.
 
-Tend observes those changes and responds when necessary.
+Tend observes those changes and responds when necessary. A date, deadline, scheduled follow-up or check-in can wake a situation even when no person has sent a new message.
 
 ---
 
@@ -666,7 +674,7 @@ They configure business policies.
 
 They decide how Tend should behave for that organisation.
 
-They do not participate in day-to-day customer interactions.
+They do not participate in day-to-day operation unless the business assigns them responsibility.
 
 Instead, they shape how Tend operates before those interactions occur.
 
@@ -712,9 +720,9 @@ The goal is to describe how work is divided between the actors.
 
 ## Tend
 
-Tend receives information from customers, employees, business systems and external services.
+Tend receives information and events from customers, employees, business systems, communication platforms, external services, external agents and Time.
 
-Tend understands what the business is trying to achieve.
+Tend understands what the business is trying to achieve in the current situation.
 
 Tend determines what information is needed before a decision can be made.
 
@@ -727,6 +735,12 @@ Tend identifies when different sources disagree.
 Tend determines whether enough information is available to continue.
 
 Tend decides whether it can continue automatically or whether a person needs to become involved.
+
+Tend watches for events that may change an active situation.
+
+When an event changes a situation, Tend re-enters the decision loop without requiring a new user prompt.
+
+Tend triggers the next permitted behaviour, whether that means communicating, updating a system, asking a person, invoking an external actor, waiting, escalating or stopping safely.
 
 Tend communicates with business systems when information needs to be retrieved or updated.
 
@@ -776,6 +790,10 @@ The business connects Tend to its existing software.
 
 The business decides which business systems Tend may use.
 
+The business may start a situation by giving Tend an instruction, a list of people, a product, a desired outcome or a request to coordinate another agent.
+
+The business may also change an active situation by providing a decision, correcting information or changing a permitted rule.
+
 The business remains responsible for every business decision, even when Tend assists with that decision.
 
 ---
@@ -806,7 +824,9 @@ Employees use the information provided by Tend to make business decisions.
 
 ## Customers
 
-Customers contact the business.
+Customers may contact the business.
+
+The business may also contact customers when an active situation, commitment or business event requires it.
 
 Customers ask questions.
 
@@ -823,7 +843,9 @@ Customers receive updates, questions and responses through the communication cha
 
 ## Prospects
 
-Prospects contact the business to get information about products or services.
+Prospects may contact the business to get information about products or services.
+
+They may also be identified by the business, a business system, an event, a partner or an external agent before they have contacted the business.
 
 Prospects ask questions and make decisions about whether to buy.
 
@@ -831,9 +853,9 @@ Prospects provide information about themselves that only they know.
 
 Prospects may ask to speak to a person before they decide.
 
-Prospects expect an accurate and timely response, the same as customers do.
+Prospects should receive communication that is accurate, relevant, permitted and timely when the business has a reason and authority to contact them.
 
-Tend tracks where each prospect is in the journey and responds to where they are.
+Tend tracks where each prospect is in the journey and acts according to where they are.
 
 A prospect is not the same as a customer, and the correct next step is different for each.
 
@@ -880,13 +902,15 @@ Business systems remain responsible for the accuracy of the information that the
 
 ## Communication Platforms
 
-Communication platforms deliver messages between Tend, customers and employees.
+Communication platforms deliver messages between Tend and the people or organisations involved in a business situation.
 
 Communication platforms notify Tend when new messages arrive.
 
 Communication platforms deliver messages that Tend chooses to send.
 
 Communication platforms are responsible for transporting messages, not understanding them.
+
+They also notify Tend when a reply, delivery update or other communication event arrives.
 
 ---
 
@@ -913,6 +937,8 @@ External services receive requests from Tend.
 They return information or perform actions that belong to their own systems.
 
 They remain responsible for the information and operations that they own.
+
+An external agent may return candidate leads, research, a recommendation or the result of a long-running operation. It remains an external actor. Tend evaluates what it returned and coordinates the next step; the result does not become authority or an instruction merely because an agent produced it.
 
 
 ## External Business Partners
@@ -944,6 +970,8 @@ Time causes appointments to begin.
 Time causes scheduled work to start.
 
 Time causes business information to become outdated.
+
+Time creates events such as a scheduled moment, a deadline, a follow-up date or a situation check-in.
 
 Tend observes these changes and decides whether any action is required.
 
@@ -990,6 +1018,48 @@ Each interaction begins with an event.
 The actors then exchange information until the business reaches the correct next step.
 
 The purpose of these interactions is to understand how work flows through Tend.
+
+---
+
+
+
+## An event creates or changes a situation
+
+An event reaches Tend from a person, business system, communication platform, external service, external agent or Time.
+
+Tend determines whether the event starts a new situation or changes an existing one.
+
+It updates the relevant situation model with what the event adds: what is known, what is unknown, what conflicts and what responsibility has changed.
+
+Tend gathers information when the event leaves an important question unanswered.
+
+Tend decides the next permitted behaviour.
+
+It may communicate, update a system, ask a person, request work from another agent, wait for another event, escalate or stop safely.
+
+The result becomes part of the situation storyline and may create a later event that wakes the situation again.
+
+The interaction does not require a user to remain in a chat with Tend.
+
+---
+
+
+
+## A business gives Tend a list of people to contact
+
+An owner or employee gives Tend a list of thirty people, identifies the product, and explains the desired outcome: introduce the product, understand whether it is relevant, answer questions, follow up when useful and bring back people who want a meeting or are ready to buy.
+
+Tend creates one situation model for each person. It does not create one conversation for the entire list because each person's identity, source, history, response, interest and next step are different.
+
+Tend checks the information and authority available before sending anything. It uses the business's product knowledge and communication rules. If a required fact or permission is missing, it creates the appropriate human work or wait instead of guessing.
+
+Each person's situation then follows its own path. One person receives an introduction. Another needs an answer from an employee. Another asks for pricing. Another requests a meeting. Another does not respond and reaches a configured follow-up or escalation point.
+
+The business sees artifacts for the list and for each individual storyline. It can filter for situations waiting for a reply, open one person's evidence and history, search for all pricing questions, inspect why a situation stopped, or give Tend a new instruction.
+
+When a reply, employee answer, external-agent result or time event arrives, only the affected situations wake and re-enter the decision loop.
+
+If the list came from an external lead-finding agent, that agent is an external service. Tend evaluates its output as sourced information and coordinates the resulting situations. Tend does not silently treat the agent's output as truth, permission or instruction.
 
 ---
 
@@ -1279,7 +1349,11 @@ It also helps ensure that Tend does not take ownership of problems that belong s
 
 ## What belongs to Tend
 
-Tend is responsible for understanding customer situations.
+Tend is responsible for receiving relevant events and opening or updating the business situations those events affect.
+
+Tend is responsible for maintaining one storyline for each situation, even when that storyline includes several conversations, people, systems, agents and time-based changes.
+
+Tend is responsible for understanding business situations, not only customer situations.
 
 Tend is responsible for gathering information from the appropriate sources.
 
@@ -1291,6 +1365,8 @@ Tend is responsible for determining whether enough information exists to continu
 
 Tend is responsible for recommending or performing the next business action when permitted.
 
+Tend is responsible for watching active situations and triggering the next permitted behaviour when a relevant event changes them.
+
 Tend is responsible for involving people when human judgement is required.
 
 Tend is responsible for communicating with business systems and communication platforms.
@@ -1299,13 +1375,19 @@ Tend is responsible for recording important business events, decisions and outco
 
 Tend is responsible for explaining how it reached a recommendation or decision.
 
-Tend is responsible for deciding which channel it may use to start a message on its own.
+Tend is responsible for coordinating the operational work between the business, its people, its systems, its communication channels, its external partners and its external agents.
+
+Tend is responsible for showing the state of that work as searchable and inspectable artifacts: situation state, changes, waits, asks, evidence, decisions, responsibility and outcomes.
+
+Tend is responsible for selecting a permitted communication path for the next interaction, using the channel and permission rules that apply.
 
 Not every channel allows a business to contact a customer first.
 
-Tend is responsible for knowing those rules and choosing the channel the customer has agreed to.
+Tend is responsible for knowing those rules and choosing a path that the business is allowed to use for that actor and situation.
 
-Tend is responsible for watching the journey of each person, so that a prospect is not treated as a customer and a returned customer is not treated as new.
+Tend is responsible for watching the journey of each person, so that a prospect is not treated as a customer and a returning customer is not treated as new.
+
+Tend is responsible for handling business-directed communication with a named or selected contact when the business has supplied the purpose and the necessary authority. This includes answering, following up, arranging a meeting and continuing into purchase or onboarding when the required capabilities exist.
 
 ---
 
@@ -1316,6 +1398,10 @@ Tend is responsible for watching the journey of each person, so that a prospect 
 Tend does not define how a business operates.
 
 Tend does not create business policies.
+
+Tend does not decide the business's strategy: who the ideal customer is, which market to target, what product or price to offer, or whether a campaign is commercially worthwhile.
+
+Tend does not need to own lead discovery or scraping as a core responsibility. A business may use an external lead-finding service or agent. Tend may coordinate that service and the situations created from its output, subject to source, privacy, permission and business rules.
 
 Tend does not decide who owns the business.
 
@@ -1339,13 +1425,15 @@ Tend does not transport messages.
 
 It sends and receives messages through communication platforms.
 
-Tend does not own customer identities.
+Tend does not own canonical actor identities.
 
 It uses the identities provided by the business and its identity systems.
 
 Tend does not control external services.
 
 It requests information or actions from them.
+
+It does not treat an external agent's output as truth, permission or an instruction merely because the agent produced it.
 
 Tend does not decide how an external partner performs its work.
 
@@ -1398,6 +1486,8 @@ Does Tend need to own this responsibility?
 Can Tend coordinate the work instead of owning it?
 
 Will taking this responsibility make Tend responsible for something outside its purpose?
+
+Is this a new event or capability that Tend should coordinate around an existing situation, or is it a business strategy that the business itself must decide?
 
 If the answer to the last question is yes, the feature should be reconsidered before moving into design.
 
@@ -1829,15 +1919,15 @@ These dimensions help us understand where future complexity will come from.
 
 
 
-## More customers
+## More situations and relationships
 
-The business may serve more customers.
+The business may have more customers, prospects, employees, partners, systems and external agents involved in its work.
 
-More customers create more conversations.
+That creates more active situations, not just more conversations.
 
-More conversations create more decisions.
+Tend should continue carrying each storyline without allowing one situation, relationship or business to affect another incorrectly.
 
-Tend should continue helping the business understand each situation without allowing one customer's work to affect another customer's work.
+The business may also create many related situations from one event, such as giving Tend a list of thirty people to contact. Each person needs an independent situation model while the business still needs an aggregate artifact showing the whole assignment.
 
 ---
 
@@ -1861,7 +1951,7 @@ Tend should help employees work together without creating confusion.
 
 
 
-## More conversations
+## More interactions and situations
 
 The number of active conversations may increase.
 
@@ -1891,7 +1981,7 @@ Tend should be able to work with changing business systems without changing its 
 
 ## More communication channels
 
-Customers may contact the business through additional channels.
+People and organisations may communicate with the business through additional channels.
 
 Email may be joined by WhatsApp.
 
@@ -1899,9 +1989,9 @@ WhatsApp may be joined by web chat.
 
 Future channels may also be added.
 
-The way customers contact the business may change.
+The way people contact or are contacted by the business may change.
 
-The responsibility of understanding the customer should not.
+The responsibility of understanding the situation should not.
 
 ---
 
@@ -1949,7 +2039,9 @@ New logistics partners may be introduced.
 
 New internal software may be connected.
 
-Tend should continue coordinating work regardless of which external systems participate.
+External agents may also be connected to find information, enrich a lead, perform a task or return a result after an unpredictable wait.
+
+Tend should continue coordinating work regardless of which external systems or agents participate.
 
 ---
 
@@ -1997,7 +2089,7 @@ The same core serves a single founder and a large team. The difference is how mu
 
 The same is true across countries and languages.
 
-The part of Tend that understands the customer is the same everywhere.
+The part of Tend that understands the situation is the same everywhere.
 
 What changes from market to market is which channels are popular, what the rules allow a business to send on its own, and which systems the business already uses.
 
@@ -2021,11 +2113,11 @@ If a future feature falls into one of these areas, we should first decide whethe
 
 ## Running the business
 
-Tend helps businesses operate.
+Tend operates the communication and coordination work that the business has delegated to it.
 
-It does not operate the business.
+It does not decide the business's strategy.
 
-Business strategy, pricing, hiring, financial decisions and company policies remain outside the scope of Tend.
+Business strategy, target selection, pricing, hiring, financial decisions and company policies remain outside the scope of Tend.
 
 ---
 
@@ -2066,6 +2158,22 @@ Tend applies business policies.
 It does not decide what those policies should be.
 
 The business remains responsible for defining them.
+
+Tend may apply a policy to a situation, but it does not invent a policy because the situation is ambiguous.
+
+### Owning lead discovery or marketing strategy
+
+Tend may coordinate a lead-finding capability that the business has connected or may receive a list from an external agent.
+
+It does not decide the business's ideal customer, choose a market strategy, purchase data without authorization or independently invent a campaign.
+
+The communication and coordination of a business-directed situation can belong to Tend even when the source of the contact belongs to another system or agent.
+
+### Unbounded or prohibited communication
+
+Tend does not send indiscriminate bulk messages, bypass channel rules, ignore consent or hide the purpose of a communication.
+
+Business-directed outreach is not automatically outside Tend. It is governed by the same requirements as every other action: a clear situation, a permitted purpose, usable information, appropriate authority, channel rules, traceability and a visible fallback when it cannot proceed.
 
 ---
 
@@ -2139,7 +2247,7 @@ These questions form the starting point for Level 2.
 
 # Understanding the Situation
 
-What does it mean to understand what a customer is actually asking, and how do we recognise when the customer's stated problem is not the real problem?
+What does it mean to understand what an actor is asking or what an event changed, and how do we recognise when the stated problem is not the real problem?
 
 How do we determine whether multiple messages belong to the same situation, and whether two seemingly different conversations are actually related?
 
@@ -2222,6 +2330,8 @@ How do we ensure different employees reach consistent decisions?
 The phrase “Decision Making” in this backlog means selecting **Project X’s next behaviour**, not deciding the business’s final outcome.
 
 Project X may decide to gather, wait, watch, ask an actor, communicate, create human work, escalate, invoke a capability, resolve a situation or stop safely. The business remains responsible for its goals, policies, decisions and accountability.
+
+The decision loop may begin because a user asked Tend to do something, but it may also begin because an event changed an active situation. Tend's agency is the ability to continue the loop and trigger the next permitted behaviour without requiring a new user prompt for every step.
 
 Decision Making selects an intended behaviour. The system control layer enforces capability rules, authorization, approval, timeouts, execution and operational state. The reasoning model may propose a behaviour and explain its reasoning, but it does not control those enforcement mechanisms.
 
@@ -2348,6 +2458,8 @@ The delegation and role-change questions originally listed under "Business View 
 
 How do independent actors work together?
 
+How do events move work between independent actors and wake the correct situation?
+
 How do we coordinate long-running work?
 
 How do we know that a piece of work is still active?
@@ -2424,6 +2536,8 @@ How do we observe the health of the overall system?
 
 How do we recognise that the system is behaving unexpectedly?
 
+How should the business observe active agency without reading every agent conversation?
+
 ---
 
 
@@ -2452,15 +2566,17 @@ How do we evolve Tend without breaking existing businesses?
 
 Two research threads are reserved for the time before the Architecture category is attempted, because they will shape how the agent surface is designed.
 
-### 1. Agent memory and agency research
-Study products and material on agent memory and heavy-agent behaviour before defining the architecture, so the design builds on what already exists rather than re-inventing it. Specific threads named during the conversation:
+### 1. Event-driven agency, memory and agent behaviour research
+Study products and material on event-driven agency, agent memory and heavy-agent behaviour before defining the architecture, so the design builds on what already exists rather than re-inventing it. The important question is not only how an agent answers a prompt. It is how the complete system notices a change, decides that a situation must wake, carries its state forward and acts inside a granted range. Specific threads named during the conversation:
 
 - Hermes agent — its ideas on agent behaviour and capability.
 - Super memory — how an agent's long and working memory is actually organised.
 - Bodhi.ai and similar products — products that carry a very high repertoire for agents, memory, and agentic things; what they assume about agency and memory.
 - General agentic-memory and agency-heavy product research.
+- Event-driven systems that react to changes without a user remaining in a chat.
+- Artifact-oriented products that show living work as objects, views and status rather than as transcripts.
 
-The point is to inform how "Tend has agency inside a granted range" is expressed in the architecture, and how memory and the reasoning surface cooperate.
+The point is to inform how Tend's agency is expressed in the architecture, how memory and the reasoning surface cooperate, and how the user sees and intervenes in active work without becoming the runtime router.
 
 ### 2. Prompt engineering
 Research how the agent's operating instructions are engineered and governed, because this is where the agent's constitution lives — what it is allowed to do, how it argues a consequence, and where the deterministic system overrides it. This is deliberately placed after the conceptual Level 2 work and before the Architecture category, because the prompt surface can only be designed once the responsibilities it sits on top of are known.
@@ -2483,6 +2599,8 @@ Which responsibilities coordinate other responsibilities?
 Which responsibilities are event-driven?
 
 Which responsibilities are request-driven?
+
+How should event-driven agency and request-driven work meet at the situation boundary?
 
 Where should state exist?
 

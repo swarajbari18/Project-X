@@ -10,7 +10,7 @@ This document is the map for the Coordination category. The individual question 
 
 Coordination answers one question:
 
-> How does a situation that involves several actors, systems and pieces of work stay coherent and alive over time, without drifting, duplicating or dying silently?
+> How does a situation that involves several actors, systems, agents and pieces of work stay coherent and alive over time, without drifting, duplicating or dying silently?
 
 It is the bookkeeping side of the shared waiting spine. Time (the sibling category) is the firing side.
 
@@ -22,9 +22,11 @@ The central model:
 
 The situation sits in a graph of situation models. Context edges (undirected) say "work one of these and you should see the other." Journey edges (directed) say which situation followed which. Routes, understand, gather and decide all operate on records inside this graph.
 
+An event can create one situation or many related situations. For example, an owner's instruction to contact thirty people creates thirty person-specific situations and one aggregate assignment artifact. The situations remain independent, but Coordination keeps their relationship visible.
+
 Coordination connects independent actors by the waits between them. Each wait is a named record with a subject, reason, resume trigger, release policy and escalation. The canonical spine is in [how_do_we_represent_work_that_is_waiting.md](how_do_we_represent_work_that_is_waiting.md).
 
-A situation is alive because it is running, or because it is waiting/blocked with a named reason and a resume trigger, or because its situation-level check-in will wake it. Once resolved and closed it is never reopened; new work on top of it becomes a new card that references it.
+A situation is alive because it is running, or because it is waiting/blocked with a named reason and a resume trigger, or because its situation-level check-in will wake it. A message, system change, employee answer, external-agent result or time event may wake it. Once resolved and closed it is never reopened; new work on top of it becomes a new card that references it.
 
 ## The four states
 
@@ -59,7 +61,7 @@ The explicit states are defined in [how_do_we_know_a_piece_of_work_is_still_acti
 
 Coordination does not:
 
-- create situation models or decide which problem a message belongs to (that is Understanding and the router);
+- decide the meaning of an event or which problem it belongs to (that is Understanding and the router);
 - split a conversation that contains several problems into situations (that is Understanding's routing decision);
 - decide whether an action is allowed (that is Authority and Ownership);
 - perform communication (that is Communication);

@@ -108,6 +108,28 @@ Decision Making does not enforce authorization. It does need to receive authoriz
 
 The LLM should not invent capability timeouts, bypass controls, or directly mutate operational state. It should propose a behaviour and explain the context behind that proposal. The system remains responsible for enforcing what actually happens.
 
+## Agency and the event loop
+
+Decision Making does not run only after a user sends a prompt.
+
+An event may change an active situation: a person replies, an employee provides information, a payment arrives, a delivery changes, another agent returns a result, a deadline arrives or a scheduled check-in fires.
+
+That event wakes the situation and gives Decision Making a new situation version. Tend then selects the next permitted behaviour from the latest state without requiring the business to direct every intermediate step through chat.
+
+This is the centre of Tend's agency.
+
+Agency belongs to the complete system, not to the reasoning model by itself. Durable situation state, event handling, information gathering, evidence, policies, capabilities, communication, waiting, human work and deterministic control all participate in agency.
+
+The user may create or change a situation by giving Tend an instruction. After that, Tend owns the operational continuation inside the granted range. If it cannot continue, it asks, waits, escalates or stops visibly.
+
+## One event, many situations
+
+An event may create several related situations.
+
+For example, an employee may give Tend a list of thirty people and ask it to introduce a product. The event creates thirty person-specific situations, not one conversation. Each situation re-enters Decision Making independently when its person replies, its follow-up date arrives or its information changes.
+
+The business may see an aggregate artifact for the assignment, but the decision is made against each person's situation model. A list-level view does not flatten the different stories.
+
 ## The questions in plain language
 
 ### 1. What does “enough information” mean?
@@ -169,6 +191,8 @@ It does not mean removing legitimate human discretion.
 ## Working decisions
 
 - Decision Making selects Project X’s next behaviour.
+- Decision Making may be triggered by a user instruction or by an event that changes an active situation.
+- Tend continues the decision loop autonomously within the business's granted range; a user does not need to prompt every intermediate step.
 - It does not decide the business’s desired outcome.
 - It does not enforce authorization or permission mechanics.
 - It does consume the results of authorization, execution, timeout and failure handling.

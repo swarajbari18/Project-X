@@ -1,6 +1,6 @@
 # Research: what a business owner feels and wants, and the stakeholder journeys
 
-Working research document. Purpose: capture the *felt* picture (breadth) and the *numbers* (depth) behind what a business owner wants from an inbound-communication + operations system, and the journeys of non-customer stakeholder personas. This document is split into two clearly-marked halves so you can tell where each conclusion came from.
+Working research document. Purpose: capture the *felt* picture (breadth) and the *numbers* (depth) behind what a business owner wants from an event-driven communication + operational-coordination system, and the journeys of non-customer stakeholder personas. This document is split into two clearly-marked halves so you can tell where each conclusion came from.
 
 Status legend: [Breadth = social signal] [Depth = published figures] [Inference] [Guess].
 
@@ -22,7 +22,9 @@ Method: this pass was run with **Grok** in the open Chrome tab (grok.com) on the
 2. **Being the one-person bottleneck.**
    - (a) Social signal: trades/service owners come off a job at 6 pm, check the phone, and know most of the day's inquiries are gone. Virtual receptionist experiments fail because customers want real answers, not "someone will call you back."
    - (a) Social signal (and coaching echo): "Work stops when you're away," "Every decision, every approval, every customer conversation goes through one person."
-   - (b) Inference: they want the routine coordination (gather truth, decide next step, route back) to keep moving without their presence, with escalation only for what truly needs them.
+   - (b) Inference: they want the routine coordination (gather truth, decide next step, communicate,
+     route back, and wait for events) to keep moving without their presence, with escalation only
+     for what truly needs them.
 
 3. **No single truthful view.**
    - (a) Social signal: "tab roulette," "front-counter chaos," switching between email, texts, Facebook/Instagram DMs, Shopify, QuickBooks, carrier tracking. "Nobody has the full picture." WISMO ("where is my order") dominates support volume because status is not visible.
@@ -54,7 +56,7 @@ Stakeholder relationships are **lower-volume, higher-stakes, document- and deadl
 
 Method: this pass was run with the assistant's own web search and page-fetch tools, not Grok. Sources are mixed publisher/vendor figures; treat them as illustrative ranges, not audited truth, and re-verify before quoting as product claims.
 
-### B1. Missed inbound (the "bottleneck / anxiety" fear)
+### B1. Missed inbound and missed business events (the "bottleneck / anxiety" fear)
 
 - Small businesses miss an average of **62% of inbound calls** (BIA); home-services higher at 62–70% (Invoca); after-hours often 85%+. (CallJolt 2026)
 - Average revenue lost to missed calls: **~$75,000/yr** (industry figure per CallJolt); for a service business doing 30 calls/week at $500 avg ticket and missing 62%, ~$156,000/yr.

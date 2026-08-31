@@ -18,7 +18,7 @@ We found they are really different kinds of rule over the same data,
 plus one framework the founder needs:
 
 - Compliance: which rules govern the data and messages that flow between
-  Tend, the business, the customer, and the connected systems?
+  Tend, the business, its actors, and the connected systems?
 - Security: how do we make a product safe where an LLM proposes actions
   against business data?
 - The audit framework: how does the founder check, at each stage of building,

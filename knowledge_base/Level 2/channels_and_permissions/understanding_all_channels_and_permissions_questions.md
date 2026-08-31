@@ -19,12 +19,12 @@ These are not the same responsibility. Channels is about transport-and-consent. 
 
 ## The spine, in plain words
 
-> **The core never picks a channel; a communication-manager adapter layer carries every message on whatever the business already uses. Replying stays where the conversation is. Starting a new message is the only gated case, and it is gated by consent and by the channel window. What any person sees is governed by a pre-written, narrow default that the law requires, which the business may only widen inside a legal white-list it does not control.**
+> **The core never treats a channel as the business situation. A communication-manager layer carries each permitted interaction on whatever the business already uses. A reply stays where the conversation is. Starting a new message is a separate gated case, whether it is a customer update, employee request, partner communication or business-directed prospect contact. What any person sees is governed by a pre-written, narrow default that the law requires, which the business may only widen inside a legal white-list it does not control.**
 ## The four Level 1 questions and where each answer lives
 
 1. **How does Tend represent what each channel allows a business to send?** — A per-channel rule record (can we initiate? reply? which window? which template category?) held by the communication-manager adapter layer. The core is channel-agnostic; channel is a configurable adapter, not business logic. A channel window is a wait on the shared spine. See [`how_should_tend_represent_what_each_communication_channel_allows_a_business_to_send.md`](how_should_tend_represent_what_each_communication_channel_allows_a_business_to_send.md).
 
-2. **How does Tend record consent and the customer's preferred channel?** — Consent is split by direction. An active conversation is not a consent problem; an employee is not a consent problem; only initiating a new customer conversation is gated by consent **and** by the channel window. The preferred channel becomes meaningful only for initiating. See [`how_should_tend_record_consent_and_the_customers_preferred_channel.md`](how_should_tend_record_consent_and_the_customers_preferred_channel.md).
+2. **How does Tend record consent and the external actor's preferred channel?** — Consent and permission are split by actor, direction and message purpose. An active conversation is different from a new business-initiated contact. The preferred channel becomes meaningful when Tend must initiate. See [`how_should_tend_record_consent_and_the_customers_preferred_channel.md`](how_should_tend_record_consent_and_the_customers_preferred_channel.md).
 
 3. **How does Tend choose between replying in the current channel and starting a message in another?** — Reply stays in the current channel. Starting a message follows an ordered, gated sequence (preferred → template+consent → email → human/wait). A blocked initiate is a routing decision, not a refusal. See [`how_should_tend_choose_between_replying_in_the_current_channel_and_starting_a_message_in_another_channel.md`](how_should_tend_choose_between_replying_in_the_current_channel_and_starting_a_message_in_another_channel.md).
 
@@ -59,7 +59,7 @@ Channels and Permissions does not:
 - Market/channel adapters: [`../../research/global_market_readiness.md`](../../research/global_market_readiness.md)
 - Wait spine: [`../coordination/how_do_we_represent_work_that_is_waiting.md`](../coordination/how_do_we_represent_work_that_is_waiting.md)
 - Authority default range: [`../authority_and_ownership/understanding_all_authority_and_ownership_questions.md`](../authority_and_ownership/understanding_all_authority_and_ownership_questions.md)
-- **Journey and Lifecycle** — nurture/follow-up in scope, outreach out; the concept of a channel *window* this category formalised onto the wait spine.
+- **Journey and Lifecycle** — bounded follow-up, nurture and business-directed communication are in scope; unbounded targeting strategy is not. This category formalised the concept of a channel *window* onto the wait spine.
 - **Authority and Ownership** — effective permission = grant ∩ owning-system permission; Tend only reduces access, never expands; the default-range shape for the small business.
 - **Coordination / Time** — the wait spine, onto which a channel initiate-window is a wait.
 - **Explainability and Observation** — the visibility baseline this category builds into per-actor scoping.

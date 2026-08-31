@@ -2,7 +2,7 @@
 
 ## Answer
 
-A message belongs to a situation when it is about the **same operational problem** as that situation.
+An event belongs to a situation when it affects the **same operational problem** as that situation.
 
 An operational problem is one thing the business must understand, gather for, and decide on — with one resolution path.
 
@@ -18,11 +18,11 @@ Two conversations can be **related** without being the **same** situation.
 
 Related means they share context that may matter — same customer, same order, same incident — but they still need **separate** situation models and **separate** resolution paths.
 
-When a message arrives, Tend does two jobs before gathering from business systems.
+When an event arrives, Tend does two jobs before gathering from business systems.
 
-**First — route.** Decide which situation model or models this message updates. Create a new situation when the message starts a new problem.
+**First — route.** Decide which situation model or models this event updates. Create a new situation when the event starts a new problem.
 
-**Second — understand.** Update each affected situation model with what the message adds — known, unknown, conflicting.
+**Second — understand.** Update each affected situation model with what the event adds — known, unknown, conflicting.
 
 If routing is uncertain, Tend does not guess.
 
@@ -94,19 +94,19 @@ Not the customer master record.
 
 ---
 
-## What happens when a message arrives
+## What happens when an event arrives
 
 Step by step. No steps skipped.
 
-**1. Tend receives an event from a communication platform.**
+**1. Tend receives an event.**
 
-The platform (Gmail, WhatsApp, etc.) delivered a message.
+The event may come from a communication platform such as Gmail or WhatsApp, from an owner or employee, from a business system, from an external service or agent, or from Time.
 
-Tend records that it received something.
+Tend records what happened, who or what produced it, and when it happened.
 
 What exactly Tend records is defined in the section “What Tend stores” below.
 
-**2. Tend routes the message to one or more situations.**
+**2. Tend routes the event to one or more situations.**
 
 Tend looks at signals.
 
@@ -115,6 +115,8 @@ Hard signals examples:
 - Reply to a prior Tend-sent message on the same channel (transport link).
 - Explicit reference in text: order number, ticket reference, “about my call yesterday regarding the refund.”
 - Unambiguous match to exactly one open situation for this customer (only one open delivery delay, message says “any update on my delivery?”).
+- An owner or employee instruction names a person, account, product, order, task or external agent.
+- A business-system or external-agent event carries a stable record, operation or situation reference.
 
 If hard signals match one open situation → attach and update that model.
 
@@ -132,13 +134,13 @@ Soft signals examples:
 
 Tend updates a situation model only after the reference is clear enough to route.
 
-Until then, the model may hold: “customer sent a follow-up; which situation is unknown.”
+Until then, the model may hold: “an event was received; which situation it belongs to is unknown.”
 
 Tend asks the customer which order or which issue they mean.
 
 That question is a valid next step.
 
-The customer is a source of truth for what they are asking about.
+The actor or system that produced the event may be a source of truth for what it means, but not necessarily for every fact in the situation.
 
 **4. Tend understands — updates each routed situation model.**
 
@@ -792,7 +794,7 @@ Decisions locked in this answer:
 - Same situation vs related vs unrelated — three distinct relationships.
 - Related situations stay separate models; link for shared context; do not merge by default.
 - When unsure between same and related → separate + link over silent merge.
-- Route and understand share the same inbound context pool; assemble once, two passes.
+- Route and understand share the same incoming-event context pool; assemble once, two passes.
 - Router uses open-situation summaries; understanding uses full models for routed situation(s) only.
 - Default routing candidates are open situations; closed only on explicit reference.
 - Answered is not a situation status; new problem → new situation; same unfinished problem → reopen.
@@ -805,7 +807,7 @@ Decisions locked in this answer:
 
 Mostly the same **pool** of material. Not the same **job**. Not the same **depth** on every open situation.
 
-Route and understand both run at the same inbound moment.
+Route and understand both run at the same incoming-event moment.
 
 They draw from the same available context.
 
@@ -865,11 +867,11 @@ Understanding needs the **full** model for the situation(s) the router picked.
 
 ---
 
-### How inbound context is assembled
+### How incoming-event context is assembled
 
 **Recommended approach: assemble once, two passes.**
 
-**1. Assemble inbound context once.**
+**1. Assemble incoming-event context once.**
 
 Message + customer + available history + open situation summaries.
 
@@ -1053,10 +1055,10 @@ When create is correct: it is genuinely a **new** problem — optionally **link*
 Message arrives
     │
     ▼
-Identify customer (or create identity)
+Identify actor (or create identity)
     │
     ▼
-Assemble inbound context (message, profile, history, open situation summaries)
+Assemble incoming-event context (message or event, profile, history, open situation summaries)
     │
     ▼
 Load OPEN situations as candidates — not full closed history
@@ -1084,7 +1086,7 @@ Gather → may correct route / split / merge / link
 
 ### Decisions locked in this section
 
-- Route and understand share the same **inbound context pool** at ingest time.
+- Route and understand share the same **incoming-event context pool** at ingest time.
 - **Assemble once, two passes** — router then understanding on routed situation(s).
 - Router uses **summaries** of open situations; understanding uses **full models** for routed situation(s) only.
 - Default routing candidates: **open situations** only; closed only on explicit reference.

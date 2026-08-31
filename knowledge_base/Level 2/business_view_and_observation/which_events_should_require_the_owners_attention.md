@@ -2,11 +2,11 @@
 
 ## The short answer
 
-The owner's attention is for the inaction nobody else safely owns. Three classes reach the owner: decisions only the owner can make, owner-risking deadlines or notices, and escalations that drifted past the delegated people. Everything else stays with the delegated employee or role.
+The owner's attention is for a material change or inaction that nobody else safely owns. Three classes reach the owner: decisions only the owner can make, owner-risking deadlines or notices, and escalations that drifted past the delegated people. Everything else stays with the delegated employee or role, while remaining visible in the appropriate situation or assignment artifact.
 
 ## Why this needs an explicit answer
 
-Product Vision names the hardest problem: when the right next step requires a person to act and that person does not act, Tend must make the inaction visible and keep the situation moving until a safe person takes responsibility. But most situations have a delegated employee who is the right person — the owner should not see every one of those. The research adds: the owner fears the *unknown miss*, not the visible workflow. So the filter must be: what reaches the owner is exactly what nobody else safely owns.
+Product Vision names the hardest problem: when the right next step requires a person to act and that person does not act, Tend must make the inaction visible and keep the situation moving until a safe person takes responsibility. But agency also means noticing important events: a prospect replied, a payment arrived, an external agent returned a lead, or a deadline moved. An event does not reach the owner merely because it happened; it reaches them when it changes a decision, creates owner-level risk, or crosses delegated responsibility. Most situations have a delegated employee or an authorized Tend behaviour that is the right next owner — the owner should not see every one of those. The research adds: the owner fears the *unknown miss*, not the visible workflow. So the filter must be: what reaches the owner is exactly what nobody else safely owns or what materially changes the business.
 
 ## The three classes that reach the owner
 
@@ -16,7 +16,7 @@ Product Vision names the hardest problem: when the right next step requires a pe
 
 ## What does not reach the owner
 
-Routine progress, waits that are healthy, hand-offs that moved correctly, delegated approvals inside someone's grant, and operational metrics. These are the delegated layer's business.
+Routine progress, healthy waits, a normal reply that Tend can handle under an existing grant, hand-offs that moved correctly, delegated approvals inside someone's grant, and operational metrics do not interrupt the owner. They remain available through situation, assignment, or search artifacts. These are the delegated layer's business.
 
 ## The "alerts on top" rule
 
@@ -29,7 +29,7 @@ The layered risk computation feeds this filter:
 - **Deterministic base**: stale tracking, deadline passed, open chargeback window, no response past SLA — these are computable and always true.
 - **LLM suggestions**: "quietly at risk" flags (customer going quiet, review risk, dispute forming) — but a suggestion only takes effect when it lands on a deterministic rule. An LLM's self-assessed confidence is never a safety authorization.
 
-So a "customer went quiet" suggestion becomes owner-visible only when a rule (e.g. no response in N days with a pending commitment) supports it.
+So a "customer went quiet" suggestion becomes owner-visible only when a rule (e.g. no response in N days with a pending commitment) supports it. Conversely, a meaningful event such as a prospect accepting a meeting, an employee changing ownership, or an external agent returning a materially relevant lead can surface immediately when it changes the business's next decision.
 
 ## Configuration, not concept
 

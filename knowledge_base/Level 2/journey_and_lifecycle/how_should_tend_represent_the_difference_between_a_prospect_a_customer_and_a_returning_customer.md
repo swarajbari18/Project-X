@@ -2,17 +2,20 @@
 
 ## The short answer
 
-A person's relationship with the business is **derived from the situation graph, not stored in a separate record.** Tend keeps a stable sense of who the person is (identity), but *whether they are currently a prospect, a customer, or a returning customer* is a projection over their situation history. When someone first appears, Tend does not know yet; relationship is discovered through the conversation, exactly like which problem they are raising.
+A person's relationship with the business is **derived from the situation graph, not stored in a separate record.** Tend keeps a stable sense of who the person is (identity), but *whether they are currently a prospect, a customer, or a returning customer* is a projection over their situation history. When someone first appears, Tend does not know yet; relationship is discovered from the evidence in the situation, which may arrive through a conversation, a business instruction, a system event or an external agent.
 
 ## What "prospect, customer, returning" mean
 
 Product Vision fixes the three stages. We keep them minimal:
 
-- **Prospect** — a person who has contacted the business but has never done business with it.
+- **Lead** — a possible contact or opportunity supplied by the business, a system, an event, a partner or an external agent. A lead may not yet have an active relationship with the business.
+- **Prospect** — a person or organisation in a possible commercial relationship who has never done business with it.
 - **Customer** — a person who has done business with the business (a paid order exists, per business rule).
 - **Returning customer** — a customer who comes back after having bought before.
 
-A person who has never done business with the company starts as a prospect. The moment the business can see from its sources that a paid order exists, the person becomes a customer. A later interaction makes them a returning customer.
+A lead may become a prospect when the business opens a commercial situation around them or when the evidence shows that a possible buying relationship exists. The person does not need to contact the business first.
+
+The moment the business can see from its sources that a paid order exists, the person becomes a customer. A later interaction after that purchase makes them a returning customer.
 
 ## Why it is derived and not stored
 
@@ -25,15 +28,17 @@ If the order was placed, the data is read from the business source; the situatio
 
 ## The "unknown" default
 
-When someone first contacts the business, Tend cannot yet say whether they are a prospect, a customer, a returning customer, or a stakeholder who just wants to know how the business is doing.
+When someone or something first creates a situation, Tend cannot yet say whether the person is a prospect, a customer, a returning customer, or a stakeholder who has another relationship with the business.
 
 So the default relationship is **unknown**, and it becomes something through the conversation:
 
 - Tend may **ask for a clarification** when it is genuinely needed;
-- or Tend may **gradually deduce** from the conversation;
+- or Tend may **gradually deduce** from messages, system events, business instructions, source information and other evidence;
 - and it **changes the identity of the concept** as evidence accumulates.
 
-This mirrors Understanding's tiered assignment: hard signals attach or create with confidence; soft signals ask the customer. Discovering who someone is to the business is the same shape as discovering which problem they are raising.
+This mirrors Understanding's tiered assignment: hard signals attach or create with confidence; soft signals ask the relevant actor or keep the relationship unknown. Discovering who someone is to the business is the same shape as discovering which problem they are raising.
+
+The direction of the first communication is not the relationship rule. Inbound and business-initiated are properties of how a situation began. They matter for permission and communication policy, but they do not decide whether someone is a lead, prospect or customer.
 
 ## A customer is not the situation record
 
@@ -42,7 +47,18 @@ A situation is a decision workspace for one open problem. It is not a customer-m
 ## What is configuration, not concept
 
 - The exact rule for "a paid order exists" (the prospect→customer marker) is business configuration, and the source of truth for that event lives in the business system.
+- The exact rule for when a supplied lead becomes an active prospect situation is business configuration. The source, purpose, identity evidence and business instruction must remain visible.
 - We do not add finer stages (cold / engaged / considering / hot) now. Product Vision does not need them, and the research flags "what defines a prospect stage?" as an open question. If a business later needs them, that is a business-configuration extension, not a change to this model.
+
+## Example: one list, three different relationships
+
+An employee gives Tend three contacts from an external lead-finding service.
+
+- The first person is a possible buyer. Tend opens a prospect situation and prepares an approved introduction.
+- The second person is already a customer in the order system. Tend opens a customer situation and does not pitch them as a new prospect.
+- The third person is a supplier contact. Tend opens a stakeholder situation for the supplier obligation instead of treating them as a sales lead.
+
+The source list is the same. The relationship is derived separately for each person from identity, business records, purpose and situation evidence.
 
 ## Related
 

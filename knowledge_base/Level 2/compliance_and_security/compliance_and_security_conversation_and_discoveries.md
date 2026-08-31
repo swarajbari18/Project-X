@@ -37,7 +37,7 @@ Both have to be correlated.
 We did not start empty. Earlier categories left real threads for this one.
 
 - **Channels and Permissions** planted the legal floor:
-  consent-as-law, directional consent (only customer-initiated outbound is gated),
+  consent-as-law, directional consent (business-initiated external contact has additional gates),
   the per-channel rule record, and the white-list legal ceiling
   (GDPR Article 25, DPDP fiduciary). It explicitly left to this category
   the exact per-market minimal scope, consent durations, and the white-list values.

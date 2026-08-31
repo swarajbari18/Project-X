@@ -11,7 +11,7 @@ There are two distinct moments of approval, and asking "when must Tend ask" is o
 1. **Grant-time approval** — this is the approval of a *range* up front. It is not "asking" per action; it happened once, by the configurator. Autonomous in-range actions are approved by the grant.
 2. **Execution-time approval** — this is asking about a *specific* action. Tend must ask when the action is outside the range and there is a person who can approve, or when the grant declares an approver for that capability.
 
-So "when must Tend ask" means: **when the grant itself requires an approver, or when the action falls outside every grant and needs a one-off approval.**
+So "when must Tend ask" means: **when the grant itself requires an approver, or when the action falls outside every grant and needs a one-off approval.** A user does not need to approve every intermediate step of a situation that is already inside a valid grant.
 
 ## What happens when approval is needed
 

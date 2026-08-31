@@ -20,20 +20,41 @@ This is the first read of the category. The per-situation visibility baseline is
 
 Swaraj's frame came from the research and the Product Vision together:
 
-> A business owner does not care about our operational excellence. They care about the **value** we give to their business, and their own business metrics **within the domain of what we are handling**. So Project X is its own "agency" that handles inbound communication and the operational communication inside the business. That is what the owner sees.
+> A business owner does not care about our operational excellence. They care about the **value** we give to their business, and their own business metrics **within the domain of what we are handling**. So Project X is its own "agency" that handles communication and the operational work around the business situations it owns. That is what the owner sees.
 
-So the owner-facing view is not "here is how efficient Project X is." It is "here is the state of your business journey: what came in, what is stuck, what is at risk, what needs you." That is the axis this category runs on.
+So the owner-facing view is not "here is how efficient Project X is." It is "here is the state of your business work: what changed, what is progressing, what is stuck, what is at risk, what needs you." That is the axis this category runs on.
+
+The later comparison with chatbot-style agents made an additional point clear. The owner should not return to Tend through a chat every time they want to know what happened. Tend's agency must be visible through artifacts that remain current while Tend works: situation cards, assignment views, state changes, waits, pending questions, evidence, decisions, handoffs and outcomes.
+
+Chat remains useful as a search and intervention surface. The owner can ask it to find situations or explain a decision, but the artifacts carry the business state.
 
 ## The research that shaped this
 
-We ran a breadth-first research pass on what a business owner feels and wants from an inbound-communication + operations system (Grok, mining X / Reddit / Facebook / owner forums), then a depth-first pass for the concrete numbers behind those feelings. The full record is in [`../../research/research_owner_stakeholder_journeys.md`](../../research/research_owner_stakeholder_journeys.md).
+We ran a breadth-first research pass on what a business owner feels and wants from a communication + operational-coordination system (Grok, mining X / Reddit / Facebook / owner forums), then a depth-first pass for the concrete numbers behind those feelings. The full record is in [`../../research/research_owner_stakeholder_journeys.md`](../../research/research_owner_stakeholder_journeys.md).
 
 The four felt themes that came out strongest:
 
 1. **"Nothing is silently stuck or missing"** — surface open prospects, orders, at-risk customers, unanswered threads, chargeback/review risk in one view, so the owner can sleep without wondering what they missed. The fear is the *unknown* miss (an unread message, a stalled order, a closed chargeback window, a customer who "quietly left").
 2. **"Things keep moving without me being the bottleneck"** — show progress and hand-offs that happened while the owner was offline, with clear ownership of next steps, and escalate only the things that truly need the owner.
-3. **A single truthful picture of the customer journey instead of scattered tabs** — one place that stitches inbound communication + internal truth, so nobody reconstructs the story by hunting across systems.
+3. **A single truthful picture of the business work instead of scattered tabs** — one place that stitches communication, events, and internal truth, so nobody reconstructs the story by hunting across systems.
 4. **Early, calm risk flags rather than overnight surprises** — reputation, payment, and "customer going quiet" signals, each with enough context and a suggested next step so that anxiety drops instead of rising.
+
+## The assignment artifact
+
+When an owner gives Tend a list of people to contact, the owner does not need thirty separate chats. Tend should produce an assignment artifact that shows the current state of the work and links to each individual situation.
+
+The artifact may show:
+
+- the number of situations created and their current states;
+- who has not been contacted because information or permission is missing;
+- who has received an introduction and who replied;
+- who needs an employee answer;
+- who asked for a meeting or is ready to buy;
+- who is waiting for a follow-up event;
+- who is blocked, escalated or closed; and
+- what changed since the owner last looked.
+
+Opening one item reveals that person's storyline, not a generic campaign transcript. The aggregate helps the owner orient and search. The individual situation remains the place where Tend makes the next decision.
 ## The correction: this is not operational metrics
 
 The depth research surfaced many concrete *operational* numbers (tickets per 1,000 orders, cost per contact, response-time conversion lifts, chargeback cost per dollar). These are the levers that produce business value, but the owner does not look at them directly. The owner-facing view must show the *business value* that those levers create — and must never show operational excellence for its own sake.

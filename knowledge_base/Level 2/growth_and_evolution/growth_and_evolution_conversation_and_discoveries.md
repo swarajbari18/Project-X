@@ -57,11 +57,12 @@ Both relevant invariants were checked and they are *facts* invariants: "Every de
 
 ## Working decisions
 
-- A capability is one purposeful action the business can switch on, from a pre-built catalogue.
+- A capability is one purposeful action the business can switch on, from a pre-built catalogue. It may belong to a business system, communication platform or external agent.
 - New capabilities join through one lifecycle: request → evaluate → author → contract → validate → test → enable → monitor → retire.
 - Capability authoring is product-team work over connector tool definitions. No LLM-led auto-integration.
 - The chosen design is the *phasing* version of the configuration plan: pre-written templates and parameters first; the governed zone grows as we learn from real businesses.
-- A new business system enters the catalogue as a capability: a source + a grant scope + an authority contract, gathered into Tend's situation model.
+- A new business system or external agent enters the catalogue as a capability: a source + a grant scope + an authority contract, gathered into Tend's situation model.
+- When an external lead-finding agent returns a list, Tend does not need to own the finding operation. Tend evaluates the returned claims, creates the relevant individual situations and carries the communication and operational work that follows.
 - Business policies are typed, versioned records; the business fills values inside product-defined structures; pinned at situation open with notice and deliberate migration.
 - Workflows are constrained procedures over the shared spine; versioned like process engines; in-flight situations run the version they started with.
 - Change semantics is the four planes: facts live; platform rules live + interrupt; grants live; policies/workflows pinned with notice and human migration.

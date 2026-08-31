@@ -4,6 +4,8 @@
 
 The Level 1 category asks how we explain recommendations, actions and failures, what is visible to whom, how we reconstruct a finished situation, and how we watch system health. When we opened the batch, the status-quo pass found that most of the *recording* machinery already existed elsewhere: claims carry provenance, the situation record is versioned with immutable reasons and run-ID-linked traces, Failure puts declared outcomes into an audit, Communication already decided who gets how much explanation. What had no home was the *viewing* side (who sees what, at what depth) and the *noticing* side (is the system itself behaving).
 
+The product correction made during this pass is important: Tend is an event-driven agency layer, not a collection of chat threads. A business owner may give Tend a list of people to contact, and Tend may create one situation model per person, receive replies at different times, wait on employees or external agents, and continue each story independently. The owner therefore needs assignment and situation artifacts, state changes, attention items, evidence, and outcomes. Chat remains a useful search and intervention surface, but it must not be the primary mental model or the only visibility path.
+
 ## The two redirects that shaped this batch
 
 **Redirect one — observability is not explainability, and the builder is a viewer too.** Swaraj split my initial "one spine, two readings" frame open: explainability gives a decision-maker a reason; observability is the product builder's complete view of how the system works in dev and production — including hidden reasoning, kept for tuning prompts, tools and fine-tuning adapters. The product team is a first-class interactor with deeper access than anyone. Health watching splits into two hulls: the provider hull (did the model regress or drift?) and the harness hull (did our own orchestration start misbehaving?). And he named the concrete case this batch must answer: user asks for package status, no shipping source exists, the loop gathers something adjacent and answers about payment instead — and nothing catches it.
@@ -48,5 +50,4 @@ And these conclusions are not just honesty — they are **product signal**: log 
 
 - The research record behind this batch: [`research/observability_explainability_and_finetuning_research.md`](../../research/observability_explainability_and_finetuning_research.md)
 - The map: [`understanding_all_explainability_and_observation_questions.md`](understanding_all_explainability_and_observation_questions.md)
-
 

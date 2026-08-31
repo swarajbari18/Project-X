@@ -135,6 +135,32 @@ The other actors perform their own responsibilities.
 
 The next decision is made from the latest situation version, evidence state, applicable policy, available capabilities, time context and consequence of the possible behaviours.
 
+## The correction from the virtual-agent comparison
+
+The later comparison with chatbot-style virtual agents exposed one more part of the category.
+
+A chatbot usually waits for a person to send the next instruction. Tend may receive an instruction from a person, but after the situation begins, the next decision may be triggered by any relevant event: a reply, a system change, an employee answer, an external-agent result, a deadline or a scheduled check-in.
+
+Tend's agency is the complete loop that follows:
+
+```text
+An event changes a situation
+        ↓
+The situation model is updated
+        ↓
+The latest evidence, policy and authority are gathered
+        ↓
+Tend selects the next permitted behaviour
+        ↓
+The behaviour runs, waits, creates work or communicates
+        ↓
+The result becomes another event
+```
+
+This is why the primary user surface cannot be a collection of chats. The business needs artifacts that show situations, state changes, waits, asks, decisions, responsibility and outcomes. A chat with Tend is useful for searching, inspecting or instructing, but the business should not have to remain in that chat to keep the work moving.
+
+The example of a list of thirty people makes this concrete. One owner instruction creates thirty situation models. Each person may reply, ask a different question, request a meeting, buy, go quiet or require an employee. The situations continue independently. The owner sees the assignment as an artifact and opens an individual storyline when a decision or explanation is needed.
+
 ## Research discovered for later
 
 This conversation revealed later research areas that belong in the relevant Level 1, research and implementation work:
@@ -151,4 +177,3 @@ This conversation revealed later research areas that belong in the relevant Leve
 - and consistency measurement.
 
 The existence of these research items does not prevent us from answering the conceptual Decision Making questions. It means the answers must clearly distinguish shared product principles from defaults that require later evidence.
-

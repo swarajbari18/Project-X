@@ -1,14 +1,14 @@
-# What does it mean to understand what a customer is actually asking?
+# What does it mean to understand what an actor is asking or what an event changed?
 
 ## Answer
 
-Understanding means Tend holds an explicit, holistic model of the customer situation.
+Understanding means Tend holds an explicit, holistic model of the current business situation.
 
-Building this model is how Tend determines what the customer is actually asking.
+Building this model is how Tend determines what an actor is asking, what an event changed and what the business is trying to achieve.
 
-The model is built from everything already available — the new message, prior messages, what the business knows, and what the business has already told this customer.
+The model is built from everything already available — the triggering event, prior messages or events, what the business knows, what the business has already communicated, and what other actors or systems have done.
 
-The model covers both sides of the conversation — the customer and the business.
+The model covers the situation as a whole — the relevant people, systems, agents, business purpose and operational history.
 
 It names what is known, what is unknown, and what conflicts.
 
@@ -22,9 +22,9 @@ Understanding does not wait for unknowns to be resolved.
 
 ## Why this definition
 
-Level 1 asks what it means to understand what a customer is actually asking.
+Level 1 asks what it means to understand what an actor is asking and what an event changed.
 
-Level 1 also says Tend must understand before it gathers, decides, or replies.
+Level 1 also says Tend must understand before it gathers, decides, communicates or acts.
 
 But Level 1 never defined what "understand" means — or how determining what the customer is asking fits into that work.
 
@@ -34,11 +34,11 @@ There is no separate step after modeling where Tend "determines the ask." The mo
 
 ### Why a model — not readiness to act
 
-When a new message arrives, Tend often cannot know the correct next step yet.
+When a new event arrives, Tend often cannot know the correct next step yet.
 
 The next step might be to gather more information.
 
-The next step might be to ask the customer which order they mean.
+The next step might be to ask an actor which situation or outcome they mean.
 
 Those are valid outcomes — but they only become clear after the situation has been modeled.
 
@@ -48,21 +48,21 @@ Level 1 treats them as separate. This definition keeps them separate.
 
 Understanding produces the model. Deciding uses the model. Those are different jobs.
 
-### Why holistic — not customer-only
+### Why holistic — not message-only
 
-A situation is not just what the customer said in one message.
+A situation is not just what one actor said in one message.
 
-The business already knows things about this customer.
+The business already knows things about the people, systems and work involved.
 
-The business may have already told the customer something on another channel.
+The business may have already communicated something on another channel.
 
-An employee may have spoken to this customer before.
+An employee, partner or external agent may have acted before.
 
-All of that shapes what the situation actually is — and what the customer is actually asking.
+All of that shapes what the situation actually is, what changed and what can safely happen next.
 
-A model that only captures the customer's words would miss half the picture.
+A model that only captures the latest message would miss half the picture.
 
-The model must hold both sides — what the customer brings and what the business brings.
+The model must hold the event, the actors, the business context and the operational state.
 
 ### Why explicit unknowns and conflicts — not completeness
 
@@ -82,11 +82,13 @@ It does not pick a side silently.
 
 That follows Level 1's rule: Tend does not invent missing information and does not hide conflicting information.
 
-### Why what they are asking and what is true are both in the model
+### Why the event, the requested outcome and what is true are all in the model
 
-The model holds two kinds of content:
+The model holds several kinds of content:
 
-**What the customer is asking** — what they want, what they said, what they believe to be true.
+**What the initiating actor or event means** — what someone wants, what they said, what changed, or what a system reported.
+
+**The business's intended outcome** — what the owner or employee asked Tend to help achieve.
 
 **Situation facts** — what is actually true about the case from available sources.
 
@@ -102,42 +104,44 @@ Resolving it — grounding facts, verifying beliefs — happens in gathering, th
 
 ---
 
-## What feeds understanding when a message arrives
+## What feeds understanding when an event arrives
 
-Understanding does not receive only the new message.
+Understanding does not receive only the latest message or event.
 
-A customer will not write the full context every time.
+An actor or system will not provide the full context every time.
 
-They switch channels. They send short follow-ups. They assume the business already knows.
+People switch channels. Systems emit partial changes. Agents return incomplete results. Owners give short instructions and assume the business context is already known.
 
-When a message arrives, understanding receives everything already available:
+When an event arrives, understanding receives everything already available:
 
-- The new message
-- Previous messages from this customer, across channels (WhatsApp, email, etc.)
-- What the business knows about this customer (profile, orders, recent activity)
-- What the business has already told this customer
-- What employees have said to this customer before — when that history matters to this situation
+- The triggering event
+- Previous messages and events across channels and systems
+- The identity and role of the actor or system that produced it
+- What the business knows about the people, products, orders and work involved
+- What the business has already communicated or done
+- What employees, partners or external agents have said or done before — when that history matters to this situation
 
-Understanding reasons over all of that and produces a situation model.
+Understanding reasons over all of that and produces or updates a situation model.
 
-That is how Tend determines what the customer is actually asking.
+That is how Tend determines what the event means and what the situation now requires.
 
 ---
 
 ## What the model holds
 
-**Customer side:**
+**Actor and event side:**
 
-- What the customer is actually asking
-- What the customer said
-- What the customer believes to be true
+- What the actor is asking or what the event reports
+- What the actor or system said or changed
+- What the actor or system believes or claims to be true
 
 **Business side:**
 
+- What the business is trying to achieve in this case
 - What the business knows about this case
-- What the business has already told this customer
+- What the business has already communicated or done
 - What is in business systems (orders, payments, dispatch status, etc.)
-- What employees have said or done — when relevant to this situation
+- What employees, partners or external agents have said or done — when relevant to this situation
 
 Every fact in the model is in one of three states:
 
@@ -151,7 +155,7 @@ Every fact in the model is in one of three states:
 
 Understanding works with what is already available. It does not fetch new information.
 
-It does not ask business systems. It does not ask employees. It does not ask the customer.
+It does not ask business systems. It does not ask employees. It does not ask an actor.
 
 Those belong to gathering — the step that uses the model to fill unknowns and resolve conflicts.
 
@@ -186,6 +190,20 @@ Understanding builds the model. It does not reply.
 **Conflicts:** Empty for now — or populated if the WhatsApp promise conflicts with the dispatch date in the system.
 
 That is understanding. The model exists. Many slots are unknown. That is valid.
+
+## Example: a business instruction creates many situations
+
+An owner gives Tend a list of thirty people and says:
+
+> "Introduce our product, answer questions, follow up when useful and bring me the people who want a meeting."
+
+The triggering event contains a business goal and a set of possible participants, but it does not contain the complete story for any one person.
+
+Understanding creates one situation model per person. Each model records the person, the source of the contact, the product or purpose, what is known, what is missing, what communication is permitted, what has happened and what next behaviour is being considered.
+
+The list is an initiating event, not one conversation. Later replies, employee answers, external-agent results and time events update the individual situation they belong to.
+
+The business can see an aggregate artifact for the assignment and open each person's separate storyline. The aggregate does not replace the individual models, and the individual models do not force the employee to read thirty chats.
 
 ---
 

@@ -8,7 +8,7 @@ Level 1 says the same core serves every business and "the difference is how much
 
 The test is one sentence: **if adding or changing a knob requires changing core logic, the knob was mis-categorised.**
 
-- **Core** = the responsibilities that are the same for every business: understand the situation, gather, verify, decide the next behaviour, coordinate, communicate, trace. These never change.
+- **Core** = the responsibilities that are the same for every business: receive relevant events, understand the situation, gather, verify, decide the next behaviour, coordinate, communicate, wait, wake and trace. These never change.
 - **Config** = everything that differs between businesses and markets: which connectors are enabled, which channels, which policy values, which workflow templates, which people hold which grants.
 
 ## What a configuration item is
@@ -23,6 +23,7 @@ The product pre-writes: the schemas, the capability catalogue, the legal room (t
 
 - One-person business: one seat, the owner. Everything runs on the default range. There is no configuration screen to care about — already decided by Authority's default range, reused here.
 - A 12-person team: the owner adds roles, narrows grants, enables the connectors each person needs, fills policy values. Same core, more configuration.
+- A sales team: the owner enables a lead-finding capability, gives Tend a product and a target list, and grants Tend permission to introduce the product and follow up within defined limits. The owner is configuring the situation's purpose and permitted behaviour; they are not creating a new kind of Tend.
 - A business asks to configure something the registry cannot express, for example "if a delivery is delayed, silently tell the customer it is on time". This is refused. It is not a configuration gap — it would violate never-guess and traceability. The invariants are a hard line no configuration crosses.
 
 ## The invitation and the gap

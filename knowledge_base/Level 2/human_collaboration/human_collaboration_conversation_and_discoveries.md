@@ -30,7 +30,7 @@ The partner may have its own people, responsibilities, meetings, approvals, dead
 
 Tend must support the journey from prospect to customer to support, but that is only one journey.
 
-There is also a partner journey, an employee journey, an owner journey, an investor or stakeholder journey, and other inbound journeys from people who want information or analysis without intending to buy anything.
+There is also a partner journey, an employee journey, an owner journey, an investor or stakeholder journey, and other event-, instruction-, or inbound-initiated journeys from people who want information or analysis without intending to buy anything.
 
 The important correction was:
 

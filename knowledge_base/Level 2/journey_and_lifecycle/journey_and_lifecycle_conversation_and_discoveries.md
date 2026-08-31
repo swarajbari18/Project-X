@@ -23,7 +23,7 @@ So the Level 1 questions "how should a conversation that contains several proble
 
 Swaraj's starting frame was: a person is not a single fixed label at the moment they first contact a business.
 
-The Product Vision already says the journey is: a person who has never done business with the company starts as a prospect; a prospect becomes a customer; a customer who comes back is a returning customer. And Tend must "hold the journey" — the owner cares about prospects waiting, buyers close to a decision, deliveries stuck, customers at risk.
+The Product Vision already says the journey is: a person who has never done business with the company may become a prospect; a prospect becomes a customer; a customer who comes back is a returning customer. And Tend must "hold the journey" — the owner cares about prospects waiting, buyers close to a decision, deliveries stuck, customers at risk.
 
 But when we examined the knowledge base, the situation graph and the situation record already decided:
 
@@ -34,7 +34,7 @@ So there was a visible gap. The graph holds the story of each operational proble
 
 ## The discovery: identity is carried by the actor, not by the links
 
-The correction came from the existing rule plus Swaraj's next thought: *"whenever someone comes, we cannot actually classify them as stakeholder or prospect at the start ... we can keep the identity as empty and slowly either ask for a clarification after a while, or slowly deduce through the conversation which of these they are, and change the identity."*
+The correction came from the existing rule plus Swaraj's next thought: *"whenever someone comes, we cannot actually classify them as stakeholder or prospect at the start ... we can keep the identity as empty and slowly either ask for a clarification after a while, or slowly deduce through the conversation which of these they are, and change the identity."* The same uncertainty applies when the situation starts from an owner instruction, a list, a system event or another agent rather than from an incoming message.
 
 That aligned exactly with what Understanding the Situation already records: a situation model is state about a problem, not about a person; the actor who interacts carries identity (and can be "identify customer or create identity"). So:
 
@@ -67,15 +67,20 @@ This fits the existing "tiered assignment" in Understanding: hard signals attach
 
 The situation model therefore has to hold **both** commercial and non-commercial relationships, because it cannot know at the start which one a new contact is. The journey derivation and the owner's Business View must both work for the unknown state, the commercial lifecycle, and the non-commercial stakeholder relationships.
 
-## The three-stage commercial lifecycle (from Product Vision, unchanged)
+## The commercial lifecycle (corrected)
 
 Product Vision fixes the stages and we deliberately keep them minimal:
 
-- **Prospect** — a person who has contacted the business but has never done business with it.
+- **Lead** — a possible contact or opportunity supplied by the business, a system, an event, a partner or an external agent.
+- **Prospect** — a person or organisation in a possible commercial relationship who has never done business with it. They do not need to have contacted the business first.
 - **Customer** — a person who has done business with the business (e.g. a paid order exists, per business rule).
 - **Returning customer** — a customer who comes back after having bought before.
 
+Inbound and business-initiated are properties of how a situation began. They matter to communication permission and policy, but they do not define the relationship.
+
 We do not add finer stages (cold / engaged / considering / hot) because the knowledge base research flags "what defines a prospect stage?" as an open question and Product Vision does not need it. If a real business later needs finer stages, that is a business-configuration extension, not a change to this model.
+
+The list or source that introduced a person remains visible. A lead is not automatically a prospect, and a prospect is not automatically interested. Tend must distinguish what the business wants from what the person has actually said or done.
 
 ## The stakeholder relationships (non-commercial journey)
 
@@ -89,11 +94,15 @@ So the person-view must hold two shapes at once:
 ## Decisions made (working, pending review)
 
 - The situation graph and situation model remain the source of truth for agent execution, the conversation manager, and the story of the situation.
+- A situation can begin from an incoming interaction, a business instruction, a system event, an external-agent result or Time. It does not require a customer message.
+- Tend's agency is the event-driven continuation of the situation: when relevant state changes, the situation wakes, the decision loop runs and Tend triggers the next permitted behaviour without requiring a new user prompt.
+- A business instruction to work a list creates separate situation models for the individual people, plus an aggregate artifact for the assignment.
 - Tend is a coordinator, not a CRM; it may create entries in an external CRM *per business rules*, but our situation graph stays ours and stays the truth for the agent.
 - The person-level journey is **derived**, not stored. No separate relationship record.
 - Every new contact is **unknown** first; relationship (commercial stage or stakeholder type) is deduced or asked, and the identity changes as evidence gathers.
 - The situation model explains the story completely, including which business-source events (order placed, paid, delivered, feedback given) mark a stage change.
 - The commercial lifecycle is three stages only: prospect, customer, returning customer.
+- A supplied lead is not automatically a customer or a prospect. Tend uses identity, purpose, source and business evidence to determine whether a commercial situation exists.
 - Non-commercial stakeholders are held as **situations** with a relationship-type tag, not as lifecycle stages.
 
 ## What remains open (configuration and research, not conceptual gaps)

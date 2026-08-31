@@ -2,31 +2,42 @@
 
 ## The short answer
 
-**Outreach is out of scope; nurturing/follow-up is in scope but only for people who came to the business.** Nurturing gives value about something the person already asked about, at a cadence the business configures, and only when the business decides it can be done well. It is not sales, not marketing, and not cold prospecting.
+**Follow-up, nurture and business-directed outreach can all be situations Tend coordinates.** The boundary is not whether the person contacted the business first. The boundary is whether the business has supplied a clear purpose, target, permitted behaviour and continuation rules, and whether Tend can act within the applicable authority, source, privacy and communication constraints.
 
 ## The three things are not the same
 
-- **Outreach (out of scope).** Researching lead lists, writing cold messages to people who do not know the business, pitching "we solve this." These people never came to Tend. Communication already says cold outbound and unrelated prospecting are outside Tend's core purpose.
-- **Nurturing / follow-up (in scope).** A person (prospect or customer) came to the business first. For example, a prospect asks about a running shoe and Tend tells them the price. For the next two to three days, or on a business-configured weekly cadence, Tend follows up: "You asked about the shoe — are you still interested? Want me to schedule a call with our representative? There's an offer." This is value — giving them useful information about something *they* asked about — not marketing, not pushing an unrelated product.
-- **Inbound (the core).** The person reached out to the business. Everything else is anchored to this. Inbound remains the most important part; even if follow-up and nurture are removed from scope entirely, inbound stands.
+- **Unbounded prospecting (not a Tend responsibility by default).** Choosing the market, inventing the ideal customer, buying lists, scraping the internet or deciding a campaign strategy are business or external-agent responsibilities. Tend may coordinate a capability that performs one of these jobs when the business connects and authorises it, but it does not silently assume that responsibility.
+- **Business-directed outreach (in scope when bounded).** An owner gives Tend a list of people, a product, a reason for contacting them and the permitted next steps. Tend creates one situation per person, prepares or sends communication when allowed, handles replies, waits for follow-up events, escalates and records the outcome.
+- **Nurturing / follow-up (in scope).** A prospect or customer has an active situation and the business has a useful next interaction in mind. The interaction may answer something they asked, provide an agreed update, check whether they are ready, offer a meeting or continue a purchase. Tend follows up because the situation and its policy require it, not because a universal timer says to send another message.
 
 ## The rules we are setting
 
-1. The trigger is always a person who **came to the business** and asked about something.
-2. The follow-up must be **about what they asked about** (value, not a pitch).
-3. The cadence comes from **business configuration** (a daily window for a few days, a weekly "still interested / want a call?" sweep), not from a universal timer.
-4. Follow-up only happens if the business rules say it is allowed; **if we cannot nurture properly, we do not nurture.**
-5. Channel use respects the compliance matrix — outreach on WhatsApp outside a CSW/FEP requires an approved template + opt-in, so nurture defaults to **email** (or to WhatsApp only inside an open window / with consent).
+1. The trigger may be an incoming interaction, a business instruction, a system event, an external-agent result or time.
+2. The situation must contain a clear purpose and target. Tend must not invent either.
+3. The next interaction must be useful for the situation, not merely generated because a cadence exists.
+4. The cadence and continuation rules come from business configuration or the explicit task instruction, not from a universal timer.
+5. Follow-up only happens if the business rules, authority, source restrictions and communication rules allow it. **If Tend cannot communicate properly, it does not communicate.**
+6. Every person gets an individual situation model. A list-level artifact aggregates the work but never replaces the separate storylines.
 
 ## Why this line matters
 
-The knowledge base has an apparent tension: Communication says "cold outbound and unrelated prospecting are outside core purpose," while the prospect journey expects nurture and Product Vision expects following up when it adds value. This decision resolves it: the line is **relationship-based** — someone who came to the business and asked is eligible for value-driven follow-up at a business-chosen cadence; someone who never came is outreach and is out.
+The knowledge base had an incorrect tension: Communication and this question treated "cold outbound" as a product boundary, while Authority, Coordination, Time, External Services and the business's direct instruction already supported bounded business-directed work. The corrected line is **responsibility-based**. Tend owns the communication and operational coordination of a business-directed situation. The source of the target may belong to the business, a CRM, a partner or another agent. Strategy, unrestricted targeting and unbounded scraping do not become Tend's responsibility automatically.
+
+## Walkthrough: thirty supplied contacts
+
+An owner gives Tend a list of thirty contacts and says:
+
+> "Introduce this product, use only the approved product information, answer questions, follow up once after three days if there is no reply, and bring me anyone who wants a meeting."
+
+Tend creates thirty situations. One person replies immediately. One asks a pricing question that needs an employee. One asks for a meeting. One is already a customer and must be routed to a customer situation instead of being pitched as a new prospect. One cannot be contacted through the chosen channel and becomes a visible wait or approval item.
+
+The owner sees an assignment artifact with the current state of all thirty situations. Opening one person shows the complete storyline, evidence, messages, wait, next responsibility and reason for the next action. The owner does not need to maintain thirty chats.
 
 ## What stays open
 
 - The exact cadence and window per business is configuration (this conversation used "two or three days" and "weekly" as examples, not constants).
 - How feeding a follow-up interacts with channel compliance is a Channels-and-Permissions concern (later category).
-- Whether nurture is in the first version at all is a product decision; inbound stands alone either way.
+- Whether particular outreach capabilities are available in the first version is a product decision. The conceptual responsibility remains in scope when the business supplies the situation and Tend has the capability and authority to carry it.
 
 ## Related
 

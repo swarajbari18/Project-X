@@ -8,14 +8,14 @@ This is the map for the Journey and Lifecycle category. The conversation record 
 
 ## The spine, in plain words
 
-> **The situation graph is the source of truth for the agent, the conversation, and the story. A person's journey (prospect → customer → returning, or a stakeholder relationship) is derived from that graph, not stored anywhere separate.**
+> **The situation graph is the source of truth for the agent, the conversation, and the story. A person's journey (lead / prospect → customer → returning, or a stakeholder relationship) is derived from that graph, not stored anywhere separate. A situation may begin from a conversation, a business instruction, a system event, an external-agent result or Time.**
 
 The Level 1 questions for this category are mostly already answered by the categories that came before. The one genuinely new decision is *where the person lives against the situation graph*. Answer: the person is an identity-bearing anchor; the *relationship* is a projection over their situations.
 
 ## The five Level 1 questions and where each answer lives
 
 1. **How should Tend represent the difference between a prospect, a customer, and a returning customer?**
-   As a derived relationship, computed from the person's situation history using the three Product-Vision stages (prospect → customer → returning). See [`how_should_tend_represent_the_difference_between_a_prospect_a_customer_and_a_returning_customer.md`](how_should_tend_represent_the_difference_between_a_prospect_a_customer_and_a_returning_customer.md).
+   As a derived relationship, computed from the person's situation history using the Product-Vision stages (prospect → customer → returning), with a separate lead state for a possible contact before a commercial relationship is established. See [`how_should_tend_represent_the_difference_between_a_prospect_a_customer_and_a_returning_customer.md`](how_should_tend_represent_the_difference_between_a_prospect_a_customer_and_a_returning_customer.md).
 
 2. **How should one customer have several open situations at the same time?**
    Already answered by Understanding the Situation: many situations per customer, one message attaching to several, split early, link by operational context. The person-view is derived; the many situations stay separate. See [`how_should_one_customer_have_several_open_situations_at_the_same_time.md`](how_should_one_customer_have_several_open_situations_at_the_same_time.md).
@@ -39,6 +39,7 @@ The Level 1 questions for this category are mostly already answered by the categ
 ## What this category does not decide
 
 - The definition of situation models, asks, routing, or linking (Understanding).
+- The agency runtime, event fabric or artifact implementation (Architecture and later product design). This category only defines how a person's journey is derived from the situations that Tend carries.
 - Wait mechanics, timers, release policies (Coordination / Time).
 - Which events specifically require the owner's attention (Business View).
 - Channel-specific initiate/reply windows such as WhatsApp CSW and Free Entry Point (Channels and Permissions + research/wa_compliance.md).

@@ -21,7 +21,7 @@ We did not start cold. Several earlier categories already drew boundaries that p
 
 - **Communication** explicitly said channel transport, initiate/reply mechanics, and legal consent are NOT its job. It listed them in *what this category does not decide*, pointing at Channels and Permissions and Level 3. Its status also says channel-specific rules live at Level 3 — a phrasing it wrote before this category existed, which we re-scoped (below).
 - **Meetings and Human Availability** used "inform / absolute" messaging and multi-participant contact, but deliberately did not pull in channel. It says this category owns the channel.
-- **Journey** already used the concept of a channel *window* for nurture and pointed here to formalize it. It also ruled outreach out of scope: nurture/follow-up is in scope only for people who came to the business.
+- **Journey** already used the concept of a channel *window* for nurture and pointed here to formalize it. Its earlier rule that outreach was automatically out of scope was corrected: the source of a contact does not define Tend's boundary. Bounded business-directed communication may be in scope; channel permission and compliance still govern it.
 - **Authority** gave us the grant frame: effective permission = what the grant allows ∩ what the owned system allows. Fewer only reduce access, never expand.
 - **Communication** ruled the LLM is not the authority for whether a message is permitted, whether a recipient sees information, or whether consent exists. Those are deterministic checks.
 - The research files (`wa_compliance.md`, `channel_compliance_matrix.md`) already hold verified channel facts: WhatsApp CSW/FEP window, template-only outside a window, no-initiate on Telegram, email initiate-with-consent. **`global_market_readiness.md`** already said the core must be channel-free adapters with compliance as a per-tenant matrix.
@@ -49,14 +49,14 @@ I had framed Q2 as "what is the consent record?" as if it were one heavy thing. 
 
 The word "consent" does not mean one thing. What it means depends on *who is on the other side* and *which direction the message goes*:
 
-| | Customer | Employee | External partner |
+| | Customer or prospect | Employee | External partner |
 |---|---|---|---|
 | **Replying** (the conversation is already there) | Implied. Stay on the current channel. No consent record needed. | Implied by the job. Use their chosen work lane. | Implied by the arrangement. |
 | **Initiating** (reaching out) | Real gate: consent **and** channel window (WhatsApp template, email opt-in). | Not consent — the business's own authority over its people. | Business-controlled, scoped to what the task needs. |
 
 Two simplifications fell out:
 
-- **An active customer conversation is not a consent problem.** They came to us. If every reply required a recorded consent check we'd be adding machinery to something trivial.
+- **An active conversation is not the same as a new initiation.** A reply stays on the current channel and follows that channel's current rules. It does not become safe merely because the actor once sent a message.
 - **An employee is not a consent problem.** Someone the business employs and expects to use Tend is reachable because of the job, not because they opted in. The employee channel question is a *logistics* question, not a permission question.
 
 But two gates remain real, and we did not blur them away: **consent** and **what the channel lets you send** are separate gates, and the channel gate bites even when consent is clean. WhatsApp can say "template only" for a customer who would love to hear from us. Simplifying consent does not remove that gate; it removes one of the two.
@@ -68,14 +68,14 @@ When Tend must start a conversation with an employee (needs a decision, an answe
 
 - Each employee has a stored **reachability preference** (which lane they use) — same shape as Meetings' intent: stored, expiring, override-able.
 - Tend always has a **guaranteed fallback lane** (email) that never gets blocked, so reaching an employee never dead-ends.
-- Email is the always-anchor because it binds to a verified identity and is also how Meetings reaches them anyway (Google Meet / Zoom / any call needs an email). A workspace chat (Google Chat, or Slack/Teams if the business uses it) is the real-time action lane. WhatsApp is mostly already covered by the customer conversation itself and is a poor lane for Tend-initiated internal work because it hits the same initiation wall.
+- Email is the always-anchor because it binds to a verified identity and is also how Meetings reaches them anyway (Google Meet / Zoom / any call needs an email). A workspace chat (Google Chat, or Slack/Teams if the business uses it) is the real-time action lane. WhatsApp may already carry an external conversation, but it remains subject to the channel's initiation rules whenever Tend starts a new interaction.
 - Which lane is the default stays business configuration, per `global_market_readiness` (channels are adapters, not core logic).
 
-## The customer initiate sequence
+## The business-initiated sequence
 
-When the message must *start* a new conversation with a customer (nurture, follow-up, feedback — all inside the Journey nurture rules, never cold outreach), the choose-channel rule is an ordered list, each rung gated:
+When the message must *start* a new conversation with an external actor (a customer update, nurture, feedback request, partner ask or business-directed prospect contact), the choose-channel rule is an ordered list, each rung gated:
 
-1. The channel the customer has an open, consented relationship on.
+1. The channel the actor has an open, permitted relationship on.
 2. WhatsApp only if a template category matches (utility for operational updates) **and** consent exists.
 3. Email — the safest initiate default (consent + unsubscribe).
 4. If none can fire → that's a routing decision, not a failure: a human decides, or Tend waits.
@@ -127,7 +127,7 @@ We own the permission leg; Level 3 owns the mechanical transport legs.
 - Every reply stays in the current channel.
 - Initiating is the only gated case; it follows the ordered sequence (preferred → template+consent → email → human/wait). A blocked initiate is routing, not refusal.
 - A fallback lane always exists + an absent channel is a visible gap. We never tell an owner a channel is unsupported.
-- Active conversations and active business contacts are not consent problems. Consent genuinely matters only for customer-initiated outbound contact.
+- Active conversations and active business contacts are not all the same permission case. A new business-initiated external message must satisfy the applicable consent, purpose, source and channel rules.
 - A channel window is a wait on the wait spine. Each channel's initiate window opens on an event and fires at a deadline.
 - Employee reachability = reachability preference + a required fallback lane; which lane is a config.
 - Actor visibility = "pre-written scopes + a narrow, governed widen zone + business assignment" (Path 2). Default is narrow by law.

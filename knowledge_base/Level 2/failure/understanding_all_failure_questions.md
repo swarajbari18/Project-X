@@ -44,7 +44,7 @@ There is no hidden state and no silent state. A failure that is not in the audit
 
 When a path breaks and is declared, the system sorts it into *immediate* or *can-wait*. The sorting is not one axis. It is a fixed hierarchy, in this order:
 
-1. **We are the responsible agent first.** Tend is taking agency for the business in this inbound moment. The starting position is that a consequence lands on a real person and a real business.
+1. **We are the responsible agent first.** Tend is taking agency for the business in this situation. The starting position is that a consequence lands on a real person and a real business.
 2. **Then the consequence.** If the concrete consequence of this particular action is bad, we do not do it casually, even if a severity tier says it is "manageable." This is the step where soft, contextual reasoning is often needed — a known sensitive client, an irreversible effect, a large amount of money.
 3. **Then the severity tier.** The consequence is judged inside the P1–P4 idea (outage, core broken, non-core, minor) borrowed from real operations practice.
 4. **Then the promise.** How close we are to breaking an outward promise or an internal deadline decides *when* the matter actually goes loud to a person. This is the two-clock tension: the customer clock stays calm, while the internal clock keeps escalating.

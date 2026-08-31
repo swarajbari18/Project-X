@@ -8,14 +8,16 @@ This is the map for the Business View and Observation category. The conversation
 
 ## The spine, in plain words
 
-> **What the owner sees is the state of the business journey — what came in, what is stuck, what is at risk, what needs the owner — derived from the situation graph. Operational excellence is never shown to the owner.**
+> **What the owner sees is the state of the business work — what changed, what is progressing, what is stuck, what is at risk, what needs the owner — derived from the situation graph. The primary surface is a set of artifacts, not a collection of agent chats. Operational excellence is never shown to the owner for its own sake.**
 
 The per-situation baseline is already decided by Explainability and Observation (D3). This category owns the *aggregate* (cross-situation) owner view and the *owner-attention* filter.
+
+The owner view is not a dashboard that Tend periodically fills with message counts. It is a set of derived artifacts that lets the business inspect and act on living situations. Events update those artifacts; the owner does not need to remain in a chat for the artifacts to stay current.
 
 ## The two Level 1 questions and where their answers live
 
 1. **What should the business owner see in a snapshot of the business journey?**
-   A derived aggregate over the situation graph: prospects waiting / engaged, buyers close to a decision, customers and new customers, stuck orders and late deliveries, at-risk customers, situations nearing or past deadlines, and what needs the owner's attention. Always drillable to the situation-level baseline. See [`what_should_the_business_owner_see_in_a_snapshot_of_the_business_journey.md`](what_should_the_business_owner_see_in_a_snapshot_of_the_business_journey.md).
+   A derived aggregate over the situation graph: active situations, changes, prospects waiting / engaged, buyers close to a decision, customers and new customers, stuck orders and late deliveries, at-risk relationships, situations nearing or past deadlines, and what needs the owner's attention. Always drillable to the situation-level baseline. See [`what_should_the_business_owner_see_in_a_snapshot_of_the_business_journey.md`](what_should_the_business_owner_see_in_a_snapshot_of_the_business_journey.md).
 
 2. **Which events should require the owner's attention?**
    Three classes: decisions only the owner can make (their grant), owner-risking deadlines or notices (tax/compliance, chargeback window, complaint), and journey-level escalations that drifted past delegated people. See [`which_events_should_require_the_owners_attention.md`](which_events_should_require_the_owners_attention.md).
@@ -41,6 +43,7 @@ The per-situation baseline is already decided by Explainability and Observation 
 - Who holds each grant (Authority and Ownership).
 - Failure triage and recovery (Failure).
 - The situation graph and person derivation (Understanding the Situation, Journey and Lifecycle).
+- The artifact interaction and visual product design (later product-design work). This category defines what must be visible and searchable, not the final screen layout.
 - Channel-level initiate/reply windows (Channels and Permissions).
 - Alert thresholds, risk-tier bounds, cadence, and the exact customer-stage rule (business configuration / later research).
 

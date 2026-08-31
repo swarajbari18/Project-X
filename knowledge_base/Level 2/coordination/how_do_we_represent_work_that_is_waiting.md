@@ -26,7 +26,7 @@ Whether a call is pending long enough to need a real recorded wait is decided pe
 
 The situation itself is suspended because one or more tool waits have not returned enough information yet.
 
-Key property: the customer interaction can be released at this point. We sent the interim message, the customer knows what we are waiting on, and the situation stays active on the internal side. The wait is called by the situation because the subject of the wait is really the situation's own readiness.
+Key property: the current interaction can be released at this point. We may have sent an interim message, handed work to an employee, or recorded an internal status artifact. The situation stays active on the operational side. The wait is called by the situation because the subject of the wait is really the situation's own readiness.
 
 ### 3. Time / scheduled wait
 
@@ -49,9 +49,9 @@ Happy note: every wait must name **when** it can be woken. The exact set is:
 2. **reason** — what would change when it fires, what decision becomes possible;
 3. **timing class** — bounded (with a known bound) versus open (nobody knows when), versus date-based;
 4. **resume trigger** — the exact event or time that moves the situation back into the decision loop;
-5. **release policy** — what we do if the customer cannot wait (interim message; the response promise/resolution promise split);
+5. **release policy** — what we do if the current actor cannot wait (interim message, internal status artifact, or handoff; the response promise/resolution promise split);
 6. **escalation path** — what happens if it never fires (remind, change owner, escalate, notify the owner, block);
-7. **visibility** — which actor sees it (customer sees the message; business sees a waiting badge with deadline).
+7. **visibility** — which actor sees it (an external actor may see a message or request; the business sees a waiting artifact with deadline and responsibility).
 
 ## The kinds of wait subject
 

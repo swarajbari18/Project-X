@@ -8,7 +8,7 @@ Once a path is declared broken, the card has to decide whether a person is pulle
 
 Triage is not one axis. It is a fixed hierarchy, and the order is deliberate — each step narrows the question:
 
-1. **We are the responsible agent first.** Tend is taking agency for the business in this inbound moment. The starting position is that a consequence lands on a real person and a real business, so we care about consequences before we care about labels.
+1. **We are the responsible agent first.** Tend is taking agency for the business in this situation. The starting position is that a consequence lands on a real person and a real business, so we care about consequences before we care about labels.
 2. **Then the consequence.** If the concrete consequence of this particular action is bad, we do not do it casually, even if a severity tier says it is manageable. This is where reasoning matters: a known sensitive client, an irreversible effect, a large amount of money. Where this takes soft judgement to see, the LLM argues the consequence explicitly; the deterministic layer decides; and both the argument and the decision land in the audit.
 3. **Then the severity tier.** The consequence is judged inside the P1–P4 idea (outage, core workflow broken, non-core, minor) borrowed from real operations practice. This gives the consequence a standard, comparable shape.
 4. **Then the promise.** How close we are to breaking an outward promise or an internal deadline decides when the matter actually goes loud to a person. This is the two-clock tension: the customer clock stays calm while the internal clock escalates.

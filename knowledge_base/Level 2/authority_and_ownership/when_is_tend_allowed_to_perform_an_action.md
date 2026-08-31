@@ -2,7 +2,7 @@
 
 ## The short answer
 
-Tend is allowed to perform an action when the action is inside its granted range — either the default range or a configured grant — and the action does not cross the invariant line.
+Tend is allowed to perform an action when the action is inside its granted range — either the default range or a configured grant — and the action does not cross the invariant line. The action may be triggered by a user instruction or by an event that changes an active situation.
 
 ## Our answer
 
@@ -15,6 +15,14 @@ There are three cases:
 1. **Inside the default range** → allowed (the default grant is the approval).
 2. **Inside a configured grant** → allowed, possibly routed to the named approver if the grant says so.
 3. **Outside every grant, or crossing an invariant** → not allowed; the tool returns the constraint, Tend tells the requester, and offers to escalate to a person who holds the needed authority.
+
+## Example: a granted situation continues without prompting
+
+An owner grants Tend permission to introduce a named list of prospects by email, answer from approved product knowledge, follow up once after three days and route meeting requests to the sales role.
+
+The owner instruction opens the situations. A reply, a three-day timer or a request for a meeting later wakes an individual situation. Tend may continue automatically because the later action is inside the same live grant. It still checks the current channel rules, target, information and policy before the effect.
+
+If Tend proposes a different product, a new audience or an unapproved commitment, the proposal is outside the grant even if the original instruction was broad. Tend asks, escalates or stops rather than expanding its own authority.
 
 ## The key precision: the check happens before the effect
 

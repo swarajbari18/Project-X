@@ -2,7 +2,9 @@
 
 Compiled from: browser access verification (Grok, Reddit, FB), Grok X-search (2 queries, 47+56 sources),
 Reddit deep-live search + thread, Facebook organic search, and web research on compliance, escalation,
-scheduling, feedback timing, SMB→corporate scaling.
+scheduling, feedback timing, SMB→corporate scaling. This brief is now interpreted through the corrected
+product thesis: Tend is an event-driven agency layer for communication and operational coordination,
+not merely an inbound inbox.
 
 Supersedes the earlier shim. Each topic has a source file keyed under knowledge_base/research/.
 
@@ -18,17 +20,20 @@ Supersedes the earlier shim. Each topic has a source file keyed under knowledge_
 - ⚠️ Nitter dead (X blocks), Reddit API paid — use browser + Grok.
 
 ## 2. Core validated pains (voice-of-customer, multi-source)
-1. **Response-time = money.** Customers message multiple businesses; "whoever responds first wins."
+1. **Response-time = money.** A prospect, customer, partner, or employee may be waiting on the
+   business; "whoever responds first wins" is one instance of a broader no-missed-commitment problem.
    Verified: conversion ~8x if first response <5 min; 47% of companies NEVER respond (XANT/HBR).
    Found on X (India SMB, Malayali, travel), FB (Kenya, SA, Nigeria, Malaysia), Reddit (India SMEs).
 2. **Owner = bottleneck.** Personal WhatsApp used as business channel; "founders shouldn't be the
    operating system"; missed follow-ups; "drop tasks all the time."
-3. **No central context.** Customers repeat order numbers; conversations siloed across channels.
+3. **No central context.** People repeat order numbers; conversations and operational work are
+   siloed across channels, systems, employees, and tools.
 4. **After-hours pressure.** "2AM DMs," expectation of fast reply outside hours; 40%+ bookings happen
    outside business hours.
 5. **WhatsApp IS the business channel** in India/EM (price enquiries, follow-ups, bookings).
-6. **Owners care about funnel metrics** (leads→conversion→revenue, margin, retention) NOT message
-   counts/uptime. (X founders: "every clean metric is just narrative." )
+6. **Owners care about business outcomes and changes** (leads→conversion→revenue, margin, retention,
+   stuck work, deadlines, risk) NOT message counts/uptime. (X founders: "every clean metric is just
+   narrative." )
 7. **Hiring doesn't fix it; SYSTEMS do.** Manual VA / WhatsApp-responses services exist because demand.
 8. **Scheduling is a real recurring pain** (5-8 hrs/week, double-book, no-shows 20-30%, 24h+2h
    reminder cuts 40-60%).
@@ -39,7 +44,8 @@ Supersedes the earlier shim. Each topic has a source file keyed under knowledge_
 - **Order-status semantics** ("delivered" by courier vs "received" vs "verified") — mislabeling risks
   false-delivery complaints.
 - **Data-sharing contract** for external partners — limited data (tracking #) must be enforced, audited.
-- **Nurture ≠ cadence-spam** — nurture should re-qualify; avoid "still interested?" on every lead.
+- **Nurture ≠ cadence-spam** — nurture should re-qualify inside a business-directed purpose; avoid
+  "still interested?" on every lead.
 - **Waiting states** as first-class (order in transit, repair in progress, feedback window) with alarms.
 - **RACI-like ownership/handoff** (sales→support; who owns lead after call).
 - **Multiple open situations per customer** + one conversation can contain several (Level-2 split
@@ -63,9 +69,10 @@ Supersedes the earlier shim. Each topic has a source file keyed under knowledge_
   corporate. (Full doc: smb_vs_corporate_scaling.md)
 
 ## 6. Pain-point "circles" (natural grouping for architecture)
-A. Situation lifecycle (prospect→customer→repeat; waiting states; multi-situation) — THE missing layer
+A. Situation and relationship lifecycle (unknown/lead/prospect→customer→repeat; waiting states;
+   multi-situation; event- and instruction-created work) — THE missing layer
 B. Gather & verify (sources, systems, people, conflicts)
-C. Decision & action (enough-info, next-step, approval rules)
+C. Agency: decision & action (enough-info, next-step, approval rules, event-driven continuation)
 D. Human collaboration & escalation (routing, escalation ladder, scheduling)
 E. Memory & knowledge (KB, history, feedback loop)
 F. Channel & compliance (matrix; per-channel rules)
@@ -74,13 +81,15 @@ H. Owner/governance (admin, snapshot, intervention)
 I. Observability & explainability (trace, explain)
 
 ## 7. Alpha case validation (your own business)
-- You will dogfood: marketing → site/channels → Tend interacts, nurtures, helps sell Tend →
-  first real demo. Everything above (response-time, no-miss, funnel view, WhatsApp/email compliance)
-  must work for YOUR sales channel first. Also need simulation environments for other business types.
+- You will dogfood: site/channels and business-directed assignments → Tend creates situation models,
+  interacts, nurtures within scope, helps sell Tend, and coordinates the next step → first real demo.
+  Everything above (response-time, no-miss, artifact view, WhatsApp/email compliance) must work for
+  YOUR business first. Also need simulation environments for other business types.
 
 ## 8. Recommended next steps (ready to execute)
 1. Turn these findings into a Level-1 update:
-   - Add "Prospect" + "Business Owner/Admin" + "External Partners" as first-class actors.
+   - Add "Lead/Prospect" + "Business Owner/Admin" + "External Partners" + external agents as
+     first-class actors/capabilities.
    - Add "Lifecycle" + "Waiting" + "Meeting" + "Feedback" + "Escalation/Data-scope" as journey chapters.
    - Add channel-compliance as a hard constraint (part of Business rules).
 2. Prioritize 3-5 research-only mini-projects (each 1-2 hrs, browser-based):
@@ -119,5 +128,6 @@ I. Observability & explainability (trace, explain)
   domestic / 10 intl; proactive delay messaging BEFORE complaint; DNR (Delivered-Not-Received)
   workflow; distinguish scan-gap vs real delay. Gives Tend's logistics journey concrete rules + audit.
 - India WhatsApp-inbox layer is a CROWDED ₹1-5k red ocean (ViveLead, Pariq, Whalexy, FloCRM, Tanvik,
-  LeadsLoom, Heep, n8n-DIY). Tend's wedge must be decision/lifecycle/logistics/calendar/owner-funnel +
-  compositional → corporate, NOT a sixth "unified inbox."
+  LeadsLoom, Heep, n8n-DIY). Tend's wedge must be event-driven agency plus
+  decision/lifecycle/logistics/calendar/owner-work-artifacts + compositional → corporate,
+  NOT a sixth "unified inbox."

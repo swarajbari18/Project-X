@@ -8,7 +8,7 @@ This document is the map for the Explainability and Observation category. The co
 
 ## The spine, in plain words
 
-> **One durable record already exists — claims with provenance, versioned situation models, wait records, declared outcomes in the audit, run-ID-linked traces. This category decides who can see that record, at what depth, and how the system watches itself through it.**
+> **One durable record already exists — claims with provenance, versioned situation models, event records, wait records, declared outcomes in the audit, run-ID-linked traces. This category decides who can see that record, at what depth, and how the system watches itself through it. It also makes the record usable as business artifacts rather than leaving it as a wall of chats.**
 
 Two responsibilities live here, and they are different:
 
@@ -24,7 +24,7 @@ The second thread this batch contributed to the whole knowledge base: every ask 
 - [How do we explain every recommendation?](how_do_we_explain_every_recommendation.md) — trace always, explain on demand.
 - [How do we explain every action?](how_do_we_explain_every_action.md) — same rule; shares D1.
 - [How do we explain every failure?](how_do_we_explain_every_failure.md) — Failure's audit, reused; capability-absent joins as a non-failure declaration.
-- [What information should always be visible to the business?](what_information_should_always_be_visible_to_the_business.md) — situation-level baseline + business-value view.
+- [What information should always be visible to the business?](what_information_should_always_be_visible_to_the_business.md) — event-aware situation baseline, artifacts, + business-value view.
 - [What information should only be visible to administrators?](what_information_should_only_be_visible_to_administrators.md) — the configurator's set: configuration, grants/approvals, audit, masked traces without chain-of-thought.
 - [How do we reconstruct an entire business situation after it has finished?](how_do_we_reconstruct_an_entire_business_situation_after_it_has_finished.md) — same data, viewer-dependent rendering.
 - [How do we observe the health of the overall system?](how_do_we_observe_the_health_of_the_overall_system.md) — the observer as first-class responsibility; two hulls.
@@ -37,6 +37,7 @@ The second thread this batch contributed to the whole knowledge base: every ask 
 - **Trust and Evidence**: every claim keeps provenance — the reason coherence checks are nearly free.
 - **Decision Making**: LLM proposal + deterministic decision, both recorded; decision intentions vs operational states.
 - **Failure**: declared outcomes into the audit with evidence, reason and next step; no silent state. This category reuses that audit as its backbone.
+- **Time and events**: a situation can wake because an external actor, system, agent, or deadline changed something; the visible artifact must show that trigger and the resulting next responsibility.
 - **Communication**: who gets how much explanation, when — this category preserves what Communication expresses.
 - **Authority and Ownership**: the configurator role, grants tied to approvers, no-self-grant, per-role visibility narrowing — reused directly for the administrator question.
 - **Coordination / Time**: the wait spine's visibility field, deadlines, check-ins — the ancestors of health observation.
@@ -50,10 +51,9 @@ The second thread this batch contributed to the whole knowledge base: every ask 
 - Who may grant authority or configure the business (Authority and Ownership).
 - Channel-level access control mechanics and masking implementation (Level 3).
 - Dashboards, metrics pipelines, probe infrastructure (Level 3).
-- The owner's journey snapshot view (Business View and Observation — later batch); this category sets only the visibility baseline.
+- The visual product design of the owner's journey snapshot (Business View and Observation — later batch); this category sets the information and artifact baseline, not the final screen layout.
 
 ## Related
 
 - Conversation record: [explainability_and_observation_conversation_and_discoveries.md](explainability_and_observation_conversation_and_discoveries.md)
 - Research: [`../../research/observability_explainability_and_finetuning_research.md`](../../research/observability_explainability_and_finetuning_research.md)
-

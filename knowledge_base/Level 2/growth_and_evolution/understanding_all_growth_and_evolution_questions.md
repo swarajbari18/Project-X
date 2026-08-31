@@ -17,7 +17,7 @@ Underneath both sat one undefined word: "configuration". Every earlier category 
 
 ## The spine, in plain words
 
-> **A capability is one purposeful action the business can switch on, chosen from a pre-built catalogue. New capabilities join through one lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A situation runs the rule versions it opened under; facts, platform rules and who-may-act are always read live; a rule change is prospective and noticed, and its migration is a human decision.**
+> **A capability is one purposeful action the business can switch on, chosen from a pre-built catalogue. It may belong to a business system, communication platform or external agent. New capabilities join through one lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A situation runs the rule versions it opened under; facts, platform rules and who-may-act are always read live; a rule change is prospective and noticed, and its migration is a human decision.**
 
 ## The four planes of change
 
@@ -44,6 +44,7 @@ The change semantics live canonically in [`how_do_we_evolve_tend_without_breakin
 
 - **Channels and Permissions** — the adapter layer, the per-channel rule record, the fallback lane, the visible-gap rule (an absent thing is a build signal, never a refusal).
 - **Authority and Ownership** — the delegated range, the default range for small businesses, "the configurator cannot cross the invariants", the grant lifecycle (authority is live).
+- **Agency** — a capability result or external event can wake a situation and continue the decision loop without a new user prompt.
 - **Decision Making** — what a policy must express; fallbacks explicit, versioned, traceable, safe.
 - **Coordination / Time** — the wait spine, onto which the notice-and-migrate event is a wait.
 - **Memory and Knowledge** — versions never silently overwrite; policy is not learned memory.

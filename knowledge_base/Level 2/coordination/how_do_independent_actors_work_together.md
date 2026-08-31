@@ -2,11 +2,11 @@
 
 ## The short answer
 
-Actors never interact directly. They interact through the situation model, which is the shared coordination record for one operational problem. Actors land their results on that record, waits connect the actors that are far apart in time, and the decision loop is the point where the actors' results are actually combined.
+Actors never need to share one continuous conversation. They interact through the situation model, which is the shared coordination record for one operational problem. Actors land their results on that record, waits connect the actors that are far apart in time, and the decision loop is the point where the actors' results are actually combined.
 
 ## Our answer
 
-Each actor owns its work. An employee answers, a business system returns a claim, a partner investigates, Tend gathers and decides. None of them talks to another directly through some separate pipe. Everything lands on the situation model as a new version of the situation state.
+Each actor owns its work. An employee answers, a business system returns a claim, a partner investigates, an external agent returns research, Tend gathers and decides. None of them needs to own the complete situation. Everything lands on the situation model as a new version of the situation state.
 
 The actors are connected by two things:
 
@@ -29,12 +29,17 @@ The result lands on the situation record as a new claim
 The loop re-runs with the latest state
 ```
 
+An event can also wake a situation without an actor being actively contacted at that moment. A payment update, delivery change, employee response, external-agent result or scheduled time event may be enough to re-enter the loop.
+
+The business does not have to route these events manually through a chat. Tend routes the event to the relevant situation, updates the storyline and triggers the next permitted behaviour.
+
 Nothing waits on a global clock for "everyone to finish." A result is used when it arrives, if it is relevant and authoritative. The hierarchy of the truth decides which ask matters most: ask the source closest to authority first, and fall back to a lower authority only if that fails. This is the source-authority idea from [Trust and Evidence](../trust_and_evidence/understanding_all_trust_and_evidence_questions.md).
 
 ## Two things that keep actors safe together
 
 - **Independence**: work on one situation does not block work on another. Two situations sitting side by side in the graph do not share a process lock.
 - **Traceability**: every result shows which actor produced it and when. This is what makes conflict resolution and "always work with the latest known state" possible (see [Trust and Evidence's conflict handling](../trust_and_evidence/how_do_we_identify_conflicting_information.md)).
+- **Visible agency**: every automatic continuation has a triggering event, a situation, a permitted behaviour and a recorded result. The business can inspect the artifact without reading the reasoning model's private working context.
 
 ## Related questions
 

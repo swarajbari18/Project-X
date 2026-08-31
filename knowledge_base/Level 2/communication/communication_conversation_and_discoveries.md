@@ -4,7 +4,7 @@
 
 This is a conversation record, not a final technical specification.
 
-It preserves the reasoning that led to the current Communication boundary, including the correction that channel rules and implementation details do not belong in Level 2.
+It preserves the reasoning that led to the current Communication boundary, including the correction that channel rules and implementation details do not belong in Level 2, and the later correction that communication may be triggered by Tend's agency rather than by a user prompt.
 
 ## Where we started
 
@@ -33,6 +33,8 @@ The previous categories established this boundary:
 - Communication expresses the selected interaction.
 
 Communication must not quietly take over the responsibilities of the other categories.
+
+It also must not assume that a communication is always a reply. A business instruction, an event in a business system, a time event or an external-agent result may create or change a situation whose next behaviour is communication.
 
 The question “When should Tend communicate?” can sound like a Decision Making question. The distinction is:
 
@@ -85,6 +87,8 @@ The next decision cycle begins
 ```
 
 Communication is the final step of one cycle, but it may start the next part of the journey.
+
+The business should not have to understand this work by reading a raw chat history. Communication produces artifacts and state changes that can be shown to the right actor: the message, the reason, the evidence used, the next responsibility, the wait and the result. Chat is one way to inspect or search those artifacts, not the whole product surface.
 
 ## Recommended communication principle
 

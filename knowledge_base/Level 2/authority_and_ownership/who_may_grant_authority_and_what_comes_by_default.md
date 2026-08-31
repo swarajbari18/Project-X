@@ -30,9 +30,11 @@ The default is not "everything is allowed" and not "nothing is allowed." It is a
 - **Read and understand** what is already in the connected business systems (in a small business the owner already sees everything). The read is capped by what the business itself can read, and it never on its own sends anything outward.
 - **Reply inside an open, non-committal conversation** within the channels the business connected, following the channel rules (for example, inside WhatsApp's customer-service window). Tend sends these replies; this is exactly the "don't miss / reply fast" job the product exists for.
 - **Maintain its own situation and understanding model** — create, update and link its own records of what is happening. That is Tend's own domain and needs no external grant.
-- **Ask for per-call approval** for anything that changes a record a business system owns, starts a new conversation or a nurture step, makes a promise or commitment, spends money, or reveals protected information outward.
+- **Ask for per-call approval** for anything that changes a record a business system owns, starts a new conversation or nurture step outside an existing grant, makes a promise or commitment, spends money, or reveals protected information outward.
 
-The default does **not** include (by default): writing to a system that owns business records without an explicit grant, creating records that other people can see, launching a new conversation with a customer who has not written, making a commitment or spending money, or accessing records that the business rule marks as confidential.
+The default does **not** include (by default): writing to a system that owns business records without an explicit grant, creating records that other people can see, launching a new conversation with an external contact who has not written, making a commitment or spending money, or accessing records that the business rule marks as confidential.
+
+This default is not a product-wide ban on business-directed communication. If the owner explicitly tells Tend, "Use this list of people to introduce this product and follow up under these rules," that instruction can create a one-time grant or activate an already configured capability. Tend still checks the target, source, purpose, channel rules, consent requirements, information visibility, message limits and approval boundary before each effect.
 
 This default is a **configuration default**, not a product invariant. It is meant to be changed by the configurator.
 
@@ -44,6 +46,14 @@ When the configurator wants to let a tool act, they do it by pointing at the too
 - That grant says which capability is involved and **which person (or role) is the approver** for that capability.
 
 The important part: **a grant is approval of the action at the time it happens.** Granting is not "always allow, never ask." It is "when this capability is needed, route the needed approval to this person." So there is no silent drift from "with an approver in the loop" to "run it freely."
+
+## Example: a direct owner instruction
+
+The owner gives Tend a list of thirty email addresses and says, "Introduce our product, answer questions from our approved knowledge, follow up after three days if there is no reply, and bring me anyone who wants a meeting."
+
+The owner has supplied the purpose, the target set and the desired continuation. Tend does not need to ask for a new prompt after every reply or follow-up date. It opens one situation per person and runs each situation inside the grant and the applicable communication rules.
+
+If the instruction does not include enough information to send safely, Tend asks for the missing product facts, permission, target context or approval. It does not turn a vague instruction into a broad permanent campaign.
 
 ## What this resolves
 

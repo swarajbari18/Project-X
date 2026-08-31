@@ -27,7 +27,7 @@ Its responsibility is:
 
 > To express a permitted and useful interaction to the appropriate actor, using the current situation state and only the information that actor should receive.
 
-The interaction may be a reply, question, update, acknowledgement, explanation, correction, notification, escalation, or request for human participation.
+The interaction may be a reply, question, update, acknowledgement, explanation, correction, notification, escalation, request for human participation or a business-directed introduction to a named or selected contact.
 
 ## A correction to the earlier reasoning
 
@@ -108,8 +108,9 @@ How should Tend communicate disagreement between claims without silently choosin
 - Uncertainty is expressed through meaningful states and reasons, not a universal confidence score.
 - Conflicts remain visible and are communicated neutrally when they affect the recipient's understanding or next action.
 - Acknowledgement is not completion. Delivery is not understanding. A response is not necessarily completed work.
-- Proactive communication is in scope when it belongs to an existing business situation, configured journey, commitment, or time-based responsibility.
-- Cold outbound marketing is not part of Tend's core communication responsibility.
+- Communication that starts a business situation is in scope when the business supplies the purpose and target and Tend has the required information, authority and capability.
+- Unbounded targeting strategy, indiscriminate bulk communication, prohibited messaging and communication with no business situation remain outside Tend's permitted behaviour.
+- A later event may trigger communication without a new user prompt. The interaction can begin a situation, continue it or move it to another actor.
 
 ## What this category does not decide
 

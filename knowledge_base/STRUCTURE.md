@@ -374,7 +374,7 @@ The `explainability_and_observation/` subfolder focuses on who can see the durab
 
 - trace always, explain on demand — every important action preserves a reason record; delivery stays audience-dependent (Communication's rules);
 - capability-absent as a declared, non-failure conclusion that also doubles as product signal;
-- the always-visible business baseline (situation-level, plus a business-value view; never operational metrics);
+- the always-visible business baseline (event-aware situation-level artifacts, plus a business-value view; never operational metrics);
 - the administrator/configurator's default set: configuration, grants and approvals, audit trail, masked traces with reasoning summaries but no internal chain-of-thought;
 - reconstruction of finished situations as viewer-dependent rendering (linear for business viewers, graph for builders) of records that already exist;
 - the observer as a first-class responsibility emitting observation events onto the shared event fabric, watching both hulls — provider model drift and harness behaviour;
@@ -382,11 +382,11 @@ The `explainability_and_observation/` subfolder focuses on who can see the durab
 
 The `journey_and_lifecycle/` subfolder focuses on how Tend represents the person against the situation graph. It covers:
 
-- the commercial lifecycle (prospect → customer → returning customer), kept to Product Vision's three stages;
+- the commercial lifecycle (lead → prospect → customer → returning customer), while preserving Product Vision's three user-facing stages after classification;
 - the person-level journey as a derived projection, not a stored record;
-- the "unknown first, tag later" rule for every new contact;
+- the "unknown first, tag later" rule for every new actor or event, whether it comes from a contact, business instruction, system, partner, or external agent;
 - stakeholders (non-commercial relationships) held as situations with an obligation/ask ribbon, not as a lifecycle;
-- follow-up / nurture versus outreach (relationship-based follow-up in scope; cold outreach out);
+- bounded follow-up / nurture / business-directed outreach versus unbounded prospecting (the former can be in scope when purpose, authority, privacy, and channel rules allow it; the latter is not Tend's default responsibility);
 - and pointer documents that reuse Understanding-the-Situation (splitting) and Coordination/Time (waiting) instead of re-writing them.
 
 The `meetings_and_human_work/` subfolder focuses on choosing a person to meet and keeping a reserved human time honest. It covers:
@@ -400,7 +400,8 @@ The `meetings_and_human_work/` subfolder focuses on choosing a person to meet an
 
 The `business_view_and_observation/` subfolder focuses on the aggregate owner snapshot and the owner-attention filter. It covers:
 
-- the derived cross-situation owner view (prospects, buyers close to deciding, stuck orders, at-risk customers, deadlines, what needs the owner);
+- the derived cross-situation owner view (active assignments and situations, prospects, buyers close to deciding, stuck orders, at-risk relationships, deadlines, what needs the owner);
+- artifacts that let the owner search and drill into autonomous work without opening each situation as a chat;
 - the owner-attention filter (decisions only the owner can make, owner-risking deadlines/notices, escalations that drifted past delegated people);
 - the layered risk computation (deterministic base + LLM suggestions that land on a deterministic rule);
 - and a pointer that reserves the per-situation visibility baseline in Explainability and Observation.
@@ -408,7 +409,7 @@ The `business_view_and_observation/` subfolder focuses on the aggregate owner sn
 The `channels_and_permissions/` subfolder focuses on what a business may send on each channel and what each person may see. It covers:
 
 - a channel-agnostic core with a communication-manager adapter layer (channel is transport, not business logic); a fallback lane always exists and an absent channel is a visible, first-class gap, never a refusal;
-- consent as directional — an active conversation and an employee are not consent problems; consent matters only for customer-initiated outbound contact, combined with the channel window (two gates);
+- consent and initiation are directional — an active conversation and an employee may have different gates from a business-initiated contact; every initiated external message is checked against purpose, authority, consent/lawful basis, privacy, and the channel window;
 - reply stays in the current channel; starting a message follows an ordered, gated sequence (preferred → template+consent → email → human/wait); a channel window is a wait on the shared Coordination/Time spine;
 - employee reachability = a reachability preference + a guaranteed fallback lane;
 - and actor visibility as Path 2 — pre-written role/partner scopes with a narrow default, a governed "widen within legal limits" white-list zone, and business assignment of seats and partners (default narrow by law; legal floor carries to Compliance & Security).

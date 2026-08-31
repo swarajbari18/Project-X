@@ -6,7 +6,7 @@ Level 1 asks how a new business system (a CRM, an ERP, a shipping platform, an i
 
 ## The answer, in plain words
 
-A business system joins Tend as a **capability** the business switches on from a **connectors menu**. A capability is one purposeful action — "look up a delivery status", "create a support case", "post a payment update" — that Tend's product team built on top of that system's own tools. It is a tool grouped with a purpose, not every raw API method the system exposes.
+A business system or external agent joins Tend as a **capability** the business switches on from a **connectors menu**. A capability is one purposeful action — "look up a delivery status", "create a support case", "post a payment update", "return candidate leads" or "enrich an account" — that Tend's product team built on top of that system's or agent's own tools. It is a tool grouped with a purpose, not every raw API method the system exposes.
 
 ## The walkthrough (Shiprocket joins)
 
@@ -28,6 +28,19 @@ A new system enters as a new **source** in the source map (Gathering), a new **o
 
 Request → evaluate → author → contract → validate → test → enable → monitor → retire. The *content* differs by type (a channel's contract is its rule record; a policy's is its structure; a workflow's is its procedure), but the lifecycle is the same shape for every kind of thing that joins Tend. This is why this document is the canonical home of joining.
 
+## The walkthrough (an external lead-finding agent joins)
+
+A business already pays for an agent that finds and enriches possible leads.
+
+1. The business requests the capability or connects the agent through the catalogue.
+2. Tend's product team defines what the capability actually returns: identities, contact details, source, timestamp, matching evidence and limitations.
+3. The contract states what the agent may access, what it may return, how long it may take, what it costs and how failures are reported.
+4. Tend validates that returned information is treated as external claims, not as truth, authority or instructions.
+5. The business enables the capability and decides whether its results may create situations automatically or require review.
+6. When a result arrives, Tend creates or updates the relevant situation models and decides what happens next. The business does not need to keep a chat open with the lead-finding agent.
+
+The lead-finding agent remains responsible for finding leads. Tend owns the communication and operational coordination that follows: evaluating the result, opening individual situations, contacting people when permitted, following up, routing questions, arranging meetings and escalating or closing the work.
+
 ## The boundary
 
 - We own the conceptual join lifecycle and the capability catalogue.
@@ -36,7 +49,7 @@ Request → evaluate → author → contract → validate → test → enable �
 
 ## Working decision
 
-New business systems join Tend as capabilities in a pre-built catalogue, through one lifecycle: request → evaluate → author → contract → validate → test → enable → monitor → retire. Capability authoring is product-team work over the system's tool definitions; the business enables and scopes; an absent capability is a visible gap with a fallback, never a refusal.
+New business systems and external agents join Tend as capabilities in a pre-built catalogue, through one lifecycle: request → evaluate → author → contract → validate → test → enable → monitor → retire. Capability authoring is product-team work over the system's or agent's tool definitions; the business enables and scopes; an absent capability is a visible gap with a fallback, never a refusal.
 
 ## Related
 

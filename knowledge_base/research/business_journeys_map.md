@@ -9,50 +9,95 @@ Status legend: [Covered] = vision/level1 already handle it · [Partial] · [Gap]
 
 ## 0. Orientation — what Tend actually is
 
-Tend is a **communication & operational-decision layer** for inbound customer interaction.
-It is NOT sales/marketing/outbound prospecting. But inbound inquiries that *lead* to a sale are in scope.
-It is NOT an ERP/CRM/accounting system — it works alongside them.
+Tend is the **agency layer for a business's communication and operational coordination**.
+It receives events and instructions, builds or updates situation models, gathers what is needed,
+decides within authority, communicates with the relevant actors and systems, waits for the next
+event, and continues until the situation reaches an honest outcome or a person must take over.
+
+This includes customer support and commercial journeys, but is not limited to inbound customer
+interaction. If the owner gives Tend a product, a purpose, and a permitted list of people to
+contact, Tend can coordinate bounded outreach, follow-up, nurture, meeting-setting, and the
+next operational steps. Tend does not need to own lead discovery, marketing strategy, pricing,
+or the business systems that provide the underlying facts. An external lead-finding agent may
+provide candidates; Tend can evaluate the supplied information and own the resulting
+communication and coordination when the business has granted that responsibility.
+
+Tend is NOT an ERP/CRM/accounting system — it works alongside them. It is also not a collection
+of chat threads: one situation is one operational storyline, and one instruction can create many
+individual situation models plus an aggregate business artifact.
 
 Design principle (from user): **composition over enumeration.** Group responsibilities by business logic
 (the things that change together), NOT by computer-science module. No ad-hoc "agent runs raw SQL" CRUD.
 
 ---
 
-## 1. Prospect journey  [Partial]
+## 1. Commercial relationship journey  [Partial]
 
-The user's core point: a person does NOT start as a "customer." They start as a **prospect**.
-Level-1 only has one actor "Customers." This is the biggest framing gap.
+The user's core point: a person does NOT start as a "customer." They may start as an
+unknown actor or a **lead/prospect**, and the source can be an inbound message, a business
+instruction, a CRM event, a partner, or an external lead-finding agent.
 
 Stages:
-1. Inbound inquiry via any channel (WhatsApp / Telegram / email / web chat).
-2. Tend answers from Knowledge Base if answer exists.
-   - KB was created (from past Q&A, docs, FAQ).
-   - If answer does NOT exist → Tend contacts the right employee, gets info, relays to prospect.
-3. Multi-turn: prospect keeps asking questions; same flow repeats (gather → decide → reply).
-4. Tend nurtures based on **prospect stage** (cold / engaged / considering / hot).
-5. Prospect wants human assurance → requests a 1-on-1 call.
-6. Tend schedules a meeting (see Meeting journey).
-7. Prospect either: (a) buys now, or (b) wants time to think.
-   → both require Tend to capture meeting content and compute next follow-up action.
+1. A person or organisation enters a business situation through an event, an inbound inquiry,
+   or an owner/employee instruction. Tend records the source and the intended purpose.
+2. Tend builds one situation model for that relationship and gathers the relevant business
+   knowledge, employee input, system facts, or agent-provided claims.
+3. Tend communicates through an allowed channel when the purpose, authority, source, privacy,
+   and channel rules permit it. This may be an answer to an inbound question or a business-
+   directed introduction.
+4. The relationship and situation evolve through replies, time, meetings, payments, purchase
+   events, or explicit decisions. Nurture is a bounded continuation of a real business purpose,
+   not an unbounded campaign.
+5. The person may ask for human assurance, request a meeting, buy, ask for time, or stop.
+6. Tend schedules and coordinates the meeting or next operational step, captures the outcome,
+   and continues the individual situation when a permitted follow-up is due.
+7. The owner sees an assignment artifact and individual situation artifacts: current state,
+   latest event, next responsibility, waiting reason, evidence, and attention needed. They do
+   not need thirty separate chats to understand thirty paths.
 
 GAPS:
 - What defines "prospect stage"? Who/which rule set? Per-business config?
-- What triggers nurture (time-based? event-based? business rule)?
+- What triggers nurture (time-based, event-based, or business rule), and what ends it?
 - How is "prospect → customer" conversion recorded? Who owns that transition?
-- Opt-in / consent / data-privacy for reaching out (esp. WhatsApp outbound — Meta compliance).
+- How do channel permission, consent, privacy, and business authority constrain an initiated
+  message, especially on WhatsApp and email?
+- Which events and capabilities are available in the first version?
 
 ---
 
 ## 2. Sales / conversion journey  [Partial — under-defined]
 
-- Inbound inquiry turns into intent to buy.
+- A person supplied by the business, an external agent, or an inbound inquiry turns into intent
+  to buy.
 - Payment method matters: UPI prepaid / COD / card / invoice. Changes downstream (logistics, refunds).
 - Post-decision: follow-up with next steps (invoice, order placement, onboarding).
-- This is NOT outbound prospecting. It is inbound-turned-sale.
+- Tend owns the permitted communication and coordination around the sale; the payment/order
+  system remains the system of record.
 
 GAPS:
 - Where does the "order/invoice" live? Tend coordinates, does not own.
-- What happens on abandoned purchase / re-engagement? Business rule window?
+- What happens on abandoned purchase / re-engagement? Business rule window and channel permission?
+
+### Owner-directed outreach walkthrough
+
+The owner says: “Here is our product, here are thirty people, and here is the purpose. Introduce
+the product, answer reasonable questions from our approved knowledge, follow up within these
+limits, and set up a meeting with me when someone is ready.”
+
+Tend creates thirty individual situation models, not one thirty-person conversation. Each model
+has its own identity, evidence, messages, waits, channel constraints, replies, next behaviour,
+and outcome. A separate assignment artifact shows the aggregate: not started, message sent,
+waiting, replied, qualified, meeting requested, meeting booked, converted, stopped, or needs
+the owner's decision. A reply from person 7 wakes situation 7; it does not make Tend re-run or
+expose the other twenty-nine stories. The owner can search for a name, filter by state, inspect
+the evidence behind a recommendation, or intervene in one situation. This is the operational
+shape that the product UI must eventually make visible.
+
+If the business later connects a lead-finding agent, that agent may supply the thirty candidates
+or enrich them. Tend need not scrape the internet itself. It must treat the agent's output as
+sourced information to evaluate, not as truth, consent, authority, or a message to send. Once
+the business has granted the purpose and scope, Tend can own the communication and operational
+thread that follows.
 
 ---
 
@@ -97,10 +142,14 @@ GAPS:
 
 ## 5. Feedback & retention journey  [Gap]
 
-- After delivery, business wants feedback — but with a **window** (e.g., default 2 weeks) so customer has used the product.
-- Channel choice: email is safest (Meta/WhatsApp has rules about agents initiating outbound conversations).
-- Retention: same customer returns → now a CUSTOMER, not a prospect. Only new people are prospects.
-- Conversion rate prospect→customer is low → nurture matters.
+- After delivery, the business may want feedback — but with a **window** (e.g., default 2 weeks)
+  so the customer has used the product. The same pattern can apply to a business-supplied
+  prospect or an employee/customer situation when a clear purpose and permission exist.
+- Channel choice is part of the situation's permission and channel rules; email may be suitable,
+  while WhatsApp and other channels have business-initiated messaging constraints.
+- Retention: the same customer returns → now a CUSTOMER, not a prospect. Only new people are
+  prospects, but the situation may still be newly opened for the returning customer.
+- Conversion rate prospect→customer is low → bounded nurture may matter.
 - Repeat customer / referral / loyalty.
 
 GAPS:
@@ -165,9 +214,13 @@ GAPS:
 - Owner may not have time to set things up → delegates to assistant / family (father → son).
 - Authority & administration hierarchy: who can configure, approve, delegate, revoke.
 - Owner does NOT want "you handled 500 messages" or "uptime 99.9%" dashboards.
-  Owner wants the **lifecycle snapshot**: how many prospects, in nurture, conversions, conflicts, revenue at risk.
-- Owner wants to **intervene** (chat back to Tend, give preference, ask "elaborate on what happened here"),
-  then resume.
+  Owner wants the **business-work snapshot**: how many situations are active, waiting, progressing,
+  converted, conflicted, at risk, or requiring an owner decision.
+- Owner wants to **search and inspect artifacts**, give a preference or instruction, ask
+  "elaborate on what happened here," intervene in one situation, and then let Tend resume.
+- Owner may give Tend a bounded assignment — for example, a product and a list of thirty people
+  to contact — and expect Tend to own the communication and operational follow-through while the
+  owner sees the aggregate and exceptions.
 - Setup: assistant who knows the business sets up channels, KB, rules, integrations.
 
 GAPS:
@@ -187,8 +240,9 @@ GAPS:
 
 ## 11. The Alpha case (dogfood)  [Gap — strategic]
 
-- First real user = the founder. Goal: do marketing → people come to the site/channels →
-  Tend interacts, nurtures, helps SELL Tend → demonstrate the product to prospects via the product itself.
+- First real user = the founder. Goal: make the product available through the site/channels,
+  let Tend handle the resulting customer or prospect situations, and demonstrate Tend by
+  having it coordinate its own bounded commercial follow-through.
 - Tend selling Tend. One actual alpha/pre-product case.
 - Then simulation environments for OTHER business types.
 
@@ -211,7 +265,7 @@ Working hypothesis (verify):
 - Horizontal industries (construction, IT, etc.) are NOT targets; every industry shares the same
   communication/decision layer.
 
-To research: whether corporates have fundamentally different inbound-communication needs
+To research: whether corporates have fundamentally different communication and operational-coordination needs
 (ticketing, SLA, multi-team routing) that a small-biz model must grow into without redesign.
 
 ---
@@ -222,9 +276,10 @@ Principle: group the pain points that naturally occur and change TOGETHER into o
 (Tind the natural seams — compose, don't enumerate.)
 
 Candidate circles:
-A. **Situation lifecycle** — prospect→customer→support→repeat. The through-line that Level-1 lacks.
+A. **Situation and relationship lifecycle** — unknown/lead/prospect→customer→support→repeat,
+   with situations also beginning from business instructions, systems, agents, or time.
 B. **Gather & verify** — know what's known/unknown/conflicting, from systems + people. (Level-2 core.)
-C. **Decision & action** — enough info, which next step, approval rules.
+C. **Agency: decision & action** — enough info, which next step, approval rules, and event-driven continuation.
 D. **Human collaboration & escalation** — routing, escalation ladder, meeting scheduling.
 E. **Memory & knowledge** — KB, situation history, business knowledge, feedback loop.
 F. **Channel & compliance** — each channel's rules for in/outbound messaging.
@@ -237,7 +292,7 @@ These circles map to modules that change together; they should become the seams 
 ---
 
 ## Known unknowns to resolve via research
-1. What does "nurture" mean concretely per business; what triggers it?
+1. What does "nurture" mean concretely per business; what triggers it and what ends it?
 2. Where exactly do order/tracking/payment signals come from (which systems, what cadence)?
 3. Escalation ladder topology across industries.
 4. Meeting-type + availability semantics.
@@ -245,5 +300,7 @@ These circles map to modules that change together; they should become the seams 
 6. Owner dashboard: the real metrics owners care about, in their words.
 7. SMB→corporate: which parts genuinely reform vs extend.
 8. Privacy/data-scoping rules for external-partner contact.
+9. How should assignment, situation, attention, evidence, and outcome artifacts support an owner
+   who is supervising many autonomous situations without opening each chat?
 
 (To be filled in as research returns evidence.)
