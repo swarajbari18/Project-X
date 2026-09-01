@@ -1,4 +1,11 @@
 # When must Tend ask for approval?
+## Note added 2026-09-04 — how the approval path reaches the approver (Fork B ruling)
+
+This document already says the important thing: "The action does not get performed and does not silently wait. Tend goes to the approver through the tool, because the approval path is part of the tool, not the LLM."
+
+The situation-worker fork ruling sharpened the mechanism (study file §11.6, Fork B): for a tool that needs specific confirmation — a yes/no approval button, Cursor-style — the tool, not the agent loop, uses the communication layer (the deterministic side) to run the confirmation flow to the appropriately configured party, and only after the approval comes back does the action complete. The approval flow is configured in advance, codefully, never improvised by the model.
+
+What this means for this document: "goes to the approver through the tool" now has its delivery path. The approval is a message, so it travels through the communication layer — no exceptions, no bypass through the loop. Everything else (grant-time vs execution-time approval, the no-wait-state correction) is unchanged.
 
 ## The short answer
 

@@ -1,4 +1,15 @@
 # When should Tend communicate?
+## Ruling added 2026-09-04 — who expresses, and how (Fork B)
+
+This document already holds the two load-bearing statements: "The boundary is not inbound versus outbound" and "Decision Making selects 'communicate'; Communication determines what useful interaction that intent requires and expresses it."
+
+The situation-worker loop raised a fork: does the worker ever communicate directly? Swaraj ruled it: never — always through the communication layer. His description of the mechanism:
+
+- The worker only updates the situation model. That update is the trigger. The communication manager (multi-threaded) reacts to it, reads the change, and communicates the update to the right person or system. Like a Kanban ticket: the worker updates the ticket with its work (done / waiting / etc.); the communication manager is watching the ticket, gets the notification that the issue changed, reads it, and tells the human.
+- The conversation manager's inbound-acknowledgment is requested through the same layer — there is no second sending path.
+- Tools that need a specific confirmation (a yes/no approval button, Cursor-style) use the law: the tool — the deterministic side, not the agent loop — runs the pre-configured confirmation flow through the communication layer to the right approver, and only then completes.
+
+What this means for this document: "a later event may trigger the communication without a new prompt" is now concrete — that event is a situation-model update, and the communication manager reads the situation, not a message handed to it. The ten purposes and the deferral conditions are unchanged.
 
 ## Where this question comes from
 

@@ -1,0 +1,9 @@
+# Reference clones kept locally only — not part of Project-X history
+/Things to look at/herdr/
+/Things to look at/hermes-agent/
+/Things to look at/hermes-agent-self-evolution/
+/Things to look at/pi/
+/Things to look at/supermemory/
+/Things to look at/utopia/
+# Large binary sources — the markdown conversions are tracked instead
+/Things to look at/*.pdf
