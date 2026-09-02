@@ -3,6 +3,9 @@
 ## Status
 
 Decided — working decisions recorded after the walkthrough. The conceptual spine is settled; thresholds, canary suites, sampling rates and trace formats are business configuration / Level 3 mechanics, deliberately left open like every earlier category left its knobs.
+## Note added 2026-09-04 — evaluation & attribution ladder
+
+The baseline ladder (base model → +prompt → +tools → +harness → +memory → +fine-tuning → +routing) is now applied to Tend's actual loops, with the attribution protocol and the two-hull guard (provider hull for drift/alias, harness hull for config-change regression) that keep attribution honest rather than guessed (study file Part 12 §12.9). The measurements per rung are all admissible (states, structured matches, event counts — never model-generated numbers in a control path). This category's two hulls are the attribution controls.
 
 This document is the map for the Explainability and Observation category. The conversation record preserving the corrections is [`explainability_and_observation_conversation_and_discoveries.md`](explainability_and_observation_conversation_and_discoveries.md); the research behind it is [`research/observability_explainability_and_finetuning_research.md`](../../research/observability_explainability_and_finetuning_research.md).
 

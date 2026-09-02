@@ -1,6 +1,9 @@
 # What does it mean to understand what an actor is asking or what an event changed?
 
 ## Answer
+## Note added 2026-09-04 — the MEANING artifact is Understanding's proposal, not a second situation model
+
+The conversation manager's MEANING step "writes the first version of the situation model" (study Part 6) is now clarified (study Part 12 §12.4): there is ONE situation model, owned by Understanding-as-responsibility. MEANING is the LLM's *proposal* for advancing it (interpretation, candidate situations, purpose template, ask list, new-or-join); VALIDATE (code) resolves 0/1/many and decides patch/create/clarify. The validated result becomes the next version. Later versions are authored through whichever loop touches the model (conversation manager patches on message entry; situation worker advances evidence/waits/outcomes during a wake) — one model, many writers, version-forward. Fork B ("the worker only updates the situation model") is consistent with this.
 
 Understanding means Tend holds an explicit, holistic model of the current business situation.
 

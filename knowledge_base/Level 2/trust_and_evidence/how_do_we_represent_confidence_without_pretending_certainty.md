@@ -1,4 +1,13 @@
 # How do we represent confidence without pretending certainty?
+## Ruling added 2026-09-04 — what counts as progress (Fork C)
+
+This document already says: "Its self-assessed confidence does not replace deterministic Project X rules or business approval requirements."
+
+The situation-worker loop carries a bounded number of rounds per wake, and the code needs something structural to inspect before allowing another round. Swaraj ruled that progress = structured evidence-state change, never LLM self-assessment (study file §11.6, Fork C):
+
+> A round counts as progress if the situation-model version advanced on at least one of: (a) a claim subject's evidence state transitioned with a reason; (b) a required claim became available from a source not previously queried for it in this wake; (c) a wait or watch record was created, refreshed honestly, or resolved; (d) a declared outcome was recorded; (e) a permission/authority state changed. It is not progress to repeat an identical tool call for the same claim subject, restate a claim with no state change, or report the model's own claim of progress.
+
+What this means for this document: the evidence states and reasons this document defines are the same states the loop's progress check reads. "No numeric confidence" extends to the progress check — the model never verifies itself. Nothing else in this document changes.
 
 ## Status
 

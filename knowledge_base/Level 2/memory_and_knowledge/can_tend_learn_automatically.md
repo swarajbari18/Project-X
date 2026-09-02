@@ -3,6 +3,9 @@
 ## Status
 
 Answered — working decision, pending review.
+## Note added 2026-09-04 — which loop steps produce training traces vs audit-only traces
+
+The trace-recording-vs-learning separation is now applied step by step (study file Part 12 §12.4): every loop step records to the audit (universal); a step additionally becomes a *training trace* only when the LLM proposed a bounded artifact, the proposal was validated by code, and an externally-observable outcome followed. In the two loops, MEANING, PROPOSE, and gather source-selection are training traces; WHO, VALIDATE, EXECUTE, the communication-layer send, and REST are audit-only. A training trace is not yet learning data — it becomes fine-tuning or memory material only after the signal taxonomy (study Part 12 §12.8) says what it proves.
 
 ## The answer
 

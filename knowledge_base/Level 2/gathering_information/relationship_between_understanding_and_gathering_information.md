@@ -1,4 +1,13 @@
 # How Understanding and Gathering Information work together
+## Ruling added 2026-09-04 — where gathering's iteration lives (Fork A)
+
+This document already holds the boundary: "Gathering is not Decision Making. Gathering makes the current information state visible. Decision Making determines whether it is sufficient for a particular action."
+
+The situation-worker loop raised a fork: does gathering loop inside itself until "sufficient", or does every gather round return to the decision point? Swaraj ruled it (study file §11.6, Fork A):
+
+> Gather is a behaviour. Each execution of gather is one bounded, priority-ordered pass over the required-information set. It classifies the needed claims, queries sources in priority order (one pass may touch several sources — deterministic source pursuit, not a loop), records structured claims, versions the situation model, exposes the remaining gaps, and returns to the decision point. "Sufficient" is never evaluated inside gathering.
+
+What this changes for this document: the loop at the bottom ("This is a loop, not a rigid one-way pipeline") now breathes through the decision point. A gather sub-loop that iterated "until sufficient" would make a sufficiency judgement here, which this document (and two more in Decision Making) reserves for Decision Making. Nothing else in this document changes; the structured-claims output and the boundaries below stand as written.
 
 ## Why we have this document
 

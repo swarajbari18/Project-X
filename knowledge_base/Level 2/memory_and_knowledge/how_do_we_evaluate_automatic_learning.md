@@ -1,4 +1,7 @@
 # How do we evaluate automatic learning?
+## Note added 2026-09-04 — golden scenarios are the replay vehicle for these measures
+
+The four measures below (repeated-mistake rate, stale-memory use, policy conflicts, replay regressions) are now wired to the golden-scenario set as replay assertions (study file Part 12 §12.5). Each measure is a structured count over a scenario replayed before and after a learning change — never a model-generated number. The scenario set (nine families from the Level 1 failure classes, instance template, expected-refusal cases) is the vehicle that makes these measures testable.
 
 ## Status
 
