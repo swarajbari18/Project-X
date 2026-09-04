@@ -48,6 +48,13 @@ Depending on what the chat is for, use these in the combination that matches. Th
 - It is not a snapshot of "where we are today."
 - It is not a summary of any particular batch.
 
+## Current status snapshot (2026-09-05, after the pre-architecture stint)
+
+- **Engineering study (agent_harness_study.md): Parts 1–14.** Parts 1–11 covered the repos, papers, memory capability, the two loops, and the three fork rulings (§11.6). Part 12 completed the remaining engineering-study handoff items. **Part 13 (2026-09-05) closed §4A items 10 + 12** (data architecture + compute). **Part 14 (2026-09-05) closed §4A item 13 (pre-architecture)**: event-driven decisions (wait book = subscription registry; write-and-announce-together; the cache never guards a decision; rule changes need no event, reads go fresh; duplicates harmless, lost events heal via check-in) and the prompt constitution (four text layers with owners — universal core + stage constitutions human-authored and release-versioned, runtime preferences injected by the memory loader, assembly templates owned by memory & knowledge; deterministic rules never enter text; writing discipline; optimizer edits memory-owned assembly text only, deferred until traces).
+- **New Level 2 folder:** `prompt_constitution/` (conversation record + understanding map). Notes added to `coordination/` and `time/` discoveries; Level 1 "Research needed before Architecture" marked done.
+- **Still open (separate dedicated research chats):** product design & user interaction pillar; software factory with coding agents pillar. **The Architecture category is unblocked** and is the natural next Level 2 work.
+- **Level 2 folders:** 18 categories, all with working decisions. Notes added (2026-09-04) linking to the study's golden scenarios, evaluation ladder, trace-split, and MEANING/situation-model clarification.
+
 Those go into per-chat handoff files (written by applying the `handoff_prompt.md` constitution) and into the knowledge base itself.
 
 ## Update this constitution

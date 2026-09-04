@@ -2566,6 +2566,8 @@ How do we evolve Tend without breaking existing businesses?
 
 Two research threads are reserved for the time before the Architecture category is attempted, because they will shape how the agent surface is designed.
 
+> **Status (2026-09-05): both threads are DONE.** Event-driven agency closed as study Part 14 (§14.2) with decisions recorded in the `coordination/` and `time/` category files; the prompt constitution closed as the `Level 2/prompt_constitution/` category plus study Part 14 (§14.3–14.5). The Architecture category is unblocked.
+
 ### 1. Event-driven agency, memory and agent behaviour research
 Study products and material on event-driven agency, agent memory and heavy-agent behaviour before defining the architecture, so the design builds on what already exists rather than re-inventing it. The important question is not only how an agent answers a prompt. It is how the complete system notices a change, decides that a situation must wake, carries its state forward and acts inside a granted range. Specific threads named during the conversation:
 

@@ -98,3 +98,11 @@ Time does not run a separate clock. Time produces change-events — a moment pas
 - **Deadlines, and the response/release promise**: Time owns the deadline and the "will contact you by T" promise. Communication is the one that actually shapes the message.
 - **Blocked**: the escalation-side of a situation is owned with Human Collaboration's escalation rules; blocked-and-stopped is sharing Failure and Coordination; Time's only role is when the block sits for a long time (re-open from the check-in).
 - **Archive**: completed situations are not "alive" for the check-in; they are closed, per the Kanban closure rule recorded in [how_do_we_recover_interrupted_work.md](../coordination/how_do_we_recover_interrupted_work.md).
+
+## The pre-architecture session (2026-09-05) — time is the only scheduled waker, and that is final
+
+Study Part 14 confirmed this category's central model against external practice and fixed three boundaries:
+
+- **The check-in is the only periodic wake in the system.** No fixed-interval polling anywhere; polling pays compute to discover nothing happened. Every other wake names its own trigger.
+- **Watchers are named records, not ambient observation.** A watch is a wait-for-state-change record with a subject and resume trigger; the health observer also emits observation events onto the same fabric. Even the watcher is event-disciplined.
+- **Write and announce together** (same session): whoever updates the situation model emits the change-event in the same execution — time events included. If the announce fails, the job is incomplete and retries; if the event is lost anyway, this category's check-in heals it (a late wake, never silence).

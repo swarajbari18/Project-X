@@ -170,6 +170,9 @@ knowledge_base/
 │   │   ├── how_do_multiple_business_processes_interact.md
 │   │   ├── how_do_we_prevent_duplicated_work.md
 │   │   └── how_do_we_recover_interrupted_work.md
+│   ├── prompt_constitution/
+│   │   ├── prompt_constitution_conversation_and_discoveries.md
+│   │   └── understanding_the_prompt_constitution.md
 │   ├── time/
 │   │   ├── time_conversation_and_discoveries.md
 │   │   ├── understanding_all_time_questions.md
@@ -361,6 +364,8 @@ The `coordination/` subfolder focuses on how a situation that involves several a
 - how interrupted work is recovered from durable records.
 
 The `time/` subfolder focuses on how Tend reacts when time changes the situation without any actor acting. It covers deadlines, the response promise versus resolution promise, scheduled work, the representation of waiting, automatic ends of waiting, and the situation-level check-in that makes forgotten work impossible. It deliberately shares the wait spine, its definitions and the three wait levels (tool/operation, situation, time/scheduled) with the Coordination category, so the two categories do not maintain two different models of waiting.
+
+The `prompt_constitution/` subfolder holds the pre-architecture decision on the model's standing text (§4A item 13b; full reasoning in study Part 14). It covers the four text layers (universal core, stage constitutions, runtime-injected business preferences, memory-owned assembly templates), their owners and lifetimes, the rule that deterministic rules never enter text, the writing discipline (case-general principles, positive alternatives over prohibitions, short per stage), and the prompt-optimizer boundary (memory-owned assembly text only, constitution permanently human territory).
 
 The `failure/` subfolder focuses on how Tend recognises when a wait can no longer resolve, sorts a recognised failure (rush versus can-wait), and recovers without repeating the same action forever or bending the safety invariants. It covers:
 

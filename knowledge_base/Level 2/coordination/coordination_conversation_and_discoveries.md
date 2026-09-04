@@ -155,3 +155,17 @@ These tools pause the escalation machine entirely while waiting. For us, that is
 - The default timeout for each tool connector is Level 3 / later research.
 - Whether "watch" needs its own durable watcher records or reuses the wait record is still open.
 - The release policy is configurable per business, with product defaults.
+
+## The event-fabric session (2026-09-05) — the book of waits is the subscription registry
+
+From the pre-architecture research session (study Part 14). Swaraj's clarification: the event fabric is a subscription-consumer model, never polling — "we have a consumer that basically knows what situation model is waiting for which event to be completed." Made precise with the records this category already holds:
+
+- **Situation → what it waits for** = the book of waits (each wait names its resume trigger). The book of waits IS the subscription registry; no separate subscription system should ever be built.
+- **Event → which situation** = the situation registry plus the conversation manager's routing step.
+
+Decisions recorded in study Part 14 and binding here:
+
+- **Write and announce together**: whoever updates the situation model emits the change-event in the same execution; an unannounced write is an incomplete job and is retried. (Storage records; it does not broadcast — the writer is the broadcaster.)
+- **Duplicate delivery is harmless** (version check + dedup, Part 13); **a lost event heals via the situation-level check-in** (a late wake, never a dead situation).
+- **The cache never guards a decision**: cached rules speed context reads only; the control layer's per-action authority check always reads the authoritative store.
+- **Rule changes need no event**: reads go fresh at each wake; the per-action check is the hard gate. Proactive "wake dependent situations on rule change" is parked as a possible per-business configuration.
