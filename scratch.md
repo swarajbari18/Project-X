@@ -144,6 +144,31 @@
 - **Dated open threads for Module 8:** waiting-quietly motion? · per-role token dialects or one voice? · personality choice (clarity vs auteur) deliberately pending. All three reserved for Module 8 grounding with Swaraj — nothing decided here.
 
 ---
+## 2026-09-14 — Module 8 "Tend's nine items" (the delivery, IN PROGRESS — nothing decided)
+
+- **Module 8's form set by handoff + ruling:** each of the nine items arrives as GROUNDED CHOICES — problem restated, Level-2 content named, the canon/tooling already behind it, options with costs, open threads — never as decisions. Grounded against Product Vision, invariants, KB. Swaraj rules; nothing lands in files without his OK.
+- **Two-surface throughout (2026-09-14 ruling):** every item gets human-screen + model-interface treatment together; state words must survive both perceivers; machine rungs (walk→artifact→validator→golden→traces) ground the model half.
+- **The nine, mapped to their engines:** 1 artifact-first IA → the identity question (situation/journey/artifact shape + model data shapes, signifiers naming true things). 2 cross-situation views → Blocked→Changed→Waiting→Quiet by default (exception-first, inverted pyramid, small multiples, progressive disclosure; hard-filters-before-ranking engine-side). 3 per-role surfaces → one story, two dialects max; Tend speaks business words to business people AND code facts to machines, both from the same model. 4 push-vs-pull → the restraint item (attention = scarce currency; proactive only when silence costs more; the calm can stretch). 5 narrative view → message→found→did→told→next, viewer-dependent (timeline vs graph), evidence pinned, honest endings spoken. 6 design language → Module 7 tokens FROZEN into the spec: type/spacing/shade/elevation/motion/state vocabularies. 7 landing+onboarding → honest promise + act-one competency + installs the conceptual model AND the visceral pairing (conditioning installation). 8 ideation loop → skill runs it, factory's AI-first-pass included; open: skill's home + whether Tend's production cycle = one loop or two. 9 blacklist → violations named by violated law + detectability + the category each slop type impersonates; quiet-by-default the unifying charge; open: knockouts vs degradations, the gradient question, decorative wait-matter.
+- **State words (WAITING/ACTIVE/BLOCKED/RESOLVED + asked/answered/deferred/escalated/declared-unanswerable) thread through ALL nine:** Module 7's one-vocabulary-two-perceivers doctrine must survive the grounding — same words, human crops + machine gates alike.
+- **Item order = machine-before-face (1→4 model/interface/attention first, 5→9 face last):** backbone before face; language frozen before it speaks; loop runs the method; blacklist guards the quiet.
+
+---
+## 2026-09-14 — Module 8 progress: Item 1 OPEN, Item 2 presented
+
+- **Item 1 (artifact-first IA) presented 2026-09-14, AWAITING RULING:** options A (situations primary) / B (journeys primary) / C (one shape, many faces). Swaraj said "continue" without ruling — kept OPEN, carried forward. Nothing decided, nothing written to design doc.
+- **Item 2 (cross-situation views) presented next, same session.** Default Blocked→Changed→Waiting→Quiet offered as grounded choice; machine half = scope-first hard filters before semantic ranking (memory decisions).
+
+---
+## 2026-09-14 — Pillar close-out (Swaraj's correction: research, not decisions)
+
+- **Correction honored:** Module 8's Item 1 was once presented with ruling options (A/B/C) + a ruling ask. Swaraj: don't get ahead — discover at architecture time. `module_8_nine_items.md` records the correction verbatim and keeps all nine as research inventory: problem · L2 content · canon/tooling · discovered alternatives · open threads. Zero decisions taken anywhere in the pillar.
+- **Coverage verified complete through Module 8:** Module 0 orientation (conversation record) · Module 1 all seven canon layers (concept file + krug/tufte + machinery/rams/emotional) · Module 2 all eight RUI sections · Modules 3/4/5/6 taught + recorded · Module 7 tokens recorded · Module 8 all nine inventoried. Learning folder: 8 files, all with status lines.
+- **Remaining when the pillar resumes:** Module 9 (same app, phone and desktop — one web app, both runtimes) · the final grounding (visions/invariants/KB pass over everything, still no decisions) · the learning work still open in conversation (Krug moment, Tufte display, all RUI finds, premium pair, 10-screens, grey-sketch, in-the-wild spots).
+- **Standing open threads, dated:** which UP entries become the state-language spec (Color p.38 etc.) · repos to mine once cloned (dub, cal.com, tremor, openstatus, sonner, vaul) · Linear/GitHub notification discipline vs push/pull · refUI-vs-slop mapping · waiting-quietly motion? · per-role dialects or one voice? · personality choice (clarity vs auteur) · knockouts vs degradations (blacklist) · skill's home + one loop or two · module order machine-before-face.
+- **Base prompt §15 scope item 14 + §18 sync still unwritten** — waits for architecture-time OK per handoff law.
+- **No edits were made to:** `handoff_product_design_teaching.md` (Swaraj's file, read-only) · `curriculum.md` (updates need his word — "Research only; decisions at architecture time" block still to add) · `module_1_the_concept_canon.md` (teaching record stands) · factory file (already holds the skill reference).
+
+---
 ## T.B.D. — threads to open when the material arrives
 
 - (open) Refactoring UI's full section map vs the anti-slop vocabulary: which blacklisted patterns are "defaults accepted without a decision" (e.g., Inter-everywhere, cardocalypse).
