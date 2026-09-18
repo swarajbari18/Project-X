@@ -8,6 +8,11 @@ This folder contains the product knowledge and system-design thinking for Projec
 knowledge_base/
 ├── README_FIRST.md
 ├── Product_Vision.md
+├── architecture/
+│   ├── README.md
+│   ├── construction_record.md
+│   ├── section_6_responsibility_model.md
+│   └── section_7_boundary_model.md
 ├── three_level_framework/
 │   ├── 3_level_framework.md
 │   └── level2_method.md
