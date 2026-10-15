@@ -15,13 +15,19 @@ The architecture does not already exist in the knowledge base waiting to be extr
 | File | Purpose |
 |------|---------|
 | [`README.md`](README.md) | How to read and use this folder (this file) |
+| [`what_is_already_settled.md`](what_is_already_settled.md) | Short list to read before the longer section files: what is settled, what stays open |
 | [`construction_record.md`](construction_record.md) | Conversation record: what we covered, challenges, corrections, gray areas, construction frontier |
-| [`section_6_responsibility_model.md`](section_6_responsibility_model.md) | Section 6 output: full responsibility catalog, graph/identity model, scenarios, clusters |
-| [`section_7_boundary_model.md`](section_7_boundary_model.md) | Section 7: B-Story, B-Membrane established; B-Memory lifecycle; §7.12.9 gate table; IB-1…IB-14; HC-/AC- Section 8 handoff |
-| [`section_8_interaction_model.md`](section_8_interaction_model.md) | Section 8 first tranche: wake routing, per-wake contract, HC-/AC- families, VALIDATE split, U1/U2/U5 walkthroughs |
+| [`section_6_responsibility_model.md`](section_6_responsibility_model.md) | Section 6, in plain language: what Tend must reliably do, with the rules, examples, walkthroughs, and open questions. Rule codes are in hidden comments. |
+| [`code_index_section_6.md`](code_index_section_6.md) | Agent-only. For every Section 6 code: its plain meaning, its source in the knowledge base, and its status. |
+| [`section_7_boundary_model.md`](section_7_boundary_model.md) | Section 7 in plain language: the parts (situation worker, conversation manager, communication layer, memory, owner view, tool layer, status-check service, configuration, improvement) and who writes what |
+| [`section_8_interaction_model.md`](section_8_interaction_model.md) | Section 8, in plain language: how the parts act together, step by step. Covers waking, checking, writing, sending, waits, permissions, the fetch-file example, and walkthroughs CASE-1 to CASE-5. Rule codes are in hidden comments. |
+| [`section_9_architectural_dimensions.md`](section_9_architectural_dimensions.md) | Integrated Section 9 dimension-stress result, 17-record matrix, cross-dimension interactions, and Section 10 reconciliation frontier |
+| [`how_tend_finds_the_right_situation.md`](how_tend_finds_the_right_situation.md) | Agreed memory and interaction picture (2026-10-03): who is speaking, which summaries are shown, one full situation record after the choice, what may be sent, what learning must not change |
+| [`section_11_stabilization.md`](section_11_stabilization.md) | Section 11 record (2026-10-12): the checks, the results, the verdict (Stabilized), and what is left |
+| [`section_11_decision_records.md`](section_11_decision_records.md) | The decisions the design rests on (14), the rules that must always hold, how the 16 Level 1 rules are kept, what could force a change, and when to reopen each decision |
 
 Future files (not yet written):
-- `logical_architecture.md` — stabilized canonical model when Sections 6–11 converge
+- `logical_architecture.md` — stabilized canonical model, written in Section 12 after a Stabilized declaration
 
 ---
 
@@ -74,13 +80,16 @@ Any part can force revision elsewhere. That is why [`construction_record.md`](co
 | Zone | Meaning | As of this writing |
 |------|---------|-------------------|
 | **Established** | Stable enough to constrain later work | Situation = one operational problem; Kanban closure; route/split/link; artifacts over chat; granted-range agency; graph vs identity vs derived journey |
-| **Established** | **B-Story**, **B-Membrane**; §7.12.9 gate table; IB-1…IB-14; §6 Groups **S/T/U** |
-| **Established** | **Section 8 first tranche** — wake routing, per-wake contract, HC-1…3, AC-1…4, VALIDATE split, U1/U2/U5 walkthroughs |
-| **Provisional** | **B-Memory** learn path (S8-11); **B-Visibility** derive (S8-8); HC-2 MEANING schema; human work field enum |
-| **Unconstructed** | U3/U4 walkthroughs; §9–10 dimension stress; `logical_architecture.md` stabilization |
+| **Established** | The situation worker, the conversation manager, and the communication layer; the writer rules; Section 6 rule groups **S, T, U** |
+| **Rewritten** | **Section 8** — the step-by-step flow, in plain language (2026-10-09). Walkthroughs CASE-1 to CASE-6. The conflicts with Level 2 and the open questions are listed in Section 10 (concluding audit, 2026-10-12) |
+| **Established** | **Memory picture, corrected against Level 2** — [`how_tend_finds_the_right_situation.md`](how_tend_finds_the_right_situation.md) and [`what_is_already_settled.md`](what_is_already_settled.md). Summaries, one full situation record after the choice, settings are not summaries. The learning ban is the Level 2 list. A list from the owner is one situation per person. A human is verified by an identity provider. The exact join of that person to what they may do stays open. |
+| **Provisional** | **Owner view build** (on request); the field lists per consumer; the human-work field list. Learn-path promotion beyond the must-not rules (vocabulary drift, repeated tool error) is not a separate established protocol |
+| **Complete (coverage)** | **Section 9** — all 17 dimensions stress-tested against CASE-1 to CASE-5 and the current model; this completes the dimension pass, not architectural stabilization. Integrated result in [`section_9_architectural_dimensions.md`](section_9_architectural_dimensions.md); identified conflicts/gaps remain for Section 10. |
+| **Stabilized (2026-10-12)** | Section 11 is closed. The two Level 2 sentences that conflicted, on refunds and on the store, were changed on 2026-10-12, with the owner's approval. Details: [`section_11_stabilization.md`](section_11_stabilization.md) |
+| **Unconstructed** | Section 12: final model, Level 2 completion, handoff to Level 3. Starts after a Stabilized declaration. `logical_architecture.md` is written there |
 
-**Completed in this folder:** Section 6 (Groups S/T/U + category pass). Section 7 first tranche + §7.12.9. Section 8 first tranche.  
-**Next:** §9–10 dimension stress; U3/U4 boundary re-test; §6 P1 patches (human work state, grant table); B-Memory learn construction unit.
+**Completed in this folder:** Section 6. Section 7. Section 8 through CASE-6. Section 9 dimension coverage (2026-10-06). Communication rulings (2026-09-25). Memory interaction (2026-10-03).
+**Checked once:** Section 10 reconciliation (the concluding audit of 2026-10-12 reopened some points; see Section 10), which started from [`section_9_architectural_dimensions.md`](section_9_architectural_dimensions.md) and its R9 findings. Do not reopen settled memory/card rules. Level 2 remains the source of truth where an architecture sentence is thinner.
 
 ---
 
@@ -108,3 +117,10 @@ Any part can force revision elsewhere. That is why [`construction_record.md`](co
 - Framework: [`three_level_framework/3_level_framework.md`](../three_level_framework/3_level_framework.md)
 - Conversation constitution: [`conversation with swaraj.md`](../../conversation%20with%20swaraj.md) (repo root)
 - Harness study (Level 3 hints, not Level 2 truth): [`agent_harness_study.md`](../agent_harness_study.md)
+
+## Added 2026-10-12
+
+- [`section_10_audit_register.md`](section_10_audit_register.md): the concluding audit register. Every finding, its status, and its disposition, and the owner items list.
+- [`walkthrough_sections_1_to_11.md`](walkthrough_sections_1_to_11.md): a plain walkthrough of Sections 1 to 11, and what Section 11 needs.
+
+Section 11 is closed on 2026-10-12. Verdict: **Stabilized**. See [`section_11_stabilization.md`](section_11_stabilization.md).
