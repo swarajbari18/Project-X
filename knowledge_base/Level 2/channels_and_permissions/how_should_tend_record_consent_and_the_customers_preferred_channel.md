@@ -2,46 +2,55 @@
 
 ## Where this question came from
 
-Level 1 asks how Tend records consent and an external actor's preferred channel. Product Vision says Tend reaches out on "the one the customer has agreed to." Both ideas sounded like one heavy record. This category corrected that: "consent" is not one thing, and it does not have the same meaning for every actor or every direction.
+Level 1 asks how Tend records consent and an external actor's preferred channel. Consent is not one thing. It depends on who is on the other side and which way the message goes.
 
 ## Consent depends on who is on the other side and which direction the message goes
 
 | | Customer or prospect | Employee | External partner |
 |---|---|---|---|
-| **Replying** (the conversation is already there) | Implied. Stay on the current channel. No consent record needed. | Implied by the job. Use their chosen work lane. | Implied by the arrangement. |
-| **Initiating** (reaching out) | Real gate: purpose, identity, applicable consent or lawful basis, and channel window (WhatsApp template, email opt-in where required). | Not consent in the customer sense — the business's authority over its people and their stated work lane. | Business-controlled, scoped to what the task needs, subject to the partner's rules. |
+| **Replying** (the conversation is already there) | Implied. Stay on the current channel. No consent record needed. | Implied by the job. Use the work channel they chose. | Implied by the arrangement. |
+| **Starting** (reaching out first) | Two checks: permission and purpose (consent, or a lawful basis where required), and the channel window (WhatsApp template; email consent and an unsubscribe route). | Not consent. The business contacts its staff about their job, on the work channel they chose. | Business-controlled, limited to what the task needs, and subject to the partner's rules. |
 
-Two simplifications fall out of this table:
+Two simplifications follow from this table:
 
-- **An active conversation is not the same as a new initiation.** A reply stays on the current channel and follows that channel's current rules. It does not become safe merely because the actor once sent a message.
-- **An employee is not a consent problem.** Someone the business employs and expects to use Tend is reachable because of the job, not because they opted in. The employee's channel question is a *logistics* question, not a permission one.
+- **An active conversation is not the same as a new start.** A reply stays on the current channel and follows that channel's rules. An earlier message allows replies on that channel, not new starts.
+- **An employee is not a consent problem.** Someone the business employs is reachable because of the job. The employee's channel question is a logistics question, not a permission question.
 
-## But consent and the channel window are two separate gates
+## The checks for a start
 
-We did not blur consent away. For a *business-initiated external* message, the applicable gates both have to pass:
+All five checks in the channel choice file apply to every start. This file covers three of them. All three must pass before the business starts a message:
 
-1. **Permission and purpose** — may the business contact this actor for this purpose, and does the business have a valid basis or consent where required?
-2. **Channel window** — does the channel even permit the initiate? (WhatsApp can say "template only" for a customer who would love to hear from us.)
+1. **Contact permission and purpose** (checks 2 and 3). May the business message this actor for this purpose?
+2. **Consent or a lawful basis** (check 4). Is it in place where required? For email, an unsubscribe route is also needed.
+3. **The channel allows it now** (check 5). For WhatsApp, an open window, or an approved template outside it. For Telegram, a chat the actor began. For email, an address on record.
 
-The exact gates vary by actor, purpose, market and channel. They must be represented separately, because a valid business purpose does not make WhatsApp allow a free initiate, and a channel window does not prove that the business may send the message.
+A valid purpose does not let the business send a free first WhatsApp message. The checks differ by actor, purpose, market, and channel.
 
-## The preferred channel is meaningful only for initiating
+## The preferred channel matters for starting, not replying
 
-For a reply, there is no "preferred channel" decision — the reply stays where the conversation is. The preferred channel matters when the business must *start* a message. It is not a general favourite; it is a permitted initiating channel or a work-lane preference for that actor. It can be recorded, updated and overridden by a stronger channel or legal constraint.
+For a reply, there is no preferred channel decision. The reply stays where the conversation is. For a customer or prospect, the preferred channel is a channel the business may start on. For an employee, it is the work channel they chose. It can be recorded and updated. A law or a channel rule can override it. The preferred channel is used only for a start, after the first option that is available and allowed. The conversation manager records it when the actor states it in a message.
 
-## What a consent record actually is (when it exists)
+## What a consent record is (when it exists)
 
-When consent is required, the record is small and tied to the channel handle (the phone number or email), not to some heavy customer-master record. It records: the actor, channel, message category or purpose, how and when permission was obtained, its scope, and withdrawal or expiry. This is deliberately light — closer to an opt-in or permission line than a legal dossier. The legal depth of what counts as valid consent or lawful contact in each market hands over to Compliance & Security.
+When consent is required, the record is small. It is tied to one phone number or email address, not to a full customer record. It records: the actor, the channel, the message type or purpose, how and when permission was obtained, its scope, and any withdrawal or expiry. It is a simple yes-or-no record, not a legal file. The legal depth of valid consent in each market is for Compliance & Security, the function that confirms the legal rules.
+
+## Consent in each channel
+
+**Research summary.** WhatsApp templates usually need opt-in, and Tend requires opt-in for every template. Email needs consent and an unsubscribe route. Compliance & Security checks the email rules in each market (the research cites CAN-SPAM, GDPR and DPDP).
+
+**Decision (Swaraj, 2026-10-12).** A person who writes to us on a channel has given consent for replies on that channel. That consent is implied by writing to us. For a message the business starts, the channel's own compliance rules decide how consent is taken.
+
+**Held by Compliance & Security.** Which market law applies beyond the channel's rules.
 
 ## The boundary
 
-- We own the channel/permission leg here: who needs consent, in which direction, and where the preferred channel matters.
-- Consent-as-law — what counts as valid consent in each market, durations, withdrawal rights — carries to Compliance & Security.
-- Transport and how the consent is stored technically is Level 3.
+- We own the channel and permission part here: who needs consent, in which direction, and where the preferred channel matters.
+- Consent as law (what counts as valid consent in each market, durations, withdrawal rights) goes to Compliance & Security.
+- Transport, and how consent is stored technically, is Level 3.
 
 ## Working decision
 
-Permission is directional. Replying to an active conversation is different from initiating a new business message. Reaching an employee through the business's work arrangement is different from contacting a prospect. The preferred channel is meaningful mainly for initiating, not replying, and the applicable purpose, permission and channel window must all pass before the message is sent.
+Decision (Swaraj, 2026-10-12). A person's message gives permission for replies on that channel. A message the business starts is a different case. The business reaches an employee about their job without consent. A prospect needs consent and the channel checks first. The preferred channel matters for starting, not replying. All three checks for a start (contact permission and purpose; consent or a lawful basis; the channel allows it now) must pass before a message the business starts is sent.
 
 ## Related
 
