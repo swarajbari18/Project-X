@@ -1,955 +1,402 @@
-# Section 7 — Tend Boundary Model
+# Which parts of Tend do the work, and who writes what?
+
+<!-- Plain-language layer. Every rule code sits in a hidden comment, for agents to link and trace. Meanings and sources are in code_index_section_7.md. The earlier version is in archive_section_7_before_plain_rewrite.md. -->
 
 ## Status
 
-**Working — Pass 6 + Memory gap remediation + Level 2 category pass (2026-09-18)**
+Working. Rewritten in plain language on 2026-10-09. It replaces the 2026-10-08 version, which used different names for the parts.
 
-Section 7 first tranche complete for U1/U2. **B-Memory** expanded beyond injection. **§7.12.9** adds harness vs authorization gate table. Interaction behaviour: [`section_8_interaction_model.md`](section_8_interaction_model.md) (IB-1…14 stable; **HC-*** / **AC-*** families).
+**Decided:** the rules below, except where marked **Open** or **Provisional**.
 
-**Depends on:** [`section_6_responsibility_model.md`](section_6_responsibility_model.md) (Section 6 complete, working).
+**Open:** items that Level 2 does not settle, or where sources disagree. Each open item states my recommendation. A recommendation is not a decision.
 
-**Method reference:** [`three_level_framework/architecture_contruction.md`](../three_level_framework/architecture_contruction.md) §7.
+**Provisional:** in use, but may change.
 
-**Conversation record:** [`construction_record.md`](construction_record.md) — Priya nurture/reply and refund gateway-silent reasoning; Pass 5 merge BH-1+BH-2 → **B-Story**.
+## The standard for this section
 
----
+Level 2 is the standard. Where Level 2 disagrees with another source, Level 2 wins. The Product Vision, the research folder, and the agent harness study apply where Level 2 is silent. Where the Product Vision disagrees with Level 2, Level 2 governs, and the Product Vision wording is flagged for Swaraj to change.
 
-## 7.1 Purpose
+## What this section decides
 
-Section 6 answered **what Tend must reliably own** — responsibilities A–P, clusters, state ownership, scenario validation.
+This section says which part does each job, and which part writes each kind of change to a situation's record. Section 6 lists what Tend must do.
 
-Section 7 answers **which responsibilities share one logical ownership boundary** — and **why that boundary is justified or rejected**.
+A part is a group of work that:
 
-A boundary is a **logical ownership domain**, not a deployment unit, database, or harness folder name.
+- does one job;
+- writes one kind of change, or a small set of kinds;
+- can be changed, run, and fixed together.
 
-Central principle (method §7.32):
+A part is not justified by a name, a database, a queue, or a server.
 
-> A subsystem boundary is justified when a coherent responsibility can be owned, changed, operated, failed, reasoned about, and evolved independently without breaking the correctness of the surrounding system.
+## Terms used in this section
 
-**Output type:** Boundary hypotheses → boundary tests → architectural boundaries (established / provisional / rejected) → boundary graph sketch → Section 8 handoff.
+- **Situation record:** the one record of one operational problem. It is a list of versions. Each change is a new version. It is the shared place where the parts write, and it is not a part that acts.
+- **Version:** one saved state of a situation record.
+- **Change:** a short signal that a version was written. It starts the other part.
+- **Situation worker:** the running part that reasons about one situation. It gathers, decides the next step, and writes what Tend concludes.
+- **Conversation manager:** the whole system that reacts when something happens (a new message, a change in a situation, or a time signal) and sends messages to people. Its parts are the intake step, the situation worker, and the communication layer. Tools are a different context, and they are not part of it. A time signal goes straight to the situation worker. It never goes to the intake step or the communication layer.
+- **Communication layer:** the part that shapes, checks, and sends messages. It records what it sent.
+- **Decision Making:** the step where Tend decides what to do next. Level 2 calls it Decision Making. In this architecture it is a step inside the situation worker's run. It is not a separate part.
+- **The AI:** the language model that suggests the next step. It never decides alone.
+- **Fixed code:** code that always makes the same check. It is not an AI's judgment.
+- **A grant:** the range of actions the business allows Tend to take without asking.
+- **StepUp:** a check result meaning a person must approve before the action runs.
+- **Short status check:** a status check repeated over a short interval.
+- **Promised settle window:** the time an outside party promises for an outcome to settle. Level 2 uses this term. **Internal settle window:** Tend's own bound for a wait. It is the business's service level for that wait, with a default the configurator can change.
+- **Tenant:** one business that uses Tend. Its data is kept apart from every other business's data.
+- **Harness:** the fixed code around the AI. It runs the steps, checks each proposal, and saves each version.
+- **Registry:** the list of a business's settings: its sources, channels, and values.
+- **Change channel:** the internal route that carries changes between parts. A **messaging channel** is WhatsApp, email, or another route to a person.
 
-Components named here (Situation Worker, Conversation Manager, etc.) are **hypotheses under test**, not settled Level 3 implementation names, until marked **established** in this document.
+## The parts
 
----
+| Part | What it does, in plain words | Section 6 rules it carries |
+|------|------------------------------|----------------------------|
+| **Situation record** | The record of one situation, as a list of versions. | <!-- A1, A6, A9 --> The record of each situation. |
+| **Situation worker** | Gathers, decides the next step, and writes what Tend concludes: facts, conflicts, waits, outcomes, human work, closure. | <!-- C, D, E, F, G, H, J, K, M, O10, P1–P3 --> |
+| **Conversation manager** | The whole system that reacts to a new message, a change, or a time signal, and sends messages to people. It contains the intake step, the situation worker, and the communication layer. Tools are outside it. | <!-- B, parts of I and L --> Routing, intake, and sending. |
+| **Communication layer** | Shapes, checks, and sends messages. Records what it sent. | <!-- I, L --> Expression, consent, and channel rules. |
+| **Memory** | Observes work, learns, keeps business knowledge, and proposes links and candidates. Writes no truth. | <!-- N --> |
+| **Owner view** | Views for the owner, the admin, and the builder, worked out from the records. | <!-- O, T11 --> |
+| **Tool layer** | Every call to an outside capability. Checks permission first, retries transient failures, records intent before an irreversible effect. | <!-- S, T, M4 --> |
+| **Status-check service** | Runs status checks for outside systems. Sends results back to the situation. | **Decided** (see the status-check section below) |
+| **Configuration** | The only writer of grants and of the business's registry values, through fixed tools. | <!-- G7, T8, Q1–Q5 --> |
+| **Improvement** | Improves how Tend behaves, from verified traces. Never changes business rules. | <!-- R1–R3 --> |
 
-## 7.2 Construction sequence (this document)
+The observer is a function that runs alongside all of these. It emits observation changes. It is not a part of its own.
 
-```text
-Section 6 responsibilities + clusters (§6.4, §6.8, §6.9)
-        ↓
-Boundary hypotheses (BH-1 … BH-5)          ← Pass 2 ✅
-        ↓
-Boundary tests on construction units       ← Pass 3 (U1) ✅; Pass 4 (U2) ✅
-        ↓
-Boundary decision records (method §7.24)   ← Pass 5 ✅
-        ↓
-Boundary graph + Section 8 handoff         ← Pass 6 ✅
-```
+## Who writes what to the situation record
 
-We do **not** apply all eleven boundary tests to all twelve clusters in one pass. We test **hypotheses** against **construction units** first — the same incremental loop as Section 6.
+**The principle.** What comes in from outside is written by the conversation manager. What Tend concludes is written by the situation worker. What is sent is recorded by the communication layer. Memory proposes and writes no truth.
 
----
+**Every write is a new version, and every write sends a change.** The change tells the other part that something changed. A write and its change happen in the same run. A write without its change is incomplete and is retried. <!-- Level 2 coordination: write and announce together -->
 
-## 7.3 Load-bearing decision — operational truth in the situation model
+| Update | Written by | Level 2 category | Notes |
+|--------|------------|------------------|-------|
+| Create the situation (first version) | Conversation manager (writes what came in as the first version) | Understanding (routing) | At intake, from the first message or change. |
+| Record an incoming message: attach it to a situation, create one, or keep it until it can be routed | Conversation manager | Understanding (routing) | Routed before anything is gathered. |
+| Gathered facts and claims | Situation worker | Gathering | Each with its source and time. |
+| Conflict recorded | Situation worker | Understanding | Conflicts are kept visible, not resolved by guessing. |
+| Correction | Situation worker | Understanding | If the correction arrives as a message, the conversation manager records the message, and the worker writes the correction. |
+| The decision about the next step | Situation worker, inside its run | Decision Making | Not a separate part. |
+| Communication intent (what should be said) | Situation worker | Communication | The worker never sends. |
+| Whether an update is worth telling the person | Conversation manager | Communication | It reads each update and decides. |
+| Record of what was sent | Communication layer | Communication (Level 2 states the need) | Each message sent is recorded in the communication layer's own record of what was sent. A delivery acknowledgement is recorded there too, not as a situation version. |
+| Wait written, refreshed, or finished; timer or check-in result; outcome declared; closure | Situation worker, which records the work as resolved. The conversation manager sets completed, only after no wait is open and the last message has gone out. | Time, Coordination, Failure | Time produces changes only. |
+| Human work item created | Situation worker | Human Collaboration | The behaviour creates the responsibility. |
+| Human answer recorded | Conversation manager | Human Collaboration | It arrives as an incoming message. |
+| Link proposed | Memory, or the conversation manager | Memory; Understanding | See the links section. |
+| Link accepted or denied | Situation worker | Understanding | On evidence only. Denial is allowed. |
+| Lesson or configuration candidate | Memory | Memory and knowledge | A candidate, not truth. A configurator validates a configuration candidate. |
 
-Recovered in architecture construction conversation (before this file was written):
+**Recorded as decided on 2026-10-09, and Level 2's communication file says the same:** the conversation manager decides whether an update is worth telling the person. Decision Making chooses the next behaviour. The name of this choice is the update decision, which you decided.
 
-The **situation model** is the **versioned story** of one operational problem. Each version records **operational truth** — durable facts the next wake must treat as ground to act safely:
+## How the two parts work together
 
-- what already happened (inbound recorded, refund initiated with ID)
-- what is in flight or unknown (outcome pending, nurture evaluation due)
-- what must block unsafe next action (no second refund; no nurture after reply)
-- active waits with subject, reason, resume trigger (H2)
+Take a customer who writes "Where is my order?"
 
-**Not authoritative in the situation model (linked, not substituted):**
+1. The conversation manager records the message on the order's situation record, as a new version. That version emits a change.
+2. The change starts the situation worker. It reads the situation record, decides the next step, and checks the carrier. It writes the result as a new version. That version emits a change.
+3. The change starts the conversation manager. It reads the update, and decides whether the customer should hear it now. If yes, it passes the message to the communication layer. The communication layer checks the channel and consent rules, sends the message, and records what it sent.
 
-- LLM chain-of-thought and reasoning scratch
-- raw tool I/O logs (audit/trace; worker interprets into claims and waits)
-- proposed outbound drafts not yet sent (decision intention — F2)
+The two parts never call each other directly. The situation record and its changes are the only connection between them.
 
-Worker runs link to situation model versions for explain-on-demand (O4, O5). The product explains by interaction; the story spine stays inspectable without reading every trace.
+## Links between situations
 
-This decision constrains every boundary hypothesis below: **one authoritative writer of operational story truth**; other boundaries read it or request expression through explicit contracts (Section 8).
+**What a link is.** A link is a Tend record that connects two situations. It holds the two situations, the reason they are connected, the type of connection, and when it was created. It is a saved record, not memory. A link is not a merge. Each situation keeps its own record. <!-- Level 2 understanding: a link is a Tend artifact -->
 
----
+**When a link exists.** Only when there is a real shared reason, such as the same order, the same incident, or one situation's outcome affecting the other. Identity alone is never a reason. When unsure, there is no link until evidence appears. <!-- Level 2 understanding -->
 
-## 7.4 Construction units for boundary tests
+**Who proposes.** Memory proposes links. It proposes them when asked for related situations, and from the trace of finished work. The conversation manager may also propose a link when it creates a situation, for example a second outreach linked to a closed one.
 
-| Unit | Scenarios | Pass |
-|------|-----------|------|
-| **U1** — Business-directed outreach | Priya list, missing email, nurture, reply before timer, decline, second outreach | Pass 3 ✅ |
-| **U2** — Commercial lifecycle chain | Inquiry → order → delay → refund; gateway silent after refund post | Pass 4 ✅ |
-| **U3** — Stakeholder information | Investor ask | Noted; tests deferred |
-| **U4** — Unreliable external API | Stale carrier tracking | Noted; tests deferred |
+**Who decides.** The situation worker accepts or denies each proposal, on evidence. It may deny. A proposal with no evidence is never accepted.
 
-Primary stress tests for first boundary tranche: **U1** (temporal + egress authority) and **U2** (irreversible unknown + idempotency + tool vs story ownership).
+**Who writes an accepted link.** The situation worker writes it, as a new version that records both situations and the reason. <!-- Owner decision (Swaraj): memory proposes, the situation worker accepts or denies on evidence -->
 
----
+## The owner view, admin, and builder
 
-## 7.5 Boundary tests (reference)
+<!-- B-Visibility -->
 
-Each hypothesis in Pass 2+ is scored against method §7.6–7.17:
+**The base.** Level 2's explainability design is the base. Compliance requirements are added on top of it. They change what is shown where they require it, and nothing else. This is a change to a Level 2 rule: Level 2 gives the builder a complete view in both development and production. Compliance changes the production view, as decided below.
 
-| # | Test |
-|---|------|
-| 1 | Conceptual cohesion |
-| 2 | Ownership |
-| 3 | State ownership |
-| 4 | Consistency / atomicity |
-| 5 | Lifecycle |
-| 6 | Change coupling |
-| 7 | Failure coupling |
-| 8 | Temporal coupling |
-| 9 | Scaling independence |
-| 10 | Security / authority |
-| 11 | Interaction cost |
-| + | Negative test (boundary exists only for tech/deploy convenience?) |
-
----
-
-## 7.6 Construction frontier (Section 7)
-
-| Zone | As of Pass 6 |
-|------|----------------|
-| **Established** | **B-Story**, **B-Membrane**; §7.3 operational truth; boundary graph §7.13; IB-1…IB-14 index; Adjacent-Tool, Adjacent-Improvement contracts |
-| **Provisional** | **B-Memory**, **B-Visibility**; IB-6 create stamp |
-| **Unconstructed** | U3/U4 re-test; Sections 9–11 dimension stress |
-
----
-
-Components named here are **logical boundaries** once marked **established** in §7.12. Level 3 names (Durable Object, Workers service, etc.) remain hints only.
-
----
-
-## 7.7 Architectural boundaries (accepted)
-
-Pass 5 merges Pass 2 hypotheses **BH-1 + BH-2** into one boundary. BH-3 … BH-5 become **B-Membrane**, **B-Memory**, **B-Visibility**.
-
-| ID | Name | Pass 2 origin | Status |
-|----|------|---------------|--------|
-| **B-Story** | Story execution (model + worker) | BH-1 + BH-2 merged | **Established** (U1, U2) |
-| **B-Membrane** | Conversation manager (ingress / egress) | BH-3 | **Established** (U1, U2) |
-| **B-Memory** | Memory — observe, learn, maintain, serve | BH-4 | **Provisional** (U1/U2 neutral on serve path; learn path untested) |
-| **B-Visibility** | Visibility & audit (derived views) | BH-5 | **Provisional** (U1/U2 neutral) |
-
-**Adjacent (not Level 2 boundaries):** Capability tool harness (§7.12.5, IB-7, IB-8); Product improvement flywheel (§7.12.6, IB-14); Configuration registry apply path (Group Q — deterministic tools, IB-13).
-
-**Deferred:** §7.8.1 first-version create stamp — **provisional** rule IB-6; U3/U4 or Section 8 may refine.
-
----
-
-## 7.7.1 Hypothesis index (Pass 2 — superseded by §7.7)
-
-| ID | Working name | Disposition |
-|----|--------------|-------------|
-| BH-1 | Situation Model | Merged → **B-Story** |
-| BH-2 | Situation Worker | Merged → **B-Story** |
-| BH-3 | Conversation Manager | Renamed → **B-Membrane** |
-| BH-4 | Memory | Renamed → **B-Memory** |
-| BH-5 | Visibility & audit | Renamed → **B-Visibility** |
+**What compliance adds.** Masking of personal data. Renaming where required. Time-limited access. Ticketed and audited access for the builder. Business and admin screens never show the AI's private reasoning. No secrets or personal data in traces. Subprocessor and processor controls.
 
----
+**The simulation environment.** It runs on seeded test data only, never on real business data. The builder sees everything there, because none of it is real. It stands in for production, so it must show the same shape as production.
 
-## 7.8 Boundary hypotheses (Pass 2)
-
-Each hypothesis follows method §7.5: problem owned, responsibilities in/out, state authority, explicit exclusions. **Tests not scored yet** — Passes 3–4.
+**Production.** The builder sees only the masked and renamed views of what it built. It does not see the whole business. To see a live business's internals, the builder needs the business owner's permission, given from the owner's account.
 
-### BH-1 — Situation Model (story substrate)
+**The owner.** Sees the snapshot and the business-value view set out in Section 6. The owner never sees operational metrics such as uptime or message counts. The owner sees three classes of items: decisions only the owner can make, deadlines or notices that put the business at risk, and escalations that have drifted past everyone assigned. Level 2's note also lets a meaningful change reach the owner at once when it changes the business's next decision.
 
-| Field | Content |
-|-------|---------|
-| **Problem owned** | Maintain the **versioned operational story** for each situation: one honest record per operational problem, graph links, closure discipline, ingest pointers on the story — the durable substrate every wake reads. |
-| **Responsibilities included** | **A1–A11**, **B7** (Group A + ingest records on story); enforces graph/split/link/closure rules as **record semantics** |
-| **Responsibilities excluded** | **B1–B6** routing; **C–G** comprehension/decision/grants execution; **H** timer scheduling implementation; **I/L** expression; **D/P** gather/invoke; **J/K** human routing; **M** failure triage logic; **N** memory assembly; **O** derived views |
-| **State owned (authoritative)** | Situation model document per problem (version chain); situation graph edges and typed links; closure/outcome tags on the record; wait records **as stored on the story**; ingest record references attached to the situation (§6.9) |
-| **State referenced, not owned** | Canonical business facts (ERP); canonical channel messages (platforms); grants/rules (business config); identity anchor fields derived from participation |
-| **Authority** | Defines **what is true** in the story; does not authorize business actions alone — grants enforced in BH-2 + harness |
-| **Relationship to BH-2** | BH-1 is the **substrate**; BH-2 is the **sole writer of new operational-truth versions** under normal operation (see open question §7.8.1). Other boundaries **read** BH-1; they do not co-own authoritative fields. |
-| **Provisional runtime hint** | Durable Object / record store per situation (Level 3 — not normative here) |
-| **Status** | Provisional — U1 pass (with BH-2 write contract) |
-
-### BH-2 — Situation Worker (advance story)
-
-| Field | Content |
-|-------|---------|
-| **Problem owned** | **Advance one situation** through comprehend → gather → trust → decide → coordinate time → human/partner triggers → failure handling — and **commit operational truth** to BH-1. |
-| **Responsibilities included** | **C1–C4**; **D1–D7**, **P1–P3** (coordinate capabilities, do not own canonical data); **E1–E6**; **F1–F6**, **G1–G6** (propose behaviour; grants enforced deterministically after proposal); **H1–H7**; **J1–J6**, **K1–K4** (trigger human/partner work); **M1–M6** (declare failure, unknown outcome, escalation — story-level); **B4 correction phase** (split/merge/re-route after evidence); partial **B6** (fan-out from list instruction — may split with BH-3 on ingress stamp) |
-| **Responsibilities excluded** | **A** graph rules as passive record (owned by BH-1 semantics, written by BH-2); **B1–B2**, **B5** ingress routing; **I1–I6**, **L1–L4** channel expression; **O1–O6** owner/builder views; **N** serve/loader (BH-4 sync); **N6–N10** learning pipeline (BH-4 async — off worker hot path) |
-| **State owned (authoritative)** | **Writer** of situation model versions (operational truth commits); worker run references linked to SM versions; decision intention artifacts (draft outbound, approval requests) **linked to** SM, not substituted for story truth (F2) |
-| **State referenced, not owned** | Ingest events from BH-3; loader slices from BH-4 (sync); capability results from tool harness; grants from business config (authoritative — not memory-written) |
-| **Authority** | Selects next behaviour inside grant; stops safely when no safe path (F4, M5); never expands permissions (G3) |
-| **Cross-boundary rules (from conversation — to test)** | Timer wake → read **latest** SM → decide (no predetermined send); refund unknown → write initiation + unknown outcome + wait; idempotency enforced with tool harness + SM state |
-| **Provisional runtime hint** | Background worker loop per open situation (Level 3) |
-| **Status** | Provisional — U1 pass |
-
-### BH-3 — Conversation Manager (ingress / egress membrane)
-
-| Field | Content |
-|-------|---------|
-| **Problem owned** | **Membrane** between the outside world and Tend's stories: classify and route inbound events; deliver **permitted** outbound expression on channels; enforce channel visibility gates — without owning the business story or advancement decisions. |
-| **Responsibilities included** | **B1** receive events; **B2** ingress route (attach/create/hold before gather); **B5** assemble incoming-event context once for router; **B6** (ingress side: list instruction → create N situations + aggregate artifact); **I1–I6**, **L1–L4** expression and channel rules |
-| **Responsibilities excluded** | **C–G** comprehend/decide/grant logic; **D/E** gather and trust; **H** nurture/refund/wait decisions; **A** closure and graph semantics (except **possible** first-version stamp on create — §7.8.1); **M** failure declaration; **O** business view; authoritative **wait cancel / outcome unknown** writes |
-| **State owned (authoritative)** | In-flight channel delivery state; routing session context for ingress; outbound send jobs tied to SM version + grant check |
-| **State referenced, not owned** | Situation model (read for egress; read for route matching); ingest records (**B7** stored on story — write path via BH-1/BH-2 per §7.8.1) |
-| **Authority** | May send only what SM + grants permit; may route ingress; may **not** authorize refunds, overrides, or story changes |
-| **Cross-boundary rules (from conversation — to test)** | No outbound to Priya/customer without BH-2 story update + explicit send decision; ingress classifies event kind (message vs timer wake is **not** CM — timer → BH-2 directly) |
-| **Provisional runtime hint** | Ingress/egress service + channel adapters (Level 3) |
-| **Status** | Provisional — U1 pass |
+**The owner and the audit trail.** A non-admin owner has no access to the audit trail by default.
 
-### BH-4 — Memory (observe · learn · maintain · serve)
+**The admin.** Level 2 treats the administrator as the configurator. The admin sees business configuration, grants, approval history, the audit trail, declarations, and masked traces on demand. Never sees the AI's private reasoning.
 
-| Field | Content |
-|-------|---------|
-| **Problem owned** | **Business memory for one tenant** — observe operational activity, learn and maintain business knowledge and configuration artifacts, **serve** scoped context to worker and membrane — without replacing comprehension, gathering, decision, or authoritative grant/registry writes. |
-| **Responsibilities included** | **N1–N16** (see §6.4 Group N). Three internal loops (harness study §11.2): **Observe** (N6 — async trace consumption); **Learn/maintain** (N7–N10, N12–N14 — reconcile, lifecycle, vocabulary, config candidates); **Serve** (N1, N11 — sync loader on context need). |
-| **Responsibilities excluded** | **C, D, F** core loops; **A** situation graph writes; **G** grants; **O** aggregate views; **Q** authoritative registry apply (memory **proposes** via N13; configurator tools **apply**); **R** product behaviour improvement (Adjacent-Improvement) |
-| **State owned (authoritative)** | Business knowledge records; episodic experience; learning items with lifecycle; vocabulary/aliases; **structured config artifacts** (schema-bound JSON for tools/registry); **prose preference artifacts** (runtime-injected behaviour text); assembly templates (memory-owned layer per prompt constitution); retrieval indexes |
-| **State referenced, not owned** | Situation model (scope + links); closed situations via graph links (N2, N5); worker and configurator traces (input, not owned); configuration registry authoritative values (Q1 — read for serve; write via IB-13 apply path only) |
-| **Authority** | Returns context slices and config **candidates**; **never** decides next behaviour, writes operational truth to BH-1, or silently changes grants/policy (N3, N16) |
-| **Two learning axes (§6.4 N3/N15)** | **Business content** → B-Memory (this boundary). **Product behaviour** (fine-tuning, prompt optimizer on assembly templates) → Adjacent-Improvement — same trace stream, different consumer |
-| **Configurator observation** | Owner talks to **configurator agent** (not runtime employee Tend). B-Memory observes those sessions (N6, N13), maintains vocabulary and preference text, proposes structured values — applied only through deterministic configuration capability (IB-13) |
-| **Relationship** | **Serve:** BH-2 (and BH-3 routing slice at scale) call with **context need** — not free-form query. **Observe:** async off worker/configurator trace — must not block IB-3 atomic commits |
-| **Status** | Provisional — U1/U2 neutral on serve path; learn/observe path needs dedicated construction unit |
+**A solo owner** is the owner and the admin in one person. The solo owner sees what the admin sees, as the product design decides.
 
-### BH-5 — Visibility & audit (derived views)
-
-| Field | Content |
-|-------|---------|
-| **Problem owned** | Present **derived** owner and builder visibility — artifacts, snapshots, explain-on-demand, system health observation — without becoming a second source of story truth. |
-| **Responsibilities included** | **O1–O6** |
-| **Responsibilities excluded** | **A–N** authoritative situation advancement; **I/L** actor-facing expression (Communication owns delivery rules; O owns what appears on boards and reconstructions) |
-| **State owned (authoritative)** | Derived projections (owner snapshot, filters, observation events); reconstruction **views** over existing records |
-| **State referenced, not owned** | Entire situation graph and traces (read-only for render) |
-| **Authority** | None over business actions; surfaces attention (O3) |
-| **Relationship** | Reads BH-1; never required for BH-2 correctness on the next safe step |
-| **Status** | Provisional — untested |
-
----
-
-### 7.8.1 Open tension — first situation model version on create
-
-Harness study and Section 6 **B2/B6** imply ingress may **create** a situation and stamp initial lineage/templates before the worker first runs.
-
-Pass 2 records the split:
-
-| Phase | Provisional owner |
-|-------|-------------------|
-| **Create + ingress attach** | BH-3 (or BH-3 + BH-1 empty record) |
-| **All operational-truth versions thereafter** | BH-2 → BH-1 |
-
-Pass 3 (U1 owner list → 30 situations) must test whether this split holds or BH-2 must own create as well.
-
----
-
-### 7.8.2 Rejected alternatives (named before testing)
-
-These are **not** boundary hypotheses. Listed so Passes 3–5 do not re-litigate them without new evidence.
-
-| Alternative | Why rejected at Pass 2 |
-|-------------|------------------------|
-| **LLM conversation trace as authoritative truth** | Next wake cannot read it safely; not auditable as story; violates §7.3 |
-| **Timer / nurture sends directly to contact** | Bypasses comprehend, grants, channel rules; fails temporal authority test (conversation) |
-| **CM as sole situation model writer** | Collapses ingress with decision loop; wrong change drivers (channels vs business behaviour) |
-| **Tool harness writes refund/outbound truth to SM** | Tool returns evidence; worker interprets into claims/waits (Failure category; §7.3) |
-| **12 clusters = 12 boundaries** | Violates smallest complete problem; excessive coordination (method §7.4) |
-
----
-
-### 7.8.3 Cluster → hypothesis mapping (§6.8 merge)
-
-```text
-Cluster 1  (Story & graph)     ──► BH-1 substrate + BH-2 writes
-Cluster 2  (Ingress & routing) ──► BH-3 ingress; BH-2 B4 correction
-Cluster 3  (Comprehension)     ──► BH-2
-Cluster 4  (Information acq.)  ──► BH-2 (+ tool harness adjacent)
-Cluster 5  (Evidence)          ──► BH-2
-Cluster 6  (Behaviour/control) ──► BH-2 (+ deterministic grant gate in harness)
-Cluster 7  (Temporal coord.)   ──► BH-2 schedules; BH-1 stores waits on story
-Cluster 8  (Expression)        ──► BH-3 egress
-Cluster 9  (Human/partner)     ──► BH-2 triggers; humans outside boundary
-Cluster 10 (Failure)           ──► BH-2 story-level; tool-layer M4 adjacent
-Cluster 11 (Memory & knowledge) ──► BH-4
-Cluster 12 (Configuration)       ──► Group Q (registry + configurator apply) — IB-13 with BH-4
-Cluster 13 (Product improvement) ──► Adjacent-Improvement (not BH-4)
-Cluster 14 (Visibility)          ──► BH-5
-```
+**Who may grant audit access.** A person who holds the power to grant it: the owner, the admin (the configurator), or a person the owner has given that power. Grants are configuration, not a switch. The configurator's agent applies a grant when the configuration allows it, and denies the request when it does not.
 
----
+**Recorded as decided on 2026-10-09 (to confirm).** In production, prompts with personal data are masked. In the simulation environment, everything is visible. Level 2 gives the builder a complete view and does not say how prompts are shown, so this rule conflicts with Level 2 on the production view. The owner decides (Section 10).
 
-| **Status** | Provisional — U1 neutral (derived only) |
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 is silent on this point:** the owner sees their own customers' data unmasked. Masking applies to the builder and admin views.
 
----
-
-## 7.10 Pass 3 — U1 boundary tests
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 is silent on this point:** every admin read of the audit trail is logged.
 
-### 7.10.1 Primary scene — Priya replies while nurture is scheduled
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 says only that tenant data is not used for training by default:** tenant data is not used for AI training without the owner's written permission. Level 2 does not mention written permission.
 
-**Situation S1:** Owner-initiated outreach to Priya. First message sent. Active wait: nurture follow-up at T2 if no inbound before T2. **Event:** Priya inbound message at T3 (before T2).
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 puts the audit trail in the administrator's set and does not state an owner default:** the owner may not see the audit trail by default.
 
-**Story move required (§7.3):**
+**Set per business:** the owner view's lag when it is down, in configuration. The design sets no limit.
 
-```text
-BEFORE (SM vN):
-- Outreach to Priya (campaign ref)
-- Last outbound: message at T1
-- Wait: nurture at T2 if no inbound from Priya
-- Liveness: running
+## The tool layer
 
-AFTER (SM vN+1 — one operational-truth commit):
-- Inbound: Priya message M at T3 (referenced)
-- Wait: nurture at T2 superseded (reason: contact replied)
-- Liveness: running (engaged; not closed)
-- Linked: draft outbound D (decision intention — separate artifact, F2)
-```
+<!-- Adjacent-Tool -->
 
-**Responsibilities exercised (§6.6 U1):** B2, C1, F1, H7, I1 (later), A1 — not A6/A9 (reply does not close outreach).
+**Job.** Every call to an outside capability goes through here. It checks permission first, retries transient failures, records intent before an irreversible effect, and returns structured evidence.
 
-**Event flow under test:**
+**Writes.** The retry state of each call, and the intent record before an irreversible effect. The situation worker records the outcome.
 
-```text
-Priya message ──► BH-3 ingress (classify, route S1, wake BH-2)
-                        │
-                        ▼
-                  BH-2 comprehend + commit SM vN+1
-                  (inbound + wait supersede — atomic)
-                        │
-          ┌─────────────┴─────────────┐
-          ▼                           ▼
-   BH-4 context (optional)     decide next + draft D
-          │                           │
-          └─────────────┬─────────────┘
-                        ▼
-              BH-3 egress (only if send permitted)
+**Does not.** Decide the next step. Write the situation record. Check status. Status checks belong to the status-check service.
 
-Timer at T2 ──► wake BH-2 (NOT BH-3 send)
-                        │
-                        ▼
-              read latest SM → nurture superseded → no outbound
-```
+**Rules it carries.**
 
----
+- Before any call, the policy check runs: Allow, Deny, or StepUp. <!-- T2, T4 -->
+- A tool never starts before its permission is confirmed. <!-- T4 -->
+- The permission store that holds the current permissions is read at the moment of the check. A cached copy never decides. <!-- T5 -->
+- Permission is checked again at each action within a run. <!-- T6 -->
+- A StepUp goes through the approval tool, which is part of the tool layer. The AI never calls the approval tool. <!-- T7 -->
+- Transient failures are retried here, with bounded backoff. The AI never retries. <!-- M4 -->
+- Before an irreversible effect, the intent is written. The audit record comes before money moves. <!-- S7 -->
+- Tools return structured evidence only. The situation worker interprets it. <!-- S8 -->
+- Before an irreversible action, the situation record is checked for an earlier attempt. This check does not replace the permission check. <!-- S9 -->
+- AI output is data. It is checked against a schema and is never instructions. <!-- S11 -->
+- Every decision and action is written to an append-only audit record, without secrets. <!-- T9 -->
 
-### 7.10.2 Test scores — primary scene (tests 3, 4, 8, 10)
+**Example: the fetch file tool.** The AI calls one tool, `fetch_file`. It has no separate approval tool. Inside the tool, fixed code checks whether the file needs approval, and runs the approval if it does. The tool returns one of three results: the file, with a summary; a denial, saying the request is behind authorisation; or a failed approval, because the approval timed out. The AI then decides what to say next. It never decides whether the file is released. <!-- T2, T4 -->
 
-Legend: **Pass** | **Pass+contract** (needs Section 8 rule) | **Fail** | **N/A**
+## The status-check service
 
-| Hypothesis | T3 State ownership | T4 Atomicity | T8 Temporal coupling | T10 Security / authority | U1 verdict |
-|------------|-------------------|--------------|----------------------|--------------------------|------------|
-| **BH-1** | **Pass** — authoritative record structure, waits on story, version chain | **Pass+contract** — substrate stores atomic version; writer is BH-2 | **Pass** — wait state lives on SM for timer re-read | **Pass** — does not authorize send | Substrate valid; **not independently sufficient** without BH-2 writer |
-| **BH-2** | **Pass** — sole writer of operational-truth commits | **Pass** — inbound + wait supersede in **one** SM version | **Pass+contract** — timer path re-reads latest SM (IB-4) | **Pass** — decides inside grant; no direct channel send | **Pass** |
-| **BH-3** | **Pass** — owns ingress/egress state only; **reads** SM for route/send | **Pass** — does **not** co-write nurture cancel or inbound truth | **Pass** — timer wake bypasses BH-3 egress (IB-1) | **Pass** — send gated on SM version + grants (IB-5) | **Pass** |
-| **BH-4** | **N/A** — injects context; no SM authority | **N/A** | **N/A** | **N/A** | **Neutral** — optional on comprehend path |
-| **BH-5** | **N/A** — derived read of SM | **N/A** | **N/A** | **N/A** | **Neutral** — board updates after SM commit |
-
-**Split under test (BH-1 + BH-2):** U1 supports **substrate vs writer** split. BH-1 alone cannot advance the story; BH-2 without BH-1 has nowhere durable to commit. **Coupling is intentional** — documented as write contract, not merged into one hypothesis yet (Pass 5 may treat BH-1+BH-2 as one boundary or a tight pair).
-
----
-
-### 7.10.3 Secondary scene — owner gives 30-lead list (§7.8.1)
-
-**Event:** Owner instruction + CSV → **B6** fan-out to 30 situations + one aggregate board artifact.
-
-| Question | U1 result |
-|----------|-----------|
-| Who creates empty S1…S30 records? | **BH-3 ingress (B6)** stamps create + lineage; **BH-2** runs per card after |
-| Does this break BH-2 sole-writer rule? | **No** for operational truth — create is structural shell; first **truth** versions still BH-2 (profile, draft, send) |
-| §7.8.1 status | **Still provisional** — acceptable split for fan-out; needs one explicit rule: **create stamp ≠ operational-truth commit** (IB-6) |
-
----
-
-### 7.10.4 Tertiary scenes — U1 spot checks (abbreviated)
-
-| Scene | Boundary stress | Result |
-|-------|-----------------|--------|
-| Priya **declines** → A6/A9 closure | BH-2 writes closure + outcome tag; BH-3 may notify owner (G2 significance — open) | BH-2 pass; G2 deferred Section 8 |
-| **Second outreach** after closed S1 | BH-2 creates S2 + link (A7); BH-3 may initiate new channel sequence | Graph rules in BH-1 semantics; writes by BH-2 — pass |
-| **No email** — Apollo missing | BH-2 gather + wait; BH-3 I4 ask owner; BH-5 O1 artifact | No boundary conflict — pass |
-| Priya reply **before** nurture (happy path) | Confirms timer must not send blindly | **Established** — rejects §7.8.2 timer-direct-send |
-
----
-
-### 7.10.5 Cross-boundary interaction contracts (Section 8 input)
-
-Discovered from U1; **not yet full Section 8 spec.**
-
-| ID | Contract |
-|----|----------|
-| **IB-1** | Time wakes (nurture evaluation, H4) route to **BH-2** only — never to BH-3 egress as predetermined send |
-| **IB-2** | Inbound message: BH-3 ingress routes to situation → **wake BH-2** before gather-heavy work on wrong attachment |
-| **IB-3** | On inbound reply path: BH-2 commits **one SM version** containing inbound record **and** wait supersede (atomic operational-truth move) |
-| **IB-4** | On timer path: BH-2 **must read latest SM version** before any outbound decision; superseded wait → skip send (no-op), not failure |
-| **IB-5** | BH-3 egress: send requires reference to **SM version + explicit send decision** from BH-2; channel rules (L1–L3) applied at membrane |
-| **IB-6** | BH-3 create/fan-out (B6): may stamp empty situation + lineage; **operational-truth commits** remain BH-2 |
-
----
-
-### 7.10.6 U1 findings — hypothesis adjustments
-
-| Finding | Action |
-|---------|--------|
-| BH-1 / BH-2 are failure-coupled for correctness but separable for **read vs write** | U2 **confirms tight pair** — initiation+unknown+wait atomic; Pass 5 → recommend **merged boundary "Story execution"** (BH-1 substrate + BH-2 writer) or document as inseparable pair |
-| CM significance filter (G2) not stressed by Priya reply | Remains gray; Section 8 |
-| Draft outbound separate from SM truth (F2) | **Confirmed** by U1 — do not merge draft into authoritative version block |
-| Rejected alternative "timer sends directly" | **Reconfirmed dead** by U1 |
-
----
-
-## 7.11 Pass 4 — U2 boundary tests
-
-### 7.11.1 Primary scene — refund posted, gateway silent
-
-**Situation S5:** Refund situation (linked to order/unhappy path per §6.6 U2). Refund **authorized** (G2 if required — already satisfied in this scene). Worker invokes refund capability. Gateway accepts or times out with **no confirmation**; bounded tool-layer poll also exhausts without status.
-
-**Responsibilities exercised (§6.6 U2):** M5, H2, J1, G2 (prior), F4, F6, D6, P1, E3, I6 (later).
-
-**Story move required (§7.3 + Failure category):**
-
-```text
-BEFORE (SM vN):
-- Refund approved for order #9912
-- Liveness: running
-
-AFTER tool path exhausted (SM vN+1 — one operational-truth commit):
-- Claim: refund initiation recorded — reference ID X, time T1
-- Outcome claim: unknown (sources: gateway timeout; poll N exhausted)
-- Wait: recheck status at T1+24h OR gateway webhook if earlier
-- Liveness: waiting (NOT failed — path still honest; M5)
-- Idempotency: initiation ID X blocks second post (SM + tool gate)
-
-NOT in authoritative SM block:
-- Raw gateway timeout payload (trace/tool log)
-- LLM reasoning ("customer is pressing")
-- Customer interim message text until send decision exists (F2)
-```
+<!-- Adjacent-Poll -->
 
-**Event flow under test:**
-
-```text
-BH-2 proposes refund ──► tool harness (grant check, idempotency)
-                              │
-                    bounded poll inside tool (M4)
-                              │
-                    structured result → BH-2 (NOT raw timeout to LLM)
-                              │
-                              ▼
-              BH-2 commit SM vN+1 (initiation + unknown + wait — atomic)
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-         BH-5 read      timer T+24h      customer message
-         (artifact)     wake BH-2       BH-3 → BH-2
-                              │
-                              ▼
-              same tool status poll; update claim or escalate (J1)
-
-Customer pressure ──► BH-2 wake ──► proposes retry refund
-                              │
-                              ▼
-              tool reads SM: initiation X exists, outcome unknown
-                              │
-                              ▼
-              block second post → structured return → BH-2 honest path (M5)
-```
-
----
-
-### 7.11.2 Test scores — primary scene (tests 3, 4, 8, 10)
-
-| Hypothesis | T3 State ownership | T4 Atomicity | T8 Temporal coupling | T10 Security / authority | U2 verdict |
-|------------|-------------------|--------------|----------------------|--------------------------|------------|
-| **BH-1** | **Pass** — stores initiation claim, unknown outcome, wait on version chain | **Pass+contract** — one version holds all three; writer BH-2 | **Pass** — wait on SM for 24h wake re-read | **Pass** — record does not authorize money movement | Pair with BH-2 — **not standalone** |
-| **BH-2** | **Pass** — **sole writer** of initiation/unknown/wait; interprets tool evidence into claims | **Pass** — initiation + unknown + wait **one commit** (IB-11) | **Pass+contract** — 24h wake → BH-2 re-read SM + poll (IB-1, IB-9) | **Pass** — F6/G3; stops auto-retry (M5); G2 already enforced pre-post | **Pass** |
-| **BH-3** | **Pass** — no refund truth writes; customer ingress routes to S5 | **Pass** — does not split initiation vs unknown across boundaries | **Pass** — recheck timer → BH-2 not CM | **Pass** — I6 honest message only after SM truth; no refund authorization | **Pass** |
-| **BH-4** | **N/A** | **N/A** | **N/A** | **N/A** | **Neutral** — policy context injection optional |
-| **BH-5** | **N/A** — reads SM for owner board | **N/A** | **N/A** | **N/A** | **Neutral** — "S5 waiting on gateway" derived |
-| **Tool harness (adjacent)** | **Pass** — owns retry/poll **transient** state only; **not** SM truth | **Pass+contract** — poll completes **before** BH-2 commit; gate reads SM pre-side-effect (IB-8) | **Pass** — short tool wait ≠ situation wait | **Pass** — grant gate + idempotency block (F6, M5) | **Adjacent boundary confirmed** — not L2 box |
-
----
-
-### 7.11.3 Secondary scenes — U2 spot checks
-
-| Scene | Boundary stress | Result |
-|-------|-----------------|--------|
-| **G2** — refund over grant → approval before first post | BH-2 stops; J human; no tool side effect until approval recorded | BH-2 + harness pass; BH-3 may carry approval request message |
-| Gateway **confirms success** at T+2h | BH-2 updates outcome claim; closes wait; may close S5 (A6, A9) | Single writer BH-2 — pass |
-| 24h recheck **still unknown**; bound spent | BH-2 declares failure path (M1) or escalates (J1, M6) — still **no** auto second post | M5 + BH-2 pass |
-| Customer asks **"where is my refund?"** while unknown | BH-3 ingress → S5 → BH-2; BH-3 I6 message from SM truth only | No CM write of outcome — pass |
-| LLM insists **"retry refund"** | Tool + SM block; worker escalates or waits — not second post | Rejects §7.8.2 tool-writes-SM and LLM-as-truth — pass |
-| **Wrong situation** routing (S4 vs S5) | Idempotency scoped to one storyline (A2) — routing error = wrong ID scope | Stresses B2/BH-3; no new boundary — IB-2 applies |
-
----
-
-### 7.11.4 Cross-boundary contracts — U2 additions (Section 8 input)
-
-Extends §7.10.5 (IB-1 … IB-6):
-
-| ID | Contract |
-|----|----------|
-| **IB-7** | Capability tool returns **structured evidence** to BH-2 only; **never** writes initiation/unknown/wait claims to SM |
-| **IB-8** | Before irreversible side effect: tool harness **reads SM** for existing initiation / idempotency key; blocks duplicate post even if LLM proposes retry |
-| **IB-9** | Unknown-outcome recheck timer (24h or config) wakes **BH-2**; uses **same** refund capability status path — not a separate tool or CM action |
-| **IB-10** | Unknown outcome on irreversible action: SM liveness **waiting** (H2), not failed, until wait bound spent (Failure category) — BH-2 writes; not LLM label |
-| **IB-11** | Refund initiation + outcome-unknown + recheck wait committed in **one SM version** (same atomicity pattern as IB-3) |
-
-**U1 + U2 pattern (generalized):**
-
-```text
-Side-effect attempt → tool harness (bounded recovery) → structured result
-        → BH-2 atomic SM commit → optional BH-3 egress / BH-5 derive
-        → timer wake → BH-2 re-read latest SM → decide (never blind retry)
-```
-
----
-
-### 7.11.5 U2 findings — hypothesis adjustments
-
-| Finding | Action |
-|---------|--------|
-| Tool harness is **not** a sixth L2 boundary | Stays **adjacent** with IB-7, IB-8; Level 3 implements inside capability invocation |
-| BH-1 + BH-2 inseparable for **correctness** on irreversible paths | Pass 5: record as **Boundary B-Story** (merged) or formal **BH-1↔BH-2 pair** with single write contract |
-| IB-1 (timer → BH-2) generalizes beyond nurture | **Established** — refund recheck uses same rule |
-| IB-3 atomic commit pattern generalizes | **IB-11** — any operational-truth move that blocks unsafe next action |
-| CM writing "refund processing" without SM | **Fail** — U2 reconfirms IB-5 |
-
----
-
-## 7.12 Pass 5 — Boundary decision records
-
-Method §7.24. Tested on **U1**, **U2** (§7.10, §7.11). Alternatives evaluated per §7.25 where noted.
-
----
-
-### 7.12.1 B-Story — Story execution (Situation Model + Situation Worker)
-
-| Field | Record |
-|-------|--------|
-| **Boundary ID** | B-Story |
-| **Name** | Story execution — versioned situation model and worker loop |
-| **Problem owned** | For each operational problem: maintain the **honest versioned story**, advance it through comprehend → gather → trust → decide → coordinate → human/partner/failure handling, and **commit operational truth** atomically. |
-| **Responsibilities included** | **A1–A11**, **B7**; **B4** (correction phase); **C1–C4**; **D1–D7**, **P1–P3**; **E1–E6**; **F1–F6**, **G1–G6**; **H1–H7**; **J1–J6**, **K1–K4**; **M1–M6**; partial **B6** (per-situation advancement after create) |
-| **Responsibilities excluded** | **B1–B2**, **B5** ingress routing; **I1–I6**, **L1–L4** expression; **N1–N16** memory domain (B-Memory serve sync + learn async); **O1–O6** derived views; channel send; tool-layer transient retry state |
-| **State owned** | Versioned situation model per problem; graph edges/links; closure/outcome tags; waits on story; worker run refs; decision-intention artifacts **linked** to versions (F2); ingest refs on story (B7) |
-| **External state referenced** | Business systems (canonical facts); platforms (messages); business config (grants); tool structured results; memory slices from B-Memory |
-| **Authority** | Proposes and commits story updates; selects behaviour inside grant; enforces stop-safe (F4, M5); grants checked deterministically after proposal (F6) — not at CM |
-| **Why together** | Substrate without writer cannot advance; writer without substrate has no durable truth. U1/U2 **atomic commits** (inbound+wait; initiation+unknown+wait) require **one ownership domain** for correctness (T4). |
-| **Why nearby excluded** | **B-Membrane:** channels and routing change for different reasons; must not co-own story truth. **B-Memory:** retrieval, not advancement. **Tool harness:** side-effect safety at invoke, not story semantics. |
-| **Change coupling** | Business behaviour, policy interpretation, wait/nurture/refund logic evolve together — one conceptual owner. |
-| **Lifecycle coupling** | Situation running/waiting/blocked/completed tied to story versions — same lifecycle. |
-| **Consistency / atomicity** | **Critical:** operational-truth moves are single version commits (IB-3, IB-11). |
-| **Failure coupling** | Story-level failure (M1–M6) owned here; tool transient failure adjacent. |
-| **Temporal coupling** | Timer wakes **this** boundary only (IB-1, IB-9); re-read latest version before outbound decision (IB-4). |
-| **Scaling** | Scales with open situations and decision depth — not with channel count alone. |
-| **Security / authority** | Irreversible actions gated via SM + tool read (IB-8); no LLM self-authorization. |
-| **Interaction cost** | Accepts wakes from B-Membrane, timers, humans; emits SM versions for B-Membrane egress and B-Visibility derive. |
-| **Alternatives (§7.25)** | **A Combine BH-1+BH-2 → accepted.** **B Separate substrate vs writer → rejected** (U2 double-writer / split atomicity risk). **C Hybrid CM co-writes waits → rejected** (U1/U2). |
-| **Rejected alternatives** | LLM trace as truth; CM sole SM writer; timer direct send (§7.8.2) |
-| **Known limitations** | §7.8.1: B-Membrane may stamp **empty** create shell (IB-6) — operational commits still B-Story. U3/U4 not re-tested. |
-| **Supporting evidence** | §7.10, §7.11; §6.6 U1/U2; Failure category; [`construction_record.md`](construction_record.md) §3.4–3.6 |
-| **Status** | **Established** |
-
-**Level 3 hint (non-normative):** One durable record per situation + worker loop instance; not required to be two deployables.
-
----
-
-### 7.12.2 B-Membrane — Conversation manager (ingress / egress)
-
-| Field | Record |
-|-------|--------|
-| **Boundary ID** | B-Membrane |
-| **Name** | Conversation manager — ingress and egress membrane |
-| **Problem owned** | Move events and messages across the business boundary: **route ingress** to the right story; **deliver permitted egress** on channels — without owning story advancement or operational truth. |
-| **Responsibilities included** | **B1**, **B2**, **B5**; **B6** (create/fan-out ingress); **I1–I6**, **L1–L4** |
-| **Responsibilities excluded** | **C–G**, **D**, **E**, **H**, **J**, **K**, **M** story logic; **A** closure (except create stamp per IB-6); **O** views; authoritative wait/outcome writes |
-| **State owned** | Ingress routing context; in-flight delivery jobs; channel adapter state |
-| **External state referenced** | B-Story SM (read for route match and send gate); grants; platform message IDs |
-| **Authority** | Route and send on channels inside visibility rules; **cannot** authorize refunds, change story, or cancel waits |
-| **Why together** | Ingress and egress share **channel membrane** expertise and platform rules — one coherent transport problem. |
-| **Why nearby excluded** | **B-Story:** business truth and decisions. **B-Visibility:** derived observation, not transport. |
-| **Change coupling** | New channels and platform policy change membrane — not nurture/refund logic. |
-| **Lifecycle coupling** | Delivery jobs shorter than situation lifecycle — separable. |
-| **Consistency / atomicity** | Does **not** co-write operational-truth fields (U1 T4 pass). |
-| **Failure coupling** | Undeliverable message (Failure class) surfaces via membrane; story response owned by B-Story. |
-| **Temporal coupling** | Timer wakes → B-Story, not membrane send (IB-1). |
-| **Scaling** | Scales with event rate and channel adapters. |
-| **Security / authority** | IB-5: send requires SM version + B-Story send decision + L rules. |
-| **Interaction cost** | Every inbound/outbound crosses this boundary — kept thin intentionally. |
-| **Alternatives** | **Separate ingress service vs egress service → rejected** (duplicate channel expertise, §7.11 interaction cost). |
-| **Rejected alternatives** | CM writes refund/outcome truth; timer → CM send |
-| **Known limitations** | G2 owner significance filter open; IB-6 create stamp provisional |
-| **Supporting evidence** | §7.10, §7.11; harness study Part 6 ingress/egress split |
-| **Status** | **Established** |
-
----
-
-### 7.12.3 B-Memory — Memory (observe · learn · maintain · serve)
-
-| Field | Record |
-|-------|--------|
-| **Boundary ID** | B-Memory |
-| **Name** | Memory — business knowledge lifecycle |
-| **Problem owned** | One coherent **business memory domain**: observe worker and configurator activity; learn and maintain vocabulary, lessons, and configuration artifacts; **serve** scoped context (structured + prose) to B-Story and routing slices to B-Membrane — without owning story commits, grants, or product behaviour improvement. |
-| **Responsibilities included** | **N1–N16** |
-| **Responsibilities excluded** | **A–M** story writes; **O** aggregate views; **G** grant authorization; **Q** authoritative registry apply (propose only); **R** fine-tuning / prompt optimizer on constitution |
-| **State owned** | Business knowledge; episodic experience; learning items (lifecycle); vocabulary; structured config artifacts (JSON/schema-bound); prose preferences; assembly templates; retrieval indexes |
-| **External state referenced** | B-Story (scope, links); worker/configurator traces (read); configuration registry (Q1 — authoritative values when applied) |
-| **Authority** | Advisory context and config **candidates** only (N16); never SM commits, sends, or silent grant change |
-| **Why together** | Memory category spine: **same store** serves loader and learning pipeline; splitting observe/learn from serve would duplicate indexes and reconcile logic |
-| **Why nearby excluded** | **B-Story:** operational truth per situation. **B-Visibility:** projection not retrieval/learning. **Adjacent-Improvement:** behaviour in weights, not business KB. **Configurator apply:** deterministic tools (Q), not LLM memory write |
-| **Change coupling** | KB evolution, vocabulary drift, learning reconcile — independent from per-situation worker loop |
-| **Lifecycle coupling** | Knowledge long-lived; situations and lessons linked via graph (N5) |
-| **Consistency / atomicity** | **Serve path** sync on context need — may lag slightly on learn path (async). Learn writes must not block B-Story atomic commits (IB-12) |
-| **Failure coupling** | Missing memory → B-Story handles gather/capability-absent (**D8/O10 — not Failure triage**). Bad lesson → N10 evaluate/reverse — not story-owned |
-| **Temporal coupling** | Observe/learn async after worker pass; serve before/at phase start |
-| **Scaling** | Scales with business knowledge size; routing slice (N11) prevents full-graph scan at membrane |
-| **Security / authority** | Tenant isolation; IB-13: memory cannot apply grants — configurator capability only |
-| **Interaction cost** | Serve: called per worker phase. Observe: one async fan-out per trace — off hot path |
-| **Alternatives** | **Merge into B-Story → rejected** (different change drivers; learning would couple to every SM commit). **Split serve vs learn boundaries → rejected** (duplicate ownership of same KB; reconcile needs unified index) |
-| **Known limitations** | U1/U2 did not stress learn path, configurator observation, or vocabulary drift; promotion needs dedicated unit |
-| **Supporting evidence** | §6.4 N1–N16; memory category KB (19 files); harness study §11.2; Authority knowledge vs behaviour |
-| **Status** | **Provisional** |
-
----
-
-### 7.12.4 B-Visibility — Visibility & audit (derived views)
-
-| Field | Record |
-|-------|--------|
-| **Boundary ID** | B-Visibility |
-| **Name** | Visibility & audit — derived business and builder views |
-| **Problem owned** | **Derive** owner snapshots, artifacts, explain-on-demand reconstructions, observer signals — **read-only** for correctness. |
-| **Responsibilities included** | **O1–O6** |
-| **Responsibilities excluded** | All authoritative story writes; **I/L** actor message delivery |
-| **State owned** | Derived projections; observation events; reconstruction render configs |
-| **External state referenced** | Full B-Story graph; traces (for explain-on-demand) |
-| **Authority** | None over business actions |
-| **Why together** | One problem: **who sees what view of truth** — explainability category. |
-| **Why nearby excluded** | **B-Membrane** delivers messages; **B-Story** owns truth. |
-| **Change coupling** | UI/observation product evolution — separate from story logic. |
-| **Lifecycle coupling** | Projections refresh on SM change — async derive. |
-| **Consistency / atomicity** | Stale board lag acceptable; incorrect story write is not. |
-| **Failure coupling** | Observer anomalies route per Explainability category — not story owner. |
-| **Temporal coupling** | N/A |
-| **Scaling** | Scales with owner query patterns and situation count. |
-| **Security / authority** | Role-based visibility; admin vs owner sets. |
-| **Interaction cost** | Read-heavy; must not block B-Story writes. |
-| **Alternatives** | **Merge into B-Membrane → rejected** (observation ≠ transport). |
-| **Known limitations** | G2 significance overlaps O3 — Section 8; U1/U2 neutral test only. |
-| **Supporting evidence** | §6.8 cluster 12; Business View category |
-| **Status** | **Provisional** |
-
----
-
-### 7.12.5 Adjacent — Capability tool harness (not a Level 2 boundary)
-
-| Field | Record |
-|-------|--------|
-| **ID** | Adjacent-Tool (not B-*) |
-| **Problem owned** | At capability invocation: **authorization (T2/T4)**, bounded retry/poll (M4), **idempotency read (S9/IB-8)**, structured result — **no story semantics** |
-| **Level 2 contracts** | IB-7, IB-8 (**harness idempotency — not grant check**); T2 before execute |
-| **Why not a boundary** | Exists per **capability call**, not per situation ownership; would duplicate across every P* invoke; correctness coupling is **contractual** to B-Story, not separate evolution domain |
-| **Status** | **Established contract**; Level 3 implementation inside harness |
-
----
-
-### 7.12.6 Adjacent — Product improvement (not a Level 2 boundary)
-
-| Field | Record |
-|-------|--------|
-| **ID** | Adjacent-Improvement (not B-*) |
-| **Problem owned** | Improve **how Tend behaves** — model adherence, assembly-template optimization — from verified traces; **never** store business-specific rules in weights |
-| **Responsibilities included** | **R1–R3** (§6.4 Group R) |
-| **Why not B-Memory** | Same trace stream as N6 (IB-12) but different output: adapters / flywheel corpus, not business KB activation. Conflating would violate Authority **knowledge vs behaviour** split (N15) |
-| **Level 2 contracts** | IB-14: trace fan-out to improvement path; optimizer bounded to memory-owned assembly templates (R2) |
-| **Status** | **Established contract**; product-team evolution domain |
-
----
-
-### 7.12.7 Merge decision — BH-1 + BH-2 → B-Story
-
-| Option | Description | Verdict |
-|--------|-------------|---------|
-| **A — Combine** | Single story execution boundary (substrate + worker loop) | **Accepted** → B-Story |
-| **B — Separate** | BH-1 store vs BH-2 writer as independent boundaries | **Rejected** — atomic operational commits and sole-writer rule fail across boundary without heavy distributed protocol (U1 IB-3, U2 IB-11) |
-| **C — Hybrid** | CM or tool co-writes selected SM fields | **Rejected** for operational truth — IB-6 allows create shell only |
-
----
-
-### 7.12.8 Interaction contract index (Section 8 input)
-
-Full spec deferred to `section_8_interaction_model.md`. Boundaries **depend** on:
-
-| ID | Summary | Boundaries |
-|----|---------|------------|
-| IB-1 | Timer wake → B-Story only | B-Story, B-Membrane |
-| IB-2 | Ingress route → wake B-Story | B-Membrane → B-Story |
-| IB-3 | Atomic inbound + wait supersede | B-Story |
-| IB-4 | Timer path re-read latest SM | B-Story |
-| IB-5 | Egress requires SM version + send decision + **Policy.decide → Allow** (T2) + L1–L3 | B-Membrane ← B-Story |
-| IB-6 | Create stamp ≠ operational-truth commit | B-Membrane → B-Story |
-| IB-7 | Tool → structured evidence only | Adjacent-Tool → B-Story |
-| IB-8 | **Idempotency gate (harness S9)** — SM read blocks duplicate post; **not** authorization | Adjacent-Tool ↔ B-Story |
-| IB-9 | Unknown-outcome recheck → B-Story + same tool | B-Story |
-| IB-10 | Unknown → waiting liveness on SM | B-Story |
-| IB-11 | Atomic initiation + unknown + wait | B-Story |
-| IB-12 | Worker/configurator trace → B-Memory **async** observe; never blocks SM commit | B-Story → B-Memory |
-| IB-13 | B-Memory config **candidates** → configuration registry via **deterministic configurator tools** only | B-Memory → Q (Group Q); not LLM grant write |
-| IB-14 | Training-grade trace fan-out → Adjacent-Improvement; separate from business memory activation | B-Story trace → Adjacent-Improvement |
-
-**Artifact classes at serve time (S8-9):**
-
-| Class | Example | Consumer |
-|-------|---------|----------|
-| **Structured** | Tool arg JSON, registry record, schema-bound config | Applied by capability/registry loader — deterministic |
-| **Prose preferences** | "Always sign outreach with …" | Injected at generating step per prompt constitution N14 |
-
-**Section 8 contract families (resolve IB-15+ collisions from category audits):**
-
-| Family | Meaning | Examples |
-|--------|---------|----------|
-| **HC-*** | Harness control — loop, commits, ingress VALIDATE split, write-and-announce | HC-1 write-and-announce; HC-2 ingress MEANING vs SM commit |
-| **AC-*** | Authorization control — TenantContext, Policy.decide, enforcement-read-no-cache | AC-1 principal propagation; AC-2 egress Policy.decide; AC-4 cache never decides |
-
-Keep **IB-1…IB-14** stable. Full gate table: §7.12.9.
-
----
-
-### 7.12.9 Cross-cutting gate table (Harness S vs Authorization T)
-
-**Principle:** No boundary owns "the control layer." Each implements gates for its edge. VALIDATE is a **joint** step: **S2** structural + **T2** permission — different failure diagnostics.
-
-#### B-Story — story execution
-
-| Discipline | Gate | Contract |
-|------------|------|----------|
-| Harness | S1 per-wake contract | WAKE→RECOVER→PROPOSE→VALIDATE→EXECUTE→UPDATE→REST |
-| Harness | S4–S7 | Atomic commits (IB-3, IB-11); write-and-announce (H9) |
-| Harness | S10 | Timer → story only (IB-1, IB-4, IB-9) |
-| Authorization | T2, T6 | Policy.decide on proposal and each invoke/send branch |
-| Not here | Channel send, idempotency at connector | B-Membrane, Adjacent-Tool |
-
-#### B-Membrane — ingress / egress
-
-| Discipline | Gate | Contract |
-|------------|------|----------|
-| Harness | S2 ingress VALIDATE | Route 0/1/many; soft hold (B9) |
-| Harness | S12 dedup | Platform at-least-once |
-| Harness | IB-5, IB-6 | Send job refs SM version; create shell ≠ truth |
-| Authorization | T1 | Mint TenantContext at ingress |
-| Authorization | T2, IB-5 | Policy.decide before outbound send |
-| Authorization | T11 + L1–L4 | Reveal, channel, visibility |
-
-#### Adjacent-Tool — capability invoke
-
-| Discipline | Gate | Contract |
-|------------|------|----------|
-| Harness | S7–S9, IB-7, IB-8 | Intent before effect; structured evidence; **idempotency read** |
-| Authorization | T2, T4, T5 | Policy.decide **before** connector call; live grant read |
-| Clarify | IB-8 | **S9 idempotency — complements T2, does not replace** |
-
-#### Adjacent-Config — configuration apply (proposed adjacent)
-
-| Discipline | Gate | Contract |
-|------------|------|----------|
-| Harness | S2 schema | Q1 registry shapes |
-| Authorization | T8, G7 | Grant/registry writes — configurator tools only (IB-13) |
-
-#### B-Memory
-
-| Discipline | Rule |
-|------------|------|
-| Harness | S11 — loader output schema-bound; IB-12 async observe |
-| Authorization | **No T2 on memory activation** — N16 advisory; T5 cache never decides grants |
-| Compliance | U2 field allowlist at serve; trace redaction before IB-12/IB-14 fan-out |
-
-#### B-Visibility
-
-| Discipline | Rule |
-|------------|------|
-| Harness | Read-only derive — no S4 commits |
-| Authorization | T11 partial — role projection (O3, L4) |
-
----
-
-## 7.13 Pass 6 — Boundary graph
-
-Logical ownership and interaction structure (method §7.28). **Not** a deployment diagram.
-
-### 7.13.1 Graph — boundaries and adjacent contract
-
-```text
-                    ┌─────────────────────────────────────────┐
-                    │  External: platforms, business systems, │
-                    │  humans, partners, time scheduler       │
-                    └───────────────┬─────────────────────────┘
-                                    │
-              events / messages     │     canonical data
-                                    ▼
-                    ┌───────────────────────────────┐
-                    │       B-Membrane              │
-                    │  ingress route · egress send  │
-                    │  (+ owner → configurator agent)│
-                    └───────┬───────────────┬───────┘
-                            │               │
-                   wake +   │               │  read SM +
-                   ingest  │               │  send gate (IB-5)
-                            ▼               │
-        ┌───────────────────────────────────┴──────────────────────┐
-        │                      B-Story                              │
-        │   versioned SM · worker loop · operational truth commits   │
-        └───┬───────────────┬──────────────────┬───────────┬────────┘
-            │               │                  │           │
-   context  │    trace      │  derive (async)  │           │ trace (IB-14)
-   need     │  (IB-12 async)│                  │           │
-            ▼               ▼                  ▼           ▼
-    ┌───────────────┐ ┌─────────────┐  ┌──────────────┐  ┌──────────────────┐
-    │   B-Memory    │ │ Adjacent-   │  │ B-Visibility │  │ Adjacent-        │
-    │ observe·learn │ │ Tool        │  │(provisional) │  │ Improvement      │
-    │ ·maintain·    │ │ (invoke)    │  └──────────────┘  │ (behaviour flywheel)│
-    │ serve         │ └──────┬──────┘                    └──────────────────┘
-    └───────┬───────┘        │
-            │                structured evidence (IB-7)
-   config   │                reads SM pre-effect (IB-8)
-   candidates (IB-13)        ▼
-            ▼           external capabilities
-    ┌───────────────┐  (refund, Apollo, carrier, …)
-    │ Config registry│
-    │ (Group Q apply)│
-    └───────────────┘
-```
-
-### 7.13.2 Edge catalog
-
-| From | To | Relationship | Contracts | Correctness-critical? |
-|------|-----|--------------|-----------|------------------------|
-| External platforms | B-Membrane | inbound events, delivery acks | B1, B2, L* | Yes — ingress |
-| B-Membrane | B-Story | route match → **wake**; optional create shell | IB-2, IB-6 | Yes |
-| B-Story | B-Membrane | SM version + send decision → egress | IB-5 | Yes — no blind send |
-| Time scheduler | B-Story | timer wake (nurture, recheck, H4) | IB-1, IB-4, IB-9 | Yes — not CM |
-| B-Story | B-Memory | context need (sync serve) + worker trace (async observe) | N1, N11, IB-12 | Serve: no — degrades. Observe: no — async |
-| B-Memory | B-Story | context slice (structured + prose) | inject only | No |
-| B-Memory | B-Membrane | routing slice at scale (N11) | context need | No |
-| B-Membrane | B-Memory | configurator session trace | IB-12, N13 | No |
-| B-Memory | Config registry (Q) | structured config candidates | IB-13 | Yes — must not bypass deterministic apply |
-| B-Story | Adjacent-Improvement | training-grade trace fan-out | IB-14, R1 | No |
-| B-Story | Adjacent-Tool | capability invoke (inside grant) | IB-7, IB-8, P*, M4 | Yes — irreversible |
-| Adjacent-Tool | B-Story | structured result | IB-7 | Yes |
-| B-Story | B-Visibility | SM version changed (event) | O1–O2 derive | No — lag OK |
-| B-Visibility | B-Membrane | none direct | — | — |
-| Humans | B-Membrane / B-Story | messages, approvals, answers | J*, G2 | Yes — via route or SM |
-| Business systems | B-Story (via tool) | canonical facts | D*, P* | Yes — not SM master for ERP |
-
-### 7.13.3 Authority flow (summary)
-
-```text
-Ingress event     → B-Membrane routes → B-Story decides + commits SM
-Timer             → B-Story directly (IB-1)
-Side effect       → B-Story proposes → Adjacent-Tool gates → B-Story commits
-Outbound          → B-Story authorizes content → B-Membrane delivers
-Owner board       → B-Visibility reads SM (never writes truth)
-Explain why       → B-Story trace link on demand (O4); not in SM spine
-```
-
-### 7.13.4 What is outside Tend boundaries (§6.5)
-
-| Actor / system | Relationship to graph |
-|----------------|----------------------|
-| Business ERP, payment gateway | Canonical data; Adjacent-Tool + B-Story coordinate |
-| Communication platforms | Canonical messages; B-Membrane membrane |
-| Business owner / employees | Grant source; human collaboration via B-Story + B-Membrane |
-| Customers / contacts (Priya) | External actors; ingress/egress only |
-
----
-
-## 7.14 Section 8 handoff
-
-Section 7 defines **boxes and ownership**. Section 8 ([`section_8_interaction_model.md`](section_8_interaction_model.md) — not yet written) must define **cooperation behaviour** across boxes (method §8.1).
-
-### 7.14.1 Mandatory Section 8 deliverables (from U1/U2)
-
-| # | Deliverable | Source | Priority |
-|---|-------------|--------|----------|
-| S8-1 | **Wake routing table** — event kind → target boundary → follow-up | IB-1, IB-2, IB-9 | P0 |
-| S8-2 | **SM write discipline** — sole writer, version commit rules, create shell vs truth (IB-3, IB-6, IB-11) | §7.3, Pass 5 | P0 |
-| S8-3 | **Egress gate** — B-Membrane send preconditions | IB-5 | P0 |
-| S8-4 | **Capability invoke cycle** — B-Story ↔ Adjacent-Tool | IB-7, IB-8 | P0 |
-| S8-5 | **Timer / message race** — re-read latest SM before outbound (IB-4) | U1 §7.10 | P0 |
-| S8-6 | **Unknown outcome liveness** — waiting not failed until bound (IB-10) | U2, Failure KB | P0 |
-| S8-7 | **Owner significance filter** (G2) — artifact vs owner chat | §6.10 Q2; gray G2 | P1 |
-| S8-8 | **B-Visibility derive triggers** — on SM change, debounce rules | B-Visibility provisional | P1 |
-| S8-9 | **B-Memory serve protocol** — context need schema; structured vs prose artifact injection (IB-12 serve half) | Memory KB; §7.12.8 artifact table | P1 |
-| S8-11 | **B-Memory observe/learn protocol** — async trace consume, reconcile, lifecycle, evaluate (IB-12 learn half) | Memory KB; harness §11.2 | P1 |
-| S8-12 | **Configurator observation + IB-13 apply** — memory candidates → deterministic registry write | `the_business_configuration_capability.md`; Group Q | P1 |
-| S8-13 | **Adjacent-Improvement trace contract** — IB-14; knowledge vs behaviour gate | Authority conversation; Group R | P2 |
-| S8-10 | **Failure propagation** — membrane undeliverable → B-Story | Failure + B-Membrane | P1 |
-
-### 7.14.2 Suggested Section 8 structure (outline only)
-
-```text
-8.1 Purpose (link §7.14)
-8.2 Wake routing table (S8-1)
-8.3 Story commit protocol (S8-2) — atomic moves catalog
-8.4 Membrane interactions (S8-3, S8-10)
-8.5 Capability invoke cycle (S8-4)
-8.6 Temporal races (S8-5, S8-6)
-8.7 Human and owner interactions (S8-7)
-8.8 Derive, memory serve, and async learn (S8-8, S8-9, S8-11, S8-12)
-8.9 Product improvement adjacent (S8-13)
-8.10 U1 walkthrough — Priya reply + nurture timer
-8.11 U2 walkthrough — refund gateway silent
-```
-
-### 7.14.3 Open items carried to Section 8 / later units
-
-| Item | Owner doc |
-|------|-----------|
-| §7.8.1 create stamp vs first truth commit | S8-2 + U1 list fan-out walkthrough |
-| G2 significance filter | S8-7 |
-| G3 SM update reason tags per writer | S8-2 |
-| B-Memory learn/observe promotion to established | Dedicated unit: vocabulary drift, repeated tool error → lesson, configurator session |
-| U4 stale API | Pass 9–10 dimension stress or dedicated Section 8 failure paths |
-
-### 7.14.4 Re-test triggers (when Section 7 boundaries must be revisited)
-
-- U3/U4 construction units complete
-- New boundary hypothesis proposed (e.g. split B-Membrane ingress/egress)
-- Product invariant change (Compliance §4A)
-- Section 9–10 dimension stress finds contradiction
-
----
-
-## 7.15 Section 7 completion checklist (first tranche)
-
-| Output (method §7.31) | Status |
-|------------------------|--------|
-| Boundary hypotheses | ✅ Pass 2; merged Pass 5 |
-| Boundary tests (U1, U2) | ✅ §7.10, §7.11 |
-| Boundary decision records | ✅ §7.12 |
-| Boundary graph | ✅ §7.13 |
-| Established boundaries | ✅ B-Story, B-Membrane |
-| Provisional boundaries | ✅ B-Memory, B-Visibility |
-| Rejected alternatives | ✅ §7.8.2, §7.12.6 |
-| Section 8 handoff | ✅ §7.14 |
-| U3/U4 validation | ⏸ Deferred |
-| Full 11-test matrix all boundaries | ⏸ B-Memory (serve neutral; learn untested), B-Visibility pending |
-
-**Gap remediation (Memory):** B-Memory was previously documented as injection-only; expanded to full memory category per §6.12 and user review.
-
-**Section 7 first tranche is complete enough to begin Section 8.**
-
----
-
-## 7.16 What remains outside this document
-
-- [`section_8_interaction_model.md`](section_8_interaction_model.md) — full IB-1…IB-14 behaviour spec (§7.14)
-- U3/U4 boundary re-test; B-Memory learn-path + B-Visibility promotion to established
-- Dedicated construction unit: configurator observes → structured JSON + prose preferences → loader inject
-- Sections 9–11 dimension stress and `logical_architecture.md` stabilization
-
----
+**Status: recorded as decided on 2026-10-09.** The harness never checks on a timer. Status checks run in a separate service. That service runs each status check, and sends the results back as messages to the situation. Short status checks are used only where the outside system's behaviour is known. <!-- S6 H8, M5 -->
+
+**Recommendation:** the status-check service is its own part, because it serves many situations at once. Technical detail is for Level 3.
+
+## Configuration
+
+<!-- Adjacent-Config -->
+
+**Job.** The only path that writes grants and the business's registry values. It runs through fixed tools only.
+
+**Writes.** Grant records, the registry of business values, and the schemas that validate them. <!-- G7, T8 -->
+
+**Does not.** Let an AI, a runtime agent, or memory change a grant. Memory proposes candidates; this part applies them after validation.
+
+**Rules it carries.**
+
+- Grants and registry writes are made only by the configurator's fixed tools. <!-- G7, T8 -->
+- The configurator is a role, held by the signup owner or by a person the owner assigns. That person works through the configurator's agent, which holds the fixed tools. <!-- G7 -->
+- Business settings are a typed registry: schemas, values, and validation. A setting is a record, not free text. <!-- Q1 -->
+- A new capability, system, or channel enters through the catalogue lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A business policy follows its own lifecycle: draft, validate, activate, version, replace or expire, retire. <!-- Q2 -->
+- Business policies and workflows are fixed when a situation opens. Facts, platform rules, and grants are live. A platform-rule change starts each open situation to re-check what is allowed now. A business-setting change does not start it. Any other change reaches an open situation only by deliberate migration. <!-- Q3 -->
+- Missing or unsupported configuration is shown as a visible gap, never silently refused. <!-- Q4 -->
+- A setting that needs a core change was put in the wrong place. <!-- Q5 -->
+- Structured configuration is checked against its schema before it is applied. <!-- S2 -->
+
+**Decided:** the configurator may not hand its power to another person.
+
+## Memory
+
+<!-- B-Memory -->
+
+**Job.** Observes what the work did, learns from it, keeps business knowledge, and supplies the context each step needs.
+
+**Writes.** Memory items: the business knowledge it keeps ready for use, learned lessons, and candidates. It proposes links. It writes no situation record.
+
+**Owns.** Its own experience record: what it proposed, what it used, and what it learned. It keeps the business's knowledge ready for use, but the business owns that knowledge (Level 2). It owns the configuration candidates it proposes and the retrieval indexes. It also owns the prompt assembly templates, which the improvement part may edit only as Section 6 allows.
+
+**Does not.** Change a business rule, a grant, an approval, or a permission. Send a message. Write the truth of a situation. Apply a configuration change.
+
+**Rules it carries.**
+
+- Each decision step, and each routing step, gets only the memory it needs, not a full dump. <!-- N1, N11 -->
+- Closed situations inform new ones only through links and relevance. <!-- N2 -->
+- Memory keeps the experience of what happened. <!-- N4 -->
+- Each memory item points to the situation, experience, claim, version, or correction it came from. <!-- N5 -->
+- Traces are recorded for memory, asynchronously. Recording a trace does not switch learning on. <!-- N6 -->
+- Learning is on by default. A configurator can switch it off, or require a person to validate each lesson. <!-- N6 -->
+- Candidate lessons come from external failure signals, not from self-reflection alone. <!-- N7 -->
+- A new lesson is matched against existing claims. An ambiguous match never overwrites silently. <!-- N8 -->
+- Each learned item has a lifecycle: active, stale, superseded, conflicting, retired, or unresolved. <!-- N9 -->
+- Before a lesson is kept, Tend re-runs old cases to check that it does no harm. Harmful lessons are reversed. <!-- N10 -->
+- Business vocabulary and conventions are business knowledge. <!-- N12 -->
+- Memory proposes configuration candidates. A configurator validates each one. Only the configuration tools apply it. <!-- N13 -->
+- Structured values belong to the configuration part. Prose preferences are placed by memory at the step that writes a reply, and the business owns their text. <!-- N14 -->
+- Business content learning is kept apart from product behaviour improvement. <!-- N15 -->
+- Each memory item keeps its origin, scope, version, and how far it may influence decisions. Memory is advisory. <!-- N16 -->
+- Credentials, secrets, and authentication material are never stored as business memory. <!-- N17 -->
+- Memory's loader output is checked against its schema before it is used. <!-- S11 -->
+- Missing memory never blocks a decision. The situation worker treats the gap as a gather step, or as capability-absent. <!-- D8, O10 -->
+- Activating memory does not run its own permission check. The situation worker checks permission for each effect. <!-- T2 -->
+- Before trace content goes to memory or to the improvement path, it is redacted. <!-- trace redaction gate -->
+
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 is silent on this point:** memory observes the configurator's setup sessions, but only proposes candidates, which a configurator validates.
+
+## Improvement
+
+<!-- Adjacent-Improvement -->
+
+**Job.** Improves how Tend behaves, from verified traces. Keeps training traces apart from business memory.
+
+**Rules it carries.**
+
+- Traces kept for product improvement are separate from business memory. <!-- R1 -->
+- Prompt optimisation is limited to the memory-owned assembly templates. The product constitution stays human-edited. <!-- R2 -->
+- Behaviour improves from verified traces. Business rules are never placed in AI weights. <!-- R3 -->
+
+## The observer
+
+<!-- O8 -->
+
+The observer is a function that runs alongside the parts above. It emits observation changes onto the change channel: probe results, drift signals, and breaches of the completion rules. It does not act on what it finds. The owner view shows the results. Anomalies inside a situation are recorded through the situation record.
+
+## Records of consequential actions
+
+<!-- O7 -->
+
+**Rule.** Every consequential action leaves one complete record. The record says what was done, which evidence was used, which grant the action ran under, why it ran, and what the outcome was. An action is consequential when it is important enough to enter the audit, as the Failure declaration rules define it.
+
+**Who writes it.** The part that performs the action writes its record, in the same run as the action. For a sent message, that is the communication layer. For a tool call, that is the tool layer. This section does not decide who may approve an action or who answers for it. Level 2's authority and ownership folder covers that.
+
+**How the records connect.** Each record carries a run ID, a situation version, and a situation ID. Together they connect an action to its reasoning, its place in the situation's history, and the person's journey.
+
+**Check.** A write without its record is incomplete and is retried. Level 2 names no checker for record writes. Decided 2026-10-09, recorded: no separate checker.
+
+**Storage.** Where the audit is stored, and how it is indexed, is a later technical decision. The logical record is one rule. It is not one store.
+
+## Failure and unavailability
+
+- If a part cannot be reached, its waits stay honest inside their bounds. Past their bounds, the situation worker records a failure. <!-- M2, H3 -->
+- If the owner view is down, the record is not affected. The owner's attention may be delayed. Level 2 sets no limit. <!-- O3 -->
+- If the conversation manager is down, incoming messages wait. Nothing is sent. <!-- S12 -->
+- If the tool layer is down, the situation worker does not save a change that depends on it. <!-- M4, S4 -->
+
+## The rules that join the parts
+
+These are the connections between the parts. Each one is a rule the parts must follow.
+
+<!-- IB-1 to IB-14, IA-1 to IA-13, HC-1 to HC-3, AC-1 to AC-4 -->
+
+- A timer starts the situation worker only. <!-- IB-1 -->
+- An incoming message is routed to its situation before anything is gathered. <!-- IB-2 -->
+- Tend's reply and the cancelling of the wait it answers are saved together, as one version, by the situation worker. The customer's message is recorded first, as its own version. <!-- IB-3 -->
+- A timer re-reads the latest version before any outgoing decision. A superseded wait sends nothing. A late timer does nothing, and it is not an error. <!-- IB-4 -->
+- An outgoing message needs a saved send decision, an Allow from the policy check, and the content rules. <!-- IB-5 -->
+- The conversation manager writes the first version of a new situation at intake. There is no empty record. <!-- IB-6 -->
+- Tools return structured evidence to the situation worker, and never write claims into the situation record. <!-- IB-7 -->
+- Before an irreversible action, the situation record is checked for an earlier attempt, and duplicates are blocked. This is not an approval check. <!-- IB-8 -->
+- An unknown-outcome recheck is a timer that starts the situation worker, and uses the same status path. It is not a separate tool or action. <!-- IB-9 -->
+- An unknown outcome on an irreversible action keeps the situation waiting until the promised settle window is spent. <!-- IB-10 -->
+- Starting an action, recording it as unknown, and waiting are saved in one version. <!-- IB-11 -->
+- Worker traces go to memory asynchronously, and never block a save. <!-- IB-12 -->
+- Memory may propose configuration. Only the configurator's fixed tools apply it. <!-- IB-13 -->
+- Training-grade traces feed product improvement, kept apart from business memory. <!-- IB-14 -->
+- A situation version is saved and announced as one unit. An unannounced save is retried. <!-- HC-1 -->
+- The conversation manager works out what an incoming message means, and routes it. Only the situation worker writes conclusions. <!-- HC-2 -->
+- Every wait is written to the book of waits, with its start trigger. One check-in per situation is the only periodic backstop. No part of Tend asks an outside system "is it done yet?" on a schedule. <!-- HC-3 -->
+- The identity of a run is set once, from verified identity, and never from message text, links, or tool arguments. <!-- AC-1 -->
+- Before any outgoing message, a fixed check returns Allow, Deny, or StepUp. <!-- AC-2 -->
+- Approval returns through the tool flow. A denial ends that proposal, not the situation. The tool checks again before it acts. <!-- AC-3 -->
+- Allow and deny decisions read the trusted permission store, never a cache. A cache only speeds up reads of context. The configuration part is the only writer of the trusted permission store. <!-- AC-4 -->
+
+## Reopening a situation
+
+A closed situation stays closed. It is reopened only when its closure was wrong: the same operational problem was resolved too early, or it has come back. Any other new problem is a new situation, linked to the closed one. A closed situation is looked at only when the message refers to it explicitly. The intake step applies this. <!-- A7, A8 -->
+
+**Decided:** "reopened" is a mark on the same situation record. It is not a new record. <!-- A8 -->
+
+## Decisions and open questions
+
+**Decided (Swaraj accepted the recommendations, 2026-10-09):**
+
+1. **Builder and prompts.** In production, prompts with personal data are masked. In the simulation environment, everything is visible.
+2. **Owner and their own data.** The owner sees their own customers' data unmasked. Masking applies to the builder and admin views.
+3. **Admin reads of the audit trail.** Every admin read is logged.
+4. **Tenant data for training.** No, without the owner's written permission.
+5. **Owner access to the audit trail.** No by default.
+6. **Memory and setup sessions.** Memory observes setup sessions and proposes candidates only. A configurator validates them.
+7. **The status-check service.** Its own part, with results returned as messages to the situation. Technical detail is for Level 3.
+8. **Record checks.** Recorded earlier: no separate checker, to confirm. A write without its record is retried. Level 2 names no checker.
+9. **Consent withdrawal.** Withdrawal stops every future message to that person. Level 2 records withdrawal in consent records but does not state this rule.
+10. **Product Vision wording.** Changed in the architecture. The Product Vision itself is not yet changed. The communication layer expresses; Decision Making decides the next step; the conversation manager decides whether an update is worth telling the person. Level 2 was changed to match by the owner (2026-10-09).
+11. **Platform-rule changes start open situations.** Business-setting changes do not. Recorded as decided on 2026-10-09 (to confirm).
+
+**Settled here:**
+
+- **The choice to speak.** It is named the update decision (decided 2026-10-10). It asks one question: is this change worth telling the person?
+- **Who writes the first version at intake.** The conversation manager writes it (agreed 2026-10-12).
+- **Who cancels a nurture wait when a reply arrives?** The situation worker does, in the same version as Tend's reply. This was agreed on 2026-10-12.
+- **The record of what was sent.** Level 2 states the need: communication produces a record of each message, its reason, the evidence used, the next responsibility, the wait, and the result. The communication layer writes it as a version, with a change. How that record is laid out is a Level 3 matter.
+- **Configurator passing its power.** It may not.
+- **Owner-view lag when it is down.** No limit in Level 2. Not blocking: the owner view is built on request.
+- **Who checks record writes?** Nobody separate. This was decided on 2026-10-09 and recorded. If a write fails, it is retried. Level 2 names no checker.
+- **Status checks: how many inside one tool.** Level 2 allows a small number. The working limit is five (decided 2026-10-10). A business may set its own number.
 
 ## Related
 
-- [`section_6_responsibility_model.md`](section_6_responsibility_model.md) — responsibilities and clusters
-- [`construction_record.md`](construction_record.md) — reasoning path
-- [`README.md`](README.md) — how to use this folder
-- [`three_level_framework/architecture_contruction.md`](../three_level_framework/architecture_contruction.md) — method §7–§8
+- [`section_6_responsibility_model.md`](section_6_responsibility_model.md): the rules these parts carry
+- [`code_index_section_7.md`](code_index_section_7.md): agent-only index of every code, its meaning, and its source
+- [`archive_section_7_before_plain_rewrite.md`](archive_section_7_before_plain_rewrite.md): the earlier Section 7, with its pass history
+- [`construction_record.md`](construction_record.md): how this section was reached
+
+## Concluding audit additions (2026-10-12)
+
+- Connector tokens stay in the tool layer's secure store. They are fetched after the business allows the connection. The AI never sees them. <!-- research: security and compliance (connector tokens); Level 2 security -->
+- Each tool has a list of destinations it may reach. A destination that is not on the list is refused. <!-- Level 2 security: the_security_audit_framework (line 110); research -->
+- Queued and scheduled jobs check the business again when they run, not only when they were created. <!-- research: security and compliance (queued jobs) -->
+- A tool's results come back to the situation worker as evidence. They are not instructions. <!-- Section 6 existing; Level 2 memory (untrusted text) -->
+
+### Channels
+
+- Each channel's rules come from the research files and the Level 2 channel files. The facts, one line per channel:
+  - WhatsApp inside its 24-hour window: any message, no template. Outside it: an approved template, with opt-in (Tend's rule). Utility and marketing templates are separate categories.
+  - WhatsApp, 72-hour free entry window (after a click-to-WhatsApp ad or page button, in the mobile app): all message types are free, templates included. After the first 24 hours, only templates may be sent. Marketing templates are charged outside this window.
+  - Telegram: a bot cannot start a chat. A person begins one by messaging the bot or adding it to a group. Bot messages cost nothing by default, and Telegram states no template rule. Business bots reply only to chats with an incoming message in the last 24 hours. <!-- research: channel_compliance_matrix; Telegram bots and FAQ pages -->
+  - Email: consent and an unsubscribe route. Other lawful bases are for Compliance & Security to confirm.
+  - Website chat: inside the visitor's open session.
+  - All four are in scope. Slack is not in scope, and no research file exists for it. <!-- research: wa_compliance, channel_compliance_matrix; Level 2 channel files -->
+- For a start (a message that is not a reply), use the first option that is available and allowed (Section 8, starting a message). <!-- agreed 2026-10-12 -->
+- The same situation continues across channels. For example: WhatsApp, then email. Phone calls are not in scope yet. <!-- research: business journeys map; Level 2 channels -->
+- A channel binding proves the channel, not the person. <!-- Level 2 identity -->
+
+### Actors
+
+- The identity provider verifies people. The business's partner is an outside party with its own responsibilities. An external agent gives output only, never authority. <!-- Level 2 identity; Level 1 framing -->
+- The names "Reasoning Model" and "Product Builder" used in Level 1 are the AI and the builder in this architecture. <!-- Level 1 framing -->
+
+### Compliance settings
+
+- Compliance settings are kept for each market and for each business. The first market's legal values are fixed when it is entered. Only the configurator may change the compliance settings. A second person approves each change. Call (not yet confirmed): this follows the rule for changing grants. <!-- architecture rule; no Level 2 text found -->
+
+### Technology leakage check
+
+- Storage products, queues, and provider names are Level 3 choices. The only names kept here are the channel names that Level 2 uses. <!-- method: technology leakage test -->
+
+### Further additions: boundaries and structure
+
+- A part is a boundary when it is the smallest complete problem that can be owned on its own. <!-- Product Vision; Section 7 test -->
+- The first version of a new situation is written at intake by the conversation manager. <!-- harness study; Section 10 -->
+- A channel that a business does not have is shown as a gap. The fallback is used, and the gap is recorded as a build signal. <!-- Level 2 channels; Section 10 -->
+- The AI never decides consent, delivery, or completion. Fixed code does. <!-- Level 2 communication -->
+- The optimiser never changes tool descriptions or the policy text of the constitution. People change them, through the product team. <!-- Level 2 growth: G1:25; Level 2 prompt constitution -->
+- The product team authors each capability. The AI does not create or change an integration. <!-- Level 2 growth: G1:25; the business enables each capability (Section 11) -->
+- The observer is a function of the situation worker, not a separate part. <!-- Product Vision; Section 7 -->
+
+### Run steps and the observer
+
+- The steps of a run have owners. The AI proposes (PROPOSE). Fixed code validates and executes (VALIDATE, EXECUTE). The situation worker writes the next version and decides whether the run stops (UPDATE, REST). <!-- Section 8; Level 2 decision making -->
+- The observer reads saved traces and the change channel. It does not act on what it finds. <!-- Section 8: observer -->
+
+### Decided on 2026-10-12
+
+- **First version.** The conversation manager writes the first version of a new situation at intake (agreed 2026-10-12).
+- **Nurture wait.** The situation worker cancels the nurture wait in its next version, which carries the reply (Section 8, CASE-1; agreed 2026-10-12).
