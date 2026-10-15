@@ -18,12 +18,13 @@ and "feedback" can happen by default.
   Call-to-Action button**, a **72-hour free window** opens (from Android/iOS app only).
 - Within FEP, ALL message types (including templates) are free for 72h.
 - FEP is separate from CSW: if CSW closes you can still only send templates.
+- Verified 2026-10-12 against Meta's pricing page (developers.facebook.com/docs/whatsapp/pricing): all messages are free for 72 hours, including template messages, if sent within an open free entry point window; once the customer service window closes, only template messages can be sent; all marketing template messages are charged outside a free entry point window.
 
 ## Pricing model (effective July 1, 2025 — per-message)
 - Meta now charges **per message**.
 - Non-template messages within an open CSW are FREE.
 - Template categories: **Utility** (order updates, logistics, account) and **Marketing** (promos).
-- Utility templates within an open CSW are free; **Marketing templates always charged**.
+- Utility templates within an open CSW are free. **Marketing templates are charged, except inside the 72-hour window, where all message types are free.**
 - Volume-based discounts exist for utility/authentication templates.
 
 ## What this means for Tend
