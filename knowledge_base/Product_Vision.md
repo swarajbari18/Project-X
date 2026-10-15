@@ -476,7 +476,7 @@ If two sources disagree, Tend should identify the disagreement instead of hiding
 
 Tend owns communication, but the message another person sees is only the visible part.
 
-The communication layer owns the whole journey around the interaction: collecting information, checking it, deciding the correct next step, communicating, waiting for what happens next and acting again when the situation changes.
+The communication layer expresses each interaction: it shapes the message, checks it against the channel and consent rules, sends it, and records what was sent. The decision about the correct next step is made by Decision Making, not by the communication layer. The conversation manager decides whether an update is worth telling the person. Collecting information belongs to gathering, and checking it belongs to understanding and trust.
 
 A message is the final step of one decision cycle, not necessarily the end of the situation.
 
