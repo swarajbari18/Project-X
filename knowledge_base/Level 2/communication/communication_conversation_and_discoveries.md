@@ -38,7 +38,8 @@ It also must not assume that a communication is always a reply. A business instr
 
 The question “When should Tend communicate?” can sound like a Decision Making question. The distinction is:
 
-- Decision Making chooses whether Tend should communicate, ask, wait, or perform another behaviour.
+- Decision Making chooses whether Tend should ask, wait, or perform another behaviour.
+- The conversation manager decides whether an update is worth telling the person.
 - Communication determines how that selected interaction should be expressed to the intended actor.
 
 The same separation applies to asking:
@@ -77,7 +78,7 @@ A long-running situation may produce several decision cycles:
 ```text
 Information changes
         ↓
-Decision Making selects communication
+The conversation manager decides the update is worth telling
         ↓
 Tend communicates the current bounded state
         ↓
