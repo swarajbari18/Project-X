@@ -712,3 +712,82 @@ Twenty read-only audits covered the whole knowledge base: all 19 Level 2 folders
 **Left for later (not blocking).** Listed in section 11 of the stabilization file. These are: Level 2 wording points that the design already follows; numbers each business sets; market values; and the sending wording. The sending wording was applied as "sends outside the fixed rules." The owner may choose the strict version.
 
 **Not done.** Section 12 has not started. Level 3 has not started. The owner will proofread first.
+
+---
+
+## 21. Section 12 started: method corrections and settlements (2026-10-16, 2026-10-17)
+
+**What the owner asked.** Read Section 12 of the construction method in full. Remove every mention of the old project's architecture document from the method. Report the progress and the next step. Then settle the open points one at a time before any file of the package is written. The package is the written architecture that Section 12 produces: the views, the build view, and the registers.
+
+**Method corrections (2026-10-16).** In `three_level_framework/architecture_contruction.md`:
+- 12.1. The subsection that told the story of the old project's document is replaced by "Why the build view is shaped the way it is". The five things a builder must get and the two failures to avoid stay, written as requirements of this method. The name of the old project and the hidden path comment are gone. No mention of it remains in the file.
+- 12.21, overview item 2. The path every change takes is the loop a change travels through the parts. It is not a storyline. It is not built from the kinds of situation. The kinds of situation are run against it as tests.
+- From the method audit described below, fixed the same day:
+  - Two sentences that referred to a previous revision are gone.
+  - The gates are now four. The completion matrix — the table that says what must be true before the work counts as finished — is the fourth gate.
+  - Each fact has one authoritative place. A repeat is allowed, with a link back to that place.
+  - The list of what Level 3 adds to a part file now includes production checks.
+  - The build-clarity check now reads the same in substance in the completion matrix and in the handoff gate.
+
+**The method audit (2026-10-16).** An agent read the whole method, all 14,251 lines, and reported what is missing, contradictory, or misleading. The comparison text is fully gone; nothing in the file points at it. Three items are deep and belong to the owner: the method states status in eight different ways and needs one vocabulary; the method never says how the set of kinds of situation is chosen; and three artifacts it requires are undefined (the walkthrough, the rule-code format, and the fields of the audit record). One finding was rejected: listing end-to-end scenarios as boundary evidence in section 5.6 is sound, because testing a hypothesis is not building from tests.
+
+**The comprehension correction (2026-10-16).** I had read it wrong until this day. I was letting stories and situations shape the architecture. The method's rule is the other way. They are only test cases run against the built architecture. The architecture is built from the whole knowledge base during Sections 6 to 11, with Level 2 governing. The method wording that invited my mistake is corrected under the owner's instruction.
+
+**The folder layout (2026-10-16, owner).** A new folder inside `knowledge_base/architecture/` holds the package. One folder for each view, with multiple files in each folder. The build view folder holds the overview and one file per part. A `checking/` folder holds the registers — the lists of gaps, conflicts, non-responsibilities, and decisions — and the records. The sections 6 to 11 files stay where they are: the foundation while the package is written, and the history after. The build view gives each of the boundary model's ten parts one file. Two of those parts sit inside the conversation manager (the situation worker and the communication layer), so the manager's file covers its own acts — intake, routing, the update decision, and setting completed — and names the parts it contains. The owner named the folder on 2026-10-17: `constructed_architecture_from_section12/` (Decided). Its map file is written (Decided). It lists every folder and file with the question each one answers.
+
+**One status vocabulary (2026-10-16, owner).** Five words. They are used in every file's hidden notes for agents — the agent layer, which a human reader does not see — and by the status check in the audits:
+- **Decided** — the owner decided it; a decision record points at it.
+- **To confirm** — recorded earlier; the owner has not said yes.
+- **Provisional** — a working choice that carries a reopen condition.
+- **Open** — no answer yet; it sits in the question backlog.
+- **Rejected** — refused on purpose; the reason is kept.
+
+One correction from the audit of this entry: "Architecture-only" in the code indexes is provenance, not status. It means no source has been found. Provenance stays in the source column of the index, and the status column uses the five words. A rule with no source found is written as To confirm, with its source cell saying "none found yet". The audit register keeps its own finding labels, because findings are not rules. Aligning the method's own status words to these five is a method edit awaiting the owner's approval.
+
+**Rule codes (2026-10-16, owner).** The existing scheme is kept: one letter and one number per rule, like A1 or B4, with one agent-only code index per section file. In the new package there is one code index per view folder. Each rule carries its code in a hidden comment — a note inside the file that a human reader does not see. The code points to the row in the index that holds the rule's meaning, source, and status. The build order is the one exception: it is a recommendation and gets its own series. The audit register's finding codes stay separate, because findings are not rules.
+
+**Fifteen kinds of situation (2026-10-16, owner).** A kind is a class of case in which at least one part behaves differently than in the common case. The overview table and every part file's heading 10 show kinds. The behaviour view — the view that shows how a case runs — shows the walks: the named stories beneath each kind. The fifteen kinds are:
+1. An irreversible action's outcome stays unknown.
+2. An outside system is down, slow, or too stale.
+3. A partial answer arrives.
+4. One instruction fans out to many people.
+5. No source and no person can answer.
+6. A timer and a reply race.
+7. An unrequested document or unknown event arrives.
+8. A message cannot be pinned to one situation.
+9. Two sources disagree.
+10. A person does not act, or is unavailable.
+11. An action needs approval, or must be refused.
+12. The world changes while work is open.
+13. Who is speaking is unknown or unverified.
+14. Work is blocked, interrupted, or wrongly closed.
+15. A human commitment changes shape.
+
+Dozens of named walks sit beneath them, drawn from the whole knowledge base. The exact list is written down with the behaviour view. Two conflicts stay open until we write the kind they belong to: whether delivered-but-not-received is its own kind or a walk of the conflict kind; and whether a policy change moves a situation or opens a linked one. The naming clash from the old days — two different things were both called U5 — was fixed in the naming pass of 2026-10-08 (entry 16).
+
+**The two-audit rule (2026-10-17, owner).** Every completed write gets two audits, run by agents with fresh context.
+- The technical audit checks three things. The reasoning is sound and matches the whole knowledge base. Every claim carries a reference; where a reference is missing the auditor reports it, and the writer adds it, because the auditor never edits the file. The insights drawn during the work are written down clearly, then checked for gaps, conflicts, missing pieces, and misunderstandings.
+- The readability audit checks the writing against `conversation with swaraj.md`: it must be easy to read, the references must sit in the hidden notes and not in the visible sentences, and the cognitive load must come from the content, never from the style.
+
+The agent that did the work reads every audit against its own writing, rejects the findings that are wrong, and records why. These audit duties extend the method's audit section, and that is a method edit awaiting the owner's approval.
+
+**The status-check picture (2026-10-17, owner).** The owner re-told the design in his own words. The status-check service is the one place that deals with a third party while the work continues. It works in two ways. It listens for the events a third party sends. It also asks the third party for news itself: a bounded number of times, at a set interval, for a set duration. Its job is to wait on a third party, or to get an answer from a third party, without blocking the situation worker. Three things follow.
+- Fixed code updates the situation model. When a tool launches a status check, the code writes the wait itself and tells the AI afterwards: "because this happened, I updated the situation model to waiting myself." The AI keeps gathering knowledge and decides at the decision step. The more the code does, the better.
+- The service writes back by event. The answer updates the situation model; the update emits an event; the situation worker wakes and reads the newest version. No part calls another directly. This is the same wiring as the conversation manager and the situation worker.
+- When the fallback fails, escalation follows the business's configuration.
+
+**What this changes in the settled files.** The owner's picture differs from three decided texts. The later instruction wins where they conflict. The differences are recorded here rather than hidden.
+- The writer rules. Today only the situation worker writes waits, and the tool layer does not write the situation record. The 2026-10-12 rule says only the situation worker sets waiting or blocked. The new picture has the code that launched the status check write the wait itself. One reading question stays open: whether the writer is the tool's own code, or the situation worker's fixed code acting on the tool's result. The second reading keeps one writer for each kind of change, which the method requires. Either way the situation worker still writes waits in every other case, and still sets blocked.
+- The polling rule. Today the files say a status check never runs on a fixed interval, and Level 2 says no fixed-interval polling anywhere. The new picture runs a set interval for a set duration. This changes that rule and touches the Level 2 sentence. The old precondition for short status checks — use them only where the outside system's behaviour is known — is carried or dropped by the owner.
+- The return path. Today the reconciliation file says the service sends each result back as a message. The new picture returns it as an event. The service is also wider than a fallback that repeats one tool's check: several layers use it, including the situation worker's own waits.
+
+**Parked.** The question of where the status-check service's calls go — through the tool layer, or directly, with the tool layer's rule reworded — was asked before the service itself was explained. The owner withdrew the answer. Nothing is decided there. The tool layer's rule stands as written until this is settled: "the only way Tend calls an outside system".
+
+**A communication rule adopted (2026-10-17, after the owner's correction).** No question goes to the owner without the full picture attached first: the concrete story, the rule, where it is written, and its status. The files are not the owner's memory. The owner never has to read a file, or remember an old call, to answer.
+
+**Status of each item after this pass.**
+- **Decided.** The folder layout and its checking folder. The folder's name (`constructed_architecture_from_section12/`) and its map file. The status vocabulary. The code-index home. The fifteen kinds. The two-audit rule. The status-check picture.
+- **To confirm.** The observer: the boundary model writes it as a function that runs alongside the parts, not a part of its own, but owner item 32 in the audit register keeps the question with the owner, and the files seat it three different ways. One wording is chosen when the boundary view is written.
+- **Provisional.** The part-file headings: the method's seventeen headings are a working choice until the owner says yes. The diagram format: plain text until the owner says otherwise.
+- **Open.** Where the status-check service's calls go (parked above). The writer question in the status-check picture. How a new kind of situation enters the set. The walkthrough definition and the audit record's fields. Which file comes after the map file. The Level 2 question backlog and the calls not yet confirmed by the owner.
+- **Method edits awaiting approval.** Aligning the method's status words to the five. Adding the two audit duties to the method's audit section.

@@ -12499,7 +12499,7 @@ A person or an agent asks: is it complete, can every claim be traced, and has ev
 
 For example: does every refund rule trace back to a decision the owner made? Is anything that is still open written as if it were decided?
 
-Before this revision, Section 12 described the final model only as views organised by kind of concern: a responsibility view, a boundary view, an interaction view, a decision view, and so on.
+The final model has views organised by kind of concern: a responsibility view, a boundary view, an interaction view, a decision view, and so on.
 
 Those views serve understanding and checking.
 
@@ -12511,28 +12511,20 @@ That is the same problem the method was created to solve.
 
 The builder would have to hold the whole architecture in their head to build one piece of it.
 
-### How this was discovered
+### Why the build view is shaped the way it is
 
-Swaraj found this gap by comparison.
+The build view must give a builder five things:
 
-He had built an earlier project, a Telegram assistant that runs a small shop, one part at a time from its architecture document. <!-- Kirana-Management-TeleChat/docs/system_Architecture.md -->
+1. One sentence naming the engineering problem every part exists to solve. Every later choice points back to it.
+2. The path every change takes through the parts.
+3. One diagram of all the parts.
+4. One file for each part, and every file uses the fixed headings of 12.22.
+5. Acceptance criteria in each part file (12.22, heading 15), so each part can be built and finished on its own.
 
-Reading the first version of this section next to that document, he saw that the earlier document gave a clarity this section did not.
+Two failures this method must avoid:
 
-The evidence is one comparison, so the reasons below are the current reading of why, not a proven rule.
-
-It looks easy to build from for five concrete reasons:
-
-1. It opened with one sentence naming the engineering problem. Every later choice pointed back to it.
-2. It named the main path a request takes through the system.
-3. It had one diagram of all the parts.
-4. It gave each part its own chapter, and every chapter used the same headings: purpose, why it exists, what it does, what it does not do, inputs and outputs, internal steps, what it depends on, rules, failure cases, what is logged, how it is tested, and when it is done.
-5. Every chapter ended with acceptance criteria, so each part could be built and finished on its own.
-
-That document also had two weaknesses that this method exists to avoid:
-
-- It mixed logical and technical decisions. The hosting platform, the database, and the AI provider were written into the architecture itself.
-- It described one storyline: a message arrives, it is handled, and a reply goes out.
+- Mixing logical and technical decisions. The hosting platform, the database, and the AI provider do not belong in a Level 2 architecture.
+- Describing one storyline and calling the rest exceptions.
 
 Tend has many storylines.
 
@@ -12703,7 +12695,7 @@ Each view is drawn from the same model.
 | Traceability view | Where did each structure come from? | Source → evidence → responsibility → part → interaction → decision |
 | **Build view** | **What do I build, part by part, and how do I know each part is right?** | **One overview file and one file per part (12.21–12.24)** |
 
-Three of these views are new in this revision: the state view, the stated form of the behaviour view, and the build view.
+Three of these deserve a short note: the state view, the behaviour view, and the build view.
 
 **The state view** gets its own row.
 
@@ -12758,7 +12750,7 @@ The system then has four competing architectures.
 
 ### Where the truth lives
 
-In practice, each fact is written in exactly one place.
+In practice, each fact has exactly one authoritative place.
 
 Every other place that needs it links to that place, or repeats it word for word with a link back.
 
@@ -12833,7 +12825,7 @@ The rule comes from the three facts together.
 
 # 12.7 Control/Gate: Architectural Traceability
 
-A **gate** is a check that must pass before the work moves on. This section has three: traceability (here), technology leakage (12.14), and the Level 3 handoff (12.28).
+A **gate** is a check that must pass before the work moves on. This section has four: traceability (here), the completion matrix (12.10), technology leakage (12.14), and the Level 3 handoff (12.28).
 
 For every major element, it must be possible to walk both ways.
 
@@ -12987,7 +12979,7 @@ The final architecture is checked against every area of construction.
 | Unknowns | Is every remaining unknown visible and labelled? |
 | Reopening | Is it clear what would cause each decision to be reopened? |
 | Level boundary | Has technology stayed out of Level 2? |
-| **Build clarity** | **Can each part be built from its part file alone, without reading the construction history?** |
+| **Build clarity** | **Can each part be built from its part file alone, without reading the construction history, and does it cover every kind of situation in the overview?** |
 | **Audits** | **Has every file passed both audits (12.26)?** |
 
 This matrix is a gate, not a score.
@@ -13153,7 +13145,7 @@ It does not turn the platform into an internal part.
 
 The build view is included in this test.
 
-A part file at Level 2 contains no technology choices. Level 3 adds them later, in sections of its own: the technology chosen, storage, runtime, and tests (12.22).
+A part file at Level 2 contains no technology choices. Level 3 adds them later, in sections of its own: the technology chosen, storage, runtime, tests, and production checks (12.22).
 
 The part names themselves are checked too. A name like "tool layer" is only a label. Its logical meaning is written under the first heading of its part file: "the only way Tend calls an outside system".
 
@@ -13443,7 +13435,7 @@ One large file would force a builder to search through every part to find the on
 The overview file contains:
 
 1. **The problem in one sentence.** The engineering problem every part exists to solve, written specifically for this product.
-2. **The path every change takes.** What happens, part by part, when anything changes: a message arrives, a timer fires, an outside system reports back. There is one path for a change, even though there are many kinds of situation.
+2. **The path every change takes.** What happens, part by part, when anything changes: a message arrives, a timer fires, an outside system reports back. This is the loop a change travels through the parts. It is not a storyline, and it is not built from the kinds of situation. The kinds of situation are run against it as tests (12.12, 12.24).
 3. **One diagram of all the parts.** It shows which part hands what to which.
 4. **The parts, one line each.** Each line links to that part's file.
 5. **The kinds of situation the product handles.** A table with one row per kind of situation and one column per part. Each cell says what that part does in that kind of situation, or that it is not involved.
@@ -13839,7 +13831,7 @@ Before Level 3 begins, confirm:
 | Uncertainty | Every remaining unknown is labelled |
 | Technology neutrality | No technical choice has silently shaped Level 2 |
 | Change conditions | The conditions for reopening each decision are recorded |
-| **Build clarity** | **Every part file can be built from on its own, and covers every kind of situation in the overview** |
+| **Build clarity** | **Every part file can be built from the file alone, without reading the construction history, and covers every kind of situation in the overview** |
 | **Audits** | **Every file has passed both audits, and rejected findings are recorded** |
 
 If all hold, Level 2 may be declared complete.
