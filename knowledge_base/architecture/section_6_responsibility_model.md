@@ -658,10 +658,10 @@ The exact configuration format for each role's list of fields. <!-- Open: T11 de
 
 ## Related
 
-- [`construction_record.md`](construction_record.md) — how this AI was reached, and what changed
-- [`code_index_section_6.md`](code_index_section_6.md) — agent-only index: every code, its meaning, and its source
-- [`section_7_boundary_model.md`](section_7_boundary_model.md) — the next section, where the parts are drawn
-- [`README.md`](README.md) — how to use this folder
+- `[construction_record.md](construction_record.md)` — how this AI was reached, and what changed
+- `[code_index_section_6.md](code_index_section_6.md)` — agent-only index: every code, its meaning, and its source
+- `[section_7_boundary_model.md](section_7_boundary_model.md)` — the next section, where the parts are drawn
+- `[README.md](README.md)` — how to use this folder
 
 ## Concluding audit additions (2026-10-12)
 
