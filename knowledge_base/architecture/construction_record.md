@@ -786,8 +786,254 @@ The agent that did the work reads every audit against its own writing, rejects t
 **A communication rule adopted (2026-10-17, after the owner's correction).** No question goes to the owner without the full picture attached first: the concrete story, the rule, where it is written, and its status. The files are not the owner's memory. The owner never has to read a file, or remember an old call, to answer.
 
 **Status of each item after this pass.**
-- **Decided.** The folder layout and its checking folder. The folder's name (`constructed_architecture_from_section12/`) and its map file. The status vocabulary. The code-index home. The fifteen kinds. The two-audit rule. The status-check picture.
+- **Decided.** The folder layout and its checking folder. The folder's name (`constructed_architecture_from_section12/`) and its map file. The status vocabulary. The code-index home. The fifteen kinds. The two-audit rule. The status-check picture. The part-file shape (owner, 2026-10-17): one heading per part file, with the seventeen items written beneath it as questions and answers, in the same order.
 - **To confirm.** The observer: the boundary model writes it as a function that runs alongside the parts, not a part of its own, but owner item 32 in the audit register keeps the question with the owner, and the files seat it three different ways. One wording is chosen when the boundary view is written.
-- **Provisional.** The part-file headings: the method's seventeen headings are a working choice until the owner says yes. The diagram format: plain text until the owner says otherwise.
+- **Provisional.** The diagram format: plain text until the owner says otherwise.
 - **Open.** Where the status-check service's calls go (parked above). The writer question in the status-check picture. How a new kind of situation enters the set. The walkthrough definition and the audit record's fields. Which file comes after the map file. The Level 2 question backlog and the calls not yet confirmed by the owner.
-- **Method edits awaiting approval.** Aligning the method's status words to the five. Adding the two audit duties to the method's audit section.
+- **Method edits awaiting approval.** Aligning the method's status words to the five. Adding the two audit duties to the method's audit section. Changing the method's part-file section to the question-and-answer shape: its references to "heading 10" and "heading 15" become "question 10" and "question 15".
+
+**Part-file shape decided (2026-10-17, owner).** One heading per part file. Beneath it, the seventeen items are written as questions with their answers, in the same order. The seventeen sub-headings are dropped.
+
+**Two owner decisions (2026-10-20).**
+- **The trust and evidence answers are accepted (Decided).** The owner reviewed Level 2's `trust_and_evidence/` folder earlier and accepts it. The files still carry the label "working decision, pending review"; the label was never updated, and the content stands as written. Where the architecture folder adapted one of these answers, the adaptation is written there explicitly and keeps its own status. Example: Section 11 lists "a newer valid claim counts only as a correction" among the calls the owner has not confirmed, so that one stays To confirm. Updating the labels in the Level 2 files themselves is a separate edit, not yet made.
+- **Long files are allowed (Decided).** A file in the package is no longer stopped or split only because its visible text passes about 300 lines.
+
+**Progress (2026-10-20).** The responsibility view has three of its ten files written and audited: `the_situation.md`, `understanding_and_routing.md`, and `gathering_and_trust.md`. The third went through two rounds of both audits.
+
+**Progress (2026-10-20, later).** `deciding_and_permission.md` is written (Section 6 families F, G, and T, with the matching concluding additions). It went through three rounds of both audits. The third round was narrow, covering only the round-two changes. Its fixes were applied, and no fourth round was run. Four of the ten files in the responsibility view are now done.
+
+What the audits changed:
+- Section 8's narrower "blocked" (no one left to escalate to, and no safe step left) is used instead of Level 2's looser wording.
+- The refund rows follow Section 11 §9.
+- The status words are defined in the file.
+- Source labels are kept out of the visible text.
+- Six calls from Section 11 §13, and owner item 83, are marked To confirm.
+
+Findings rejected, with reasons:
+- Splitting the file: long files are allowed (2026-10-20).
+- Mapping "held" onto "blocked": blocked has the narrow meaning above.
+- A filled-in policy example: no source fills one in.
+- Removing "the state of the work" from the kinds of rule: it is Level 2's own item.
+- Downgrading the "approver sees the exact content" rule: Section 10 item 61 approved the gap-register proposals.
+- Treating the settled page's line 165 as a conflict: it speaks of steps inside a grant. This reading is recorded in the index as To confirm.
+
+Drifts found in the foundation are recorded in the code index notes for this file:
+- G9's stale "Open" row;
+- the one-time grant tagged G7;
+- S2's harness citation;
+- Section 10 gap 16;
+- Section 6 line 703, the second-person rule, which comes from a research line about Tend's own team;
+- Section 8's G3 tag;
+- the solo-owner wording;
+- the record-checker status, which Section 11 §13 and Section 10 disagree on;
+- the configuring owner's audit access, which the settled page and Section 10's owner-items table disagree on.
+
+**Progress (2026-10-20, third file of the day).** `time_people_and_meetings.md` is written. It covers Section 6 families H (time and waiting), J (people), and K (meetings and partners), with the matching concluding additions. It went through two rounds of both audits. The second round was narrow, covering only the round-one changes. Its fixes were applied as the auditors proposed them, and no third round was run. Five of the ten files in the responsibility view are now done.
+
+Key choices:
+- The owner's status-check picture (2026-10-17) is followed, not the older "no fixed interval" rule. The service's asking does not wake a situation; its answer does.
+- Blocked has no check-in, following the Level 2 files rewritten on 2026-10-12.
+- Source order is per claim. "Hierarchy of the truth" is not used as a universal ranking (technical audit, round 1).
+- Two anchor stories carry the file: Meera's parcel and Priya's meeting. Both are worked through to an outcome.
+- Marked To confirm:
+  - the watch kept as a wait;
+  - a repeated job beside the check-in;
+  - a timer with no wait behind it is not allowed (Section 11 rule 21: the design's own rule);
+  - the record of which rule accepted a handoff automatically;
+  - the meeting-event writer;
+  - two calls from Section 11 §13 (customer confirmation; investor and regulator).
+
+Findings rejected, with reasons:
+- Removing file names from the visible text. The map requires a link back to each home; plain file names were turned into links instead, and the names of files not yet written were dropped.
+- A next step for each kind of silence. No source gives that mapping.
+- "Completed" in place of "resolved". The worker records resolved; the conversation manager sets completed. These are two decided acts.
+- Removing the visible note that the polling rule changed. The note is kept.
+- Grouping or splitting Level 2's own long lists. Long files are allowed.
+
+Drifts recorded in the code index notes for this file:
+- the polling rule, still in the older files;
+- Level 2's two statements on blocked and the check-in;
+- the customer-clock wording;
+- the repeated job against "the only periodic wake" (owner item 21);
+- Section 11 §11 item 3's "ticks": no Level 2 file supports it; the only Level 2 tick is a chat read tick;
+- the watch record;
+- Section 6's J3 example against the partner rule;
+- J7's "assignment";
+- the J6 code collision between the Section 6 and Section 8 indexes;
+- IA-14's Provisional status with no reopen event;
+- the three Level 2 lists of how a person takes part;
+- the partner-trail wording;
+- the per-claim source order.
+
+**Progress (2026-10-20, fourth file of the day).** `communicating.md` is written. It covers Section 6 families I (communication) and L (channels and visibility), with the matching concluding additions in Sections 6, 7, and 8. It went through two rounds of both audits. The second round was narrow, covering only the round-one changes. Its fixes were applied as the auditors proposed them, and no third round was run. Six of the ten files in the responsibility view are now done. The time file and the deciding file now link to it as the home of the channel rules.
+
+Key choices:
+- Three stories carry the file: Meera's parcel (a reply, then a start the next morning after her WhatsApp window closed), the investor (a partial answer), and Priya (a first message with no window).
+- The three acts stay apart: the worker writes the intent, the conversation manager makes the update decision, the communication layer sends and records.
+- The start order is the one decided on 2026-10-12, not the older order in the channels conversation record.
+- Who decides a start follows Section 11 §9: the channel rules decide, the communication layer makes the choice (technical audit, round 1).
+- Marked To confirm:
+  - consent withdrawal, and its scope ("every future message to that person" or "the messages the consent covered"); the records disagree on whether the owner confirmed it;
+  - an undeliverable message waking the worker as evidence (IA-10);
+  - a delivery receipt waking the worker only when a send is pending;
+  - the investor and regulator approval call (Section 11 §13).
+- Marked Open:
+  - where the preferred channel sits in the start order;
+  - which part writes a consent record;
+  - which kind of Telegram bot Tend uses;
+  - the question limit;
+  - where the language check sits;
+  - the market values, channel costs, send caps, and abuse thresholds.
+
+Findings rejected, with reasons:
+- Rewriting the five start checks with new examples: the checks are Level 2's. The source's own gloss was added instead ("may the business message this person, for this purpose?").
+- Regrouping the six kinds of waiting into two questions: Level 2 says they must not be collapsed.
+- Moving "what Tend is doing next" out of the kinds of doubt: it is in Level 2's own list.
+- A reason why email ranks above a WhatsApp template: no source gives one.
+- Making "after 72 hours" Open: WhatsApp's ordinary rules then apply again.
+- Merging the send check with the start checks: they are different lists from different sources. The text now says how they relate.
+
+Drifts recorded in the code index notes for this file:
+- I3: Section 6 says "premature" and "unsafe" are the architecture's additions; both are Level 2's. The other reasons are Level 2's too, not the harness's.
+- I1's harness citation (line 1251 against 1355).
+- Section 7's record of what was sent (line 84 against line 338).
+- Section 10 gap 1's "owner item 21" citation for the grounding rule.
+- The older start order in the channels conversation record.
+- Owner item 30: Level 2 answers it, but the recommended wording is unconfirmed.
+- Consent withdrawal's status and wording.
+- The language check: "can check" in Level 2 against "is checked" in Section 8.
+
+**Progress (2026-10-20, fifth file of the day).** `failure_and_recovery.md` is written. It covers Section 6 family M, with IB-8, IB-10, IB-11, S7, the matching Section 6 and Section 7 additions on degraded service, and the owner's status-check picture (2026-10-17). It went through two rounds of both audits. The second round was narrow, covering only the round-one changes. Its fixes were applied, and no third round was run. Seven of the ten files in the responsibility view are now done. The time, communicating, and deciding files now link to it as the home of the failure rules.
+
+Key choices:
+- Two stories carry the file. Meera's parcel: the carrier is down, a failure is declared, held, and walked to an end. The refund on order 9912: the payment provider never answers.
+- A failure is a record, never a state. The bound decides between waiting and failure. The four declared outcomes, the fixed sorting order, and the four recovery moves are Level 2's.
+- At the end of the settle window, the declared outcome is "unknown", in Level 2's words. Section 8's label "unknown, not failed" (Provisional there) is not used.
+- The tool asks a few times, then the status-check service waits, following Level 2 and Section 8 (line 321). Section 7's "the tool layer does not check status" (line 158) is recorded as a difference.
+- Marked To confirm:
+  - the duplicate check reading the situation record before the intent is written (IB-8's mechanism);
+  - the one-version save of start, unknown outcome, and wait (IB-11);
+  - whether the limit of five counts inside one tool call or inside one wait;
+  - the safe-hold read as the blocked state, and how the internal clock acts on it.
+- Marked Open:
+  - whether a timer (IB-9) or only the service's answer wakes a recheck;
+  - the writer of a wait handed to the status-check service, and of its answer;
+  - an unknown outcome with no way to check;
+  - what counts as irreversible for a business;
+  - the fallback sources a business allows;
+  - severity limits and all the numbers.
+
+Findings rejected, with reasons:
+- Changing the shared status legend: every rule without a status word has an accepted source, and every unsourced rule carries To confirm where it appears.
+- The disputed "state file, line 51" citation: it is correct; it points to the state file, not the blocked file.
+- Moving the tool layer's record of a call elsewhere: Section 7 line 268 names the tool layer as its writer.
+- Carrying three Level 2 points into this file: each belongs to another file of this view.
+- Naming source files in visible text: they stay in the index notes.
+- Narrowing step 1 of the fixed order to a live answer: it checks that a source exists at all.
+
+Drifts recorded in the code index notes for this file:
+- the polling rule, with its full list of older lines, and the dangling "decision 7";
+- IB-9 against the owner's picture;
+- Section 7 line 158 against the tool's few asks;
+- the outcome-at-the-bound status;
+- the safe-hold reading;
+- the M3 index gaps in the Section 6 and Section 7 indexes;
+- the "hierarchy of truth" wording;
+- the scope of the five;
+- the architecture-only mechanisms behind IB-8 and IB-11.
+
+**Trust labels updated (2026-10-20, at the owner's request).** The ten status lines in Level 2's `trust_and_evidence/` folder (nine question files and the map) now read "reviewed and accepted by Swaraj (2026-10-20)" in place of "pending review". Only those lines changed. The adaptation noted above ("a newer valid claim counts only as a correction") keeps its To confirm status in the architecture folder.
+
+**Started (2026-10-21): `memory_configuration_and_improvement.md`** (Section 6 families N, Q, R). Not written yet. The sources are read: Section 6 N, Q, and R with their index rows; and Level 2's memory folder, all 19 files. One status point governs the file. Level 2's `memory_and_knowledge/` folder carries "pending review" on 18 of its 19 files; the conversation record has no label. By this record's own rule (entry 16, line 429: "treated as provisional"), and Section 10's assumption (line 388), memory rules resting only on that folder are **Provisional**, reopening when the owner reviews the folder. Rules the owner already decided elsewhere stay Decided: the memory interaction choices of 2026-10-03 (entry 14), and Section 11's decision records 8 and 9. Correction (2026-10-21): memory observing setup sessions is not among them; line 564 of this record keeps it "recorded earlier, to confirm", so it is To confirm. Still to read: Level 2 `growth_and_evolution/` and `prompt_constitution/`, the configuration capability file, and the Section 7, 8, and 11 slices on memory, configuration, and improvement.
+
+**Full agency granted (2026-10-21, owner).** The owner gave full agency to complete Section 12 without asking: every remaining file, every view, the checking folder, and every audit. Where a clarification seems needed, the writer chooses what best fits the product and the knowledge base, and records the call here, marked "my call, for the owner's review". The owner reviews the calls afterwards.
+
+**My calls so far, for the owner's review.**
+1. *Pending-review memory answers.* Level 2's memory folder carries "pending review" on 18 of 19 files. Rules resting only on those files are Provisional (entry 16, line 429). Rules resting on the memory conversation record's working decisions (unlabelled), the 2026-10-03 agreement, or Section 11's decision records are Decided.
+2. *Research-sourced rules.* Rules from the research folder that appear in the "Concluding audit additions (2026-10-12)" of Sections 6–9 are Decided, on the owner's "Yes, approve" in the concluding-audit session (entry 17). Rules those additions flagged as calls, "recorded earlier", Open, or Provisional keep that status. Section 11's "Stabilized" verdict is not used as a basis, because the agent declares it (line 608). The technical auditor challenged an earlier version of this reasoning, which cited the verdict. It was corrected.
+3. *The status legend.* Every topic file now says: "A rule with no status word next to it is Decided: it has a source the project owner accepted. Every rule that is not Decided carries its word where it appears." The To-confirm line says: "A rule with no source behind it is always marked To confirm." Four audits had read the earlier two lines as conflicting.
+4. *A responsibility summary file.* The method asks the responsibility view to give, for each responsibility, its purpose, outcome, inputs, outputs, state, who may decide, and what happens when it fails, and the relationships between responsibilities (Section 12, lines 12688 and 13620–13621). The topic files cover these, but spread out. A summary file collects them. It is the eleventh file of the view.
+
+**Progress (2026-10-21).** Two more topic files are written, each through two rounds of both audits, run by fresh agents.
+- `memory_configuration_and_improvement.md` (families N, Q, and R). Home of Q3, the four kinds of change.
+  - Key fix: the refund setting is the one policy read at the moment of a refund (owner decision, 2026-10-10). So the example of a policy fixed when a situation opens is now Level 2's late-delivery workflow change.
+  - Key fix: the product team authors setting shapes; the configuration tools store them, check against them, and apply them.
+  - Key fix: memory writes its items and owns the step instructions.
+  - Rejected: removing Provisional marks from rules that rest only on pending-review files.
+  - Rejected: cutting the returning-customer small set, which the owner agreed on 2026-10-03.
+- `business_view_and_capabilities.md` (families O and P). Home of O3 and O7, and of audit access.
+  - Corrected: the deciding file's audit-access row. Both points are Decided, per the settled page's "Closed in Section 11" list and Level 2's administrator answer.
+  - To confirm: the product team's masked production view; seeded test data only; the owner's permission for the product team to look inside a live business. Two more 2026-10-09 items stay To confirm, as the record keeps them.
+  - To confirm: who besides the configurator may grant audit access; where the observer sits.
+  - Rejected: making "important" Open. It keeps Level 2's single definition.
+- Drifts recorded in the index notes:
+  - the platform-rule split, still tagged "(to confirm)" in Section 7 line 331;
+  - the 50-hop test case against the line saying the cap was removed;
+  - the settled page's citation for "no personal data in a trace";
+  - the Section 7 and Level 2 split on who writes setting shapes;
+  - the observer's seat.
+
+**Progress (2026-10-21, the rest of the folder).** Every remaining view, the build view, and the checking folder are written. Each file went through both audits, run by fresh agents. A narrow second round followed wherever a fix changed meaning. No third round was run.
+- Views completed: the interaction view (twenty-three interactions); the behaviour view (the common path, and one file for each of the fifteen kinds); the state view; the constraint view; the decision view (eighteen decisions); the traceability view.
+- The build view: the overview, and one part file for each of the ten parts. Each part file answers the seventeen questions, has a row for every kind of situation, and adds no rule.
+- The checking folder, nine files: the decisions register, the gap register, the conflict register, the non-responsibilities register, the question backlog, the stabilization record, the audit record, the construction history, and the completion record.
+- The completion record says **NOT COMPLETE**. Seven questions block it: who writes a wait handed to the status-check service; which code writes that service's answer; whether that service calls through the tool layer; which part holds the book of waits; who writes consent records; which part wakes open situations after a platform rule changes; and how a checked person is matched to their permissions.
+
+Corrections made during the audits, across every file that carried the point:
+- Consent withdrawal was set to Decided on 2026-10-21, then set back to **To confirm**, both its scope and its status. Lines 564, 876, and 903 of this record still tag it, and the stabilization (line 267) keeps such tags.
+- "The status-check service's asking alone never wakes a situation" is this record's own reading (line 834). It is **To confirm** everywhere.
+- The book of waits holds every wait (HC-3). The narrower reading, that a wait ending inside the conversation needs no record, is **To confirm**.
+- Every person's answer now reaches a situation through the conversation manager, and every send passes the update decision and the send check, in every walk.
+- One definition of Provisional is used everywhere: "a working choice that carries a condition for reopening it" (line 741).
+
+**More calls, for the owner's review** (continuing the list above; each is **To confirm**):
+5. Section 11's fourteen decision records count as Decided; its "Stabilized" verdict is not used as a basis on its own.
+6. Where this record tags a rule "to confirm", the tag stays, even where an older file says Decided. The record checker was judged this way. The platform-rule split stays Decided, because its decision record governs.
+7. What would make each part change was never worked out. Each part's line is the design's reading.
+8. "Delivered but not received" sits under kind 9, two sources disagree.
+9. When a business policy changes, the same situation moves to the new version; no linked situation opens.
+10. A message that may belong to a situation is recorded as a "held note".
+11. The observer is described as "a regular check that runs alongside the parts"; its seat stays with the owner.
+12. An approval's answer returns to the tool (AC-3); how that fits the conversation manager recording each person's answer is To confirm.
+13. A blocked situation has no check-in, following the 2026-10-12 files; the older time line differs.
+14. The person who takes a question Tend has never met is named by the business's own rules.
+15. Archived reasons — keeping the conversation manager thin, memory apart from the worker, the owner view apart — are kept, To confirm.
+16. Diagrams are plain numbered text (Provisional, line 791).
+17. The build order, the first thin slice, and the order of later slices, one kind each, are a recommendation.
+18. The one-sentence problem in the build overview is the design's wording.
+19. The checking folder's nine-file layout.
+20. The question backlog's labels, including which seven questions are Blocking.
+
+Flagged for the owner, and listed in the checking folder:
+- the older lines that still say no part checks on a fixed clock (the time answers' line 106; the decision records' rule 21, line 156; the reconciliation's status-check item);
+- the record checker: decided in Section 7 line 272, tagged to confirm at line 328;
+- Section 7 line 392, which states the observer's seat with no status;
+- no options table exists, though the stabilization's check 8 says it passed;
+- the five: per call or per wait (decision 13's heading and body differ), and decided or a working bound;
+- the code M5 means different things in the Section 6 and 7 indexes and in this folder's indexes;
+- the proposal limits' defaults (Section 8 lines 98 and 625) against the reconciliation's item 15.
+
+**The seven blocking questions answered (2026-10-22, owner).** The analysis in `constructed_architecture_from_section12/checking/blocking_questions.md` went to the owner on 2026-10-21. On 2026-10-22 the owner wrote: "I'll go with all of your recommendations, and for the smaller questions inside, please go with the appropriate decisions. Audit everything, write the completion record, just complete this section 12 today." The owner then asked for a complete audit of every file in the folder against the knowledge base, with every gap, conflict, and error corrected.
+
+How this message was read, so the owner can check it:
+- "All of your recommendations" covers the seven recommendations in the analysis, and every other recommendation this design made: the sixteen earlier calls (Section 11 §13), the calls made under full agency (entry 21, calls 1–20, which the decisions register, part 3, lists again as items 1–23), and the design's readings marked To confirm. All are **Decided**. One earlier call was changed, not accepted as written: the observer runs alongside the parts, not inside the situation worker, because it must notice a situation whose worker never wakes.
+- "The smaller questions inside, … the appropriate decisions" covers the smaller questions in each of the seven, the fifteen open conflicts, and the open items the views carried. Each was settled with the answer that best fits the product and the knowledge base. Every one is listed in the decisions register, part 4, and marked "settled 2026-10-22" in the code indexes.
+
+**The seven decisions** (decisions 19–25 in the decisions file):
+19. A tool that hands its waiting to the status-check service declares the wait in its result; the worker's fixed code saves it at once, in the same version as the started step, before the AI is told. Each wait records who declared it. The worker stays the one writer of waits.
+20. The status-check service's answer is an event addressed to its wait, with the outside system's reference. The intake step saves it as an arrival and concludes nothing; its notice wakes the worker; the declaring tool's fixed code reads it as evidence; the worker concludes. Repeats are keyed by the wait and the reference.
+21. The status-check service decides when to ask; the tool layer makes every ask. The tool layer stays the only way out, with no exception. News an outside system sends on its own arrives at the service directly. Its asking never wakes a situation.
+22. The book of waits is data kept with the situation records: one shared table, written in the same save as each wait. The worker sets each wait's time signal, which comes straight back to it; after a crash, signals are set again from the book. The intake step, the owner view, and the status-check service read the book. No new part.
+23. The communication layer's fixed consent code is the only writer of consent records: one list per business, by contact point and kind of message, each entry with its evidence. Entries come from arrivals, from opt-ins the business collected (through a tool), and from platform signals. The send check reads it at every send.
+24. After a platform rule change, the conversation manager reads the book of waits and writes one version into each situation whose open wait ends with a step on that channel; everyone else meets the rule at their next wake; the send check stays the gate. This narrows decision record 8's "each open situation is checked again", and makes the coordination answers' parked "wake dependent situations" the default for platform rules only. New writer row: the conversation manager, one version per affected situation.
+25. Three records: the sign-in identity (the provider keeps it); membership per business; channel bindings, made only while signed in. Both written by configuration's fixed tools. A sign-in proves the person; a bound channel proves only the channel and names the member. Every step needing a person's permission needs a fresh sign-in; each approval records who, how proved, and when.
+
+**The smaller questions, settled.** The started step and its wait in one version (yes). The five count per wait; five stays the working bound approved on 2026-10-10; a business may set its own number. The service's limits are set per outside system when its tool is added. A wait inside one run is not written in the book. Consent entry types and evidence fields (yes). An unclear withdrawal counts as one (yes). What a withdrawal stops: both readings, by the words used. Steady pace for large rule changes (yes). Fresh sign-in: 15 minutes, a business may shorten it. A changed WhatsApp identifier suspends a binding; moving one needs the configurator (yes).
+
+**The fifteen open conflicts, settled.** Each row of the conflict register's section 1 now says how. The main ones: the sent record is the communication layer's own record, not a version; an approver's answer is an arrival, handed to the waiting tool step; no separate checker; the check-in is the only regular wake; no recheck timer — the service asks, and the wait's time signal wakes the worker when the limits run out; the same situation moves on a policy change; delivered-but-not-received is one conflict, under kind 9.
+
+**Open items closed.** About sixty, each in the decisions register, part 4: what other parts do while a part is down; memory unreachable; access after the permission store returns; the eleven labels mapping; legal deletion and the audit (per market, with the legal exception); grants while a holder is away; closure outcomes; reopen re-checks; how a new kind enters; fan-out recovery; the unanswered routing question; absence detection; the next step per kind of silence; handoff rules; routing method; unset bounds; freshness; preferred channel; the language check; receipt meaning; capability defaults; consistency; permission granularity; promises never in a grant; second person for grant changes; approval details; the emergency switch holders; compliance checkpoints; the observer checks mapped to the five kinds of unexpected behaviour; versioning of step instructions and stage rules; options for decisions 5 and 6, and reopen conditions for decisions 1, 4, and 12.
+
+**What stays as it is.** The memory rules resting on Level 2 answers still marked "pending review" stay Provisional until the owner reviews that folder. How lessons are promoted stays Provisional. Values each business or market sets are deferred to configuration; a few technical choices to Level 3; a few details to implementation. Files outside the Section 12 folder were not edited: the earlier lines that a later decision replaced are listed in the conflict register, section 2, for correction where they sit.
+
+**Applying them.** The design files first: the decisions, the parts, the records, the rules, the interactions. Then every file that repeats a point: the behaviour view (16 files), the responsibility view (11), the build view (11), the traceability view, and the checking folder. Hidden labels for items now settled were renamed: "call not yet confirmed:" became "accepted call:" (the observer's seat became "changed call:"), and settled "open item:" labels became "closed item:".
