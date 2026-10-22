@@ -19,7 +19,7 @@ From the breadth research (see [`../../research/research_owner_stakeholder_journ
 Different stakeholder types have different obvious candidates:
 
 - **Supplier/vendor, landlord/property**: auto-handle routine status and standard certificates (COI, payment confirmations); escalate disputes, negotiations, unusual requests.
-- **Tax/regulator/inspector**: auto-acknowledge receipt and surface deadline + required docs; escalate almost everything substantive (stakes are high, the owner or accountant decides).
+- **Tax/regulator/inspector**: optional **configured** policy may send a substantive situation update on ingest (deadline surfaced, required docs listed) — **not** the product-wide default of receipt-only email. Escalate almost everything substantive (stakes are high, the owner or accountant decides). Default external communication rules: [`../communication/when_should_tend_communicate.md`](../communication/when_should_tend_communicate.md) (2026-09-25 ruling).
 - **Media/community**: auto-log and draft light responses; escalate anything shaping the public narrative.
 - **Family/helper**: give controlled visibility and routine pulls; keep decision authority with the owner.
 

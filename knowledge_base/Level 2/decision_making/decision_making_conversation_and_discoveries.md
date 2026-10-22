@@ -62,7 +62,7 @@ The system handles:
 
 The LLM may say that Project X should invoke a capability. The system then decides whether that invocation is authorized and technically possible.
 
-If authorization is required, the system reports that result back into the loop. Decision Making can then choose to wait, ask for approval, create human work, escalate or communicate.
+If authorization is required, the system reports that result back into the loop. Decision Making can then choose to wait, ask for approval, create human work, or escalate. Whether an update is then worth telling the person is the conversation manager's decision.
 
 The important boundary is not that Decision Making knows nothing about authorization. It does not enforce authorization. It must still react to authorization outcomes because those outcomes change Project X’s next behaviour.
 

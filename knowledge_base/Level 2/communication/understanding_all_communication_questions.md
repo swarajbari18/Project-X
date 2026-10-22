@@ -101,7 +101,7 @@ How should Tend communicate disagreement between claims without silently choosin
 - Tend waits when communicating would be premature, misleading, prohibited, or unnecessary.
 - Waiting must remain visible as a responsibility in the situation; it must not become forgotten silence.
 - Tend asks when an unresolved answer could change the safe next step.
-- Decision Making chooses whether to communicate, ask, or wait. Communication expresses that chosen intent.
+- Decision Making chooses whether to ask or wait. The conversation manager decides whether an update is worth telling the person. Communication expresses that chosen intent.
 - Communication uses the latest usable situation version and does not communicate an older state as though it were current.
 - Communication does not expose more information than the recipient needs and is allowed to receive.
 - Explanations contain useful reasons and evidence references, not hidden internal reasoning.

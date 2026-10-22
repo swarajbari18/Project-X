@@ -11,7 +11,7 @@ What this means for this document: the evidence states and reasons this document
 
 ## Status
 
-Answered — working decision, pending review.
+Answered — working decision, reviewed and accepted by Swaraj (2026-10-20).
 
 ## Where this question comes from
 

@@ -12402,104 +12402,177 @@ The correct response is to reopen the affected reasoning, update the model, and 
 
 ## Transition to Section 12
 
-Sections 1–11 have now defined the complete construction logic:
+Two short reminders, so this section can be read on its own.
+
+**The three levels.** Level 1 says what problem exists. Level 2 constructs the logical system that solves it: its parts, what each owns, and how they behave. Level 3 decides how technology builds that system.
+
+**Tend.** Tend is the product this method was written for. It watches a business's work across messages, outside systems, people, and time, and keeps each situation moving until someone safe takes responsibility. Its examples appear throughout this section.
+
+Sections 1–11 build the architecture.
 
 ```text
-1. Establish why the method exists
-          ↓
-2. Establish why architecture must be constructed
-          ↓
-3. Identify and classify inputs
-          ↓
-4. Convert relevant knowledge into architectural evidence
-          ↓
-5. Construct incrementally
-          ↓
-6. Construct responsibilities
-          ↓
-7. Construct boundaries
-          ↓
-8. Construct interactions and behaviour
-          ↓
-9. Challenge the model through architectural dimensions
-          ↓
-10. Reconcile and discover gaps
-          ↓
-11. Iterate until the model is sufficiently stable
+1.  Why the method exists
+2.  Why architecture must be constructed, not extracted
+3.  What the inputs are
+4.  How knowledge becomes architectural evidence
+5.  How to construct step by step
+6.  Responsibilities: what the system must own
+7.  Boundaries: which responsibilities belong together
+8.  Interactions: how the parts act together over time
+9.  Dimensions: the forces that try to break the model
+10. Reconciliation: what is missing or contradictory
+11. Stabilization: when the model is stable enough to rely on
 ```
 
-What remains is to define **how this stabilized architecture is represented as the authoritative Level 2 output, what exactly constitutes Level 2 completion, and how the resulting model is handed to Level 3 without losing the reasoning, constraints, or traceability that produced it.**
+At the end of Section 11, the architecture exists.
 
-That is the purpose of Section 12.
+But it exists as a construction history.
+
+It is spread across the files that recorded each kind of reasoning.
+
+Nobody can build from that directly.
+
+Section 12 answers three questions:
+
+1. How is the stabilized architecture written down, so that one version is the truth?
+2. How do we know Level 2 is actually complete?
+3. How is it handed to Level 3, so that someone can build it without losing the reasoning?
 
 
 # 12. Architecture Representation and Level 2 Completion
 
-## 12.1 Purpose
+## 12.1 Purpose: the final architecture is used in three ways
 
-The previous sections defined how the logical architecture is constructed:
+### What Level 2 produces
 
-```text
-Evidence
-   ↓
-Responsibilities
-   ↓
-Boundaries
-   ↓
-Interactions and Behaviour
-   ↓
-Architectural Dimensions
-   ↓
-Reconciliation
-   ↓
-Iteration and Stabilization
-```
+The output of Level 2 is **a stable logical model of the system that does not depend on any technology**.
 
-The final question is:
-
-> **What exactly do we produce when this process is complete, and how do we know that the resulting model is sufficient to represent the logical architecture of the system?**
-
-This section defines the answer.
-
-The output of Level 2 is not:
-
-- a list of components;
-- a box-and-arrow diagram;
-- a collection of documents;
-- a technology selection;
-- a database design;
-- an API specification;
-- an implementation plan;
-- or a set of technical services.
-
-Those belong to later levels or other engineering activities.
-
-The output of Level 2 is a **stable, technology-independent logical model of the system** that explains:
+It explains:
 
 - what responsibilities exist;
-- how those responsibilities are organised;
-- where ownership lies;
-- what state exists and who owns it;
-- who has authority to decide or act;
-- how responsibilities interact;
+- how they are organised into parts;
+- who owns what;
+- what is remembered, and who owns each record;
+- who decides, who acts, and who approves;
+- how the parts interact;
 - how information and decisions move;
 - how the system behaves over time;
 - how failures and recovery behave;
-- how humans and external systems participate;
-- what constraints and invariants govern the system;
-- what architectural forces shape the model;
+- how people and outside systems take part;
+- which constraints and rules must always hold;
+- which forces shaped the model;
 - why the major structures exist;
-- and what evidence justifies them.
+- and what evidence supports them.
 
-The final architecture therefore represents not merely **structure**, but the system's **logic of organisation and behaviour**.
+The output of Level 2 is **not**:
+
+- a list of components;
+- a box-and-arrow diagram;
+- a pile of documents;
+- a technology choice;
+- a database design;
+- an API specification;
+- an implementation plan;
+- a set of technical services.
+
+Those belong to later levels.
+
+### Three uses
+
+The model is used in three ways.
+
+**The first use is understanding.**
+
+A person or an agent asks: what is this system, why is it shaped this way, and does it hold together?
+
+For example: who decides whether a refund needs a person? What happens when the payment provider does not answer? Why is sending a message separate from deciding what to say?
+
+**The second use is building.**
+
+A person or an agent asks: what exactly do I build next, what does it take in, what does it hand on, and how do I know it works?
+
+For example: I am building the part that sends messages. What starts it? What must it check before sending? What must it never do? How do I test that it is right?
+
+**The third use is checking.**
+
+A person or an agent asks: is it complete, can every claim be traced, and has every gate passed?
+
+For example: does every refund rule trace back to a decision the owner made? Is anything that is still open written as if it were decided?
+
+The final model has views organised by kind of concern: a responsibility view, a boundary view, an interaction view, a decision view, and so on.
+
+Those views serve understanding and checking.
+
+None of them is shaped for building.
+
+To build one part from those views, a builder has to collect that part's description from many places: its responsibilities from one view, its state from another, its failures from a third, its rules from a fourth.
+
+That is the same problem the method was created to solve.
+
+The builder would have to hold the whole architecture in their head to build one piece of it.
+
+### Why the build view is shaped the way it is
+
+The build view must give a builder five things:
+
+1. One sentence naming the engineering problem every part exists to solve. Every later choice points back to it.
+2. The path every change takes through the parts.
+3. One diagram of all the parts.
+4. One file for each part, and every file uses the fixed headings of 12.22.
+5. Acceptance criteria in each part file (12.22, heading 15), so each part can be built and finished on its own.
+
+Two failures this method must avoid:
+
+- Mixing logical and technical decisions. The hosting platform, the database, and the AI provider do not belong in a Level 2 architecture.
+- Describing one storyline and calling the rest exceptions.
+
+Tend has many storylines.
+
+A refund whose result is unknown. A carrier that is down. An investor who wants a deck while the revenue figure is still being confirmed. A list of thirty people to contact, each with their own follow-up. A supplier who sends a document nobody asked for.
+
+Tend must handle all of these with the same parts.
+
+Sections 6–11 worked out how the same parts behave in each of these. For example, they settled that when the payment provider does not answer, the refund is never repeated automatically, and a person gets the full timeline once the wait runs out.
+
+If the build plan described only one storyline, it would throw that work away.
+
+### What Section 12 therefore produces
+
+Section 12 keeps every view the method already asked for.
+
+It adds one more view: **the build view**.
+
+The build view is one overview file, plus one file for each part.
+
+Each part file uses the same fixed headings, so a builder always knows where to look.
+
+Each part file describes how that part behaves in every kind of situation, not only in one happy path.
+
+The other views keep the history and the reasons.
+
+The part files point to them for the "why".
+
+A **register** is a short table kept for checking. For example, the register of decisions lists each decision, its reason, and when to reopen it. The registers point into the views and part files. They do not retell them.
+
+So the final architecture serves all three uses:
+
+```text
+Understanding:  the views          → how the system works, and why
+Building:       the build view     → what to build, part by part, and how to know it is right
+Checking:       the registers      → whether it is complete, traceable, and justified
+```
+
+All three are written from the same model.
+
+None of them may say something the others contradict.
 
 ---
 
 # 12.2 Principle: The Architecture Is a Model, Not a Diagram
 
-A diagram is one representation of an architecture.
+A diagram is one picture of an architecture.
 
-It is not the architecture itself.
+It is not the architecture.
 
 A diagram can show:
 
@@ -12511,337 +12584,264 @@ while hiding:
 
 - why A exists;
 - what A owns;
-- what state A controls;
-- what authority A has;
+- what A is allowed to decide;
 - what B means;
-- whether C is a decision or an execution responsibility;
-- what happens when B fails;
-- what happens when the interaction is repeated;
-- whether the relationship is synchronous or temporal;
+- whether C decides or only executes;
 - whether A and B actually share ownership;
-- whether the relationship is mandatory or conditional.
+- what happens when B fails;
+- what happens when the same step runs twice;
+- whether the arrow means "now" or "later";
+- whether the arrow always happens or only sometimes.
 
 Therefore:
 
-> **The logical architecture must be represented as a structured model whose diagrams are projections of that model, not as a diagram whose missing meaning must be inferred.**
+> **The logical architecture is a structured model. Diagrams are pictures drawn from that model. Nothing important may live only in a diagram.**
 
-The canonical architectural model should therefore contain both:
+The model contains four kinds of content:
 
 ```text
-Structural Model
-+
-Behavioural Model
-+
-Architectural Reasoning
-+
-Traceability
+Structure      — the parts, what each owns, and how they connect
+                 e.g. the tool layer is the only way Tend calls an outside system
+Behaviour      — what happens over time, including failures
+                 e.g. a refund with no answer waits, then goes to a person
+Reasoning      — why each structure exists, and what was rejected
+                 e.g. why sending is separate from deciding what to say
+Traceability   — where each structure came from
+                 e.g. which Level 2 answer and which owner decision set the refund rule
 ```
 
-A visual diagram is generated from this model where useful.
+Diagrams are drawn from the model wherever they help a reader.
 
-The model remains authoritative.
+The model is the truth. Text, diagrams, and part files are all drawn from it.
+
+When a diagram disagrees with the model, the diagram is fixed.
 
 ---
 
 # 12.3 The Logical Architecture Model
 
-The stabilized Level 2 architecture should be represented through a set of related architectural objects.
-
-At minimum:
+The stabilized architecture is made of these related objects:
 
 ```text
 Logical Architecture
 │
 ├── Responsibilities
-│
-├── Responsibility Relationships
-│
-├── Architectural Boundaries
-│
+├── Relationships between responsibilities
+├── Parts (the boundaries)
 ├── Ownership
-│
-├── State and Lifecycle
-│
-├── Authority
-│
+├── State and lifecycle        (e.g. a situation is running, waiting, blocked, or completed)
+├── Authority: who decides, who acts, who approves
+│                              (e.g. a refund above the business's setting needs a named person)
 ├── Interactions
-│
-├── System Behaviours
-│
-├── Failure Behaviours
-│
-├── Temporal Relationships
-│
-├── Human Interactions
-│
-├── External System Interactions
-│
-├── Information Ownership and Provenance
-│
+├── Behaviour over time
+├── Failure behaviour          (e.g. a carrier that stays down becomes a recorded failure)
+├── Timing: waits, deadlines, timers
+├── Human interactions
+├── External systems
+├── Information ownership and where information came from
 ├── Constraints
-│
-├── Invariants
-│
-├── Architectural Dimensions
-│
+├── Invariants: rules that must always hold
+├── Architectural dimensions
 ├── Decisions
-│
 ├── Assumptions
-│
 ├── Evidence
-│
-├── Open Questions
-│
-├── Revisit Conditions
-│
-└── Scenario Coverage
+├── Open questions
+├── Conditions for reopening a decision
+├── Kinds of situation the system must handle
+└── Scenario coverage
 ```
 
-These objects are not necessarily separate documents.
+These are not necessarily separate documents.
 
-They are different views of the same architectural model.
+They are the contents of one model.
 
-The important property is that they remain **linked**.
+What matters is that they stay **linked**.
 
-For example:
+For example, a reader must be able to follow this chain in both directions:
 
 ```text
 Responsibility
       ↓
-Boundary
+Part that owns it
       ↓
-Interaction
+Interaction it takes part in
       ↓
-Decision
+Decision that justified it
       ↓
-Evidence
+Evidence behind the decision
 ```
-
-must remain traceable rather than becoming disconnected pieces of documentation.
 
 ---
 
-# 12.4 Principle: Architecture Must Have Multiple Complementary Views
+# 12.4 Principle: Each View Answers One Question
 
-No single representation can adequately express the architecture.
+No single view can explain the whole architecture.
 
-The final model should therefore support several complementary views.
+The final architecture therefore has several views.
 
-### Responsibility View
+Each view answers one question.
 
-Answers:
+Each view is drawn from the same model.
 
-> What must the system be responsible for?
+| View | The question it answers | What it shows |
+|---|---|---|
+| Responsibility view | What must the system be responsible for? | Each responsibility: purpose, outcome, inputs, outputs, state, who may decide, what happens when it fails |
+| Boundary view | What belongs together, and what does not? | Each part: what it owns, what state it owns, what it may decide, what lies outside it, what makes it change |
+| Interaction view | How do the parts cooperate? | Each interaction: what starts it, who starts it, who receives it, what information crosses, what is decided, what state changes, what happens on failure, what comes back |
+| Behaviour view | How does the system behave over time, in each kind of situation? | For each kind of situation: what starts it → what happens → what state changes → what is decided → what action is taken → how it is checked → the outcome → when it is looked at again. Shown as walkthroughs, sequence diagrams, and the lifecycle of a situation |
+| State view | What is remembered, who writes it, and how does it change? | Each record, its owner, its allowed changes, and who may make each change |
+| Constraint view | What must the architecture always preserve? | Each rule, the parts it touches, where it is enforced, and how a break would show |
+| Decision view | Why was it built this way? | Each decision: the problem, the evidence, the options, the trade-off, the choice, the cost, when to reopen it |
+| Traceability view | Where did each structure come from? | Source → evidence → responsibility → part → interaction → decision |
+| **Build view** | **What do I build, part by part, and how do I know each part is right?** | **One overview file and one file per part (12.21–12.24)** |
 
-```text
-Responsibility
-→ Purpose
-→ Outcome
-→ Inputs
-→ Outputs
-→ State
-→ Authority
-→ Failure behaviour
-```
+Three of these deserve a short note: the state view, the behaviour view, and the build view.
 
-### Boundary View
+**The state view** gets its own row.
 
-Answers:
+It is separate because in Tend most of the hard rules are about who may write what.
 
-> What belongs together and what does not?
+For example, only one part may mark a situation as completed. A reader needs one place where all such rules are visible together.
 
-```text
-Boundary
-→ Responsibilities owned
-→ State owned
-→ Authority
-→ External relationships
-→ Change drivers
-```
+**The behaviour view** gets a stated form.
 
-### Interaction View
+It holds one sequence diagram for each important kind of situation.
 
-Answers:
+A sequence diagram shows, in order, which part does what, and which part hands what to which.
 
-> How do responsibilities cooperate?
+It is the clearest way to show that the same parts handle many different storylines.
 
-```text
-Interaction
-→ Trigger
-→ Initiator
-→ Receiver
-→ Information
-→ Decision
-→ State change
-→ Outcome
-→ Failure
-→ Feedback
-```
+**The build view** is explained in 12.21.
 
-### Behaviour View
+The views must not compete.
 
-Answers:
-
-> How does the system behave through time?
-
-```text
-Trigger
-→ Behaviour
-→ State transition
-→ Decision
-→ Action
-→ Verification
-→ Outcome
-→ Re-evaluation
-```
-
-### Constraint View
-
-Answers:
-
-> What must the architecture preserve?
-
-```text
-Constraint
-→ Affected architecture
-→ Enforcement location
-→ Failure if violated
-```
-
-### Decision View
-
-Answers:
-
-> Why was the architecture constructed this way?
-
-```text
-Decision
-→ Problem
-→ Evidence
-→ Alternatives
-→ Trade-off
-→ Choice
-→ Consequence
-```
-
-### Traceability View
-
-Answers:
-
-> Where did this architectural structure come from?
-
-```text
-Source
-→ Evidence
-→ Responsibility
-→ Boundary
-→ Interaction
-→ Decision
-```
-
-These views should not compete.
-
-They are projections of the same underlying model.
+If two views disagree, that is a reconciliation finding (Section 10), not a matter of preference.
 
 ---
 
-# 12.5 Method: Define the Architectural Source of Truth
+# 12.5 Method: Define One Source of Truth
 
-The final Level 2 architecture must have one authoritative representation.
+The final Level 2 architecture has one authoritative version.
 
-That representation should be treated as the **source of truth for logical architecture**.
-
-Other representations are derived from it.
-
-For example:
+Every other representation is drawn from it.
 
 ```text
-Canonical Architectural Model
+The architecture model
         │
-        ├── Architecture Diagram
-        ├── Responsibility Map
-        ├── Interaction Maps
-        ├── Scenario Walkthroughs
-        ├── Decision Records
-        ├── Constraint Matrix
-        └── Level 3 Input
+        ├── the views
+        ├── the build view: overview and part files
+        ├── the diagrams
+        ├── the walkthroughs
+        ├── the decision records
+        ├── the registers
+        └── the Level 3 handoff
 ```
 
-This prevents a common failure mode:
+This prevents a known failure:
 
 ```text
-Architecture document says A
-Diagram says B
-Implementation plan assumes C
-Agent remembers D
+The architecture file says A.
+The diagram says B.
+The implementation plan assumes C.
+The agent remembers D.
 ```
 
-The resulting system then has multiple competing architectures.
+The system then has four competing architectures.
 
-The canonical model prevents this.
+### Where the truth lives
+
+In practice, each fact has exactly one authoritative place.
+
+Every other place that needs it links to that place, or repeats it word for word with a link back.
+
+For example: the rule "only the conversation manager marks a situation completed" is written once, in the state view. The conversation manager's part file and the situation worker's part file each repeat it with a link to that one place.
+
+When the rule changes, the one place changes first.
+
+Every repeat is then updated, and the audit (12.26) checks that none was missed.
+
+### The architecture and its sources
+
+The architecture is built from the knowledge base. It is not a copy of it.
+
+Two things are easy to confuse here.
+
+The **Level 2 folder** in the knowledge base holds the answered engineering questions, such as "when must Tend ask for approval?".
+
+The **Level 2 architecture** is the model this method constructs from those answers and everything else.
+
+During construction, the Level 2 folder governs. When an architecture sentence disagreed with an answer in the Level 2 folder, the folder won, and the disagreement was written down and taken to the owner.
+
+For example: the architecture said a refund at or below the business's setting may run without a person. Two Level 2 files said money always needs a person. That was taken to the owner. The owner decided, and the Level 2 files were changed to match on 2026-10-12.
+
+At completion (12.30), the architecture becomes the model Level 3 must follow. Level 3 builds from the architecture, not from the knowledge base directly.
+
+Neither side silently wins after that.
+
+If a later reading of the knowledge base disagrees with the completed architecture, that is new evidence. The disagreement is written down. The affected part of the architecture is reopened (12.31). Then one side or the other is changed on purpose.
 
 ---
 
 # 12.6 Principle: Every Architectural Element Must Be Justifiable
 
-A final architecture should contain no major structure whose existence depends only on intuition.
+The final architecture contains no major structure that exists only because it felt right.
 
-Every major architectural element should be traceable to at least one of:
+Every major element traces to at least one of:
 
-- Level 1 responsibility;
-- Level 1 constraint;
-- Level 1 invariant;
-- discovered failure mode;
-- architectural interaction;
-- architectural dimension;
-- explicit decision;
-- external system characteristic;
-- human operating requirement;
-- product principle;
-- engineering principle;
-- validated research finding.
+- a Level 1 responsibility;
+- a Level 1 constraint;
+- a Level 1 invariant;
+- a discovered failure;
+- an interaction that requires it;
+- an architectural dimension: a force that tests the model, such as time passing or two things happening at once (Section 9);
+- an explicit decision;
+- a fact about an external system;
+- a requirement of how people work;
+- a product principle;
+- an engineering principle;
+- a validated research finding.
 
-This does **not** mean every architectural element must have exactly one source.
+An element does not need exactly one source.
 
-Architectural structures often emerge from intersections.
+Most structures come from several facts meeting.
 
 For example:
 
 ```text
-Responsibility A
+Deciding the next step and sending a message are separate responsibilities
       +
-Responsibility B
+the decision to speak must be made once, not twice
       +
-Consistency constraint
-      +
-Failure mode
-      +
-Change driver
+a timer must never send a message by itself
       ↓
-Boundary decision
+The part that decides the next step never sends.
 ```
 
-The architecture is often the result of relationships between evidence rather than a direct translation of any individual source.
+No single source says "the worker never sends".
+
+The rule comes from the three facts together.
 
 ---
 
 # 12.7 Control/Gate: Architectural Traceability
 
-For every major architectural element, it should be possible to traverse:
+A **gate** is a check that must pass before the work moves on. This section has four: traceability (here), the completion matrix (12.10), technology leakage (12.14), and the Level 3 handoff (12.28).
 
-### Backward
+For every major element, it must be possible to walk both ways.
+
+### Backward: why does this exist?
 
 ```text
-Architecture
+Architectural element
    ↓
-Decision / Reasoning
+Decision or reasoning
    ↓
 Evidence
    ↓
-Source
+Source in the knowledge base
 ```
 
-### Forward
+### Forward: what did this fact lead to?
 
 ```text
 Evidence
@@ -12850,237 +12850,246 @@ Architectural consequence
    ↓
 Responsibility
    ↓
-Boundary
+Part
    ↓
 Interaction
    ↓
 Behaviour
 ```
 
-If neither direction is possible, the element should be questioned.
+If neither walk is possible, the element goes back to construction. Either its justification is found and written down, or the element is removed.
 
-An architectural element may legitimately be derived from several pieces of evidence.
+An element may rest on several pieces of evidence.
 
-But it must not become an unexplained assertion.
+It must not rest on none.
+
+The build view is included in this gate.
+
+Every statement in a part file must trace back to the model, and through it to evidence.
+
+A part file may not introduce a rule that the model does not contain.
 
 ---
 
-# 12.8 Principle: Level 2 Completion Is Defined by Questions, Not Documents
+# 12.8 Principle: Level 2 Is Complete When Its Questions Are Answered, Not When Its Documents Exist
 
 Level 2 is not complete because:
 
 - the knowledge base has been read;
 - every file has been processed;
-- a final architecture document has been written;
-- every subsystem has a description;
+- a final architecture document exists;
+- every part has a description;
 - the diagram looks complete;
-- all research has been summarized.
+- all research has been summarised.
 
-Those are document-completion conditions.
+Those are document conditions.
 
-They are not architecture-completion conditions.
+They are not architecture conditions.
 
-Level 2 is complete when the important logical questions have been sufficiently answered.
+Level 2 is complete when the important logical questions have been answered well enough.
 
-The central Level 2 question is:
+The central Level 2 question is short:
 
-> **“How should the responsibilities of the system be logically organised so that the system can correctly behave under its known responsibilities, constraints, interactions, failures, authority relationships, temporal behaviour, and expected evolution?”**
+> **How should the system's responsibilities be organised so that it behaves correctly?**
 
-The architecture must therefore be evaluated against the questions generated throughout construction.
+"Behaves correctly" has to hold in every one of these conditions:
+
+- it does what it is responsible for;
+- it keeps its constraints, such as never letting one business see another business's data;
+- its parts cooperate, such as the worker deciding and the communication layer sending;
+- it handles failure, such as a payment provider that does not answer;
+- the right person decides, such as a named person approving a large refund;
+- it handles time, such as a follow-up that must not fire after the customer already replied;
+- it survives expected change, such as a messaging platform changing its rules.
+
+The architecture is judged against the questions raised during construction.
 
 ---
 
 # 12.9 Method: Close the Level 2 Question Backlog
 
-Level 1 produces an initial set of Level 2 engineering questions.
+Level 1 produces the first list of Level 2 questions.
 
-During construction, additional questions emerge.
+More questions appear during construction.
 
-Therefore the final question backlog should classify every question as:
+Every question in the final list gets exactly one of these labels:
+
+| Label | Meaning |
+|---|---|
+| Resolved | The architecture contains a justified answer |
+| Deferred to Level 3 | The logical answer is known; the technical way to realise it is open |
+| Deferred to implementation | The logical and technical answers are known; a detail is left to whoever writes the code |
+| Deferred to configuration | The structure is known; the value is set per business or per market |
+| Non-blocking unknown | The architecture holds whatever the answer turns out to be |
+| Rejected | The question no longer applies, and the reason is recorded |
+| Blocking | Level 2 cannot be completed until it is answered |
+
+The list must include the questions Level 1 asks about the architecture itself.
+
+For example: where state lives, what must be durable, what is started by events and what is started by requests, and where decisions are made.
+
+These are easy to miss, because they may have no category folder of their own.
+
+A question is **deferred to Level 3** when the logical answer exists but the technical answer does not.
 
 ```text
-Resolved
-Deferred to Level 3
-Deferred to implementation
-Non-blocking unknown
-Rejected / no longer relevant
-Blocking
+Level 2 question: Does this responsibility need its own owner?
+Level 2 answer:   Yes.
+
+Level 3 question: Is it a service, a module, a worker, a library, or something else?
+Level 3 answer:   Still open.
 ```
 
-A Level 2 question is **resolved** when the logical architecture contains a justified answer.
+The reverse must never happen.
 
-A question is **deferred to Level 3** when the logical answer is known but the technical implementation remains open.
-
-For example:
-
-```text
-Level 2:
-"Does this responsibility need independent ownership?"
-→ Yes.
-
-Level 3:
-"Should it be implemented as a service, module,
-worker, library, or another technical structure?"
-→ Open.
-```
-
-The reverse must not happen.
-
-A technical choice must not silently answer an unresolved logical question.
+A technical choice must not silently answer an open logical question.
 
 ---
 
 # 12.10 The Level 2 Completion Matrix
 
-The final architecture should be checked against the complete construction surface.
+The final architecture is checked against every area of construction.
 
-| Area | Completion Question |
+| Area | Completion question |
 |---|---|
 | Problem | Does the architecture still solve the Level 1 problem? |
-| Responsibilities | Are all important responsibilities represented? |
-| Ownership | Is ownership explicit? |
-| Boundaries | Is every major boundary justified? |
-| State | Is important state and lifecycle ownership understood? |
-| Authority | Is decision and action authority explicit? |
-| Information | Is information meaning, ownership, and provenance preserved? |
-| Interactions | Are important interactions represented? |
-| Behaviour | Can representative scenarios be explained? |
-| Failure | Can important failure classes be explained? |
-| Time | Are temporal relationships represented? |
-| Human Work | Can required human involvement be explained? |
-| External Systems | Are external ownership and interaction boundaries explicit? |
-| Constraints | Are important constraints represented? |
-| Invariants | Can important invariants actually be preserved? |
+| Responsibilities | Is every important responsibility represented? |
+| Ownership | Is it clear who owns each thing? |
+| Parts | Is every major part justified? |
+| State | Is it clear what is remembered, who writes it, and how it changes? |
+| Authority | Is it clear who decides, who acts, and who approves? |
+| Information | Is it clear where information came from and who owns it? |
+| Interactions | Are the important interactions represented? |
+| Behaviour | Can every important kind of situation be walked through? |
+| Failure | Can every important kind of failure be explained? |
+| Time | Are waits, deadlines, and timers represented? |
+| People | Is it clear when and how people take part? |
+| External systems | Is it clear what outside systems own and how Tend works with them? |
+| Constraints | Are the important constraints represented? |
+| Invariants | Can the rules that must always hold actually be kept? |
 | Scaling | Has relevant growth been considered? |
-| Concurrency | Have relevant concurrent interactions been considered? |
-| Security/Authority | Are authority boundaries explicit? |
-| Observability | Can required system behaviour be reconstructed? |
-| LLM/Agent Behaviour | Are automated reasoning boundaries and verification explicit? |
-| Evolution | Can important change drivers be contained? |
-| Evidence | Are major architectural claims traceable? |
-| Decisions | Are significant choices justified? |
-| Alternatives | Were meaningful alternatives considered? |
-| Unknowns | Are remaining unknowns visible and classified? |
-| Revisit | Are important future triggers defined? |
-| Level Boundary | Has technology remained outside Level 2? |
+| Concurrency | Is it clear what happens when two things happen at once? For example, a timer and a customer's reply arrive together. |
+| Security | Is it clear who may see and do what? |
+| Observability | Can what happened be reconstructed afterwards? For example, why a refund went to a person, and who approved it. |
+| AI behaviour | Is it clear what the AI may propose, what it may never decide, and what is checked? |
+| Evolution | Is it clear which part absorbs each likely change? |
+| Evidence | Can each major claim be traced? |
+| Decisions | Is each significant choice justified? |
+| Alternatives | Were real alternatives considered? |
+| Unknowns | Is every remaining unknown visible and labelled? |
+| Reopening | Is it clear what would cause each decision to be reopened? |
+| Level boundary | Has technology stayed out of Level 2? |
+| **Build clarity** | **Can each part be built from its part file alone, without reading the construction history, and does it cover every kind of situation in the overview?** |
+| **Audits** | **Has every file passed both audits (12.26)?** |
 
-This matrix is a **gate**, not a scoring exercise.
+This matrix is a gate, not a score.
 
-A single unresolved blocking issue may prevent completion even if every other category appears strong.
+One blocking issue stops completion, even if every other row is strong.
 
 ---
 
 # 12.11 Principle: The Architecture Must Be Able to Explain the System
 
-The strongest completion test is not whether the architecture can be described.
+The strongest test is not whether the architecture can be described.
 
-It is whether the architecture can **explain the system**.
+It is whether the architecture can **explain what happens** in a real situation.
 
-Take representative business situations and ask the architecture to explain:
+Take a real situation and ask:
 
 ```text
 What happened?
-Who is responsible?
+Which part is responsible?
 What information exists?
-What is known?
-What is unknown?
-Who has authority?
-What decision must be made?
-What state changes?
-What interaction occurs?
+What is known, and what is unknown?
+Who may decide?
+What must be decided?
+What state changes, and who writes it?
+What interaction happens?
 What can fail?
 Who handles the failure?
 What happens next?
-When is the situation re-evaluated?
-What evidence is produced?
-What happens if a human intervenes?
-What happens if an external system is unavailable?
+When is the situation looked at again?
+What record is left behind?
+What happens if a person steps in?
+What happens if an outside system is down?
 ```
 
-If the architecture can answer these questions without inventing missing structures during the walkthrough, it is strong evidence that the model represents the actual logical system.
+If the architecture answers these without inventing anything new during the walkthrough, it represents the real logical system.
 
-If the walkthrough repeatedly requires phrases such as:
+If the walkthrough keeps needing phrases like:
 
-> “There would probably be another component here…”
+> "There would probably be another part here…"
 
 then the architecture is not complete.
 
 ---
 
-# 12.12 Method: Perform the Architecture Replay
+# 12.12 Method: Replay the Architecture Against Real Situations
 
-The final architecture should be replayed against a representative scenario set.
+The final architecture is replayed against a chosen set of situations.
 
-The replay is performed from the beginning of the situation rather than from the architecture diagram.
+The set must cover every kind of situation the product must handle, not just the common one.
 
-For each scenario:
+For Tend, the set includes situations such as an outcome that stays unknown, an outside system that is down, a partial answer, a list of people contacted one by one, and an unrequested document.
+
+The replay starts from the situation, not from the diagram.
+
+For each situation:
 
 ```text
-1. Trigger the situation.
-
-2. Identify the responsible actor.
-
-3. Identify the relevant responsibility.
-
-4. Identify the relevant boundary.
-
-5. Identify information and provenance.
-
-6. Identify current state.
-
-7. Identify uncertainty.
-
-8. Identify authority.
-
-9. Execute the relevant interaction.
-
-10. Apply the relevant decision.
-
-11. Change state where appropriate.
-
+1.  Start the situation.
+2.  Name the person or system that started it.
+3.  Name the responsibility involved.
+4.  Name the part that owns it.
+5.  Name the information and where it came from.
+6.  Name the current state.
+7.  Name what is uncertain.
+8.  Name who may decide.
+9.  Run the interaction.
+10. Apply the decision.
+11. Change state where needed, by the part allowed to change it.
 12. Follow the success path.
-
-13. Follow important failure paths.
-
-14. Include human intervention where relevant.
-
-15. Include external-system behaviour where relevant.
-
-16. Follow feedback and re-evaluation.
-
-17. Identify terminal or continuing state.
-
-18. Verify observability requirements.
+13. Follow the important failure paths.
+14. Include a person stepping in, where relevant.
+15. Include an outside system's behaviour, where relevant.
+16. Follow what the result changes: which record is updated, and what wakes the situation next.
+17. Name the final or continuing state.
+18. Check that what happened can be reconstructed afterwards.
 ```
 
-Any missing architectural concept discovered during replay reopens the relevant construction area.
+Each replay produces a sequence diagram.
 
-This makes scenario replay a final **architecture test**, not merely documentation.
+That diagram goes into the behaviour view.
+
+The part files point to the diagrams in which their part appears.
+
+Any missing concept found during a replay reopens the affected construction area.
+
+The replay is therefore a test of the architecture, not documentation.
 
 ---
 
-# 12.13 Principle: Level 2 Must Preserve the Difference Between Logical and Technical Architecture
+# 12.13 Principle: Keep Logical and Technical Architecture Apart
 
-The boundary between Level 2 and Level 3 must remain explicit.
+The line between Level 2 and Level 3 must stay explicit.
 
-Level 2 should describe:
+Level 2 describes:
 
 ```text
 Responsibilities
-Boundaries
-Ownership
+Parts and what they own
 State
-Authority
+Who decides, who acts, who approves
 Interactions
-Behaviour
+Behaviour over time
 Failure
 Constraints
 Invariants
-Temporal relationships
-Architectural forces
+Timing
+Forces on the architecture
 ```
 
-Level 3 may then determine:
+Level 3 decides:
 
 ```text
 Processes
@@ -13091,350 +13100,648 @@ Queues
 Protocols
 Frameworks
 Cloud infrastructure
-Deployment topology
-Storage technologies
+Deployment
+Storage technology
 Programming languages
-Runtime architecture
-Technical observability mechanisms
+Runtime structure
+Technical logging and tracing tools
 ```
 
-The same logical responsibility can therefore have many valid technical implementations.
+One logical part can be built in many technical ways.
 
-For example:
+For example, "the part that remembers business knowledge" does not mean a database, a service, a vector index, a knowledge graph, or a repository.
 
-```text
-Logical responsibility:
-Knowledge Management
-```
+Those are Level 3 choices.
 
-does not imply:
+Likewise, "the step that decides the next action" does not mean a Python service, a TypeScript module, a rules engine, an AI prompt, or a table.
 
-```text
-database
-service
-microservice
-vector database
-knowledge graph
-repository
-```
-
-Those are Level 3 questions.
-
-Likewise:
-
-```text
-Logical boundary:
-Decision Policy
-```
-
-does not imply:
-
-```text
-Python service
-TypeScript module
-rules engine
-LLM prompt
-database table
-```
-
-The logical architecture must remain meaningful independently of those choices.
+The logical architecture must make sense whatever is chosen.
 
 ---
 
 # 12.14 Control/Gate: Technology Leakage Test
 
-Before declaring Level 2 complete, inspect every major architectural element.
+Before Level 2 is declared complete, read every major element and ask:
 
-Ask:
+> **Would this still make sense if the entire technology stack changed?**
 
-> **Would this architectural element still make sense if the technology stack changed completely?**
+If yes, it is probably logical.
 
-If yes, it is likely logical.
+If no, decide which of three things it is:
 
-If no, determine whether:
+- it belongs in Level 3, and is moved there;
+- it is a real constraint from an outside system, and is kept as that constraint;
+- technology has wrongly shaped the architecture, and the element is reconstructed.
 
-- it belongs in Level 3;
-- it represents a genuine logical constraint caused by an external system;
-- or technology has improperly driven the architecture.
+Technology may shape Level 2 only when it is an outside fact of the problem.
 
-Technology may constrain Level 2 when the technology is itself an external fact of the problem.
+For example, a messaging platform may only allow a business to start a conversation with an approved template. That is a real rule of the outside world.
 
-For example, a communication channel may impose real behavioural constraints.
+The architecture keeps the logical consequence of that rule: "a message the business starts must satisfy the channel's rules for starting a conversation."
 
-But the architecture should represent the **logical consequence of that constraint**, not prematurely encode the technology as an internal subsystem.
+It does not turn the platform into an internal part.
+
+**Words to check.** Names like "service", "layer", "store", "queue", "registry", "schema", "cache", and fixed numbers deserve a second look. Each one either has a plain logical meaning, which is written down, or it is moved to Level 3.
+
+The build view is included in this test.
+
+A part file at Level 2 contains no technology choices. Level 3 adds them later, in sections of its own: the technology chosen, storage, runtime, tests, and production checks (12.22).
+
+The part names themselves are checked too. A name like "tool layer" is only a label. Its logical meaning is written under the first heading of its part file: "the only way Tend calls an outside system".
 
 ---
 
-# 12.15 Principle: The Final Architecture Must Preserve Negative Space
+# 12.15 Principle: Preserve What the System Refuses to Own
 
-A complete architecture also describes what it deliberately does **not** own.
+A complete architecture also says what it deliberately does **not** own.
 
-This is particularly important for Tend.
-
-The architecture should explicitly preserve distinctions such as:
+This matters especially for Tend:
 
 ```text
-Tend records a pointer
+Tend keeps a pointer to a record
 ≠
-Tend owns the source record
+Tend owns that record
 
-Tend recognizes ambiguity
+Tend notices that something is ambiguous
 ≠
-Tend automatically resolves it
+Tend resolves it on its own
 
 Tend interprets information
 ≠
-Tend becomes the source of truth
+Tend becomes the source of truth for it
 
-Tend makes or supports a decision
+Tend supports a decision
 ≠
-Tend necessarily executes the decision
+Tend makes the business's decision
 
-Tend coordinates an employee
+Tend coordinates an employee's work
 ≠
-Tend owns the employee's business responsibility
+Tend owns that employee's responsibility
 
 Tend observes an action
 ≠
-Tend owns the underlying business state
+Tend owns the business state behind it
 ```
 
-These negative boundaries are architectural knowledge.
+These refusals are architecture.
 
-Without them, later implementation can accidentally expand Tend's responsibilities.
+Without them, later implementation quietly expands what Tend is responsible for.
 
-Therefore:
-
-> **What the architecture deliberately refuses to own is part of the architecture.**
+> **What the architecture refuses to own is part of the architecture.**
 
 ---
 
-# 12.16 Method: Record Architectural Non-Responsibilities
+# 12.16 Method: Record What Is Not Owned, for the System and for Each Part
 
-The final architecture should maintain an explicit set of important non-responsibilities.
+The final architecture keeps a register of important non-responsibilities.
 
-For each:
+For each one:
 
 ```text
-Non-Responsibility
-Reason excluded
-Actual owner
-Interaction with Tend
-Authority boundary
-Evidence
-Potential future change that could alter the boundary
+What is not owned
+Why it is excluded
+Who actually owns it
+How Tend works with that owner
+Who may say yes, and who may not (e.g. the business, not Tend, decides its refund policy)
+The evidence
+What future change could move the line
 ```
 
-This becomes especially valuable when implementation agents encounter an apparently convenient opportunity to absorb an external responsibility.
+This has two levels.
 
-The architecture can answer:
+**For the system:** what Tend as a whole does not own. For example, the business's policies, its strategy, and the records in its own systems.
 
-> “No. This is intentionally outside the system boundary.”
+**For each part:** what that part must never do, even though it might look convenient. For example, the part that decides the next step never sends a message. The part that sends never decides what to say.
+
+The system list lives in the non-responsibilities register.
+
+Each part's list lives in its part file, under "What it never does".
+
+These lists matter most when a builder, or a coding agent, sees a convenient chance to absorb someone else's job. For example, it would be easy to let Tend keep its own copy of an order and update it. The architecture must be able to answer at that moment:
+
+> "No. That is intentionally outside the system." (for the system list)
+
+> "No. That is intentionally outside this part." (for a part's list)
 
 ---
 
-# 12.17 Principle: The Architecture Must Preserve Its Own History
+# 12.17 Principle: The Architecture Keeps Its Own History
 
-The final architecture should not erase the construction process that produced it.
+The final architecture does not erase how it was built.
 
-The canonical model should retain links to:
+It keeps links to:
 
 ```text
 Evidence
 Decisions
 Revisions
-Superseded structures
-Rejected alternatives
+Structures that were replaced
+Options that were rejected
 Assumptions
 Contradictions
 Construction steps
-Revisit conditions
+Conditions for reopening
 ```
 
-The current architecture represents the current understanding.
+The current architecture says what we believe now.
 
-The history explains how that understanding was reached.
+The history says how we came to believe it.
 
-This matters because future architectural work often begins when someone asks:
+This matters when someone later asks:
 
-> “Why is this boundary here?”
+> "Why is this part separate?"
 
-The answer should not be:
+The answer must not be:
 
-> “Because that's how the diagram was designed.”
+> "Because that is how the diagram was drawn."
 
-It should be:
+It must be something like:
 
-> “Because these responsibilities have independent change drivers, state ownership, failure behaviour, and authority, and the alternative structures created unacceptable coupling.”
+> "Because these responsibilities change for different reasons, own different records, fail differently, and are allowed to decide different things. When they were together, a change to how messages are sent forced a change to how the next step is decided."
 
-The second answer is durable architectural knowledge.
+The history lives in two kinds of file:
+
+- the section files from Sections 6–11, which keep the reasoning for each kind of question;
+- the **construction record**, a dated log of what was discussed, what was corrected, and what was decided, step by step.
+
+The final views and part files link to that history. They do not repeat it.
 
 ---
 
-# 12.18 Architecture as Externalized Working Memory
+# 12.18 The Architecture as External Memory
 
-One of the original reasons for constructing this method is the limitation of both humans and LLMs.
+This method exists partly because no person and no model can hold a whole architecture in mind during a long piece of reasoning.
 
-No reasoning agent should be expected to keep the complete architectural model internally while performing long chains of reasoning.
-
-The architecture therefore serves as **externalized architectural memory**.
+The architecture is therefore external memory.
 
 During construction:
 
 ```text
-Knowledge Base
+Knowledge base
     ↓
-Architectural Evidence
+Evidence
     ↓
-Current Architecture
+Current architecture
     ↓
-New Reasoning
+New reasoning
     ↓
-Updated Architecture
+Updated architecture
 ```
 
 During later work:
 
 ```text
-Current Architecture
+Current architecture
     ↓
-Retrieve affected region
+Find the affected part
     ↓
-Reason
+Reason about it
     ↓
-Update architecture if necessary
+Update the architecture if needed
 ```
 
-This allows the system to scale beyond the context of any individual reasoning pass.
+This lets the work grow past what any single reasoning pass can hold.
 
-It also means that the architecture itself becomes part of the cognitive infrastructure of the project.
+The architecture becomes part of how the project thinks, not only a record of what it decided.
+
+The part files make the second loop practical.
+
+A builder or an agent working on one part opens one file, not the whole architecture.
 
 ---
 
-# 12.19 Principle: The Final Model Must Be Consumable by Humans and Agents
+# 12.19 Principle: Every File Has a Human Layer and an Agent Layer
 
-The architecture has two important consumers:
+The architecture has two kinds of reader:
 
-1. humans making architectural and product decisions;
-2. agents implementing, reviewing, researching, or extending the system.
+1. people making product and architecture decisions;
+2. agents that build, review, research, or extend the system.
 
-The representation must therefore be:
+They need different things from the same text.
+
+A person needs plain sentences they can follow without remembering earlier conversations.
+
+An agent needs exact codes, sources, and links it can follow mechanically.
+
+So every architecture file has two layers.
+
+**The human layer** is the visible text.
+
+It follows the conversation constitution, the file `conversation with swaraj.md` at the root of the repository. Its rules that matter here:
+
+- it can be read as if the reader has never seen any of this before;
+- one sentence carries one idea;
+- it uses the words people say: who decides, who acts, who answers for it;
+- it grounds each rule in a concrete example, reusing the shared walkthroughs;
+- it keeps facts, decisions, assumptions, open questions, and opinions visibly apart;
+- it never points the reader at another file to remember something; it brings the needed piece into the text.
+
+**The agent layer** is hidden from the rendered view.
+
+It sits in HTML comments next to the sentence it supports, and in an agent-only index file for that file (for example, `code_index_section_6.md` does this for Section 6).
+
+It carries:
+
+- the rule codes;
+- the source of each rule in the knowledge base;
+- the status of each rule;
+- links to the decisions and evidence behind it.
+
+The two layers must say the same thing.
+
+A rule that exists in only one layer is a defect.
+
+The representation must also be:
 
 - explicit;
 - structured;
+- precise enough that an agent can find and reason about one rule without reading everything;
 - traceable;
 - unambiguous;
-- technology-independent;
-- locally retrievable;
-- globally coherent;
-- machine-readable enough to support targeted reasoning;
-- understandable enough for human review.
+- free of technology choices;
+- retrievable one part at a time;
+- coherent as a whole.
 
-The architecture should not depend on the reader having witnessed the conversations that produced it.
-
-The reasoning must be externalized.
+It must not depend on the reader having seen the conversations that produced it.
 
 ---
 
-# 12.20 Method: Organize the Final Architecture Around Architectural Questions
+# 12.20 Principle: The Views Are Organised by Question, the Build View by Part
 
-The architecture should not necessarily mirror the folder structure of the knowledge base.
+The architecture does not mirror the folders of the knowledge base.
 
-The knowledge base is organized around accumulated knowledge.
+The knowledge base is organised around what was learned:
 
-The architecture should be organized around the logical system.
+```text
+Knowledge base
+├── Research
+├── Product
+├── Problem framing
+├── Agent studies
+├── Decisions
+└── Principles
+```
+
+The architecture is organised around the system that was constructed.
+
+It has two organising shapes, one for understanding and one for building (12.1):
+
+```text
+The views                       The build view
+(organised by question)         (organised by part)
+
+Responsibilities                Overview
+Boundaries                      Part: situation record      — the saved history of one problem
+Interactions                    Part: conversation manager  — takes each message, puts it on the right problem
+Behaviour                       Part: situation worker      — decides the next step for one problem
+State                           Part: communication layer   — checks, sends, and records each message
+Constraints                     Part: tool layer            — the only way Tend calls an outside system
+Decisions                       ...
+Traceability
+```
+
+Both are drawn from the same model.
+
+A reader who asks "how do refunds work across the whole system?" goes to the views.
+
+A reader who asks "what exactly must the tool layer do?" goes to the build view.
+
+Neither shape is a reorganisation of the knowledge base.
+
+Both are new models constructed from it.
+
+This is the same rule Section 2 starts from: the architecture is built by reasoning across what we know, not copied out of the documents that hold it.
+
+---
+
+# 12.21 The Build View
+
+The build view answers one question:
+
+> **What do I build, part by part, and how do I know each part is right?**
+
+It has one overview file and one file per part.
+
+### Why separate files
+
+A separate file for each part means a builder opens only what they are building.
+
+It also means a change to one part changes one file, and the audit can check exactly that file.
+
+One large file would force a builder to search through every part to find the one they are building, and to keep the rest out of mind while doing it. That is the attention problem this method exists to avoid.
+
+### The overview file
+
+The overview file contains:
+
+1. **The problem in one sentence.** The engineering problem every part exists to solve, written specifically for this product.
+2. **The path every change takes.** What happens, part by part, when anything changes: a message arrives, a timer fires, an outside system reports back. This is the loop a change travels through the parts. It is not a storyline, and it is not built from the kinds of situation. The kinds of situation are run against it as tests (12.12, 12.24).
+3. **One diagram of all the parts.** It shows which part hands what to which.
+4. **The parts, one line each.** Each line links to that part's file.
+5. **The kinds of situation the product handles.** A table with one row per kind of situation and one column per part. Each cell says what that part does in that kind of situation, or that it is not involved.
+6. **Who writes what.** One table of every record and the one part allowed to write each kind of change.
+7. **The build order.** Which part to build first, what each part depends on, and the first thin slice (12.23).
+8. **How to read a part file.** What each heading means.
+
+### The part files
+
+Each part file uses the fixed headings in 12.22.
+
+### The source of the build view
+
+The build view introduces no new rule.
+
+Every rule in it is already in the model, and it says where.
+
+There is one exception: the build order (12.23). The order is new, but it is worked out only from facts already in the model, such as which part reads what another part writes. It is labelled as a recommendation.
+
+Writing a part file sometimes shows that something is missing. For example, a heading cannot be filled because no decision says what the part does when a person never answers. When that happens:
+
+1. The gap is written down in the gap register, with the part file and heading where it showed up.
+2. The writer takes it back into construction, through the reconciliation steps of Section 10.
+3. The model is changed first, and any decision it needs goes to the owner.
+4. Only then is the part file written.
+
+---
+
+# 12.22 The Part File
+
+Every part file uses the same headings, in the same order.
+
+The sameness is deliberate.
+
+A builder who has read one part file knows where to find anything in every other part file.
+
+**Working choice:** the headings are fixed, and the language under them follows the constitution. The part files do not retell the construction history. They link to it. This choice can be revised if it turns out to hide reasoning a builder needs.
+
+### The headings at Level 2
+
+| # | Heading | What goes under it |
+|---|---|---|
+| 1 | What this part is for | One sentence, then a few plain lines |
+| 2 | Why it is a separate part | Why it was not merged with a neighbour, in plain words, with a link to the boundary decision |
+| 3 | What it does | Its responsibilities |
+| 4 | What it never does | What this part must refuse, even when it looks convenient |
+| 5 | What it owns and writes | The records it owns, the kinds of change it may write, and the lifecycle it controls |
+| 6 | What it decides, and what it may not decide | Who decides, who acts, and who approves, for each decision this part touches |
+| 7 | What makes it change, and what makes it grow | The kinds of change that land on this part, such as a platform changing its rules, and the kinds of growth it must absorb, such as more businesses or more situations |
+| 8 | What starts it, what it reads, and what it hands on | Its triggers, its inputs, its outputs, and which part receives each output, in logical terms |
+| 9 | How it works inside | Its internal steps, in order, with a small diagram |
+| 10 | How it behaves in each kind of situation | One row per kind of situation from the overview, with a link to the walkthrough |
+| 11 | Its key moments | The sequence diagrams in which this part plays a central role |
+| 12 | When things go wrong | Each failure this part can meet, and what it does: wait, ask, hand to a person, record, or stop |
+| 13 | Rules that must always hold here | Each rule, and how a break would show |
+| 14 | What must be visible afterwards | What must be recorded so that what happened can be reconstructed |
+| 15 | How we know it is built correctly | Acceptance criteria, as observable behaviour |
+| 16 | What is still open | Open questions, assumptions, and values set per business or per market |
+| 17 | Where this came from | Links to the views, the decisions, and the construction history |
+
+### Behaviour across all situations, not one storyline
+
+Heading 10 is what keeps the build view true to the product.
+
+A part file that describes only the common path is incomplete.
+
+For example, the situation worker's file must show what the worker does when:
+
+- a customer asks a question that a tool can answer;
+- the payment provider does not answer and the refund's outcome is unknown;
+- the carrier is down past its time limit, so a failure is recorded;
+- no system and no person can answer, so the worker records that the answer is not available. That is not a failure, and only that request stops;
+- a timer fires for a wait that has already been replaced;
+- a customer replies before a follow-up timer fires.
+
+The same part handles all of these.
+
+The file shows how.
+
+### Acceptance criteria are behaviour, not technology
+
+Heading 15 is what lets a part be built and finished on its own.
+
+Each criterion is something that can be observed.
+
+For example:
+
+- "A timer never reaches the communication layer."
+- "A refund above the business's setting never runs without a person's approval."
+- "An action that cannot be undone is never repeated automatically."
+
+Each criterion names what a failure would look like.
+
+At Level 2, the criteria do not say how they are tested. That is Level 3.
+
+### Level 3 extends the same file
+
+Level 3 does not start a new document for each part.
+
+It adds sections to the same part file:
+
+| Added at Level 3 | What goes under it |
+|---|---|
+| Technical realisation | How this part is built: the chosen technology and why |
+| Storage | Where its records live, and how |
+| Runtime | How it runs, scales, and recovers |
+| Tests | Unit, integration, and end-to-end tests for each acceptance criterion |
+| Production checks | How it is checked once it is live |
+
+The Level 2 sections stay unchanged unless Level 2 is reopened (12.31).
+
+So one file carries a part from its logical definition to its technical design.
+
+The level of each section is always visible.
+
+---
+
+# 12.23 Method: Set the Build Order and the First Thin Slice
+
+The overview file says the order in which parts are built.
+
+The order comes from dependencies already in the model: which part reads what another part writes.
+
+The record that most parts depend on is built first.
+
+For Tend, that is the situation record. The conversation manager and the situation worker write to it. The communication layer, memory, and the owner view read from it.
+
+The overview also names the **first thin slice**.
+
+The first thin slice is the smallest end-to-end path that does something real.
+
+For example: a message arrives, it is attached to a situation, the worker decides a reply, the reply is sent, and every step is recorded.
+
+The thin slice touches several parts, but only the minimum of each.
+
+Each later slice adds one kind of situation from the overview table.
+
+This keeps building close to the architecture.
+
+Each slice is checked against the walkthrough of its kind of situation before the next one starts.
+
+The build order is a Level 2 recommendation based on dependencies.
+
+Level 3 may change it for technical reasons, and records why.
+
+---
+
+# 12.24 Principle: The Build View Must Respect the Product's Flexibility
+
+A product like Tend is not one flow with exceptions.
+
+It is a small number of parts that handle many kinds of situation.
+
+The parts do not change shape for each situation.
+
+They follow the same rules, and the rules produce different storylines.
+
+For example, the rule "a timer wakes only the situation worker, and the worker re-reads the latest record before acting" produces all of these:
+
+- the follow-up message is sent when nothing has happened;
+- no follow-up is sent, because the customer already replied;
+- the status-check service runs the carrier check again, because the carrier has not yet answered;
+- a failure is recorded, because the wait's time limit has passed.
+
+A build plan that described only the first storyline would lead a builder to write code that handles only the first storyline.
 
 Therefore:
 
-```text
-Knowledge Base
-├── Research
-├── Product
-├── Problem Framing
-├── Agent Studies
-├── Decisions
-└── Principles
+> **A part file describes the rules the part follows and shows them working in every kind of situation. It does not describe one path and call the rest exceptions.**
 
-              ↓
-
-Logical Architecture
-├── Responsibilities
-├── Boundaries
-├── Behaviour
-├── State
-├── Authority
-├── Interactions
-├── Constraints
-├── Dimensions
-└── Decisions
-```
-
-The architecture is a **new model constructed from the knowledge base**.
-
-It is not a reorganization of the knowledge base.
-
-This is the final expression of the construction-versus-extraction distinction established in Section 2.
+This is how the build view keeps the reasoning of Sections 6–11 instead of flattening it.
 
 ---
 
-# 12.21 The Final Level 2 Architecture Package
+# 12.25 The Final Level 2 Architecture Package
 
-A completed Level 2 architecture should therefore contain, at minimum:
+A completed Level 2 architecture contains at least:
 
 ```text
-01 — Architecture Overview
-02 — System Boundary
-03 — Responsibility Model
-04 — Responsibility Relationships
-05 — Boundary Model
-06 — Ownership Model
-07 — State and Lifecycle Model
-08 — Authority Model
-09 — Interaction Model
-10 — Behavioural Model
-11 — Failure Model
-12 — Temporal Model
-13 — Human Interaction Model
-14 — External System Model
-15 — Information Ownership / Provenance Model
-16 — Architectural Dimensions
-17 — Constraints and Invariants
-18 — Architectural Decisions
+01 — Architecture overview
+02 — System boundary
+03 — Responsibility model
+04 — Relationships between responsibilities
+05 — Boundary model: the parts
+06 — Ownership model
+07 — State and lifecycle model
+08 — Authority model: who decides, acts, approves
+09 — Interaction model
+10 — Behaviour model, with sequence diagrams for each kind of situation
+11 — Failure model
+12 — Timing model
+13 — Human interaction model
+14 — External system model
+15 — Information ownership and origin
+16 — Architectural dimensions
+17 — Constraints and invariants
+18 — Architectural decisions
 19 — Assumptions
-20 — Open Questions
-21 — Non-Responsibilities
-22 — Scenario Coverage
-23 — Evidence Traceability
-24 — Construction / Revision History
-25 — Stabilization Record
-26 — Level 3 Handoff
+20 — Open questions
+21 — Non-responsibilities
+22 — Scenario coverage
+23 — Evidence traceability
+24 — Construction and revision history
+25 — Stabilization record
+26 — Level 3 handoff
+27 — Build view: overview file
+28 — Build view: one file per part
+29 — Audit record
 ```
 
-These need not all be separate files.
+These do not all need separate files.
 
-They are the minimum conceptual coverage expected from the final model.
+They are the minimum coverage of the final model. All of them are needed before Level 2 is complete, but they are written in the order the work needs, not all at once.
 
-The exact representation can evolve as the project learns what is easiest to maintain.
+Items 27 and 28 are separate files, for the reasons in 12.21.
+
+Every file has its human layer and its agent layer (12.19).
+
+The exact file layout can change as the project learns what is easiest to keep up to date.
 
 ---
 
-# 12.22 Level 3 Handoff
+# 12.26 Method: Audit Every File After It Is Written
 
-The final purpose of Level 2 is to provide a sufficiently stable logical architecture to Level 3.
+A file is not finished when it is written.
 
-The handoff should therefore explicitly communicate:
+It is finished when it has passed two independent audits.
+
+**Independent** means the writer does not audit its own file. A separate checking agent does, with fresh context.
+
+The writer is too close to the text to see what it assumes.
+
+### Audit 1: the conversation constitution
+
+The checking agent reads the new file against `conversation with swaraj.md`, at the root of the repository.
+
+It looks for sentences where:
+
+- the reader would need to remember something from earlier;
+- the reader is pointed at another file instead of being given the needed piece;
+- one sentence carries more than one idea;
+- an abstract label is used with no concrete example of what it means;
+- facts, decisions, assumptions, open questions, and opinions are mixed together;
+- something is presented as decided when the owner has not decided it;
+- the text sounds like a formal specification rather than plain explanation.
+
+### Audit 2: the foundation
+
+The checking agent reads the new file against the architecture folder.
+
+The architecture folder is the foundation. It was constructed from the whole knowledge base during Sections 6–11.
+
+The agent looks for:
+
+- **Contradiction:** a statement that disagrees with the architecture folder;
+- **Invention:** a rule or part that the architecture folder does not contain;
+- **Loss:** something the architecture folder says about this subject that the new file dropped;
+- **Status drift:** something open presented as decided, or something decided presented as open. For example, the number of reminders is still open in the record, but a part file says "three reminders";
+- **Reopening:** something the record marks as settled being questioned again;
+- **Broken traceability:** a statement with no code or source in the agent layer, or a code that points to the wrong place.
+
+Where the architecture folder is thin or unclear, the agent checks the wider knowledge base, and says which source it used.
+
+### What the checking agent returns
+
+A list of findings.
+
+Each finding quotes the sentence, gives its location, names the problem, and quotes the conflicting source with its location.
+
+The checking agent does not rewrite the file.
+
+### What the writer does with the findings
+
+1. Check each finding against the source. A checking agent can be wrong.
+2. Fix the findings that are real.
+3. Record the findings that were rejected, and why.
+4. Run the audit again if the fixes changed meaning, not only wording.
+5. Record the audit result in the audit record.
+
+### Who does what
+
+Agents that gather and check do not write the architecture.
+
+The writer carries the synthesis and the judgement.
+
+The reason is the same one Section 2.4 gives: telling an agent to "synthesise" does not make it synthesise. Construction needs the accumulated model and the reasons behind it, which the writer carries. A check is different. It can be given as a narrow task with a clear test, such as "find every sentence that disagrees with this file", so it can safely be handed to another agent.
+
+---
+
+# 12.27 Level 3 Handoff
+
+Level 2 exists to give Level 3 a logical architecture that is stable enough to build on.
+
+The handoff says three things explicitly.
 
 ### What is fixed at the logical level
 
 ```text
 Responsibilities
-Boundaries
+Parts and what each owns
 Ownership
-Authority
-State semantics
+Who decides, who acts, who approves
+What each record means
 Critical interactions
-Critical behaviours
-Failure semantics
+Critical behaviour
+What failure means
 Constraints
 Invariants
 Architectural principles
@@ -13444,8 +13751,8 @@ Architectural principles
 
 ```text
 Technology choices
-Runtime topology
-Storage mechanisms
+Runtime structure
+Storage
 Communication mechanisms
 Deployment
 Performance mechanisms
@@ -13453,119 +13760,121 @@ Infrastructure
 Implementation patterns
 ```
 
-### What must not be changed without reopening Level 2
+### What must not change without reopening Level 2
 
 ```text
 Business responsibilities
-Authority boundaries
-Critical ownership boundaries
+Who may decide and approve
+Critical ownership lines
 Important invariants
-Core state semantics
-Fundamental interaction semantics
-Major architectural boundaries
+What core records mean
+What core interactions mean
+The major parts
 ```
 
-This creates a clean contract:
+### Where Level 3 starts
+
+Level 3 starts from the build view.
+
+The overview gives the order.
+
+Each part file gives the logical contract that Level 3 must meet.
+
+Level 3 adds its sections to the same part files (12.22).
 
 ```text
-Level 2
-"What the logical system is"
+Level 2: what the logical system is
         ↓
-Level 3
-"How technology should realize it"
+Level 3: how technology realises it, part by part
+```
+
+### When Level 3 finds a problem in Level 2
+
+Level 3 may find a technical fact that exposes a weakness in Level 2.
+
+That is legitimate. The work then moves backward:
+
+```text
+Level 3 finds a problem
+      ↓
+The affected Level 2 reasoning is reopened
+      ↓
+The architecture is revised, if the problem is real
+      ↓
+It is stabilized and audited again
+      ↓
+Level 3 continues
+```
+
+What must never happen is this:
+
+```text
+Level 2 says A.
+Level 3 quietly builds B.
 ```
 
 ---
 
-# 12.23 Control/Gate: Level 3 Handoff Gate
+# 12.28 Control/Gate: Level 3 Handoff Gate
 
 Before Level 3 begins, confirm:
 
-### Logical completeness
+| Check | What must be true |
+|---|---|
+| Logical completeness | The important responsibilities are represented |
+| Part completeness | Every major part is justified |
+| Behavioural completeness | Every important kind of situation can be walked through |
+| Constraint completeness | Important constraints and invariants are explicit |
+| Authority completeness | It is clear who owns each piece of information, who interprets it, who decides, who approves, who acts, and who checks the result |
+| Failure completeness | Every important kind of failure has defined behaviour |
+| Traceability | Every major element has its reasoning |
+| Uncertainty | Every remaining unknown is labelled |
+| Technology neutrality | No technical choice has silently shaped Level 2 |
+| Change conditions | The conditions for reopening each decision are recorded |
+| **Build clarity** | **Every part file can be built from the file alone, without reading the construction history, and covers every kind of situation in the overview** |
+| **Audits** | **Every file has passed both audits, and rejected findings are recorded** |
 
-The important logical responsibilities are represented.
-
-### Boundary completeness
-
-Major ownership boundaries are justified.
-
-### Behavioural completeness
-
-Representative scenarios can be explained.
-
-### Constraint completeness
-
-Important constraints and invariants are explicit.
-
-### Authority completeness
-
-Decision, approval, execution, and verification responsibilities are distinguishable.
-
-### Failure completeness
-
-Important failure classes have logical behaviour.
-
-### Traceability
-
-Major architectural elements have supporting reasoning.
-
-### Uncertainty
-
-Remaining unknowns are classified.
-
-### Technology neutrality
-
-Technical choices have not silently defined Level 2.
-
-### Change conditions
-
-Known triggers for architectural reconsideration are recorded.
-
-If these conditions hold, Level 2 may be declared complete.
+If all hold, Level 2 may be declared complete.
 
 ---
 
-# 12.24 What “Complete” Means
-
-The word **complete** must be defined carefully.
+# 12.29 What "Complete" Means
 
 Complete does **not** mean:
 
 > Every possible architectural question has been answered.
 
-It means:
+It means three things together:
 
-> **The architecture contains enough justified logical structure that the remaining unanswered questions can be resolved at a lower level or through future evidence without requiring the system's fundamental logical organisation to be invented again.**
+1. **The architecture has enough justified structure to build from.**
+2. **Every question still open can be answered later**, either by Level 3 or by future evidence.
+3. **Answering those questions will not force anyone to redesign the parts.** For example, choosing how long a business waits before a reminder is a setting. It does not change which part sends the reminder.
 
-This is the crucial threshold.
+That is the threshold.
 
-A Level 2 architecture is complete when Level 3 can begin without having to ask:
+Level 2 is complete when Level 3 can begin without asking:
 
-> “What responsibilities does the system actually have?”
-
-> “Who owns this state?”
-
-> “Who is allowed to make this decision?”
-
-> “Should these responsibilities be separate?”
-
-> “What happens when this interaction fails?”
-
-> “Is this actually Tend's responsibility?”
+- What responsibilities does the system actually have?
+- Who owns this record?
+- Who is allowed to make this decision?
+- Should these responsibilities be separate?
+- What happens when this interaction fails?
+- Is this actually Tend's job?
+- What exactly must this part do, and how do I know it works?
 
 Those are Level 2 questions.
 
-If Level 3 repeatedly encounters them, Level 2 was declared complete too early.
+If Level 3 keeps running into them, Level 2 was declared complete too early.
 
 ---
 
-# 12.25 Principle: Completion Means the Architecture Has Earned Authority
+# 12.30 Principle: Completion Means the Architecture Has Earned Authority
 
-Once the completion gate is passed, the logical architecture becomes **normative**.
+Once the handoff gate is passed, the logical architecture becomes **normative**.
 
-This means future engineering work should conform to it unless a deliberate architectural change is made.
+Normative means later engineering must follow it, unless a deliberate architectural change is made.
 
-The architecture therefore transitions through:
+The architecture has passed through:
 
 ```text
 Evidence
@@ -13580,62 +13889,55 @@ Reconciliation
    ↓
 Stabilization
    ↓
-Normative Architecture
+Normative architecture
 ```
 
-At this point, the architecture stops being merely descriptive.
+From here on it is no longer only a description.
 
-It becomes a constraint on engineering.
+It is a constraint on engineering.
 
 ---
 
-# 12.26 Architectural Change After Completion
+# 12.31 Architectural Change After Completion
 
-Completion does not eliminate future architectural change.
+Completion does not stop change.
 
 When new evidence arrives:
 
-```text
-New Evidence
-      ↓
-Architectural Consequence?
-      ↓
-No
-→ Update evidence only
+New evidence can come from anywhere: a new research finding, a new owner decision, a messaging platform changing its rules, or a problem found during Level 3.
 
-Yes
+```text
+New evidence
       ↓
-Affected Level 2 element?
+Does it change the architecture?
       ↓
-Yes
+No  → update the evidence only
+Yes → which Level 2 element does it touch?
       ↓
-Reopen affected reasoning
+Reopen that reasoning
       ↓
-Revise architecture
+Revise the model
+      ↓
+Update every view and part file that repeats the changed fact
+      ↓
+Audit the changed files (12.26)
       ↓
 Reconcile
       ↓
-Re-stabilize
+Stabilize again
       ↓
-New Architecture Version
+New architecture version
 ```
 
-This creates a controlled lifecycle.
-
-The architecture can evolve without becoming unstable through arbitrary drift.
+The architecture changes on purpose, never by drift.
 
 ---
 
-# 12.27 Principle: Architecture Is a Living Contract
+# 12.32 Principle: The Architecture Is a Living Contract
 
-The final logical architecture is therefore best understood as a **living contract** between:
+In plain words: the final architecture is an agreement that several people and stages depend on, and that is allowed to change on purpose.
 
-- product intent;
-- business responsibilities;
-- engineering reasoning;
-- technical architecture;
-- implementation;
-- future architectural evolution.
+The product's intent depends on it being kept. The technical design and the code are built from it. Future changes go through it.
 
 It says:
 
@@ -13643,9 +13945,11 @@ It says:
 
 > These are the responsibilities it must own.
 
-> These are the boundaries through which those responsibilities are organised.
+> These are the parts through which those responsibilities are organised.
 
-> These are the behaviours and constraints those boundaries must preserve.
+> This is what each part must do, and how we will know it does it.
+
+> These are the behaviours and rules the parts must preserve.
 
 > These are the decisions that justify the structure.
 
@@ -13653,223 +13957,135 @@ It says:
 
 > These are the conditions under which we will reconsider it.
 
-This makes the architecture durable without pretending it is immutable.
+That makes the architecture durable without pretending it is fixed forever.
 
 ---
 
-# 12.28 Agent Completion Procedure
+# 12.33 Agent Completion Procedure
 
-When an agent is asked:
+When an agent is asked "Is Level 2 complete?", it must not answer from impression.
 
-> “Is Level 2 complete?”
-
-it must not answer from intuition.
-
-It should execute:
+It runs this procedure:
 
 ```text
-1. Load the canonical logical architecture.
-
-2. Load Level 1.
-
-3. Load relevant architectural evidence.
-
-4. Load architectural decisions.
-
-5. Load constraints and invariants.
-
-6. Load assumptions and open questions.
-
-7. Verify responsibility coverage.
-
-8. Verify boundary justification.
-
-9. Verify ownership and authority.
-
-10. Verify state and lifecycle.
-
-11. Replay representative scenarios.
-
-12. Verify success and failure behaviour.
-
-13. Verify temporal behaviour.
-
-14. Verify human and external-system interactions.
-
-15. Verify relevant architectural dimensions.
-
-16. Verify information ownership and provenance.
-
-17. Verify non-responsibilities.
-
-18. Verify evidence traceability.
-
-19. Verify decision traceability.
-
-20. Verify remaining unknowns.
-
-21. Verify technology neutrality.
-
-22. Verify Level 2 question backlog.
-
-23. Identify any unresolved Level 2 blockers.
-
-24. Determine whether further construction would
-    materially change the logical architecture.
-
-25. If yes:
-       Level 2 = Not Complete
-       → define next construction frontier.
-
-26. If no:
-       produce Completion Record.
-
-27. Only then declare:
-       Level 2 = Complete.
+1.  Load the architecture model.
+2.  Load Level 1.
+3.  Load the relevant evidence.
+4.  Load the decisions.
+5.  Load the constraints and invariants.
+6.  Load the assumptions and open questions.
+7.  Check that every responsibility is covered.
+8.  Check that every part is justified.
+9.  Check ownership and who decides.
+10. Check state and lifecycle.
+11. Replay the chosen situations.
+12. Check success and failure behaviour.
+13. Check timing behaviour.
+14. Check people and outside systems.
+15. Check the relevant dimensions.
+16. Check where information comes from and who owns it.
+17. Check the non-responsibilities, for the system and for each part.
+18. Check evidence traceability.
+19. Check decision traceability.
+20. Check the remaining unknowns.
+21. Run the technology leakage test.
+22. Check the Level 2 question backlog.
+23. Check the build view: every part file covers every kind of situation, and every statement traces to the model.
+24. Check the audit record: every file passed both audits.
+25. Name any remaining Level 2 blockers.
+26. Decide whether more construction would materially change the architecture.
+27. If yes: Level 2 is not complete. Name the next construction frontier.
+28. If no: write the completion record.
+29. Only then declare Level 2 complete.
 ```
 
 The agent must never infer completion from the existence of a polished document.
 
 ---
 
-# 12.29 The Level 2 Completion Record
+# 12.34 The Level 2 Completion Record
 
-The final record should be explicit:
+The final record is explicit:
 
 ```text
 LEVEL 2 COMPLETION RECORD
 
-Architecture:
-[Name / Version]
+Architecture:              [name and version]
+Purpose:                   [the logical problem the architecture represents]
 
-Purpose:
-[What logical problem the architecture represents]
+Responsibilities:          [complete / outstanding]
+Parts:                     [complete / outstanding]
+Ownership:                 [complete / outstanding]
+Authority:                 [complete / outstanding]
+State:                     [complete / outstanding]
+Interactions:              [complete / outstanding]
+Behaviour:                 [complete / outstanding]
+Failure behaviour:         [complete / outstanding]
+Timing:                    [complete / outstanding]
+Constraints:               [complete / outstanding]
+Invariants:                [complete / outstanding]
+Dimensions:                [reviewed / outstanding]
+People:                    [reviewed / outstanding]
+External systems:          [reviewed / outstanding]
+Information ownership:     [reviewed / outstanding]
+Non-responsibilities:      [recorded / outstanding]
+Evidence traceability:     [complete / outstanding]
+Decision traceability:     [complete / outstanding]
+Build view:                [complete / outstanding]
+Audits:                    [all passed / outstanding]
 
-Responsibilities:
-[Complete / Outstanding]
+Remaining assumptions:     [list]
+Deferred to Level 3:       [list]
+Deferred to configuration: [list]
+Blocking Level 2 questions:[list]
+Conditions for reopening:  [list]
 
-Boundaries:
-[Complete / Outstanding]
+Status:                    COMPLETE / NOT COMPLETE
+Reason:                    [why the architecture has, or has not, earned normative status]
 
-Ownership:
-[Complete / Outstanding]
-
-Authority:
-[Complete / Outstanding]
-
-State:
-[Complete / Outstanding]
-
-Interactions:
-[Complete / Outstanding]
-
-Behaviour:
-[Complete / Outstanding]
-
-Failure Behaviour:
-[Complete / Outstanding]
-
-Temporal Behaviour:
-[Complete / Outstanding]
-
-Constraints:
-[Complete / Outstanding]
-
-Invariants:
-[Complete / Outstanding]
-
-Architectural Dimensions:
-[Reviewed / Outstanding]
-
-Human Interactions:
-[Reviewed / Outstanding]
-
-External Systems:
-[Reviewed / Outstanding]
-
-Information Ownership:
-[Reviewed / Outstanding]
-
-Non-Responsibilities:
-[Recorded / Outstanding]
-
-Evidence Traceability:
-[Complete / Outstanding]
-
-Decision Traceability:
-[Complete / Outstanding]
-
-Remaining Assumptions:
-[List]
-
-Deferred Level 3 Questions:
-[List]
-
-Blocking Level 2 Questions:
-[List]
-
-Revisit Conditions:
-[List]
-
-Architecture Status:
-COMPLETE / NOT COMPLETE
-
-Completion Reason:
-[Why the architecture has or has not
-earned normative status]
-
-Next Level:
-Level 3 — Technical Architecture
+Next level:                Level 3, technical architecture, starting from the build view
 ```
 
-This record creates an explicit boundary between architecture construction and technical design.
+This record is the line between constructing the architecture and designing the technology.
 
 ---
 
-# 12.30 The Complete Architecture Construction Method
+# 12.35 The Complete Architecture Construction Method
 
-The entire method can now be represented as one closed system:
+The whole method, as one loop:
 
 ```text
                          KNOWLEDGE BASE
                               │
                               ▼
                     ┌───────────────────┐
-                    │  Architectural    │
                     │     Evidence      │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
                     │   Construction    │
-                    │     Question      │
+                    │     question      │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │  Responsibilities │
+                    │ Responsibilities  │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │     Boundaries    │
+                    │      Parts        │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │   Interactions &  │
-                    │     Behaviour     │
+                    │  Interactions and │
+                    │     behaviour     │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │    Architectural  │
-                    │     Dimensions    │
+                    │    Dimensions     │
                     └─────────┬─────────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │   Reconciliation  │
+                    │  Reconciliation   │
                     └─────────┬─────────┘
                               │
                        contradictions?
@@ -13877,147 +14093,158 @@ The entire method can now be represented as one closed system:
                        yes           no
                        │              │
                        ▼              ▼
-                 Reconstruct       Iterate /
-                 affected area     stabilize
+                 Reconstruct       Stabilize
+                 that area            │
                        │              │
                        └──────┬───────┘
-                              │
                               ▼
                     ┌───────────────────┐
-                    │   Stabilization   │
+                    │  Representation:  │
+                    │  views, build     │
+                    │  view, registers  │
+                    └─────────┬─────────┘
+                              ▼
+                    ┌───────────────────┐
+                    │  Audit each file  │
                     └─────────┬─────────┘
                               │
-                         sufficient?
+                       complete?
                          /          \
                        no            yes
                        │              │
                        ▼              ▼
-                 Next frontier   LEVEL 2
-                                COMPLETE
-                                   │
-                                   ▼
-                              LEVEL 3
-                       TECHNICAL ARCHITECTURE
+                 Next frontier     LEVEL 2
+                                   COMPLETE
+                                      │
+                                      ▼
+                                   LEVEL 3,
+                           starting from the build view
 ```
 
-But the important property is that this is **not a pipeline**.
+This is not a pipeline.
 
-The actual architecture is a network:
+The real architecture is a network:
 
 ```text
-Responsibilities ↔ Boundaries
-       ↕                 ↕
+Responsibilities ↔ Parts
+       ↕               ↕
 Interactions ↔ State ↔ Authority
-       ↕                 ↕
+       ↕               ↕
 Failures ↔ Constraints ↔ Dimensions
-       ↕                 ↕
+       ↕               ↕
 Evidence ↔ Decisions ↔ Assumptions
 ```
 
-Any part can expose a problem elsewhere.
+Each arrow means "a change here can force a change there". For example, a new failure (a payment provider that never answers) forced a new rule about state (the unknown result is saved in the same version as the wait).
 
-That is why the method contains feedback loops.
+Any part of it can expose a problem in another.
+
+That is why the method contains loops back to earlier sections, not only steps forward.
+
+Writing the build view is part of this network too. A part file that cannot be written cleanly is evidence that the model has a gap.
 
 ---
 
-# 12.31 The Twelve Sections as One Method
+# 12.36 The Twelve Sections as One Method
 
-The twelve sections now form one coherent construction discipline:
-
-| Section | Question |
+| Section | The question it answers |
 |---|---|
-| **1. Purpose and Status** | What is this method and what is its output? |
-| **2. Why Architecture Must Be Constructed** | Why can't architecture simply be extracted from accumulated knowledge? |
-| **3. Inputs to Architecture Construction** | What information can legitimately influence architecture? |
-| **4. Architectural Evidence Model** | How do we convert knowledge into usable architectural evidence without prematurely creating structure? |
-| **5. Incremental Construction Protocol** | How do we reason locally while preserving the accumulated architecture globally? |
-| **6. Responsibility Construction** | What responsibilities must the system logically own? |
-| **7. Boundary Construction** | Which responsibilities belong together and can be independently owned? |
-| **8. Interaction and System Behaviour Construction** | How do those responsibilities cooperate over time? |
-| **9. Architectural Dimensions** | What forces challenge the constructed model? |
-| **10. Reconciliation and Gap Discovery** | What contradictions, omissions, and unsupported assumptions remain? |
-| **11. Architecture Iteration and Stabilization** | When has the architecture become stable enough to rely upon? |
-| **12. Architecture Representation and Level 2 Completion** | What is the authoritative final model, and when is Level 2 actually complete? |
+| **1. Purpose and status** | What is this method, and what does it produce? |
+| **2. Why architecture must be constructed** | Why can't the architecture simply be extracted from what we know? |
+| **3. Inputs** | What information may shape the architecture? |
+| **4. Evidence model** | How does knowledge become usable evidence without becoming structure too early? |
+| **5. Incremental construction** | How do we reason about one piece while keeping the whole in view? |
+| **6. Responsibilities** | What must the system own? |
+| **7. Boundaries** | Which responsibilities belong together in one part? |
+| **8. Interactions and behaviour** | How do the parts act together over time? |
+| **9. Dimensions** | What forces try to break the model? |
+| **10. Reconciliation** | What is contradictory, missing, or unsupported? |
+| **11. Stabilization** | When is the model stable enough to rely on? |
+| **12. Representation and completion** | How is the final model written so it can be understood, checked, and built part by part, and when is Level 2 actually complete? |
 
-This is the complete construction method.
+This is the complete method.
 
 ---
 
-# 12.32 Final Principle
+# 12.37 Final Principle
 
-> **The output of architecture construction is not a collection of components. It is a justified logical model of the system: its responsibilities, boundaries, ownership, authority, state, interactions, behaviour, failures, constraints, dimensions, decisions, assumptions, and relationships. Level 2 is complete when this model is sufficiently coherent, traceable, stress-tested, and stabilized that technical architecture can be designed without silently inventing or redefining the logical system.**
+> **The output of architecture construction is not a list of components.**
 
-The architecture is therefore not extracted from the knowledge base.
+> **It is a logical model of the system, with the reasons behind every part of it.**
 
-It is not generated from a prompt.
+> **It is written three ways: views to understand it, registers to check it, and a build view to build it one part at a time.**
 
-It is not inferred from the folder structure.
+> **Level 2 is complete when nobody building Level 3 has to invent or redefine what the system is.**
 
-It is not determined by technology.
+The architecture is **constructed**: built by reasoning across what we know, not copied out of documents, prompts, folders, or technology.
 
-It is **constructed**.
+The knowledge base holds what was learned.
 
-The knowledge base provides the accumulated intelligence.
+The evidence model (Section 4) keeps each piece of it with its source and its status.
 
-The evidence model preserves that intelligence.
+The construction protocol (Section 5) turns it into reasoning, one question at a time.
 
-The construction protocol turns it into architectural reasoning.
+Responsibilities say what the system must own.
 
-Responsibilities establish what the system must own.
+Parts say how those responsibilities are organised.
 
-Boundaries establish how those responsibilities are organised.
-
-Interactions establish how the system behaves.
+Interactions say how the system behaves.
 
 Dimensions challenge the model.
 
-Reconciliation exposes what is missing or contradictory.
+Reconciliation finds what is missing or contradictory.
 
-Iteration allows the model to change.
+Iteration lets the model change.
 
-Stabilization determines when it has become reliable enough to govern further engineering.
+Stabilization decides when it can be relied on.
 
-And the final architectural model preserves not only **what was decided**, but **why it was decided, what evidence supports it, what remains uncertain, and what would cause it to change**.
+Representation makes it readable by the people who decide and buildable by the people who build.
 
-That is what allows the architecture to survive beyond the reasoning session that created it.
+And the final model keeps not only **what was decided**, but **why, on what evidence, what is still uncertain, and what would cause it to change**.
 
-It becomes the durable logical model from which the rest of the engineering process can proceed.
+That is what lets the architecture outlive the conversations that produced it.
+
+It becomes the model the rest of engineering builds from.
 
 ---
 
-# 12.33 Closing the Architecture Construction Method
+# 12.38 Closing the Architecture Construction Method
 
-The complete discipline can therefore be reduced to one sentence:
+The whole method, in order:
 
-> **Construct the logical architecture from architectural evidence by progressively modelling responsibilities, boundaries, interactions, behaviour, and architectural forces; continuously reconcile the model against its evidence and constraints; revise it when contradictions or new understanding require; and declare Level 2 complete only when the resulting model is sufficiently justified and stable to constrain technical architecture without requiring the logical system to be rediscovered.**
+1. **Construct** the logical architecture from evidence: responsibilities, then parts, then interactions and behaviour, then the forces on them.
+2. **Reconcile** it against its evidence and rules, all the time, not only at the end.
+3. **Revise** it whenever a contradiction or new understanding requires it.
+4. **Write** it so that it can be understood, checked, and built part by part.
+5. **Audit** every file after it is written.
+6. **Declare** Level 2 complete only when Level 3 can start without rediscovering what the system is.
 
-This is the boundary between **understanding the problem** and **engineering the solution**.
+This is the line between understanding the problem and engineering the solution.
 
 Level 1 establishes what problem exists.
 
 Level 2 constructs what the logical system must be.
 
-Level 3 determines how technology should realize it.
+Level 3 decides how technology realises it, part by part.
 
-Implementation then turns that technical architecture into software.
-
-The direction is therefore:
+Implementation turns that into software.
 
 ```text
 Problem
   ↓
 Understanding
   ↓
-Logical Architecture
+Logical architecture
   ↓
-Technical Architecture
+Technical architecture
   ↓
-Implementation Design
+Implementation design
   ↓
 Code
 ```
 
-And the critical discipline is that **each level earns the right to constrain the next one**.
+Each level earns the right to constrain the next one.
 
-That is what prevents implementation convenience from becoming architecture, technology from becoming product design, and an LLM's first plausible answer from becoming the system itself.
+Without that, the wrong things quietly decide the product.
 
+For example, a database that makes it easy to overwrite a record could quietly decide that Tend rewrites old versions of a situation. The architecture says a version is never rewritten. Because Level 2 came first, the database must follow that rule, not the other way round.

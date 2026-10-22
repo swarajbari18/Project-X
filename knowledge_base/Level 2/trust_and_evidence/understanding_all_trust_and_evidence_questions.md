@@ -2,7 +2,7 @@
 
 ## Status
 
-Answered — working decisions recorded, pending review.
+Answered — working decisions recorded, reviewed and accepted by Swaraj (2026-10-20).
 
 This document is the map for the Trust and Evidence category. The individual question documents contain the detailed reasoning and working decisions.
 

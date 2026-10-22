@@ -218,10 +218,9 @@ and AI is used only where reasoning is actually required.
   "We instructed the model not to" is not a control.
 - **No automated action at all; every action human-clicked.** Safe but
   destroys the product's promise. Rejected because it fails the business objective.
-- **Row-level isolation only (one shared store, tenant_id as a column)**
-  as the sole mechanism. Accepted for free-tier with extra guards,
-  rejected as the only strategy for paying tenants because one missed
-  WHERE clause fails open. See the Cloudflare gotchas in the research.
+- **Each business has its own separate store.** A shared store, with a tenant column, is not used. One missed WHERE clause would show one business's data to another.
+  There is no free plan. Every customer pays. The only trial is 14 days on the paid plan.
+  See the Cloudflare gotchas in the research.
 
 ## Working decisions
 

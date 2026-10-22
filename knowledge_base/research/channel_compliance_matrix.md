@@ -9,17 +9,18 @@ This drives Feedback/Nurture/Retention design and which channels are safe by def
 - Outside CSW: only **approved template messages** (with opt-in/consent required in most cases).
 - **Free Entry Point (FEP)**: 72h of free ALL-message-type window after Click-to-WhatsApp ad or
   FB/IG Page CTA button (mobile app only).
-- Pricing (Jul 2025): per-message. Marketing templates always charged; Utility templates free within CSW.
-- → Tend default for proactive (nurture/feedback): **email or Telegram-with-consent**, WhatsApp only via
+- Pricing (Jul 2025): per-message. Marketing templates are charged, except inside the 72-hour window (all message types free there); Utility templates free within CSW.
+- → Tend default for proactive (nurture/feedback): **email or Telegram-with-consent** (Telegram-with-consent means a chat the person started), WhatsApp only via
   template/opt-in or within CSW. User's instinct "email is safest default" is correct.
 
 ## Telegram
+Verified 2026-10-12: core.telegram.org/bots says "Bots can't start conversations with users" and "A user must either add them to a group or send them a message first." core.telegram.org/bots/faq says bots message their users at no cost by default. core.telegram.org/bots/features says business bots can reply in private chats with incoming messages in the last 24 hours.
 - **Bots cannot start conversations with users.** A user must first message the bot or add it to a group
   (verified: core.telegram.org/bots "Bots can't start conversations with users; a user must either add
   them to a group or send them a message first").
 - Telegram **Business** (personal-account bots, Secretary Mode) can process incoming + reply; and in
   chats active in the last 24h; still no cold initiate.
-- → Telegram is also **user-initiated-first**; treats as "reply window like WhatsApp" + less strict
+- → Telegram is also **user-initiated-first**. Business bots reply only to chats with an incoming message in the last 24h. Ordinary bots have no time window, and bot messages cost nothing by default (Telegram FAQ). Useful as an async channel, but not for cold outreach.
   pricing. Useful as an async channel, but not for fully proactive cold outreach.
 
 ## Email
