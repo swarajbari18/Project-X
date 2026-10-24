@@ -72,4 +72,6 @@ Tend assembles context just in time for the current situation phase and operatio
 
 It does not inject the complete memory store into every reasoning step.
 
+When memory and knowledge places this phase-specific context is decided in [how memory and knowledge works with the loops](how_does_memory_and_knowledge_work_with_the_loops.md). Before each part of each loop, the loop waits for memory and knowledge's package: knowledge to use, or an explicit empty answer. Memory and knowledge's AI part runs at every one of those points. Note added 2026-10-29: understanding is the first phase of every loop. Before the conversation manager routes, and before the worker plans or decides on new content, the step that understands is given this page's understanding context: local vocabulary, entity aliases, previous interpretations, related situations and known ambiguity patterns, with the business's events and the present time. The business's own knowledge may help any step understand; only records are limited to the step's boundary.
+
 The assembler must preserve scope, provenance, evidence state, version and allowed influence.
