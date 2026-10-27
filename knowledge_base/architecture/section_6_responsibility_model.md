@@ -14,6 +14,13 @@ Working. Rewritten in plain language on 2026-10-08. Each rule was checked agains
 
 **Level 2** means the answers in the Level 2 folder, which Swaraj wrote.
 
+**Updated 2026-10-28.** Swaraj rejected the earlier picture of memory and knowledge, and the Level 2 folder now holds its new design ("how memory and knowledge works with the loops"). This section carries it through. The part is always called **memory and knowledge**, never just "memory". New rules cover: who a person is; how links are made; routing one message at a time per address; deciding on the newest version, by checking the work; memory and knowledge's own rules; and erasure. Changed rules cover: routing's inputs, the outreach's central situation, the owner's view of an outreach, memory and knowledge's older rules, how an MCP server joins, and the outreach walkthrough.
+
+**Updated 2026-10-29: understanding comes first.** Swaraj: "The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing, when there is the retrieval thing, the retrieval would have been much simpler this time." The conversation manager now understands each arrival, and writes its **reading**, before it routes. Routing's candidates come from the reading, by exact values. The worker understands new content before it plans or decides. Memory and knowledge uses the business's own knowledge to help any step understand, and shows a step only the records inside its boundary. The routing queue is per person.
+- New rules: C7 to C10, N36, N37.
+- Changed rules: B5, B10, N19 to N23, N29 to N31, N34, N35.
+- The Level 2 pages are the source: "how memory and knowledge works with the loops", corrected 29 October, and the understanding pages.
+
 **Scope:** outreach, inquiry, order, logistics, refund, stakeholder, and unreliable external APIs.
 
 ---
@@ -55,12 +62,13 @@ A situation is one operational problem: one order delay, one refund, one outreac
 
 Tend does not keep one record per customer. A customer can take part in many situations, and each one keeps its own history.
 
-### Three layers
+### Four layers
 
-Read these three together. Each one alone is easy to misread.
+Read these four together. Each one alone is easy to misread.
 
 - **Situation links.** Situations link to each other through operational context: the same order, the same incident, or a follow-on problem. <!-- A3 -->
 - **Person link.** Each person is linked to every situation they take part in. This is a link. It is not a merged record. <!-- A3 -->
+- **The person.** Each person is one anchor with its own person ID. Their WhatsApp number, email addresses and other channels point to that ID; a channel address is never the person. A new contact starts unknown. Who they are is deduced or asked as evidence gathers. No AI decides that two records are one person: an AI may suggest it, and fixed rules or a person decide. <!-- A14 -->
 - **Person's journey.** A person's journey is a view of their situations over time. Tend works it out when someone asks. It is never stored as a separate truth. <!-- A10 -->
 
 **Example.** Priya took part in an outreach situation, an order situation, and a refund situation. Tend links all three to Priya. It does not join them into one record. Each keeps its own history.
@@ -73,6 +81,8 @@ The person link still matters. Tend uses it to:
 - route incoming messages to the right person's open situations;
 - answer "what is Priya's journey?";
 - find earlier closed situations, when they are linked explicitly.
+
+- **Memory and knowledge creates and maintains the links.** A link is made when there is a signal. Three things count as a signal: the same number or incident code (the code an outside system gives one event, such as a hold at one hub) in typed fields of both situations, taken from an outside system's record or from a person's confirmed answer; an employee's word that the two are related; or a finding while gathering that ties them. A shared meaning alone ("these customers all describe the same flood") is not a signal: it is only proposed, and stays unresolved until a signal appears. An employee who may see both situations may remove a link, and the removal is recorded. This replaces the rule of 2026-10-09 that the situation worker accepts or denies each link. <!-- A15 -->
 
 **Example of the right pattern.** An outreach led to order 9912. The order links to a delivery-delay situation and to a wrong-item situation, because both are about that order. The owner finds both through the order.
 
@@ -150,13 +160,14 @@ Behind the scenes, a situation is running, waiting, blocked, or completed. <!-- 
 - Before it gathers any business information, Tend routes each change to the right situation, or creates a new one. <!-- B2 -->
 - Routing has tiers. A clear match attaches or creates. A weak match means Tend asks the customer or the sender a question. Tend never guesses. For example, "any update?" from a customer with three open orders gets a question, not a guess. <!-- B3 -->
 - When later evidence shows a routing was wrong, Tend splits, merges, or reroutes the situations. <!-- B4 -->
-- Tend assembles the context of an incoming change once. Routing uses short summaries of open situations. Understanding uses full records, for the situations that were routed. <!-- B5 -->
-- A list of 30 leads creates 30 situations and one board that shows them. <!-- B6 -->
+- The conversation manager understands each change before it routes it: it writes a reading of what the change asks, what it refers to, and which time it means (see Understanding the change). Routing then works from that reading. It uses short summaries of open situations, made of typed fields only. The full update of a situation, from its full record, comes after routing, for the situations routed to. Memory and knowledge gives the conversation manager a package at three moments: before the reading, after it, and before the routing check when the AI made the choice (see Memory and knowledge below). <!-- B5 -->
+- A list of 30 people creates 30 situations, one per person, and one central situation linked to all of them. The central situation tracks the progress. Every update from a person's situation goes to it. The owner hears only what is significant. There is no separate board screen; the central situation is the one place that shows the progress. <!-- B6 -->
 - The conversation manager records each incoming message with its platform reference. The platform keeps the original message. <!-- B7 -->
 - When it is unclear whether two messages belong together, Tend prefers separate situations with a link, over a silent merge. <!-- B8 -->
 - On a weak match, Tend records that a message may belong to a situation. It does not change that situation. <!-- B9 -->
+- Messages from one person are routed one at a time, in order, whichever channel they come on. The channel address is first turned into the person ID, and the queue is keyed by that ID. If two messages from one person arrive one second apart, on one channel or on two, they are placed in order, and the second sees the situation the first created. <!-- B10 -->
 
-Routing happens in two places. On arrival, Tend identifies the person, matches open situations, and then attaches, creates, or holds. After new evidence, Tend splits, merges, or reroutes. <!-- B4 -->
+Routing happens at two moments. On arrival, Tend identifies the person and understands the change. From what it understood, it finds the situations that could match, then attaches, creates, holds, or records the arrival as not work. Later, after new evidence, Tend splits, merges, or reroutes. <!-- B4; C7 -->
 
 ---
 
@@ -164,6 +175,19 @@ Routing happens in two places. On arrival, Tend identifies the person, matches o
 
 <!-- Group C -->
 
+- Tend understands each change before it acts on it, routing included. Product Vision: "Tend should never take an action before understanding the situation." Level 2's order: preserve what arrived, build its candidate readings, then route, then update the model. <!-- C7 -->
+- The conversation manager writes a **reading** of each arrival that carries words. It records:
+  - what is asked, one problem or several;
+  - what the arrival refers to, with each time word turned into a date or a range in the business's time zone, or kept as a small set;
+  - what is only the sender's claim;
+  - what is unknown;
+  - whether it refers to earlier work;
+  - its kind, if new;
+  - whether it is work at all.
+
+  The reading is an interpretation, never a fact or a conclusion. It is saved with the arrival in the situation's new version, so no later step reads the arrival again from scratch. <!-- C8 -->
+- An arrival that is not work, such as a greeting or a thank-you with nothing asked, creates no situation. It is kept in the person's message history with its reading. <!-- C9 -->
+- The situation worker understands new content before it plans or decides. That covers three cases: an arrival into a situation that already has content; a document; a free-text result. It places the new content in the full record: the asks it answers, what is now known, unknown or in conflict, and whether routing looks wrong. For a new situation, the conversation manager's reading is the first understanding. <!-- C10 -->
 - Tend updates the routed situation with what the change adds, before it decides what to do. <!-- C1 -->
 - Uncertainty and ambiguity are recorded. A guess is never stored as a fact. <!-- C2 -->
 - Tend selects only the information that matters for this situation, and ignores the rest. <!-- C3 -->
@@ -233,6 +257,8 @@ Routing happens in two places. On arrival, Tend identifies the person, matches o
 - When there is no safe path, Tend stops safely. <!-- F4 -->
 - Tend decides when there is enough information, relative to the policy and the consequence. It does not wait for perfect information. <!-- F5 -->
 - Before any step with an effect, the permission checks below run on the AI's proposal. The AI cannot approve its own proposal. <!-- F6 -->
+- Every decision is made on the newest version of the situation. If a newer version exists when the decision is checked, the decision is thrown away and made again. Just before any action that cannot be undone, the version is checked once more. <!-- F7 -->
+- Deciding is checking the work. The decision is made with the work as first asked, word for word, the procedure, the plan, every result with its source, each claim's state, and new arrivals in front of it. It says, for each thing asked, whether it is answered, partly answered, or not yet, and points to saved evidence for each answer. Fixed code rejects an "answered" that points to no evidence from a source other than the AI. <!-- F8 -->
 
 ---
 
@@ -356,13 +382,56 @@ Routing happens in two places. On arrival, Tend identifies the person, matches o
 
 <!-- Group N -->
 
-- Tend gives each decision step only the memory it needs, not a full memory dump. <!-- N1 -->
+**Updated 2026-10-28.** Memory and knowledge is an agency within Tend: it sees the whole of one business, and its job is context engineering, not decision making. Swaraj: knowledge is situations, skill files and business rules linked together, with intelligent reasoning over them. The rules N18 to N35 come from the Level 2 design "how memory and knowledge works with the loops"; the older rules below them still hold.
+
+- Memory and knowledge runs beside the loops of the conversation manager, the situation worker and the communication layer, on its own thread. It observes every part of every loop. Slow jobs, such as making links, updating indexes and learning, run behind and never block a loop. <!-- N18 -->
+- Before each part of a loop runs, the loop waits for memory and knowledge's package: knowledge to use, or an explicit empty answer. The points are:
+  - before the conversation manager's reading;
+  - after the reading, with the candidates found from it;
+  - before the routing check, when the AI made the choice;
+  - before the worker understands new content;
+  - before the worker plans;
+  - before the worker's fixed checks of a plan or a decision, which lead to acting;
+  - before every decision;
+  - before a message is written.
+
+   Memory and knowledge's AI part runs before every one of them. When a decision ends the run, no part follows, and nothing is awaited. <!-- N19 -->
+- A package holds candidates (situations, orders, people) and context (lessons, tool forms, skills, business events, word meanings, advice). Each item carries its source, its time, its standing (established, someone's claim, in conflict, a guess, advice, the business's instruction, or past), whether the step needs it or it only helps, who may be told it, and a flag on text written outside the business. For candidates it says how many matched in all. It says what was looked for and not found. <!-- N20 -->
+- Memory and knowledge presents; the step decides. It never chooses between candidates, chooses the next action, or says a claim is true. It may give advice, marked as advice, such as "this subject is unknown in this business". <!-- N20 -->
+- Each step's written reasoning has sections fixed code can check: what it is considering (IDs, each presented in this run); what it still needs to know; its questions for memory and knowledge; and its references, each quoted exactly from its input. The conversation manager's reading adds its own sections (rule C8), each resolution citing the item that resolved it; its choice, when code cannot decide, names a presented candidate or none. The worker's understanding says what new content adds. Memory and knowledge reads these, and a step's questions are answered in the next package. <!-- N21 -->
+- Memory and knowledge has two fixed parts, one for routing and one for the worker. Each fetches only by exact keys:
+  - the sender's open situations;
+  - a number in a typed field;
+  - a listed word (one of the business's own words with a set meaning, such as "dispatch ready");
+  - a business event or other named thing whose name or alias appears in the arrival (added 2026-10-29);
+  - earlier readings of the sender's words, and what memory and knowledge presented earlier in this situation (added 2026-10-29);
+  - the sender's situations holding a value the reading resolved (added 2026-10-29);
+  - the procedure pinned to the situation; tools named in the plan; the situation's links;
+  - the present time.
+
+  Matching a stored name against the arrival's words is ordinary code; telling which meaning applies is not. Everything that needs judgment is done by its AI part. <!-- N22 -->
+- Finding knowledge follows one pattern. The step says what it needs; memory and knowledge's retrieval capability decides how. Fixed code first limits the search. It keeps only this business. It keeps only records inside the step's boundary, while the business's own knowledge may come from anywhere in the business. It keeps the right kind, status, validity and version. And it uses the values the step understood (IDs, date ranges, kinds) as exact filters. Inside that, exact, keyword, meaning and link searches run in parallel, and each returns its own ranked list. Fixed code combines the lists by each item's position, removes duplicates, and sorts the rest again by how well each fits the need. Then a fixed final check removes anything replaced, out of date, retired, or outside the step's boundary, and keeps conflicts visible. Neighbouring context is added where it matters. The AI part may search again, up to a set number of rounds. What comes back is evidence, each item with its source. Ranks only order candidates; no threshold accepts or rejects anything. <!-- N23 -->
+- Memory and knowledge does not store a business's orders. An order is kept only as a gathered result, in the situation that read it. An order no situation has read is not in memory and knowledge. Then memory and knowledge presents the tool that reads it, and the worker reads it. <!-- N24 -->
+- A change reaches another situation in only three ways. One event that touches several situations is saved once and written into each. A worker may decide to send a claim to another situation: its code hands the claim to intake as an arrival for that situation, keyed so a repeat is dropped, and a count per pair of situations stops two workers sending to each other forever. A person's situation in an outreach sends each new version to its central situation automatically. A link itself never carries a change. <!-- N25 -->
+- Skills, the product's and the business's, live in object storage, versioned, not in the code, so that no worker runs a different version from another. Procedures are kept with them. A run reads a skill's current version when the skill is first presented, and records the version in its trace. A procedure is pinned to each situation at the version current when the situation got its kind. <!-- N26 -->
+- A business may write its own skills and procedures, fill product templates, and connect any MCP server. The configurator connects a server through a fixed configuration tool, never the AI. Its tool list is captured, versioned and hashed when connected, and a later change to it waits for the configurator's approval. Memory and knowledge presents the subset of tools each part needs. A step may use only a tool presented to it in this run, and every call passes the permission check. A business skill is guidance text: it cannot grant a permission or change a rule. <!-- N27 -->
+- Memory and knowledge never calls outside. For a subject the business does not know, it says the subject is unknown, and presents the deep-research skill and the web tools. The worker establishes the subject. Memory and knowledge then keeps what was learned, with its sources, so the web is not searched again. <!-- N28 -->
+- The present time, in the business's time zone, is in every package. A business event, such as a sale, is learned knowledge: its name and aliases, its dates, its sources, who may be told it, and when it is valid. An event mentioned in an arrival is presented before the conversation manager's reading, found by its name or alias; the first time it is mentioned, memory and knowledge's AI part searches the business's side of the whole business for it. Which year is meant is presented as advice, with reasons. Its dates may help any step understand and filter; they are told only to those who may be told them. <!-- N29 -->
+- The conversation manager establishes, first, what an arrival means: its reading, an interpretation. Code establishes who sent it; the routing check establishes which situation it belongs to; everything the sender states stays the sender's claim. Swaraj: "whatever we get, the conversation manager gets, establishing it is first." The situation worker understands what new content changes, and establishes claims, by its evidence rules. Memory and knowledge establishes nothing. It keeps what was established, with its sources. <!-- N30 -->
+- If no package arrives, the step waits a set time, then the work goes to a person. If the fixed part answers and the AI part does not, the package carries the fixed items and says so, and the step goes on. If that happens before the reading, any word the reading cannot resolve is marked unknown. If routing's choice could differ depending on that word, the arrival is put on hold with a held note, the sender is asked, and the meaning is never guessed. <!-- N31 -->
+- Each package is recorded in the run's trace as references only: the filters used, the record IDs and versions presented, the skill versions, and why. Real runs can be replayed from these references. <!-- N32 -->
+- Memory and knowledge's background parts are a link keeper, an indexer, a link finder, a learner, and a cleaner. None writes a situation record, except the cleaner carrying out a confirmed erasure. A cache may make reads faster, but never guards a decision: anything cached is checked against the newest version before it is presented. <!-- N33 -->
+- Memory and knowledge reads the whole business. **Using is not showing.** To help a step understand, it may present the business's own knowledge from anywhere in the business (events and dates, words and aliases, products, procedures, lessons, business-level incidents), each item marked with who may be told it. Business knowledge comes from the business's side; a customer's words stay that customer's claim. As records to act on, it shows a step only those inside the step's boundary: every search for records starts there, set by fixed code, so nothing outside can rank, show, or hint. Level 2: "Tend may use a confidential source internally while sending only a limited description externally." Routing's boundary is the sender's own records. Another person's record is never used to shape a step's understanding. A worker sees its own situation in full. It sees another situation's typed fields, never its free text, only when the two share a person, or share a number that an outside system's record or the person's confirmed answer tied to this situation. A number outside the step's boundary is never presented, and nothing hints to the step that it exists. <!-- N34 -->
+- Memory and knowledge revisits its own work at every point. It reads what it presented earlier, in this situation or for this sender's recent arrivals, against what has happened since. It says plainly when earlier advice was contradicted or has gone stale, and notes it for learning. Swaraj: "The memory has to revisit what it has done till now… and audit." <!-- N36 -->
+- Routing's candidates come from the reading, by exact values: the sender's open situations holding what the reading resolved. When the reading says the arrival refers to a past purchase or to earlier work, routing also gets a small set of the sender's own closed situations that could be it (agreed on 2026-10-03): found first by the reading's exact values (an order number, a date range such as a sale's dates, a kind, the most recent first for "last time"), with description matched only inside what those values leave. Never anyone else's, and never a search across the business. A closed situation holding an object the reading identified is Level 2's reopen case. Routing never searches a person's past on the message's raw words, before the message is understood. Code decides when it can: not work, no candidate, several asks, or one candidate that holds a number the sender wrote, or that is the sender's only open situation of the reading's kind holding what the reading resolved (Level 2's "hard signal"). The AI makes the choice only when code cannot. An ambiguous result means ask, not a bigger search. <!-- N37 -->
+- Memory and knowledge's AI part adds an AI call at each point, so one new customer message costs between 10 and 23 AI calls before the first reply (10 to 20 before the conversation manager's reading was added on 2026-10-29). The background jobs never add to a customer's wait. Every limit (results kept per search, search rounds, sends per pair, the incident window, how long a loop waits) is configuration, with a product default. <!-- N35 -->
+- Tend gives each decision step only the knowledge it needs, not everything memory and knowledge holds. <!-- N1 -->
 - Closed situations inform new ones only through explicit links and relevance. An earlier decline informs the next outreach through a link. It is never merged. <!-- N2 -->
 - Earlier conversations can give eight kinds of influence: a direct current claim, a reference to an earlier situation, a local vocabulary meaning, an unresolved question, a previous failed attempt, a reusable procedural lesson, a human preference or communication convention, and evidence that a current reading may be wrong. They are not all placed in context in the same way. <!-- Level 2 prior conversations -->
 - Tend learns how to operate better in one business. It never changes rules: tool arguments may change, a refund policy may not. <!-- N3 -->
 - Tend keeps the experience of what happened, so that it can be recovered later. <!-- N4 -->
-- Memory is linked to situations as a graph of references. <!-- N5 -->
-- Traces from work runs and configurator sessions are recorded for memory, asynchronously. Recording a trace does not switch learning on. <!-- N6 -->
+- Learned knowledge is linked to situations as a graph of references. <!-- N5 -->
+- Traces from work runs and configurator sessions are recorded for memory and knowledge, asynchronously. Recording a trace does not switch learning on. <!-- N6 -->
 - The business can switch automatic learning off, or require a person to validate each lesson. <!-- N6 -->
 - Candidate lessons come from external failure signals, not from self-reflection alone. <!-- N7 -->
 - Before a lesson is proposed, the failure is diagnosed into one of eleven categories: misunderstanding; vocabulary or entity resolution failure; missing information; wrong source selection; wrong tool selection; invalid tool arguments; policy interpretation failure; authority confusion; reasoning failure; communication failure; and handoff or coordination failure. The learning loop runs: experience, observed outcome or correction, failure diagnosis, candidate lesson, activation or manual check (set by configuration), then retrieval and monitoring. <!-- Level 2 learning from mistakes -->
@@ -377,14 +446,14 @@ Routing happens in two places. On arrival, Tend identifies the person, matches o
 - Semantic similarity only proposes candidates. It never decides identity, supersession, or truth. <!-- Level 2, memory notes -->
 - Hard filters come first. Memory with the wrong business, role, process, capability version, validity period, permission scope, status, or version is excluded before any similarity ranking. Similarity, recency, and usefulness only rank what is left. <!-- Level 2 retrieval -->
 - There is no universal expiry time. Whether a memory is current is decided for each decision. Memory carries its observation time, its validity conditions, its process, and its version. When currentness cannot be shown, the memory is treated as provisional, stale, or unresolved, and current information is gathered when the decision needs it. <!-- Level 2 currentness -->
-- Memory is served from a context need. The router never scans all situations. <!-- N11 -->
-- The context need has ten parts: the current phase, the objective, the possible next behaviours, what is known, unknown, and conflicting, the relevant entities, the tools and capabilities under consideration, the source and authority requirements, the risk and reversibility, the deadlines or waiting state, and the business scope. Each phase gets different memory. Understanding uses local vocabulary, aliases, earlier readings, related situations, and known ambiguity patterns. Gathering uses source-selection lessons, tool preconditions, known missing fields, and earlier retrieval failures. Decision-making uses procedures, failure warnings, analogous outcomes, exceptions, and escalation lessons. Communication uses business terms, channel conventions, and communication corrections. Human collaboration uses role, routing, handoff, and responsibility lessons. The same memory is shown differently in each phase. <!-- Level 2 context assembly -->
+- Knowledge is served from a context need. The router never scans all situations; every search is limited first by fixed code. <!-- N11 -->
+- The context need has ten parts: the current phase, the objective, the possible next behaviours, what is known, unknown, and conflicting, the relevant entities, the tools and capabilities under consideration, the source and authority requirements, the risk and reversibility, the deadlines or waiting state, and the business scope. Each phase gets different knowledge. Understanding uses local vocabulary, aliases, earlier readings, related situations, and known ambiguity patterns. Gathering uses source-selection lessons, tool preconditions, known missing fields, and earlier retrieval failures. Decision-making uses procedures, failure warnings, analogous outcomes, exceptions, and escalation lessons. Communication uses business terms, channel conventions, and communication corrections. Human collaboration uses role, routing, handoff, and responsibility lessons. The same knowledge is shown differently in each phase. <!-- Level 2 context assembly -->
 - Business vocabulary and conventions are kept as business knowledge. "Dispatch ready" means what it means in this business. <!-- N12 -->
-- Memory observes configurator sessions and proposes configuration candidates. A configurator validates each candidate. Only the configuration tools apply it, and only after validation. Memory never applies a grant change. <!-- N13 -->
-- There are two kinds of configuration. Structured values are schema-bound settings, tool arguments, and registry records. Prose preferences are text that the runtime places into the step that writes a reply. Rules stay in code. The business owns the text of its preferences. Memory only places it. <!-- N14 -->
-- Learning about the business content is kept apart from improving product behaviour. Business knowledge lives in memory at runtime. Behaviour adherence lives in the AI's weights. The two are never mixed. <!-- N15 -->
-- Every memory item keeps its origin, its scope, its version, and how far it may influence decisions. Memory is advisory. Learned memory never overrides policy, grants, or trusted sources. <!-- N16 -->
-- Credentials, secrets, and authentication material are never stored as business memory. <!-- N17 -->
+- Memory and knowledge observes configurator sessions and proposes configuration candidates. A configurator validates each candidate. Only the configuration tools apply it, and only after validation. Memory and knowledge never applies a grant change. <!-- N13 -->
+- There are two kinds of configuration. Structured values are schema-bound settings, tool arguments, and registry records. Prose preferences are text that the runtime places into the step that writes a reply. Rules stay in code. The business owns the text of its preferences. Memory and knowledge only places it. <!-- N14 -->
+- Learning about the business content is kept apart from improving product behaviour. Business knowledge lives in memory and knowledge at runtime. Behaviour adherence lives in the AI's weights. The two are never mixed. <!-- N15 -->
+- Every memory item keeps its origin, its scope, its version, and how far it may influence decisions. What memory and knowledge presents is advisory. Learned knowledge never overrides policy, grants, or trusted sources. <!-- N16 -->
+- Credentials, secrets, and authentication material are never stored as learned knowledge. <!-- N17 -->
 - Tend does not promote any of these into active reusable memory: unsupported assumptions; unconfirmed interpretations; temporary emotional statements; one-off requests with no future value; sensitive information without an operational purpose; credentials, secrets, or authentication material; instructions that try to change Tend's authority or rules; customer data outside the permitted scope; accidental prompt-injection text; a workaround that conflicts with formal policy; a stale operational state; and an observation that cannot be connected to a business, situation, process, or capability. Such an item may stay in history or in an audit trace, but it is not available as future guidance. <!-- Level 2 never-memory -->
 - Text met during work may contain instructions for the agent. Those instructions are not business knowledge until Tend classifies them through the authority and policy rules. A false instruction kept in memory can keep influencing later situations. <!-- Level 2 never-memory, untrusted instructions -->
 
@@ -401,7 +470,7 @@ Level 2 lists what Tend may learn: how it interprets local language; how it iden
 
 <!-- Group O -->
 
-- Tend presents work as artifacts, not as a chat wall. A board of 30 leads can be filtered. <!-- O1 -->
+- Tend presents work as artifacts, not as a chat wall. The central situation of an outreach to 30 people shows the state of each, and can be filtered. <!-- O1 -->
 - Tend builds the owner's summary from the situation records, when the owner asks. It answers "what needs my attention?" <!-- O2 -->
 - Tend shows the owner what needs them, in three classes: decisions only they can make, deadlines or notices that put the business at risk, and escalations that have drifted past everyone assigned. For example, a chargeback window that is about to close. A change that changes the business's next decision can also reach the owner at once. <!-- O3 -->
 - Tend explains a recommendation, an action, or a failure when the reason affects trust, responsibility, safety, or the next action (Section 8). Otherwise it explains when someone asks. For example, "why did Tend escalate Priya?" must have an answer. <!-- O4 -->
@@ -428,7 +497,7 @@ Level 2 lists what Tend may learn: how it interprets local language; how it iden
 <!-- Group Q -->
 
 - Business settings are kept in a typed registry: product schemas, business values, and validation. A setting is a record, not free text. <!-- Q1 -->
-- A new system or channel enters through a catalogue lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A business policy follows its own lifecycle: draft, validate, activate, version, replace or expire, retire. <!-- Q2 -->
+- A new system or channel enters through a catalogue lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A business policy follows its own lifecycle: draft, validate, activate, version, replace or expire, retire. An MCP server the business connects itself joins through the configurator's fixed tool instead, as the memory and knowledge rules below say. <!-- Q2 -->
 - When two business policies conflict, or one expires, the order is: the active policy; then the business's fallback; then the product's safe default; then a person or a stop. Any use of a fallback is shown to the business. When two versions of the same policy would both apply, the version the business activated most recently applies, and the conflict is shown to the business. Call (not yet confirmed). A policy that expires is a time event that wakes the situation. <!-- architecture rule, approved; Level 2 growth and policies -->
 - Tend follows four kinds of change:
   - Facts are live. They update the situations that use them.
@@ -444,7 +513,7 @@ Level 2 lists what Tend may learn: how it interprets local language; how it iden
 
 <!-- Group R -->
 
-- Traces kept for product improvement are separate from business memory. <!-- R1 -->
+- Traces kept for product improvement are separate from memory and knowledge. <!-- R1 -->
 - Prompt optimisation is limited to the memory-owned assembly templates. The product constitution stays human-edited. <!-- R2 -->
 - Behaviour adherence improves from verified traces. Business rules are never placed in AI weights. <!-- R3 -->
 
@@ -513,7 +582,8 @@ Why this shape: if the AI were only told "do not release this file without appro
 - Fields from connected systems are untrusted input. Only allowed fields enter the AI's prompt. <!-- U2 -->
 - Compliance rules from law, platform, and buyer are checked at configured checkpoints. <!-- U3 -->
 - Kill switches stop a tool, a send, or a provider, per shop or globally. They work without a code change. <!-- U4 -->
-- The tool catalogue is versioned and checked for unexpected change before a version is used. No tool is registered at runtime. <!-- U5 -->
+- The tool catalogue is versioned and checked for unexpected change before a version is used. No tool is registered at runtime. A business's MCP server joins only through the configurator's fixed tool, as the memory and knowledge rules say. <!-- U5 -->
+- Nothing is erased in normal work: knowledge is retired, superseded or marked stale. When a customer asks to be erased, or the law otherwise requires it, only the erasure tool erases. The AI may propose it; the tool's confirmation rule asks the owner or the configurator, and erases only after their yes. The erasure then reaches every place the data lives, situation records included, which are otherwise never rewritten. A record that an erasure happened is kept, without the erased data. <!-- U7 -->
 - The T-A and T-B release checks must pass before release. A skipped test counts as a failed suite. <!-- U6 -->
 
 ---
@@ -530,8 +600,8 @@ Why this shape: if the AI were only told "do not release this file without appro
 | The carrier's internal investigation result | The carrier |
 | User authentication | The identity provider |
 | What counts as legal consent in each market | Compliance and the law |
-| A silent grant or policy change from memory observation alone | The configurator and the registry |
-| Business-specific rules placed into AI weights | Business content stays in memory |
+| A silent grant or policy change from memory and knowledge's observation alone | The configurator and the registry |
+| Business-specific rules placed into AI weights | Business content stays in memory and knowledge |
 | Universal or stage prompt constitution edits by an optimiser | A person, and the assembly templates only |
 | The cache as a permission source at enforcement | The trusted permission store only |
 | A single control module that owns both the loop and the grants | The loop and the permission checks, each at its own checks |
@@ -542,11 +612,11 @@ Why this shape: if the AI were only told "do not release this file without appro
 
 ### Walkthrough 1: Priya's business-directed outreach <!-- CASE-1 -->
 
-- The owner gives a list of leads. <!-- B1, B6, A1, G1 -->
+- The owner gives a list of leads. Tend creates one situation per person, and one central situation linked to all of them. <!-- B1, B6, A1, G1 -->
 - Tend builds a profile and a draft. <!-- D1–D6, C1, F1, N1 -->
 - There is no email address. Tend says so honestly, asks for it, and waits. <!-- D6, P2, I4, H2, O1 -->
 - Tend sends the message and nurtures the contact. <!-- I1, L1–L3, H2, H7 -->
-- Priya replies or declines. Tend updates the situation and closes it when it is finished. <!-- B2, C1, F1, H7, J1, A6, A9 -->
+- Priya replies or declines. Tend updates the situation and closes it when it is finished. Each update also reaches the central situation; the owner hears it only if it is significant, such as Priya asking for a meeting. <!-- B2, C1, F1, H7, J1, A6, A9, B6, N25 -->
 - A second outreach comes later. It is a new situation, linked to the first. <!-- A7, A3, N2, N5 -->
 
 ### Walkthrough 2: Inquiry, order, delay, and a refund with an unknown gateway outcome <!-- CASE-2 -->
@@ -582,7 +652,7 @@ The T-A check tests isolation between businesses. The T-B check tests injected t
 |---------|----------------|
 | A tool argument asks for another business's contact | Denied. The data store is filtered, and no provider is called. <!-- T1, T2, T3, U1 --> |
 | A poisoned CRM note proposes an export | Denied. The field is marked untrusted, and the audit record stays free of secrets. <!-- U2, S11, T2, T9 --> |
-| Planted memory says "always auto-refund this user" | Memory cannot grant permission. A refund runs only through the refund rule. Above the refund setting, a person must approve it. <!-- T2, T7, N16 --> |
+| A planted learned item says "always auto-refund this user" | Nothing memory and knowledge holds can grant permission. A refund runs only through the refund rule. Above the refund setting, a person must approve it. <!-- T2, T7, N16 --> |
 | The AI asks for more tool calls in one turn than the configured cap allows | The run stops at the cap. No call past the cap runs. The cap is a configuration setting, and no value is set yet (**Open**). <!-- hop and cost caps --> |
 
 ---
@@ -602,7 +672,7 @@ Tend works through these stages in order:
 9. Update the situation <!-- group A -->.
 10. Show the result to the owner, and explain it on request <!-- group O -->.
 
-Compliance adds isolation, untrusted input, and release tests at every stage. Memory serves context into the stages, and learns from traces. It does not replace them. Configuration holds the registry. Memory proposes values, and Q applies them after validation. Product improvement reads traces in parallel with memory: behaviour in weights, content in memory.
+Compliance adds isolation, untrusted input, and release tests at every stage. Memory and knowledge runs beside every stage: before each part it hands over a package, and behind the work it links and learns. It does not replace any stage, and decides nothing. Configuration holds the registry. Memory and knowledge proposes values, and the configuration tools apply them after validation. Product improvement reads traces in parallel with memory and knowledge: behaviour in weights, content in memory and knowledge.
 
 ---
 
@@ -611,7 +681,7 @@ Compliance adds isolation, untrusted input, and release tests at every stage. Me
 | State | Who holds it |
 |-------|--------------|
 | The record of each situation | Tend |
-| The links between situations | Tend |
+| The links between situations | Memory and knowledge, which creates and maintains them |
 | The link to a person | Tend. The person's journey is worked out from it. |
 | Canonical business facts | The business systems |
 | Canonical channel messages | The platforms |
@@ -619,10 +689,13 @@ Compliance adds isolation, untrusted input, and release tests at every stage. Me
 | Waits and timers | Tend, by fixed code |
 | Failure declarations | Tend's audit record |
 | Incoming message records | Tend |
-| Learned business knowledge | Memory, as advisory knowledge |
+| The reading of each arrival (what it asks, refers to, and means) | Tend: the conversation manager writes it with the arrival, as an interpretation |
+| Learned business knowledge | Memory and knowledge, as advisory knowledge |
 | Structured configuration values | The business configuration, once applied |
-| Configuration candidates from observation | Memory, until the configuration tools apply them |
-| Traces for product improvement | Product improvement, separate from business memory |
+| Configuration candidates from observation | Memory and knowledge, until the configuration tools apply them |
+| Traces for product improvement | Product improvement, separate from memory and knowledge |
+| Skills and procedures | Object storage, versioned; the business writes its own, the product team writes the product's |
+| The business's connected MCP servers and their tool lists | The business configuration, captured and versioned when connected |
 | The identity of a run | Set at the moment the request arrives, and not stored in the situation record |
 | Human work items and handoffs | Tend |
 | The security audit record | Tend. Append-only, scoped to each tenant, free of secrets. |
@@ -681,7 +754,7 @@ These rules come from the concluding audit. They cover Level 2, the Level 1 fram
 
 ### Customer data and privacy
 
-- A customer's data can be exported when the customer asks, and erased from every copy within the window set for the market. The window is **Open**. <!-- Level 2 compliance: what_are_the_compliances_of_each_actor_and_tech_stack (customer data rights) -->
+- A customer's data can be exported when the customer asks, and erased from every copy within the window set for the market, through the confirmed erasure tool (see the erasure rule under Compliance and security). The window is **Open**. <!-- Level 2 compliance: what_are_the_compliances_of_each_actor_and_tech_stack (customer data rights) -->
 - Tend acts as a processor for each business. It supports the business's deletion and breach duties. The clocks come from each market's legal values, which are set when the market is entered. <!-- Level 2 compliance: what_are_the_compliances_of_each_actor_and_tech_stack (processor duties) -->
 - Tend keeps a list of the providers that touch customer data, the subprocessors. The AI provider is one of them. Data goes only to providers on the list. <!-- Level 2 compliance: what_are_the_compliances_of_each_actor_and_tech_stack (subprocessor rule) -->
 - Tend never stores card data. Payment is handled by the payment processor's tokens. <!-- Level 2 compliance: what_are_the_compliances_of_each_actor_and_tech_stack (payment rule) -->
@@ -794,7 +867,7 @@ These rules come from the concluding audit. They cover Level 2, the Level 1 fram
 - A customer can have several roles in one purchase: buyer, gatekeeper, and payer. Each role is recorded. <!-- research: customer segments -->
 - A partner receives only the data its contract allows. <!-- research: partner data rules -->
 - Language, currency, time zone, and tone are set per market and per business. <!-- research: market facts -->
-- The memory checks run even when manual checks are off: scope, identity and relation shape, provenance, policy conflict, privacy and retention, version and supersession, malformed or unsafe content, and whether a memory may influence the current process. These checks are not a human approval step. <!-- Level 2 memory: can_tend_learn_automatically -->
+- Memory and knowledge's checks run even when manual checks are off: scope, identity and relation shape, provenance, policy conflict, privacy and retention, version and supersession, malformed or unsafe content, and whether a memory may influence the current process. These checks are not a human approval step. <!-- Level 2 memory: can_tend_learn_automatically -->
 - The business can inspect, correct, reject, approve, retire, or restrict learned items, according to its configuration and roles. By default, the business owner and the configurator hold these roles. Call (not yet confirmed). <!-- Level 2 memory: who_owns_business_knowledge -->
 - A learned item can be used in another business only after a deliberate generalisation step. Only product mechanisms move freely, such as recording tool errors, keeping provenance, versioned memory, scope filters, and replay tests. By default, the business owner must approve any generalisation, which means moving something learned in one business to another. Call (not yet confirmed). <!-- Level 2 memory: how_should_memory_be_scoped_between_businesses -->
 - A learned item can be scoped more narrowly than a business: by unit, location, process, role, capability, tool version, partner, customer, geography, or time period. The narrower the scope, the fewer situations retrieve it. <!-- Level 2 memory: scope -->
