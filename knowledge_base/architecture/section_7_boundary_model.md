@@ -12,6 +12,23 @@ Working. Rewritten in plain language on 2026-10-09. It replaces the 2026-10-08 v
 
 **Provisional:** in use, but may change.
 
+**Updated 2026-10-28.** The part called "memory" is now **memory and knowledge**. Its design comes from the Level 2 page "how memory and knowledge works with the loops".
+- It runs beside the loops, on its own thread.
+- Before each part of each loop, it hands over a package of what that part needs to know.
+- It creates and maintains the links between situations.
+- It keeps skills and procedures in object storage, versioned.
+
+**Updated 2026-10-29: understanding comes first.** Swaraj: "The first thing should have been understanding…" The joining rule on meaning already said the conversation manager "works out what an incoming message means, and routes it". The writers table did not carry it through: it wrote only "what came in". Now:
+- the conversation manager writes each arrival **with its reading** (what is asked, what is referred to, time words resolved, claims, unknowns), as an interpretation, before it routes;
+- routing's candidates come from the reading, by exact values;
+- the worker understands new content before it plans or decides;
+- memory and knowledge uses the business's own knowledge to help any step understand, and shows a step only the records inside its boundary;
+- the routing queue is per person.
+
+New joining rules: IB-21 to IB-23.
+
+Changed here: the parts table, who writes what, the links section, the configuration section (a business may connect MCP servers), the memory and knowledge section, and three joining rules. Six joining rules at the end of the joining list are new (IB-15 to IB-20); three more, IB-21 to IB-23, were added on 29 October.
+
 ## The standard for this section
 
 Level 2 is the standard. Where Level 2 disagrees with another source, Level 2 wins. The Product Vision, the research folder, and the agent harness study apply where Level 2 is silent. Where the Product Vision disagrees with Level 2, Level 2 governs, and the Product Vision wording is flagged for Swaraj to change.
@@ -47,6 +64,10 @@ A part is not justified by a name, a database, a queue, or a server.
 - **Harness:** the fixed code around the AI. It runs the steps, checks each proposal, and saves each version.
 - **Registry:** the list of a business's settings: its sources, channels, and values.
 - **Change channel:** the internal route that carries changes between parts. A **messaging channel** is WhatsApp, email, or another route to a person.
+- **Reading** (since 2026-10-29): the conversation manager's written interpretation of one arrival, made before it routes: what is asked; what the arrival refers to, with time words turned into dates; the sender's claims; what is unknown; whether it refers to earlier work; its kind, if new; and whether it is work at all. It is saved with the arrival. It is never a fact or a conclusion.
+- **Boundary** (since 2026-10-29): the records one step may be shown to act on, set by fixed code before any search. For routing, the sender's own records; for the worker, its own situation in full and other situations' typed fields under the worker view rule. The business's own knowledge is not limited by it.
+- **View:** what one person may see. It decides what that person may be told.
+- **Send check:** the communication layer's check before any message goes out: a saved decision to send, an Allow from the permission check, the channel's rules and consent, and only what the recipient may be told (Section 8).
 
 ## The parts
 
@@ -56,7 +77,7 @@ A part is not justified by a name, a database, a queue, or a server.
 | **Situation worker** | Gathers, decides the next step, and writes what Tend concludes: facts, conflicts, waits, outcomes, human work, closure. | <!-- C, D, E, F, G, H, J, K, M, O10, P1–P3 --> |
 | **Conversation manager** | The whole system that reacts to a new message, a change, or a time signal, and sends messages to people. It contains the intake step, the situation worker, and the communication layer. Tools are outside it. | <!-- B, parts of I and L --> Routing, intake, and sending. |
 | **Communication layer** | Shapes, checks, and sends messages. Records what it sent. | <!-- I, L --> Expression, consent, and channel rules. |
-| **Memory** | Observes work, learns, keeps business knowledge, and proposes links and candidates. Writes no truth. | <!-- N --> |
+| **Memory and knowledge** | Runs beside every loop on its own thread. Before each part of a loop, hands over a package of what that part needs to know, or an explicit empty answer. Finds knowledge, creates and maintains links, keeps skills, procedures and learned knowledge, and learns. Decides nothing, and writes no situation record. | <!-- N, A15 --> |
 | **Owner view** | Views for the owner, the admin, and the builder, worked out from the records. | <!-- O, T11 --> |
 | **Tool layer** | Every call to an outside capability. Checks permission first, retries transient failures, records intent before an irreversible effect. | <!-- S, T, M4 --> |
 | **Status-check service** | Runs status checks for outside systems. Sends results back to the situation. | **Decided** (see the status-check section below) |
@@ -67,14 +88,15 @@ The observer is a function that runs alongside all of these. It emits observatio
 
 ## Who writes what to the situation record
 
-**The principle.** What comes in from outside is written by the conversation manager. What Tend concludes is written by the situation worker. What is sent is recorded by the communication layer. Memory proposes and writes no truth.
+**The principle.** What comes in from outside is written by the conversation manager, with its reading of it: what the arrival asks and refers to, an interpretation, never a conclusion. What Tend concludes is written by the situation worker. What is sent is recorded by the communication layer. Memory and knowledge writes its own records (links, learned knowledge, indexes) and never a situation record, except when it carries out a confirmed erasure.
 
 **Every write is a new version, and every write sends a change.** The change tells the other part that something changed. A write and its change happen in the same run. A write without its change is incomplete and is retried. <!-- Level 2 coordination: write and announce together -->
 
 | Update | Written by | Level 2 category | Notes |
 |--------|------------|------------------|-------|
-| Create the situation (first version) | Conversation manager (writes what came in as the first version) | Understanding (routing) | At intake, from the first message or change. |
-| Record an incoming message: attach it to a situation, create one, or keep it until it can be routed | Conversation manager | Understanding (routing) | Routed before anything is gathered. |
+| Create the situation (first version) | Conversation manager (writes what came in, with its reading, as the first version) | Understanding (routing) | At intake, from the first message or change. |
+| The reading of an arrival: what is asked, what it refers to, time words resolved, the sender's claims, unknowns, whether it is work | Conversation manager | Understanding | Written before routing, saved with the arrival. An interpretation, never a fact or a conclusion. An arrival that is not work is kept in the person's message history with its reading, and starts no situation. |
+| Record an incoming message: attach it to a situation, create one, or keep it until it can be routed | Conversation manager | Understanding (routing) | Understood first, then routed, before anything is gathered. |
 | Gathered facts and claims | Situation worker | Gathering | Each with its source and time. |
 | Conflict recorded | Situation worker | Understanding | Conflicts are kept visible, not resolved by guessing. |
 | Correction | Situation worker | Understanding | If the correction arrives as a message, the conversation manager records the message, and the worker writes the correction. |
@@ -85,9 +107,11 @@ The observer is a function that runs alongside all of these. It emits observatio
 | Wait written, refreshed, or finished; timer or check-in result; outcome declared; closure | Situation worker, which records the work as resolved. The conversation manager sets completed, only after no wait is open and the last message has gone out. | Time, Coordination, Failure | Time produces changes only. |
 | Human work item created | Situation worker | Human Collaboration | The behaviour creates the responsibility. |
 | Human answer recorded | Conversation manager | Human Collaboration | It arrives as an incoming message. |
-| Link proposed | Memory, or the conversation manager | Memory; Understanding | See the links section. |
-| Link accepted or denied | Situation worker | Understanding | On evidence only. Denial is allowed. |
-| Lesson or configuration candidate | Memory | Memory and knowledge | A candidate, not truth. A configurator validates a configuration candidate. |
+| Link created, maintained, or removed | Memory and knowledge (its link keeper). An employee who may see both situations may also remove a link. | Memory and knowledge; Understanding | A link is memory and knowledge's own record, not a situation version. See the links section. |
+| A claim sent from another situation | Conversation manager (intake), handed over by the sending worker's code | Coordination | An arrival like any other, keyed so a repeat is dropped, and counted per pair of situations. |
+| An update sent to a central situation | Conversation manager (intake), handed over by the person's situation's worker code | Journey and lifecycle | Automatic for every new version of a person's situation in an outreach. Typed fields only. |
+| Lesson, learned subject, business event, or configuration candidate | Memory and knowledge | Memory and knowledge | Learned knowledge, never a situation fact. A configurator validates a configuration candidate. |
+| An erasure carried out | Memory and knowledge's cleaner, only after the erasure tool's confirmation | Compliance and Security | The one write that removes data from situation versions and arrivals. A record that an erasure happened is kept, without the data. |
 
 **Recorded as decided on 2026-10-09, and Level 2's communication file says the same:** the conversation manager decides whether an update is worth telling the person. Decision Making chooses the next behaviour. The name of this choice is the update decision, which you decided.
 
@@ -103,15 +127,17 @@ The two parts never call each other directly. The situation record and its chang
 
 ## Links between situations
 
-**What a link is.** A link is a Tend record that connects two situations. It holds the two situations, the reason they are connected, the type of connection, and when it was created. It is a saved record, not memory. A link is not a merge. Each situation keeps its own record. <!-- Level 2 understanding: a link is a Tend artifact -->
+**What a link is.** A link is a Tend record that connects two situations. It holds the two situations, the reason they are connected, the type of connection, and when it was created. It is memory and knowledge's own record, not part of either situation's record. A link is not a merge. Each situation keeps its own record. <!-- Level 2 understanding: a link is a Tend artifact -->
 
 **When a link exists.** Only when there is a real shared reason, such as the same order, the same incident, or one situation's outcome affecting the other. Identity alone is never a reason. When unsure, there is no link until evidence appears. <!-- Level 2 understanding -->
 
-**Who proposes.** Memory proposes links. It proposes them when asked for related situations, and from the trace of finished work. The conversation manager may also propose a link when it creates a situation, for example a second outreach linked to a closed one.
+**Who creates and maintains links.** Memory and knowledge, through its link keeper, a fixed part that runs behind the loops. Swaraj decided this on 2026-10-28, because creating and maintaining knowledge is memory and knowledge's job. It replaces the rule of 2026-10-09, under which memory and knowledge (then called memory) proposed links and the situation worker accepted or denied them. <!-- A15 -->
 
-**Who decides.** The situation worker accepts or denies each proposal, on evidence. It may deny. A proposal with no evidence is never accepted.
-
-**Who writes an accepted link.** The situation worker writes it, as a new version that records both situations and the reason. <!-- Owner decision (Swaraj): memory proposes, the situation worker accepts or denies on evidence -->
+- **A link is made on a signal.** Three things count as a signal: the same order number, tracking number or incident code (the code an outside system gives one event, such as a hold at one hub) in typed fields of both situations, taken from an outside system's record or a person's confirmed answer; an employee's word that the two are related; or a finding while gathering that ties them. The link keeper creates the link once per key, and records the signal as its reason. <!-- A15 -->
+- **A shared meaning alone is not a signal.** The link finder, an AI part, may notice that two situations sound alike. Its proposal is reconciled by fixed rules, and stays unresolved until one of the three signals appears. <!-- A15; Level 2 reconciliation -->
+- **New work after a closed situation.** When the conversation manager starts a new situation for new work after a closed one, the link keeper links the two, and records the reason, for example "follow-on to the declined outreach". <!-- A7 -->
+- **Removing a link.** The link keeper removes a link whose signal turns out wrong. An employee who may see both situations may remove any link. Each removal is recorded, with its author. <!-- A15 -->
+- **Each situation's worker decides what a link means for its own work.** A link shares context; it never carries a change. <!-- N25 -->
 
 ## The owner view, admin, and builder
 
@@ -189,68 +215,112 @@ The two parts never call each other directly. The situation record and its chang
 
 **Writes.** Grant records, the registry of business values, and the schemas that validate them. <!-- G7, T8 -->
 
-**Does not.** Let an AI, a runtime agent, or memory change a grant. Memory proposes candidates; this part applies them after validation.
+**Does not.** Let an AI, a runtime agent, or memory and knowledge change a grant. Memory and knowledge proposes candidates; this part applies them after validation.
 
 **Rules it carries.**
 
 - Grants and registry writes are made only by the configurator's fixed tools. <!-- G7, T8 -->
 - The configurator is a role, held by the signup owner or by a person the owner assigns. That person works through the configurator's agent, which holds the fixed tools. <!-- G7 -->
 - Business settings are a typed registry: schemas, values, and validation. A setting is a record, not free text. <!-- Q1 -->
-- A new capability, system, or channel enters through the catalogue lifecycle: request, evaluate, author, contract, validate, test, enable, monitor, retire. A business policy follows its own lifecycle: draft, validate, activate, version, replace or expire, retire. <!-- Q2 -->
+- A new capability, system, or channel enters through the catalogue lifecycle (the one exception is an MCP server a business connects itself, below): request, evaluate, author, contract, validate, test, enable, monitor, retire. A business policy follows its own lifecycle: draft, validate, activate, version, replace or expire, retire. <!-- Q2 -->
 - Business policies and workflows are fixed when a situation opens. Facts, platform rules, and grants are live. A platform-rule change starts each open situation to re-check what is allowed now. A business-setting change does not start it. Any other change reaches an open situation only by deliberate migration. <!-- Q3 -->
+- A business may connect any MCP server. The configurator connects it through a fixed configuration tool, never the AI. Its tool list is captured, versioned and hashed when connected, and joins the business's tool list under the business's grants. A later change to the server's tool list waits for the configurator's approval. <!-- N27; U5 -->
 - Missing or unsupported configuration is shown as a visible gap, never silently refused. <!-- Q4 -->
 - A setting that needs a core change was put in the wrong place. <!-- Q5 -->
 - Structured configuration is checked against its schema before it is applied. <!-- S2 -->
 
 **Decided:** the configurator may not hand its power to another person.
 
-## Memory
+## Memory and knowledge
 
 <!-- B-Memory -->
 
-**Job.** Observes what the work did, learns from it, keeps business knowledge, and supplies the context each step needs.
+**Job.** Context engineering for every part of Tend's work. Swaraj: memory and knowledge is "an agency within the agency"; it sees the whole of one business, and its "main purpose is context engineering, not decision making". Knowledge is situations, skill files and business rules linked together, with intelligent reasoning over them. <!-- N18 -->
 
-**Writes.** Memory items: the business knowledge it keeps ready for use, learned lessons, and candidates. It proposes links. It writes no situation record.
+**How it sits beside the other parts.** It runs on its own thread, beside the loops of the conversation manager, the situation worker and the communication layer. At fixed points, the loop hands it what the loop already holds (the arrival, the situation and version, the written reasoning just produced), and waits for its package before the next part runs. <!-- N18, N19 -->
 
-**Owns.** Its own experience record: what it proposed, what it used, and what it learned. It keeps the business's knowledge ready for use, but the business owns that knowledge (Level 2). It owns the configuration candidates it proposes and the retrieval indexes. It also owns the prompt assembly templates, which the improvement part may edit only as Section 6 allows.
+| Point | In | Before which part |
+|---|---|---|
+| R1, before the reading | Conversation manager | The conversation manager's first AI turn, which writes the reading |
+| R2, after the reading | Conversation manager | The routing choice (by code when it can, by the AI when not), with the candidates found from the reading |
+| R3, before the routing check | Conversation manager | The fixed check, only when the AI made the choice |
+| W0, before understanding | Situation worker | Understanding new content, in three cases: an arrival into a situation that already has content; a document; a free-text result |
+| Before planning (W1) | Situation worker | Planning, on the first round and whenever a decision asks for a new plan |
+| Before acting (W2) | Situation worker | The fixed check of a plan or a decision, and the action |
+| Before deciding (W3) | Situation worker | Every decision |
+| Before writing (C1) | Communication layer | Writing a message |
 
-**Does not.** Change a business rule, a grant, an approval, or a permission. Send a message. Write the truth of a situation. Apply a configuration change.
+Its AI part runs at every point. When a decision ends the run, no part follows, so no point runs. <!-- N19 -->
+
+**Its inside parts.** <!-- N22, N23, N33 -->
+
+- **Two fixed parts**, one for routing and one for the worker, and a small lookup for the communication layer. Each fetches only by exact values, with no AI.
+  - Routing's: the sender's open situations, as summaries made of named fields; situations holding a number the message names, if they are the sender's own; the business's listed words (its own words with a set meaning, such as "dispatch ready"); business events and other named things whose name or alias appears in the message, with their dates, sources and who may be told them; earlier readings of the sender's words; the present time, and the arrival's own time. After the reading: the sender's situations holding a value the reading resolved (an ID, an order dated in a resolved range, a kind). Open ones always; when the reading says the arrival refers to a past purchase or earlier work, also a small set of the sender's own closed situations (agreed on 2026-10-03), by those values first and by description only inside them.
+  - The worker's: the work as first asked, with its reading; new content since the last understanding, with the conversation manager's reading of each arrival; what memory and knowledge presented earlier in this situation; the newest version, plan and results; the procedure pinned to the situation; skills and tools filed under its procedure or kind; the forms of tools the plan names, and lessons filed under those tools; the situation's links; the present time.
+  - The communication layer's: the recipient's preferences; the business's listed words; the channel's conventions; lessons filed for communication with this kind of recipient.
+- **The AI part.** It reads what the loop handed over and what the fixed part found. It revisits what it presented before, and says plainly when earlier advice was contradicted. It works out what the step needs, including what the arrival's or the work's words mean in this business, searching the business's side of the whole business for a term met for the first time. It asks the retrieval capability, arranges the package, and notes what to learn. Fixed code checks that every item cites its record.
+- **The retrieval capability.** The step says what it needs; retrieval decides how. <!-- N23 -->
+  1. Fixed code limits the search first: this business; for records, the step's boundary; for business knowledge, the business's own side; the kind, state, validity and pinned version; and the values the step understood (IDs, date ranges, kinds), as exact filters.
+  2. Exact, keyword, meaning and link searches run in parallel inside that set; each returns its own ranked list.
+  3. Fixed code combines the lists by each item's position, removes duplicates, and sorts the rest again by fit.
+  4. A final check in fixed code drops what is replaced, out of date, retired or outside the step's boundary, and keeps conflicts visible.
+  5. What comes back is evidence, each item with its source. No threshold accepts or rejects anything.
+- **Background parts**, which never block a loop: the link keeper (creates and maintains links), the indexer (keyword and meaning indexes), the link finder (proposes relationships based on meaning), the learner (lessons, business words, business events, learned subjects), and the cleaner (confirmed erasures; marks items whose own dates have ended as past).
+
+**Writes.** Links; learned knowledge (lessons, business words, business events, learned subjects); configuration candidates; its indexes; its own record of what it presented. It writes no situation record, except the cleaner carrying out a confirmed erasure. <!-- N33, U7 -->
+
+**Owns.** Its own experience record: what it presented, what it used, and what it learned. It keeps the business's knowledge ready for use, but the business owns that knowledge (Level 2). It keeps skills and procedures, the product's and the business's, in object storage, versioned. It owns the configuration candidates it proposes, its indexes, and the prompt assembly templates, which the improvement part may edit only as Section 6 allows. <!-- N26 -->
+
+**Does not.** Decide anything: it never chooses between candidates, chooses the next action, or says a claim is true. It does not search the web or call any outside system: the worker does, and memory and knowledge keeps what the worker established. Change a business rule, a grant, an approval, or a permission. Send a message. Write the truth of a situation. Apply a configuration change. <!-- N20, N28 -->
 
 **Rules it carries.**
 
-- Each decision step, and each routing step, gets only the memory it needs, not a full dump. <!-- N1, N11 -->
+- Before each part of a loop, the loop waits for its package: knowledge, or an explicit empty answer. <!-- N19 -->
+- Each package says, for each item: candidate or context; source and time; standing; needed or help; who may be told it; whether it is text written outside the business. It says how many candidates matched in all, and what was not found. <!-- N20 -->
+- Each step's written reasoning has fixed sections it reads: what is being considered, what is still unknown, questions for memory and knowledge, and exact-quote references. The conversation manager's reading adds what is asked, what is referred to (each resolution citing the item that resolved it), time, claims, earlier work, kind, and whether it is work. <!-- N21 -->
+- Memory and knowledge reads the whole business. It may use the business's own knowledge, from anywhere in the business, to help a step understand, each item marked with who may be told it. As records to act on, it shows a step only those inside the step's boundary, set by fixed code before any search: for routing, the sender's own records. Another person's record never shapes a step's understanding. Level 2: "Tend may use a confidential source internally while sending only a limited description externally." A worker sees another situation's named fields (kind, status, numbers, what it waits for) only when the two situations share a person, or share a number that an outside system's record or the person's confirmed answer tied to this situation. A number outside the step's boundary is never presented or hinted at. <!-- N34 -->
+- A step may use only a tool presented to it in this run. Memory and knowledge presents the subset of the business's tools, its MCP tools included, that each part needs. <!-- N27 -->
+- A run reads each skill at its current version when the skill is first presented, and records the version. A procedure is pinned per situation. <!-- N26 -->
+- For an unknown subject it says so, and presents the deep-research skill and the web tools. <!-- N28 -->
+- The present time is in every package. Business events are learned knowledge with dates, sources and who may be told them. An event in an arrival is presented before the conversation manager's reading. <!-- N29 -->
+- If no package arrives, the step waits a set time, then the work goes to a person. If only the AI part fails, the fixed items still arrive. Before the reading, an unresolved word is marked unknown, and if routing's choice depends on it the arrival is held and the sender asked. <!-- N31 -->
+- Memory and knowledge revisits its own earlier advice at every point. <!-- N36 -->
+- Routing's candidates come from the reading: by its exact values first, and by description only inside what those values leave. The sender's own closed situations are looked at only when the reading says the arrival refers to a past purchase or earlier work, as a small set (agreed on 2026-10-03). <!-- N37 -->
+- Each package is recorded in the run's trace as references only. <!-- N32 -->
+- A cache never guards a decision. <!-- N33 -->
+- Each decision step, and each routing step, gets only the knowledge it needs, not everything memory and knowledge holds. <!-- N1, N11 -->
 - Closed situations inform new ones only through links and relevance. <!-- N2 -->
-- Memory keeps the experience of what happened. <!-- N4 -->
-- Each memory item points to the situation, experience, claim, version, or correction it came from. <!-- N5 -->
-- Traces are recorded for memory, asynchronously. Recording a trace does not switch learning on. <!-- N6 -->
+- Memory and knowledge keeps the experience of what happened. <!-- N4 -->
+- Each learned item points to the situation, experience, claim, version, or correction it came from. <!-- N5 -->
+- Traces are recorded for memory and knowledge, asynchronously. Recording a trace does not switch learning on. <!-- N6 -->
 - Learning is on by default. A configurator can switch it off, or require a person to validate each lesson. <!-- N6 -->
 - Candidate lessons come from external failure signals, not from self-reflection alone. <!-- N7 -->
 - A new lesson is matched against existing claims. An ambiguous match never overwrites silently. <!-- N8 -->
 - Each learned item has a lifecycle: active, stale, superseded, conflicting, retired, or unresolved. <!-- N9 -->
 - Before a lesson is kept, Tend re-runs old cases to check that it does no harm. Harmful lessons are reversed. <!-- N10 -->
 - Business vocabulary and conventions are business knowledge. <!-- N12 -->
-- Memory proposes configuration candidates. A configurator validates each one. Only the configuration tools apply it. <!-- N13 -->
-- Structured values belong to the configuration part. Prose preferences are placed by memory at the step that writes a reply, and the business owns their text. <!-- N14 -->
+- Memory and knowledge proposes configuration candidates. A configurator validates each one. Only the configuration tools apply it. <!-- N13 -->
+- Structured values belong to the configuration part. Prose preferences are placed by memory and knowledge at the step that writes a reply, and the business owns their text. <!-- N14 -->
 - Business content learning is kept apart from product behaviour improvement. <!-- N15 -->
-- Each memory item keeps its origin, scope, version, and how far it may influence decisions. Memory is advisory. <!-- N16 -->
-- Credentials, secrets, and authentication material are never stored as business memory. <!-- N17 -->
-- Memory's loader output is checked against its schema before it is used. <!-- S11 -->
-- Missing memory never blocks a decision. The situation worker treats the gap as a gather step, or as capability-absent. <!-- D8, O10 -->
-- Activating memory does not run its own permission check. The situation worker checks permission for each effect. <!-- T2 -->
-- Before trace content goes to memory or to the improvement path, it is redacted. <!-- trace redaction gate -->
+- Each learned item keeps its origin, scope, version, and how far it may influence decisions. What memory and knowledge presents is advisory. <!-- N16 -->
+- Credentials, secrets, and authentication material are never stored as learned knowledge. <!-- N17 -->
+- Each package is checked against its schema before it is used. <!-- S11 -->
+- Missing knowledge never blocks a decision. The situation worker treats the gap as a gather step, or as capability-absent. <!-- D8, O10 -->
+- Presenting knowledge does not run a permission check. The situation worker checks permission for each effect. <!-- T2 -->
+- Before trace content goes to memory and knowledge or to the improvement path, it is redacted. <!-- trace redaction gate -->
 
-**Recorded as decided on 2026-10-09 (to confirm). Level 2 is silent on this point:** memory observes the configurator's setup sessions, but only proposes candidates, which a configurator validates.
+**Recorded as decided on 2026-10-09 (to confirm). Level 2 is silent on this point:** memory and knowledge observes the configurator's setup sessions, but only proposes candidates, which a configurator validates.
 
 ## Improvement
 
 <!-- Adjacent-Improvement -->
 
-**Job.** Improves how Tend behaves, from verified traces. Keeps training traces apart from business memory.
+**Job.** Improves how Tend behaves, from verified traces. Keeps training traces apart from memory and knowledge.
 
 **Rules it carries.**
 
-- Traces kept for product improvement are separate from business memory. <!-- R1 -->
-- Prompt optimisation is limited to the memory-owned assembly templates. The product constitution stays human-edited. <!-- R2 -->
+- Traces kept for product improvement are separate from memory and knowledge. <!-- R1 -->
+- Prompt optimisation is limited to the assembly templates memory and knowledge owns. The product constitution stays human-edited. <!-- R2 -->
 - Behaviour improves from verified traces. Business rules are never placed in AI weights. <!-- R3 -->
 
 ## The observer
@@ -297,11 +367,20 @@ These are the connections between the parts. Each one is a rule the parts must f
 - An unknown-outcome recheck is a timer that starts the situation worker, and uses the same status path. It is not a separate tool or action. <!-- IB-9 -->
 - An unknown outcome on an irreversible action keeps the situation waiting until the promised settle window is spent. <!-- IB-10 -->
 - Starting an action, recording it as unknown, and waiting are saved in one version. <!-- IB-11 -->
-- Worker traces go to memory asynchronously, and never block a save. <!-- IB-12 -->
-- Memory may propose configuration. Only the configurator's fixed tools apply it. <!-- IB-13 -->
-- Training-grade traces feed product improvement, kept apart from business memory. <!-- IB-14 -->
+- Worker traces go to memory and knowledge asynchronously, and never block a save. <!-- IB-12 -->
+- Memory and knowledge may propose configuration. Only the configurator's fixed tools apply it. <!-- IB-13 -->
+- Training-grade traces feed product improvement, kept apart from memory and knowledge. <!-- IB-14 -->
+- Before each part of the conversation manager's, the situation worker's, and the communication layer's loops, the loop hands memory and knowledge what it holds, and waits for its package. <!-- IB-15 -->
+- A worker's decision may send a claim to another situation. The worker's code passes the claim to the conversation manager's intake, which saves it on the other situation. Each claim carries an ID, so a repeat is ignored. A limit per pair of situations, set in configuration, stops two workers sending to each other forever. <!-- IB-16 -->
+- In an outreach, each new version of a person's situation is handed by fixed code to intake, as an arrival for the central situation, typed fields only. Nothing flows back from the central situation to a person's situation automatically. <!-- IB-17 -->
+- Memory and knowledge's link keeper reads version notices and creates links from shared numbers and incident codes. It never writes a situation record. <!-- IB-18 -->
+- Only the erasure tool starts an erasure, and only after its confirmation flow returns the owner's or configurator's yes. The cleaner then carries it out everywhere. <!-- IB-19 -->
+- A decision is checked against the newest version before it acts. A decision made on an older version is thrown away and made again. Just before an action that cannot be undone, the version is checked once more. <!-- IB-20 -->
+- The conversation manager understands an arrival before it routes it, and saves its reading with the arrival. The worker reads the reading, and never works out the arrival's meaning again from scratch. <!-- IB-21 -->
+- Routing runs one at a time per person, keyed by the person ID that code finds from the channel address. Two channels of one person share one queue. <!-- IB-22 -->
+- The worker understands new content before it plans or decides. A new situation's reading is its first understanding. <!-- IB-23 -->
 - A situation version is saved and announced as one unit. An unannounced save is retried. <!-- HC-1 -->
-- The conversation manager works out what an incoming message means, and routes it. Only the situation worker writes conclusions. <!-- HC-2 -->
+- The conversation manager works out what an incoming message means, and routes it: first the reading, then the route. It writes the reading as an interpretation. Only the situation worker writes conclusions. <!-- HC-2 -->
 - Every wait is written to the book of waits, with its start trigger. One check-in per situation is the only periodic backstop. No part of Tend asks an outside system "is it done yet?" on a schedule. <!-- HC-3 -->
 - The identity of a run is set once, from verified identity, and never from message text, links, or tool arguments. <!-- AC-1 -->
 - Before any outgoing message, a fixed check returns Allow, Deny, or StepUp. <!-- AC-2 -->
@@ -323,7 +402,7 @@ A closed situation stays closed. It is reopened only when its closure was wrong:
 3. **Admin reads of the audit trail.** Every admin read is logged.
 4. **Tenant data for training.** No, without the owner's written permission.
 5. **Owner access to the audit trail.** No by default.
-6. **Memory and setup sessions.** Memory observes setup sessions and proposes candidates only. A configurator validates them.
+6. **Memory and knowledge and setup sessions.** Memory and knowledge observes setup sessions and proposes candidates only. A configurator validates them.
 7. **The status-check service.** Its own part, with results returned as messages to the situation. Technical detail is for Level 3.
 8. **Record checks.** Recorded earlier: no separate checker, to confirm. A write without its record is retried. Level 2 names no checker.
 9. **Consent withdrawal.** Withdrawal stops every future message to that person. Level 2 records withdrawal in consent records but does not state this rule.
