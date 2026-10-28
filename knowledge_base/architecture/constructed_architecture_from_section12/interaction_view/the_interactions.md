@@ -28,11 +28,11 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 The parts:
 - The **situation record** is the saved list of versions for one situation. <!-- Section 7: the parts table -->
 - The **conversation manager** does four things: it takes in each arrival; it puts the arrival on the right situation; it decides whether a person should hear an update; and it alone sets a situation to completed. Its **intake step** is the fixed first step that reads each new arrival. An **arrival** is anything that comes in from outside: a person's message, an outside system's answer, a platform's news. <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer -->
-- The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
+- The **situation worker** works one situation through the **situation loop**: understanding what is new, gathering, weighing evidence, deciding, acting; and it writes what Tend concludes. <!-- Section 7: the parts table; PL-1 -->
 - The **communication layer** checks, sends, and records each message, and keeps the consent records. <!-- Section 7: the parts table; decided 2026-10-22: consent records -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier (the delivery company), or a messaging channel. <!-- Section 7: tool layer -->
 - The **status-check service** waits on an outside system while the work goes on. <!-- decided by the owner, 2026-10-17 -->
-- **Memory** keeps what Tend learned, and hands each step what it needs. <!-- Section 7: memory -->
+- **Memory and knowledge** runs beside every loop. Before each stage that reasons, it hands that stage a **package**: knowledge to use, or an explicit empty answer. It keeps the links between situations, and what Tend learned. <!-- Section 7: memory and knowledge -->
 - **Configuration** holds the business's settings, permissions, and members. The **configurator** — the business owner, or someone the business owner names — changes them, through fixed tools. <!-- Section 7: configuration; decided 2026-10-22: identity and permission -->
 - The **owner view** builds the screens people open. <!-- Section 7: the parts table -->
 - **Improvement** is how the product team makes Tend behave better for every business, from records of past runs. <!-- Section 7: improvement -->
@@ -43,7 +43,9 @@ The other words:
 - A **situation** is one problem, such as Meera's late parcel. Each change to it is a new **version**. A new version sends a short internal **signal**, called a notice; people never see it. <!-- A1; HC-1 -->
 - A **wake** is a signal that sends the situation worker back to one situation: a saved version's notice, a time signal, or the check-in.
 - A **run** is one pass of the situation worker over one situation.
-- **The AI** suggests a next step, called a **proposal**. **Fixed code** — code that always makes the same check — checks it. The AI never decides alone. <!-- Level 2 security: the spine -->
+- **The AI** writes a **reasoning artifact** in the stages that reason; in deciding, it proposes a next step, called a **proposal**. **Fixed code** (code that always makes the same check) checks it. The AI never decides alone, and never decides to continue. <!-- Level 2 security: the spine; PL-1 -->
+- Tend's **product loop** is four loops made of **stages** (added 2026-10-29): the **arrival loop** (the conversation manager: intake, understanding the arrival, routing), the **situation loop** (the worker), the **update loop** (the update decision), and the **message loop** (the communication layer). A stage with nothing to do is passed; a stage's finding may end the loop. <!-- PL-1 -->
+- **Understanding the arrival** is the conversation manager's one AI stage. It writes an **understanding artifact** before anything acts on an arrival: each ask and whether it is about the business, what each refers to, what Tend already holds that answers it, and where each ask fits. **Routing** is the fixed code that carries it out. <!-- PL-3; PL-6 -->
 - A **wait** is a pause on a situation until one named thing happens. The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A **time signal** is the alarm the worker sets for one wait's due time; it wakes only the worker. A **check-in** is the one regular wake each waiting situation gets, in case an earlier wake was lost. A **follow-up** is a message Tend has planned to send later, held as a wait. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat. <!-- L1 -->
 - **Evidence** is what an outside system said, with its source and time. <!-- IB-7 -->
@@ -60,16 +62,21 @@ The other words:
 - The **escalation path** is the business's own list of who to turn to next when work is not done. <!-- J5 -->
 - A **trace** is the saved record of what happened during one run.
 
-The people in the examples: Meera and Priya are customers. Arjun is the business's employee who handles deliveries.
+The people in the examples: Meera, Priya and Arjun are customers. Kabir is the business's employee who handles deliveries.
+
+**Updated 2026-10-28.** Memory and knowledge now runs beside every loop: before each part of a loop, the loop waits for its package (interaction 3). It creates and maintains links (interaction 20). A claim can be sent from one situation to another (interaction 24). An outreach has a central situation (interactions 17 and 25). Erasure runs only through a confirmed tool (interaction 26). <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+- The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.) (Added 2026-10-29.)
+- A **package** is what memory and knowledge hands a stage before it runs: knowledge to use, or an explicit empty answer. Packages come before the stages that reason, and are named by the stage: "the package before deciding". (The codes R1 to R3, W0 to W3 and C1 used earlier on 2026-10-29 are replaced.) <!-- PL-17 -->
+- A step's **boundary** is the set of records it may be shown to act on, set by fixed code: for understanding the arrival (and so routing), the sender's own records; for the worker, its own situation in full, and other situations' typed fields where the worker view rule allows. The business's own knowledge (events, words, procedures, lessons) is not limited by it. A person's **view** is what that person may see, and so what they may be told. (Added 2026-10-29.)
 
 ## At a glance
 
 | # | Interaction | Starts when | Ends with |
 |---|---|---|---|
-| 1 | A message arrives | A person writes | The message joins a situation, starts one, or is held |
+| 1 | A message arrives | A person writes | Understood first; then it joins a situation, starts one, is held, or is answered at once from what Tend holds |
 | 2 | A timer or check-in wakes a situation | A wait's time comes | The worker's next step, or nothing if the wait was replaced |
-| 3 | The worker asks memory | A step needs context | Only the facts that step may see |
-| 4 | The worker calls an outside system | A checked proposal | Evidence, never an instruction |
+| 3 | Memory and knowledge hands a stage its package | A loop reaches a stage that reasons: understanding the arrival; the wider look; understanding the situation; gathering; deciding; writing a message | The package: knowledge to use, or an explicit empty answer. Records shown stay inside the step's boundary; every item says who may be told it |
+| 4 | The worker reads from, or calls, an outside system | A step of gathering's information plan (a read), or a checked proposal (a step) | Evidence, never an instruction |
 | 5 | A step that cannot be undone | A refund is proposed | Checked, noted, then sent; if the result is unknown, Tend waits |
 | 6 | A long wait handed on | A tool's few checks have no answer | The tool declares the wait; the service's answer comes back as an arrival |
 | 7 | A person must approve first | The permission check asks for approval | A named person says yes or no |
@@ -82,13 +89,17 @@ The people in the examples: Meera and Priya are customers. Arjun is the business
 | 14 | A situation is completed | The work is resolved | Only the conversation manager sets completed |
 | 15 | A closed situation is reopened | A message says the same problem came back | The same record runs again |
 | 16 | A document nobody asked for | A document arrives unasked | Filed, and nothing else done |
-| 17 | One instruction for many people | A list of people | One situation per person |
+| 17 | One instruction for many people | A list of people | One situation per person, and one central situation linked to all of them |
 | 18 | A person withdraws consent | "STOP", or "stop contacting me" | What was withdrawn stops, from the very next send |
-| 19 | Traces go to memory, improvement, and the observer | A run's trace is saved | Lessons proposed later; no situation changed |
-| 20 | Memory proposes a setting or a link | A candidate in past work | Checked by the configurator, or by the worker |
+| 19 | Traces go to memory and knowledge, improvement, and the observer | A run's trace is saved | Lessons learned later; no situation changed |
+| 20 | Memory and knowledge creates a link, or proposes a setting | A shared number in two situations' records; a candidate setting in past work | A link, as memory and knowledge's own record; a setting checked by the configurator |
 | 21 | A setting or a rule changes | A new setting or platform rule | Open situations affected only as the kind of change allows; after a platform rule change, the affected situations are woken at once |
 | 22 | The business owner opens a screen | Someone asks to see the work | A screen built fresh from the records |
 | 23 | The observer reports | Its own checks | The product team's screens |
+| 24 | A claim is sent to another situation | A worker decides another situation waits for what this one holds | An arrival in the other situation, whose worker decides what it means |
+| 25 | A person's update reaches the central situation | A new version of a person's situation in an outreach | An arrival on the central situation; the business owner hears only what is material |
+| 26 | A person's data is erased | The law requires it, and the AI proposes it in the erasure tool | The owner's or configurator's yes, then the erasure everywhere the data lives |
+| 27 | An arrival that is not about the business | "hi", a general question, a sum | A reply that says nothing about the business; no situation; nothing learned |
 
 ## The whole picture
 
@@ -100,8 +111,10 @@ Each row is one hand-off: who passes what to whom. This is the common route; the
 | Conversation manager | Situation record | A new version, with what came in |
 | Situation record | Situation worker | A notice |
 | A time signal the worker set | Situation worker | A due time or a check-in |
-| Situation worker | Memory | A request for the facts this step needs |
-| Situation worker | Tool layer | A checked call |
+| Conversation manager, situation worker, communication layer | Memory and knowledge | At each point, what the loop holds: the arrival, the situation and version, the reasoning artifact just produced; and what each stage that is fixed code did, for it to observe |
+| Memory and knowledge | Conversation manager, situation worker, communication layer | A package before each stage that reasons |
+| Situation record | Memory and knowledge | Each version's notice, for links, indexes and learning |
+| Situation worker | Tool layer | A read from gathering's information plan, or a checked call from acting |
 | Tool layer | Trusted permission store | A read at the moment of the check; only configuration writes this store |
 | Tool layer | Outside system | One call |
 | Tool layer | Situation worker | Evidence |
@@ -112,38 +125,47 @@ Each row is one hand-off: who passes what to whom. This is the common route; the
 | Conversation manager | Situation record | The answer, saved as an arrival |
 | Situation worker | Situation record | What Tend concludes, as a new version |
 | Situation record | Conversation manager | A notice |
-| Conversation manager | Communication layer | Worth telling: the update decision, recorded; it asks the communication layer to send what the worker saved |
+| Conversation manager | Communication layer | Worth telling: the update decision, recorded, asking it to send what the worker saved; or a reply decision, saved with an arrival |
 | Communication layer | Tool layer | The send |
 | Communication layer | A person | A checked message |
-| A run's trace | Memory, improvement, observer | Later, in the background |
-| Memory | Configurator | A proposed setting |
+| A run's trace | Memory and knowledge, improvement, observer | Later, in the background |
+| Memory and knowledge | Configurator | A proposed setting |
 | Owner view | Situation record | A read, when someone asks |
 
-<!-- Section 7: how the two parts work together; Section 8: which change starts which part; AC-4; M4; IB-12; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer -->
+<!-- IB-15; IB-18; Section 7: how the two parts work together; Section 8: which change starts which part; AC-4; M4; IB-12; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer -->
 
-The intake step and the situation worker never call each other. One writes a version; its notice wakes the other. A part may still ask another for a read or a step — the worker asks memory, or the tool layer — but nothing changes a situation until it is saved. The conversation manager asking the communication layer to send is such a step: what to say is already saved by the worker, and the update decision is recorded. <!-- Section 7: the parts never call each other -->
+The intake step and the situation worker never call each other. One writes a version; its notice wakes the other. A part may still ask another for a read or a step — the loop waits for memory and knowledge's package, or the worker asks the tool layer — but nothing changes a situation until it is saved. The conversation manager asking the communication layer to send is such a step: what to say is already saved by the worker, and the update decision is recorded. <!-- Section 7: the parts never call each other -->
 
 Every change goes to one part first. The other parts react to the version that part writes. They never write about the same change at the same time. <!-- IA-1 -->
 
 ## 1. A message arrives
 
-- **Starts it:** a person writes — a customer, an employee, a supplier — on any channel. <!-- B1 -->
-- **Goes to:** the conversation manager, at its intake step. <!-- Section 8: which change starts which part -->
+- **Starts it:** a person writes: a customer, an employee, a supplier, on any channel. <!-- B1 -->
+- **Goes to:** the conversation manager's arrival loop, at its intake step. Messages from one person are handled one at a time, keyed by the person ID. A message Tend has already handled is dropped before anything else happens. <!-- Section 8: which change starts which part; B10; IB-22; S12 -->
 - **Carries:** the message, the channel's reference to it, and the sender, as checked. A message from a channel bound to a member carries that member's name, but not proof of the person. <!-- B7; T1; decided 2026-10-22: identity and permission -->
-- **Decides:** the intake step decides which situation the message belongs to: <!-- Section 8: routing outcomes -->
-  - one clear match — the message is about the same problem as an open situation: it joins that situation;
-  - no match: a new situation starts, or the message is held until it can be placed;
-  - clear matches with two situations: Tend creates two situations at once, and the message is not held. It never attaches silently;
-  - a weak match: Tend asks the sender which one is meant. It never guesses.
+- **Understands first** (the conversation manager's one AI stage). After memory and knowledge's package (interaction 3), understanding the arrival writes its understanding artifact. It records:
+  - each ask, and whether it is about the business;
+  - what each refers to, with time words turned into dates;
+  - what is only the sender's claim, and what is unknown;
+  - what Tend already holds that answers it;
+  - where each ask fits.
 
-  A message Tend has already handled is dropped before anything else happens. <!-- S12 -->
-- **Changes:** the conversation manager writes the message as a new version. For a new situation, it writes the first version, with what came in. <!-- IB-6 -->
-- **If it fails:** if the conversation manager is down, the message is held; nothing is sent. <!-- Section 7: failure and unavailability -->
-- **Comes back:** a notice that wakes the situation worker for that situation. <!-- IB-2 -->
+  When an ask refers to a past purchase or earlier work, memory and knowledge narrows the sender's own situations by what understanding resolved, and the wider look chooses among them. It uses only what Tend holds; it never calls an outside system. <!-- C7; C8; N37; PL-3; PL-4 -->
+- **Decides:** fixed code chooses the ending from the artifact. <!-- Section 8: routing outcomes; PL-5 -->
+  - **Not about the business:** no situation. The conversation manager replies, saying nothing about the business (interaction 27).
+  - **Nothing to do** (a thank-you that answers nothing): no situation; the message is kept in the person's message history. <!-- C9 -->
+  - **Answered from what Tend holds** (a current claim in the sender's own situation, with no open conflict, or a fact the business configured): routing places it, marked, and the conversation manager tells the person at once. <!-- PL-10 -->
+  - **Hold and ask** (it cannot tell which situation is meant): a held note, and a question to the sender. It never guesses. <!-- B3 -->
+  - **Routed:** routing, which is fixed code, attaches the message to the situation it fits; starts a new situation; or starts one situation per separate problem at once, and never attaches silently. <!-- PL-6 -->
+- **Changes:** routing writes the message, with its understanding artifact, as a new version. For a new situation, it writes the first version, with what came in and the artifact. <!-- IB-6; C8 -->
+- **If it fails:**
+  - if the conversation manager is down, the message is held, and nothing is sent; <!-- Section 7: failure and unavailability -->
+  - if understanding cannot run, or routing's check fails twice, the message goes to the person the business named for arrivals Tend could not place. <!-- settled 2026-10-22: memory unreachable; PL-6 -->
+- **Comes back:** a notice that wakes the situation worker for that situation, when a version was written. <!-- IB-2 -->
 
 Which business the message belongs to, and who sent it, is fixed once, at intake, from what can be checked. It is never taken from the message's text. A sign-in proves a person; a channel bound to a member proves only the channel, so routine words from it are recorded as claims. <!-- AC-1; decided 2026-10-22: identity and permission -->
 
-For example, Meera texts "any news?" while two of her orders are open. Tend asks her which order she means. <!-- B3 -->
+For example, Meera texts "any news?" while two of her orders are open. Understanding cannot tell which she means, so Tend asks her. <!-- B3 -->
 
 ## 2. A timer or a check-in wakes a situation
 
@@ -159,21 +181,38 @@ A blocked situation has no check-in. It wakes when what blocks it goes away, or 
 
 For example, Meera's carrier promised an answer by 17:00. At 17:00 the wait's timer wakes the worker, which finds no answer, and takes the next step on the business's escalation path.
 
-## 3. The worker asks memory for context
+## 3. Memory and knowledge hands a stage its package
 
-- **Starts it:** the situation worker, or the conversation manager at routing, needs context for one step. <!-- N1; N11 -->
-- **Goes to:** memory.
-- **Carries:** which step, and which situation. <!-- N1 -->
-- **Decides:** memory chooses the small set that step needs, never all of it. For routing, it gives a one-line summary of each open situation first, and the full record only after one is chosen. <!-- N1; N11 -->
-- **Changes:** nothing. Memory writes no truth about a situation. <!-- Section 7: memory -->
-- **If it fails:** missing memory never blocks a decision. The worker treats the gap as something to gather, or as "Tend cannot know this here". <!-- Section 7: memory, missing memory -->
-- **Comes back:** only the facts this step is allowed to see. <!-- Section 8: memory serve check -->
+- **Starts it:** a loop reaches a stage that reasons: <!-- N19; IB-15; PL-17 -->
+  - understanding the arrival (every arrival with words);
+  - the wider look, when it runs;
+  - understanding the situation, gathering and deciding, when each runs;
+  - writing a message.
 
-For example, for Meera's parcel, the worker gets the tracking events so far, not Meera's whole history.
+  The stages that are fixed code (intake, routing, the reply and update decisions, weighing evidence, acting, the send check) get no package; memory and knowledge observes them.
+- **Goes to:** memory and knowledge, which runs beside the loop on its own thread. <!-- N18 -->
+- **Carries:** what the loop already holds at that point: the arrival and its sender, the situation and its version, and the reasoning artifact just produced, with any questions it wrote for memory and knowledge. <!-- N19; N21 -->
+- **Chooses:** memory and knowledge chooses what to look for, and how to arrange what it found. It decides nothing about the work.
+  - Its fixed part fetches by exact keys.
+  - Its AI part works out what else the stage needs, and asks the retrieval capability. Retrieval limits the search for records to the step's boundary before it searches.
+  - The business's own knowledge may help any stage understand, each item marked with who may be told it.
+  - Every candidate is presented with what tells them apart; it never chooses.
 
-## 4. The worker calls an outside system
+  <!-- N20; N22; N23; N34 -->
+- **Changes:** nothing in any situation. The package's references go to the trace. <!-- N32; N33 -->
+- **If it fails:**
+  - **No package arrives:** the loop waits a set time, then the step goes to a person.
+  - **Only the AI part fails:** the fixed part's items still arrive.
+  - Missing knowledge never blocks a decision. <!-- N31 -->
+- **Comes back:** the package: knowledge to use, or an explicit empty answer. The stage runs only with it. When a stage is passed and the version did not change, its package carries to the next stage. When a decision ends the run, no stage follows, and nothing is awaited. <!-- N19; PL-17 -->
 
-- **Starts it:** the situation worker, after the AI's proposal passes its checks. <!-- S2 -->
+For example, before the worker decides on Meera's parcel, the package holds the work as she first asked it, the information plan, the tracking events so far with their sources, and the lesson filed under the carrier's tool. It does not hold Meera's whole history.
+
+## 4. The worker reads from, or calls, an outside system
+
+- **Starts it:** the situation worker, in one of two stages: <!-- S2; PL-12; PL-15 -->
+  - **gathering**, running a read from its information plan; a read changes nothing outside Tend;
+  - **acting**, after the AI's proposal passed its checks; this is a step, which may change something outside Tend.
 - **Goes to:** the tool layer. <!-- Section 7: tool layer -->
 - **Carries:** the checked call, and which business it runs for. <!-- AC-1 -->
 - **Decides:**
@@ -186,7 +225,7 @@ For example, for Meera's parcel, the worker gets the tracking events so far, not
   - while the wait lasts, the customer is not left in silence: the conversation manager's update decision gives them an honest word before any promised time. <!-- Level 2 time: the customer clock -->
 - **Comes back:** evidence, never an instruction. The tool never writes conclusions into the situation; only the worker does. <!-- IB-7 -->
 
-For example, the worker asks the carrier about Meera's parcel. The answer "out for delivery, 2 pm" comes back as evidence, with its time. (The times and amounts in this file's examples are illustrations.)
+For example, gathering asks the carrier about Meera's parcel. The answer "out for delivery, 2 pm" comes back as evidence, with its time. (The times and amounts in this file's examples are illustrations.)
 
 ## 5. A step that cannot be undone
 
@@ -242,21 +281,22 @@ For example, the business sets a refund setting of 500. A refund of 1,500 on ord
 
 ## 8. Telling a person
 
-- **Starts it:** the situation worker writes what should be said, as part of a new version. It never sends. <!-- IB-5; Section 10: the worker never sends -->
+- **Starts it:** the situation worker's deciding stage names what should be said, and acting writes it into a new version. It never sends. Gathering's information plan may also ask a person a question for information, saved the same way. Or (since 2026-10-29) the conversation manager's reply decision decides to answer an arrival at once: a reply to one that is not about the business, or an answer from what Tend holds. <!-- IB-5; Section 10: the worker never sends; PL-8; PL-10 -->
 - **Goes to:** the conversation manager, woken by the version's notice. <!-- Section 7: how the two parts work together -->
 - **Carries:** the new version, with what changed and what should be said. <!-- IB-5 -->
-- **Decides:** the conversation manager makes the update decision. Then the communication layer checks four things before anything is sent: <!-- decided: the update decision; Section 8: the send check -->
-  1. Tend has a saved decision to send this message;
+- **Decides:** the conversation manager makes the update decision (fixed code), or has already made the reply decision. The communication layer writes the message, after memory and knowledge's package. Then it checks, before anything is sent: <!-- decided: the update decision; Section 8: the send check; PL-16 -->
+  1. Tend has a saved decision to send this message: the worker's, with the update decision, or the conversation manager's reply decision, saved with its arrival;
   2. the permission check says Allow for this channel, this person, and this kind of message;
   3. the channel's own rules are met, read fresh, with the consent records;
-  4. only the details this person may see stay in the message.
+  4. only the details this person may see stay in the message;
+  5. a reply to an arrival that is not about the business carries no claim about the business. <!-- PL-9 -->
 
-  A send that is refused returns its reason; the worker suggests again or escalates. <!-- AC-2 -->
+  A send that is refused returns its reason; the message is written again once, then the worker decides again or escalates. <!-- AC-2 -->
 - **Changes:** the communication layer writes its own record of what was sent. It is not a version of the situation; its save is announced like any other, naming the situation. <!-- Section 7: the sent record, two readings -->
 - **If it fails:** a message that cannot be delivered is recorded as evidence, and the worker wakes and decides. <!-- IA-10 -->
 - **Comes back:** the sent record; later, any delivery receipt. <!-- Section 8: delivery acknowledgement -->
 
-A run that changes nothing sends nothing. No "we received your message" reply is sent. <!-- Section 8: what a message looks like -->
+A run that changes nothing sends nothing. No "we received your message" reply is sent. A reply to "hi", or a short answer to a general question, is not such a receipt: it answers what the person asked (interaction 27). <!-- Section 8: what a message looks like; PL-8 -->
 
 A reply stays on the channel the person used, while that channel still allows replies. A new message uses the first channel that is available and allowed. If no channel is allowed, the person the business names for this decides how to reach the customer, or Tend waits for the customer to write. <!-- L3; Level 2 channels: a routing outcome -->
 
@@ -286,7 +326,7 @@ For example, the channel reports at 10:02 that Meera's message reached her phone
 
 Saying "got it" acknowledges a request; it does not finish it. A handoff stays pending until the other person accepts it. <!-- J6; J8 -->
 
-For example, Arjun replies "got it" to the request to call the carrier's depot. The work item stays open until Arjun records what the depot said.
+For example, Kabir replies "got it" to the request to call the carrier's depot. The work item stays open until Kabir records what the depot said.
 
 ## 11. Contacting a partner
 
@@ -298,7 +338,7 @@ For example, Arjun replies "got it" to the request to call the carrier's depot. 
 - **If it fails:** as with any message: recorded, and the worker decides the next step.
 - **Comes back:** the partner's answer, as an incoming message.
 
-For example, Meera's carrier is still silent after Arjun's call, and the business allows partner contact. Tend sends the carrier's team the tracking number and the problem, and nothing else.
+For example, Meera's carrier is still silent after Kabir's call, and the business allows partner contact. Tend sends the carrier's team the tracking number and the problem, and nothing else.
 
 ## 12. Arranging a meeting
 
@@ -343,9 +383,9 @@ The completion check runs during a situation, not only when it closes. It runs i
 ## 15. A closed situation is reopened
 
 - **Starts it:** a message that refers to a closed situation explicitly. <!-- A8 -->
-- **Goes to:** the conversation manager's intake step. <!-- A8 -->
+- **Goes to:** the conversation manager's arrival loop. <!-- A8 -->
 - **Carries:** the message, and the closed situation it refers to.
-- **Decides:** the intake step decides whether the closure was wrong: the same problem was resolved too early, or it has come back. A closed situation is never used as a bucket for "this customer wrote again". <!-- A8 -->
+- **Decides:** understanding the arrival decides whether the closure was wrong, and routing carries it out: the same problem was resolved too early, or it has come back. A closed situation is never used as a bucket for "this customer wrote again". <!-- A8 -->
 - **Changes:** if the closure was wrong, the situation worker moves the same record back to running, with the reason recorded. "Reopened" is a mark on that same record, not a new record. If the closure was not wrong, a new situation is created and linked to the closed one. <!-- Section 8: the states table; A8; A7 -->
 - **If it fails:** if the intake step cannot tell whether the closure was wrong, it treats the message as a new problem: a new situation, linked to the closed one. The design's reading.
 - **Comes back:** the reopened situation, or the new linked one, wakes the worker.
@@ -357,10 +397,10 @@ The exact form of the "reopened" mark is left to whoever builds the record. A re
 ## 16. A document nobody asked for
 
 - **Starts it:** a business document arrives unasked: a supplier's bill of materials (a parts list), an invoice, a balance sheet request. <!-- decided by the owner, 2026-10-10 -->
-- **Goes to:** the conversation manager's intake step.
+- **Goes to:** the conversation manager's arrival loop.
 - **Carries:** the document, with its date and sender.
-- **Decides:** the intake step matches it to the open situation for that sender, or to the sender's record. <!-- decided by the owner, 2026-10-10 -->
-- **Changes:** the document is filed there. The situation worker records it as a claim, with its source — not as an order. <!-- decided by the owner, 2026-10-10; Section 8 CASE-6 -->
+- **Decides:** understanding the arrival matches it to the open situation for that sender, or to the sender's record; routing files it. <!-- decided by the owner, 2026-10-10 -->
+- **Changes:** the document is filed there. The situation worker records it as a claim, with its source — not as an order. Memory and knowledge's indexer indexes its text with that situation's view, so retrieval can find it later. <!-- decided by the owner, 2026-10-10; Section 8 CASE-6; N33 -->
 - **If it fails:** if nothing matches, a person sees it. <!-- decided by the owner, 2026-10-10 -->
 - **Comes back:** nothing is sent, and nothing is done on the document alone. <!-- decided by the owner, 2026-10-10 -->
 
@@ -371,12 +411,12 @@ For example, a supplier emails its bill of materials for the next run. Tend file
 - **Starts it:** the business owner gives one instruction that covers many people, such as thirty people to contact. <!-- B6 -->
 - **Goes to:** the conversation manager.
 - **Carries:** the list, and the instruction.
-- **Decides:** each person is their own situation. <!-- B6 -->
-- **Changes:** the conversation manager writes one first version per person, and the owner view shows one board for the whole list. <!-- B6; IB-6 -->
+- **Decides:** each person is their own situation, and the instruction itself is one central situation that tracks the progress of all of them. There is no board. <!-- B6 -->
+- **Changes:** the conversation manager writes one first version per person, and the first version of the central situation. Memory and knowledge's link keeper links each person's situation to the central one. <!-- B6; IB-6; IB-18 -->
 - **If it fails:** a wrongly created situation is corrected later: split, linked, or moved. Two situations later found to be one problem are merged, and the merge is recorded with its reason. <!-- B4 -->
-- **Comes back:** thirty notices; each situation then runs on its own.
+- **Comes back:** thirty-one notices; each situation then runs on its own, and each person's update reaches the central situation (interaction 25).
 
-For example, the business owner gives Tend thirty people to contact about a new product. Priya is one of them. Her reply never changes another person's situation.
+For example, the business owner gives Tend thirty people to contact about a new product. Priya is one of them. Her reply never changes another person's situation; it reaches the central situation, which records "Priya replied".
 
 ## 18. A person withdraws consent
 
@@ -390,31 +430,31 @@ For example, the business owner gives Tend thirty people to contact about a new 
 
 For example, Priya writes "please stop messaging me". Her pending follow-up does not go out.
 
-## 19. Traces go to memory, improvement, and the observer
+## 19. Traces go to memory and knowledge, improvement, and the observer
 
 - **Starts it:** a run's trace is saved. <!-- IB-12 -->
-- **Goes to:** memory, the improvement path, and the observer, in the background. <!-- Section 8: which change starts which part -->
+- **Goes to:** memory and knowledge, the improvement path, and the observer, in the background. <!-- Section 8: which change starts which part -->
 - **Carries:** the trace, with secrets and anything that looks like a password stripped out first, and no personal data. <!-- trace redaction; settled page: no personal data in a trace -->
-- **Decides:** memory decides what lesson to propose. None of them acts on a situation. <!-- IB-12 -->
-- **Changes:** memory's own items; the observer's reports. <!-- Section 7: memory -->
+- **Decides:** memory and knowledge's learner decides what lesson to keep, under the business's learning mode. None of them acts on a situation. <!-- IB-12; N6 -->
+- **Changes:** memory and knowledge's own learned items; the observer's reports. <!-- Section 7: memory and knowledge -->
 - **If it fails:** sending a trace never blocks a save. <!-- IB-12 -->
 - **Comes back:** nothing to the situation. <!-- IB-12 -->
 
-For example, after Meera's refund run, memory may later propose a lesson such as "this provider confirms refunds within a day" — only as a proposal.
+For example, after Meera's refund run, memory and knowledge may later keep a lesson such as "this provider confirms refunds within a day". In automatic mode, the default, fixed code checks the lesson and Tend uses it as advice. A business can require a person's approval instead.
 
 Traces for improving the product go only with the business's written permission. <!-- IB-14; recorded earlier: training permission -->
 
-## 20. Memory proposes a setting or a link
+## 20. Memory and knowledge creates a link, or proposes a setting
 
-- **Starts it:** memory finds a candidate in past work: a setting, or a link between two situations. <!-- N13; Section 7: links -->
-- **Goes to:** a setting goes to the configurator. A link goes to the situation worker. <!-- IB-13; Section 7: links -->
-- **Carries:** the candidate, with where it came from. <!-- N5 -->
-- **Decides:** the configurator checks a setting. The worker accepts or denies a link, on evidence. A candidate with no evidence is never accepted. <!-- IB-13; Section 7: links -->
-- **Changes:** only the configuration tools apply a setting. The worker writes an accepted link as a new version. <!-- IB-13; Section 7: links -->
-- **If it fails:** a lesson never widens a grant. <!-- Section 8 anti-patterns: a lesson widens a grant -->
-- **Comes back:** nothing to memory but the outcome, in later traces.
+- **Starts it:** a version notice shows the same order number, tracking number or incident code in typed fields of two situations, taken from an outside system's record or a person's confirmed answer; or memory and knowledge finds a candidate setting in past work. <!-- A15; IB-18; N13 -->
+- **Goes to:** a link is created by memory and knowledge's link keeper. A setting goes to the configurator. <!-- A15; IB-13 -->
+- **Carries:** the link's two situations, its reason and its type; or the candidate setting, with where it came from. <!-- A15; N5 -->
+- **Decides:** fixed rules decide the link. A link is made on a signal: a shared number or incident code from records, an employee's word, or a finding while gathering. The link keeper (memory and knowledge's fixed background part for links) makes it once per key. A relationship based on meaning alone, proposed by the link finder (memory and knowledge's AI background part that notices situations that sound alike), stays unresolved until a signal appears. The configurator checks a setting. <!-- A15; IB-13 -->
+- **Changes:** the link is memory and knowledge's own record; no situation changes. Only the configuration tools apply a setting. <!-- A15; IB-13 -->
+- **If it fails:** a link whose signal turns out wrong is removed; an employee who may see both situations may remove any link; each removal is recorded with its author. A lesson never widens a grant. <!-- A15; Section 8 anti-patterns: a lesson widens a grant -->
+- **Comes back:** the link appears in each situation's next package, as context. What it means for each situation is that situation's worker's judgment. A link never carries a change.
 
-The conversation manager may also propose a link when it creates a situation, for example Priya's second outreach linked to her first, completed one. <!-- Section 7: links -->
+When the conversation manager starts a new situation for new work after a closed one, such as Priya's second outreach, the link keeper links the two. This replaces the 2026-10-09 rule that the worker accepted or denied each link. <!-- A7; A15 -->
 
 ## 21. A setting or a rule changes
 
@@ -469,6 +509,68 @@ For example, the business owner opens the screen on Monday morning. It shows Mee
 
 For example, the fixed test case of a late parcel shows a reply that took too long. The observer reports it. It changes nothing in Meera's situation.
 
+## 24. A claim is sent to another situation
+
+- **Starts it:** a worker's decision says another situation waits for what this one holds. Before the decision, memory and knowledge's package showed the other situation's typed fields and wait, as the worker view rule allows. <!-- IB-16; N34 -->
+- **Goes to:** the conversation manager's intake step, handed over by the worker's fixed code. <!-- IB-16 -->
+- **Carries:** the claim, its source, the receiving situation, and a key made of this situation, the claim and its version. <!-- IB-16 -->
+- **Decides:** fixed code first checks the send:
+  - the shared number came from an outside system's record, or a person's confirmed answer;
+  - the receiving situation's people may see the claim;
+  - fewer than the allowed number of sends have passed between these two situations within the configured window (by default, 3 in 24 hours).
+
+  Then the receiving worker decides what the claim means for its own wait. <!-- IB-16 -->
+- **Changes:** intake saves the claim as an arrival in the receiving situation. Neither worker writes into the other's record. <!-- IB-16 -->
+- **If it fails:** a repeat with the same key is dropped. Past the send count, the decision must choose another step, such as giving the work to a person. <!-- IB-16 -->
+- **Comes back:** a notice that wakes the receiving situation's worker.
+
+For example, Arjun confirms his pin code. His worker sends it to the warehouse team's situation, which waits for a corrected address for the same order. That worker decides its wait is answered.
+
+## 25. A person's update reaches the central situation
+
+- **Starts it:** a new version of a person's situation in an outreach. <!-- IB-17 -->
+- **Goes to:** the conversation manager's intake step, handed over by the person's situation's fixed code, with no AI choosing it. <!-- IB-17 -->
+- **Carries:** a summary of the version, made of typed fields only. <!-- IB-17 -->
+- **Decides:** the central situation's worker records the overall progress. The conversation manager's update decision on the central situation tells the business owner only what is material: a decision only they can make, a deadline or notice that puts the business at risk, an escalation that drifted past everyone, or what the owner's instruction asked to hear. <!-- IB-17; O3 -->
+- **Changes:** an arrival on the central situation. Nothing goes back down to the person's situation automatically. <!-- IB-17 -->
+- **If it fails:** the arrival is saved before anything acts on it, so no update is lost. <!-- decided 2026-10-22: the status-check answer -->
+- **Comes back:** a notice that wakes the central situation's worker.
+
+For example, Priya asks for a meeting. The central situation records it, and the business owner, who asked to hear of anyone who wants a meeting, is told.
+
+## 26. A person's data is erased
+
+- **Starts it:** a person asks for their data to be deleted, for example Priya writes "delete my data", or the law otherwise requires it. The worker proposes the erasure, by filling the erasure tool's form. <!-- U7 -->
+- **Goes to:** the tool layer, which runs the erasure tool. <!-- IB-19 -->
+- **Carries:** whose data, and the reason.
+- **Decides:** the erasure tool's confirmation rule sends the request, through the communication layer, to the business owner or the configurator. Nothing is erased until their yes. <!-- U7; IB-19 -->
+- **Changes:** after the yes, memory and knowledge's cleaner (its background part for erasures) erases the person's data everywhere it lives: <!-- U7; IB-19 -->
+  - the person record and their channel addresses;
+  - every index;
+  - learned items whose only source is them;
+  - cached copies;
+  - their data in situation versions and arrivals.
+
+  A record that an erasure happened is kept, without the erased data.
+- **If it fails:** if the owner declines, nothing is erased, and the answer is recorded. Meeting the law's deadline is the business's duty. There is no other way to erase. <!-- U7 -->
+- **Comes back:** the erasure's record, to the situation that asked.
+
+## 27. An arrival that is not about the business
+
+- **Starts it:** a person writes something that is not about the business: a greeting, small talk, a general-knowledge question, a sum. (Added 2026-10-29. The project owner: "If I just say hi to my agent, it should obviously first not create a situation"; "This message will only be a noise in our knowledge framework.") <!-- PL-7 -->
+- **Goes to:** the conversation manager's arrival loop. <!-- PL-1 -->
+- **Understands:** understanding the arrival finds that no ask in it is about the business. A greeting inside a business message ("hi, where is my parcel?") is not this case. A message that mixes a general question with a business ask takes both paths: the general ask is answered here, and the business ask is placed (interaction 1). <!-- PL-3; PL-5 -->
+- **Decides:** the reply decision, in fixed code: <!-- PL-8 -->
+  - a greeting gets a reply, unless a newer arrival from the same person is already queued, or a greeting from them was already answered since their last business message (a call, not yet confirmed);
+  - a general question or a sum gets a short answer, unless the business switched this off for customers; then its polite line (a call);
+  - a thank-you that answers nothing gets no reply, unless the business set a courtesy reply (a call).
+- **Changes:** no situation. The arrival, its understanding artifact and the reply decision are kept in the person's message history, marked "not about the business". Memory and knowledge never learns from it, and never presents it to a situation. <!-- PL-7 -->
+- **Then:** the communication layer writes the reply. It may repeat a question Tend already asked this person, and nothing else about the business. The send check stops any reply that carries a claim about the business. <!-- PL-9 -->
+- **If it fails:** if understanding cannot run, the message goes to the person the business named for arrivals Tend could not place. <!-- settled 2026-10-22: memory unreachable -->
+- **Comes back:** nothing to any situation.
+
+For example, a new number writes "hi". Tend answers "Hi! How can I help you today?", and nothing else exists afterwards but the two messages in that person's history.
+
 ## When two things happen at once
 
 A timer and a message can arrive together. The version written last is the one that counts. The timer reads the newest version, sees that its wait was replaced, and does nothing. <!-- IB-4 -->
@@ -478,6 +580,10 @@ Two runs never change the same situation at the same time. <!-- IB-1 -->
 A new change that matches a running wait exactly — the same subject, kind, and purpose — joins that wait. It does not open a second one. <!-- Section 8 additions: identical wait --> For example, two messages to Priya about the same order, both asking her to confirm her address, make one wait, not two.
 
 An approval given before the situation changed is not used; it is asked again. <!-- Section 11 decision 6: approval asked again -->
+
+A package is built for one version. If a newer version is saved while the worker decides, the decision is thrown away and made again, with a new package. Just before a step that cannot be undone, the version is checked once more. <!-- F7; IB-20 -->
+
+Two messages from one channel address a second apart are routed one after the other, so the second sees the situation the first created. <!-- B10 -->
 
 For example, Priya's follow-up is due at 10:00 on Thursday. At 09:58 she replies by email. The conversation manager records her reply. The worker writes Tend's answer and cancels the follow-up wait, in one version. At 10:00 the timer wakes the worker, which reads the newest version, finds no wait, and sends nothing. <!-- IB-3; IB-4 -->
 
@@ -495,6 +601,11 @@ For example, Priya's follow-up is due at 10:00 on Thursday. At 09:58 she replies
 - **Rejected:** the status-check service calling outside systems directly. Its asks go through the tool layer. <!-- decided 2026-10-22: the service calls through the tool layer -->
 - **Rejected:** waking every open situation after a platform rule change, or none. Only the affected ones are woken at once. <!-- decided 2026-10-22: platform rule wake -->
 - **Rejected:** a partial answer held until everything closes. It goes out plainly, as partial. <!-- Section 8 anti-patterns -->
+- **Rejected (2026-10-28):** memory and knowledge only as a tool a step calls when it chooses to. Every loop waits for its package before each part. <!-- N19 -->
+- **Rejected (2026-10-28):** the worker accepting or denying each link. Memory and knowledge creates and maintains links. <!-- A15 -->
+- **Rejected (2026-10-28):** one board for an outreach. One central situation tracks it. <!-- B6 -->
+- **Rejected:** a worker writing into another situation's record, or a link carrying a change. A claim travels only as an arrival through intake. <!-- IB-16; N25 -->
+- **Rejected:** the AI erasing data. Only the erasure tool erases, after its confirmation. <!-- IB-19 -->
 
 ## Open questions, and what is set later
 

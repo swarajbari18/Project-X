@@ -24,6 +24,13 @@ Each rule here has one of these statuses:
 
 Two earlier status words, **To confirm** (written down, but not yet agreed by the project owner) and **Open** (no answer yet), are no longer used: since 2026-10-22, no rule here carries either.
 
+**Updated 2026-10-28.** The project owner replaced the part called "memory" with **memory and knowledge**. Those points are Decided. <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+- It runs beside every loop.
+- Before each part of each loop runs, it hands that part a **package**: knowledge to use, or an explicit empty answer.
+- It creates and maintains the links between situations.
+- It keeps skills and procedures.
+- An outreach has a central situation.
+
 A rule with no status word next to it is **Decided**: it has a source the project owner accepted. Every rule that is not Decided carries its word where it appears. In this file, "the business owner" means the person who runs the business Tend serves.
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
@@ -44,10 +51,14 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 - A **capability** is one action the business has switched on, such as checking where a delivery is. <!-- P1 -->
 - A **run** is one pass of the situation worker over one situation. <!-- S1 -->
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat. <!-- L1 -->
-- A **link** is a recorded connection between two situations, such as two problems on the same order. <!-- A3 -->
+- A **link** is a recorded connection between two situations, such as two problems on the same order. Memory and knowledge creates and keeps links, as its own records. <!-- A3; A15 -->
+- A **package** is what memory and knowledge hands a part of a loop before that part runs: knowledge to use, or an explicit empty answer. <!-- N19 -->
 - To **escalate** is to pass work to the next person on the business's own list, when it is not done. <!-- J5 -->
 - **Compliance settings** are the business's legal and platform rules for each country or region it works in. <!-- Section 7 additions: compliance settings -->
-- A **reading** is something the design inferred where nobody had written a rule. The project owner accepted every reading in this file on 2026-10-22. <!-- change drivers: situation record -->
+- A **design reading** (written "the design's reading") is something the design inferred where nobody had written a rule. It is not the conversation manager's reading of an arrival. The project owner accepted every design reading in this file on 2026-10-22. <!-- change drivers: situation record -->
+- Tend's **product loop** is four loops, each made of **stages**: the **arrival loop** (the conversation manager: intake, understanding the arrival, routing), the **situation loop** (the situation worker: understanding the situation, gathering, weighing evidence, deciding, acting), the **update loop** (the conversation manager's update decision), and the **message loop** (the communication layer). A stage is a component of a loop, not a part: it runs inside one of the ten parts. Any stage may be passed when it has nothing to do, or end the loop when its finding makes the rest pointless; fixed code chooses. (Added 2026-10-29; the Level 2 page is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).) <!-- PL-1 -->
+- The **understanding artifact** is what understanding the arrival writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. Until later on 2026-10-29 it was called the **reading**; the status label "the design's reading" is a different thing. <!-- PL-3 -->
+- A step's **boundary** is the set of records it may be shown to act on, set by fixed code: for understanding the arrival (and so routing), the sender's own records; for the worker, its own situation in full, and other situations' typed fields where the worker view rule allows. The business's own knowledge (events, words, procedures, lessons) is not limited by it. A person's **view** is what that person may see, and so what they may be told. (Added 2026-10-29.)
 
 ## What a part is
 
@@ -69,12 +80,12 @@ This file says what each part does. It does not say what software builds it; tha
 | Part | Its job | What it must never do |
 |---|---|---|
 | Situation record | The saved history of one problem, kept as a list of versions; the book of waits is kept with these records | Rewrite an old version |
-| Situation worker | Decides the next step for one problem, and writes what Tend concludes | Send a message; set a situation to completed |
-| Conversation manager | Takes each arrival, puts it on the right problem, decides whether a person should hear an update, and sets completed | Decide the next step for the problem |
+| Situation worker | Works one problem through the situation loop (understanding, gathering, weighing evidence, deciding, acting), and writes what Tend concludes | Send a message; set a situation to completed |
+| Conversation manager | Takes each arrival and understands it (its one AI stage); answers it, keeps it, or places it on the right problem by fixed code; decides whether a person should hear an update; sets completed | Decide the next step for the problem |
 | Communication layer | Shapes, checks, sends, and records each message; keeps the consent records | Decide what to say |
 | Tool layer | The only way Tend calls an outside system, such as a payment provider, a shipping system, or a messaging channel | Repeat a step that cannot be undone when its result is unknown |
 | Status-check service | Waits on an outside system while the work goes on | Decide anything about a situation |
-| Memory | Remembers useful context, and suggests links or lessons | Change a rule, a permission, or a setting |
+| Memory and knowledge | Runs beside every loop and hands each stage that reasons a package before it runs; finds knowledge; creates and maintains links; keeps skills, procedures and learned knowledge; learns | Decide anything; change a rule, a permission, or a setting |
 | Owner view | The screens people open, built from the records when asked | Write anything |
 | Configuration | The business's settings, permissions, and members, written only by the configurator's fixed tools | Be written by anyone else |
 | Improvement | Learns from saved records of past runs, to improve the product | Change a business rule |
@@ -109,7 +120,7 @@ For example, Meera, a customer of the business, writes "Where is my parcel?":
 
 **What it does.** It keeps each problem as one record, with its whole history. Each version can be read on its own. <!-- A1 -->
 
-**What it owns.** The versions of each situation, its links to other situations, its outcome when it closes — one of the eight endings listed in [the situation file](../responsibility_view/the_situation.md) — and its state. <!-- A1; A3; states: liveness -->
+**What it owns.** The versions of each situation, its outcome when it closes — one of the eight endings listed in [the situation file](../responsibility_view/the_situation.md) — and its state. <!-- A1; A3; states: liveness -->
 
 Kept with the situation records is the **book of waits**: one shared table of every open wait that may outlast its run, across all situations. A wait that begins and ends inside one run is not written there; any wait that may outlast the run is. A wait enters the book in the same save that writes it, and leaves in the save that ends it, so the book and the situations cannot disagree. The book is data; nothing in it acts. <!-- decided 2026-10-22: the book of waits -->
 
@@ -121,7 +132,7 @@ It never becomes the truth about another system's facts. The carrier's tracking 
 
 It never sets an alarm or wakes anyone. The situation worker sets each time signal. <!-- Section 7: the record does not act; decided 2026-10-22: the book of waits -->
 
-**What would make it change.** The business needs the record to remember a kind of fact about a problem that it has no place for today, such as a new kind of link. This is the design's reading. <!-- change drivers: situation record -->
+**What would make it change.** The business needs the record to remember a kind of fact about a problem that it has no place for today, such as a new kind of claim. This is the design's reading. <!-- change drivers: situation record -->
 
 **Why it stays separate.** Two parts write to it: the conversation manager writes what comes in, and the situation worker writes what Tend concludes. Each part's news reaches the other through it. So it belongs to neither writer alone. <!-- Section 8: two writers, one record; Section 7: the parts never call each other -->
 
@@ -129,25 +140,28 @@ It never sets an alarm or wakes anyone. The situation worker sets each time sign
 
 ## 2. The situation worker
 
-**What it is.** The part that reasons about one situation: it gathers what is needed, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
+**What it is.** The part that works one situation: it runs the situation loop, and writes what Tend concludes. <!-- Section 7: the parts table; PL-1 -->
 
-**What it does.** Understanding what a change adds, gathering, weighing evidence, choosing the next step, keeping work alive over time, bringing people in, arranging meetings and contacting partners, and handling failure. <!-- Section 7: the parts table, worker rules -->
+**What it does.** The situation loop's stages, each run only when it has something to do: understanding what a change adds; gathering, by an information plan that reads and asks people only for information; weighing evidence, in fixed code; deciding the next step; acting, in fixed code. Also keeping work alive over time, bringing people in, arranging meetings and contacting partners, and handling failure. <!-- Section 7: the parts table, worker rules; PL-11; PL-12; PL-13; PL-14; PL-15 -->
 
 **What it owns.** It writes: <!-- Section 7 writer table: who writes what -->
+- its understanding of new content, and the information plan; <!-- C10; PL-12 -->
 - gathered facts and claims, conflicts, and corrections;
 - the next step, and what should be said;
 - waits, each with its entry in the book of waits;
 - the wait a tool declares — states in its result, in a fixed form: what is awaited, from whom, and what ends it — when it hands work to the status-check service. The worker's fixed code saves it at once, in the same version as the step that was started, before the AI is told. Each wait records who declared it; <!-- decided 2026-10-22: the wait a tool declares; settled 2026-10-22: one version for a step and its wait -->
 - outcomes, and the record that the work is resolved;
 - work for a person;
-- whether a proposed link is accepted or denied. It moves a situation between running, waiting, and blocked. It reopens a situation only when its closure was wrong. <!-- Section 8: the states table -->
+- a claim it decides to send to another situation, which its fixed code hands to intake as an arrival there. <!-- IB-16 --> It moves a situation between running, waiting, and blocked. It reopens a situation only when its closure was wrong. <!-- Section 8: the states table -->
 
 It also sets each wait's time signal. When the signal fires, it comes straight back to the worker for that situation. <!-- decided 2026-10-22: the book of waits; decision record 2 -->
 
-**What it may decide.** <!-- Section 7 additions: run steps; Section 7: links -->
+**What it may decide.** <!-- Section 7 additions: run steps; A15; IB-16; F7; F8 -->
 - The next step, inside the rules and grants the business sets.
-- Whether a run has made enough progress to stop.
-- Whether to accept a link that memory or the conversation manager proposes, on evidence.
+- Whether a run has made enough progress to stop, and which stage runs next: fixed code, from what the stages wrote. <!-- PL-15 -->
+- What a link means for its own situation. It no longer accepts or denies links; memory and knowledge creates them. <!-- A15 -->
+- Whether to send a claim to another situation, within the per-pair send count. <!-- IB-16 -->
+- It decides on the newest version, before every action, after memory and knowledge's package; deciding is checking the work against what was first asked. <!-- F7; F8; N19 -->
 - What an outside system's answer means, using the fixed code of the tool that declared the wait. <!-- decided 2026-10-22: the status-check answer -->
 
 **What lies outside it.**
@@ -170,18 +184,31 @@ Deciding the next step and sending a message are separate jobs. So the part that
 
 **What it is.** The part that reacts when something happens — a new arrival, a change, or a timer — and decides whether people should hear an update. It contains the intake step, the situation worker, and the communication layer. <!-- Section 7: the parts table; decided by the owner, 2026-10-10: what the conversation manager contains -->
 
-**What it does.** Routing each arrival to the right situation. Recording what came in. Deciding whether a change is worth telling a person. Setting a situation to completed. <!-- Section 7: the parts table; Section 7 writer table: who writes what -->
+**What it does.** Its two loops (since 2026-10-29):
+- **The arrival loop:**
+  - intake;
+  - understanding the arrival, its one AI stage, which writes the understanding artifact;
+  - the arrival's ending, chosen by fixed code: reply, nothing to do, answered from what Tend holds, hold and ask, or routed;
+  - routing, fixed code that carries the artifact out;
+  - the reply decision.
+- **The update loop:** deciding whether a change is worth telling a person.
 
-**What it owns.** <!-- Section 7 writer table: who writes what; Section 7: links -->
+Also recording what came in, and setting a situation to completed. <!-- Section 7: the parts table; Section 7 writer table: who writes what; PL-3; PL-5; PL-6; PL-8; PL-16 -->
+
+**What it owns.** <!-- Section 7 writer table: who writes what; IB-16; IB-17 -->
 - The first version of each new situation, written at intake, with what came in.
-- Each arrival: each incoming message, each person's answer, and each outside system's answer, such as the status-check service's. It saves each as a new version, and draws no conclusion from it. <!-- decided 2026-10-22: the status-check answer; Section 7: HC-2 -->
-- Whether an update is worth telling.
-- A proposed link, when it creates a situation.
+- Each arrival: each incoming message, each person's answer, and each outside system's answer, such as the status-check service's. It saves each as a new version. With each arrival that carries words, it saves its understanding artifact, written before anything acts on the arrival: an interpretation. It draws no conclusion from any arrival. <!-- decided 2026-10-22: the status-check answer; Section 7: HC-2; C8; IB-21 -->
+- Whether an update is worth telling, and each reply decision, saved with its arrival. <!-- PL-8 -->
+- Each arrival that is not about the business, or has nothing to do, kept in the person's message history with its understanding artifact; no situation is started for it. <!-- PL-7 -->
+- Each claim one situation's worker sends to another, saved as an arrival there. <!-- IB-16 -->
+- In an outreach, each person's update, saved as an arrival on the central situation. <!-- IB-17 -->
 - Completed.
 - After a platform rule changes, one version in each situation with a step pending on that channel. <!-- decided 2026-10-22: platform rule wake -->
 
 **What it may decide.** <!-- Section 8: routing outcomes; decided: the update decision; decided by the owner, 2026-10-12: completed; Section 8: the states table -->
-- Which situation an arrival belongs to, at the intake step. A weak match asks the sender; it never guesses. An outside system's answer names the wait it answers, and the intake step reads the book of waits to find it. <!-- decided 2026-10-22: the status-check answer -->
+- What an arrival means: understanding the arrival writes it first, with the business's meanings of its words in front of it. <!-- C7; C8; PL-3 -->
+- Where each ask fits, among the situations presented to understanding; the wider look, when needed, chooses among a small set memory and knowledge narrowed by what understanding resolved. Routing, fixed code, carries the fit out; "cannot tell" asks the sender; it never guesses. One arrival loop per person runs at a time, keyed by the person ID. <!-- N20; N37; B10; IB-22; PL-4; PL-6 -->
+- Whether to answer an arrival at once: a reply to one that is not about the business (saying nothing about the business), or an answer from what Tend holds (a current claim in the sender's own situation, or a configured fact). <!-- PL-8; PL-9; PL-10 --> An outside system's answer names the wait it answers, and the intake step reads the book of waits to find it. <!-- decided 2026-10-22: the status-check answer -->
 - Whether an update is worth telling the person. This is the **update decision**.
 - Which business an arrival belongs to, and who sent it: fixed once, at intake, from what can be checked. A sign-in proves a person; a channel bound to a member proves only the channel. <!-- AC-1; decided 2026-10-22: identity and permission -->
 - That a situation is completed, once no wait is still running and the last message has gone out.
@@ -192,7 +219,12 @@ Deciding the next step and sending a message are separate jobs. So the part that
 
 **What would make it change.** A new channel, a new way something can arrive, or a change in when a person should hear an update. This is the design's reading. <!-- change drivers: conversation manager -->
 
-**Why it stays separate.** Every arrival and every message out passes through it. Keeping it thin — it records and routes, and leaves the reasoning to the worker — keeps that path simple. <!-- Section 7 archive: conversation manager record -->
+**Why it stays separate.** Every arrival and every message out passes through it. Keeping its job narrow keeps that path short, and lets its effort follow the arrival:
+- it understands each arrival;
+- it answers what needs no situation, and places the rest by fixed code;
+- it leaves the reasoning about a situation to the worker.
+
+It writes what an arrival means, never what Tend concludes. (Corrected 2026-10-29: this said "it records and routes", which dropped the understanding Level 2 gives it at entry.) <!-- Section 7 archive: conversation manager record; HC-2; C7 -->
 
 **When it is down.** Incoming messages are held. Nothing is sent. <!-- Section 7: failure and unavailability -->
 
@@ -286,37 +318,52 @@ For example, Tend's refund for order 9912 is waiting for the payment provider. T
 
 **When it is down.** Waits stay in place inside their limits. Past a wait's limit, its time signal wakes the situation worker, which records a failure. <!-- Section 7: failure and unavailability; decided 2026-10-22: the book of waits -->
 
-## 7. Memory
+## 7. Memory and knowledge
 
-**What it is.** The part that remembers useful context, keeps the business's knowledge ready, learns lessons, and suggests links and settings. <!-- Section 7: memory -->
+**What it is.** The part that does context engineering for every part of Tend's work. It sees the whole of one business, and decides nothing. The project owner: "an agency within the agency", whose "main purpose is context engineering, not decision making". Knowledge is situations, skill files and business rules linked together, with reasoning over them. <!-- N18; N20; decided by the owner, 2026-10-28: memory and knowledge -->
 
-**What it does.** Remembering and learning. <!-- Section 7: memory -->
+**What it does.** <!-- N19; N22; N23; A15; N26; N27; N28 -->
+- Runs on its own thread, beside the four loops. Before each stage that reasons, the loop hands it what the loop holds and waits for its package; the stages that are fixed code it observes, and does not serve. <!-- PL-17 -->
+- Finds knowledge. Two fixed parts (the arrival loop's and the situation loop's), plus a small lookup for the communication layer, fetch records by exact values, with no AI. An AI part works out what else a step needs, and asks the retrieval capability, the piece that decides how to search:
+  1. fixed code first limits the search: records to the step's boundary; the business's own knowledge from anywhere in the business, marked with who may be told it; and the values the step understood, as exact filters;
+  2. it searches several ways at once, by exact values, keywords, meaning, and links;
+  3. it combines and re-sorts the results;
+  4. a final check in fixed code drops anything replaced, out of date, or not visible.
+- Presents every candidate with what tells them apart, context with its record, and advice marked as advice.
+- Creates and maintains the links between situations.
+- Keeps skills and procedures, the product's and the business's, in object storage, versioned; presents the subset of the business's tools, MCP tools included, that each part needs.
+- Learns, behind the loops: lessons, business words, business events, and subjects the worker established.
+- Carries out an erasure the erasure tool has confirmed.
 
-**What it owns.** <!-- Section 7: memory owns -->
-- Its own record of experience: what it proposed, what it used, and what it learned.
-- The business's knowledge, kept ready for use. The business owns that knowledge.
-- Lessons, and the candidates for settings it proposes.
-- The lists it searches to find what each step needs.
+**What it owns.** <!-- Section 7: memory and knowledge -->
+- Links between situations, as its own records.
+- Learned items: lessons, business words, business events, learned subjects, and the candidates for settings it proposes. The business owns its knowledge.
+- Skills and procedures, versioned.
+- Its indexes, and its record of what it presented at each point.
+- Its own record of experience: what it presented, what was used, and what it learned.
 - The templates that put together Tend's instructions for each step. Improvement may edit these, within set limits.
 
-It writes no truth about a situation. <!-- Section 7 writer table: who writes what -->
+It writes no situation record, except when it carries out a confirmed erasure. <!-- N33; U7 -->
 
-**What it may decide.** Which small, relevant set of memory each step gets. Its items are advice only. <!-- N1; N16 -->
+**What it may decide.** What to look for, and how to arrange what it found. Nothing about the work: it never chooses between candidates, chooses the next step, or says a claim is true. Its links follow fixed rules: a shared number or incident code from records makes a link; a shared meaning alone stays unresolved until a signal. <!-- N20; A15 -->
 
-**What lies outside it.** <!-- Section 7: memory -->
+**What lies outside it.** <!-- Section 7: memory and knowledge -->
 - It never changes a business rule, a grant, an approval, a permission, an owner, a legal limit, or the line around a step that cannot be undone.
-- It never sends a message.
+- It never sends a message, and never calls outside; the worker reaches the web, and memory and knowledge learns what the worker established. <!-- N28 -->
 - It never applies a setting. It proposes; the configurator checks; only the configuration tools apply it.
+- It never erases on its own; only the erasure tool's confirmation starts an erasure. <!-- U7 -->
 
-**What would make it change.** A new kind of knowledge to keep, or a new way to check a lesson before it is kept. This is the design's reading. <!-- change drivers: memory -->
+**What would make it change.** A new kind of knowledge to keep, a better way to find things shown by evaluation, or a new loop that needs its packages. This is the design's reading. <!-- change drivers: memory and knowledge -->
 
-**Why it stays separate from the situation worker.** The worker saves every situation many times. Memory changes when the business's knowledge changes. If they were one part, learning would be tied to every save. <!-- Section 7 archive: memory record -->
+**Why it stays separate.** A worker sees one situation, and the conversation manager one sender; neither may read the whole business. Something must see the whole business and help them both. Its knowledge also changes when the business's knowledge changes, not at every save. <!-- Section 7: memory and knowledge; Section 7 archive: memory record -->
 
-**Rejected:** memory inside the situation worker. <!-- Section 7 archive: memory record -->
+**Rejected:** memory and knowledge inside the situation worker. <!-- Section 7 archive: memory record -->
 
-**Rejected:** one part that serves memory and another that learns, because both would own the same knowledge. <!-- Section 7 archive: memory record -->
+**Rejected:** one part that serves knowledge and another that learns, because both would own the same knowledge. <!-- Section 7 archive: memory record -->
 
-**When it is down.** Missing memory never stops the whole decision. The worker treats the gap as something to gather, or as "Tend cannot know this here". <!-- Section 7: memory, missing memory --> If a step is safe only with what memory holds, that step is not taken: the worker records the gap, and either waits for memory, with a due time, or gives the step to a person, as for any missing source. <!-- settled 2026-10-22: memory unreachable -->
+**Rejected (2026-10-28):** memory and knowledge as only a tool a step calls when it chooses to. The project owner: it is "a part of the harness itself that runs parallel to the loop". A step can still ask it questions, in its written reasoning. <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+
+**When it is down.** If no package arrives, the loop waits a set time, then the step goes to a person. For routing, that person is the one the business named to place arrivals Tend could not place. If only its AI part fails, the package carries the fixed items, and the step goes on. Missing knowledge never stops a decision; the worker treats the gap as something to gather, or as "Tend cannot know this here". <!-- N31; settled 2026-10-22: memory unreachable -->
 
 ## 8. Configuration
 
@@ -339,7 +386,7 @@ It writes no truth about a situation. <!-- Section 7 writer table: who writes wh
 - when an outside platform, such as WhatsApp, changes its rules, every open situation meets the new rule before it next acts; the conversation manager, not configuration, wakes the affected ones (see the conversation manager above); <!-- decided 2026-10-22: platform rule wake -->
 - a change to a business setting does not wake open situations.
 
-**What lies outside it.** No AI, no background program, and no memory may change a grant or a membership. The configurator may not hand its power to another person, until the business's own written answers settle whether it can. <!-- Section 7: configuration -->
+**What lies outside it.** No AI, no background program, and no part of memory and knowledge may change a grant or a membership. The configurator may not hand its power to another person, until the business's own written answers settle whether it can. <!-- Section 7: configuration -->
 
 The configurator is a member whose role is configurator. Every configurator action needs a fresh sign-in through the sign-in provider: within the last 15 minutes, unless the business has set less. <!-- decided 2026-10-22: identity and permission; settled 2026-10-22: fresh sign-in -->
 
@@ -383,7 +430,7 @@ On the product team's screens, personal details are hidden. <!-- recorded earlie
 
 **What it does.** Improving the product. <!-- Section 7: improvement -->
 
-**What it owns.** Proposed changes to the instruction templates that memory keeps, within the limits memory sets. The records of past runs it learns from are kept apart from business memory. <!-- Section 7: improvement -->
+**What it owns.** Proposed changes to the instruction templates that memory and knowledge keeps, within the limits memory and knowledge sets. The records of past runs it learns from are kept apart from memory and knowledge. <!-- Section 7: improvement -->
 
 **What it may decide.** Nothing about any one business's work. A change is accepted only after fixed checks, reference cases, and a review. <!-- Section 7: improvement; Level 2 prompt constitution: the optimiser gates -->
 
@@ -391,9 +438,9 @@ On the product team's screens, personal details are hidden. <!-- recorded earlie
 
 **What would make it change.** A pattern across many past runs shows Tend making the same mistake at one step, and the product team changes how it learns from that. This is the design's reading. <!-- change drivers: improvement -->
 
-**Why it stays separate from memory.** Both read the same records of past runs, but they produce different things. Memory keeps one business's knowledge. Improvement changes the product's behaviour for every business. A lesson from one business's refunds, applied to every business, would change how every business is treated. <!-- Section 7 archive: improvement record; N15 -->
+**Why it stays separate from memory and knowledge.** Both read the same records of past runs, but they produce different things. Memory and knowledge keeps one business's knowledge. Improvement changes the product's behaviour for every business. A lesson from one business's refunds, applied to every business, would change how every business is treated. <!-- Section 7 archive: improvement record; N15 -->
 
-**When it is down.** It cannot change how Tend behaves now, any business's memory, any situation, or any permission. The records of past runs stay available, so it can catch up later. <!-- scratch: improvement unavailable -->
+**When it is down.** It cannot change how Tend behaves now, any business's knowledge, any situation, or any permission. The records of past runs stay available, so it can catch up later. <!-- scratch: improvement unavailable -->
 
 ## Two things that are not parts
 
@@ -422,11 +469,11 @@ Time, failure, and security are not parts either. Each one touches every part, s
 | Responsibility | Owning part |
 |---|---|
 | 1. One record per problem | Situation record; the conversation manager sets completed |
-| 2. Routing | Conversation manager, at its intake step |
-| 3. Understanding | Conversation manager records what came in; situation worker writes what it adds |
-| 4. Gathering | Situation worker, through the tool layer |
-| 5. Weighing evidence | Situation worker, with fixed code treating conflicts by the business's rules |
-| 6. Choosing the next step | Situation worker |
+| 2. Routing | Conversation manager: routing, fixed code that carries out the understanding artifact |
+| 3. Understanding | Conversation manager: understanding the arrival, its one AI stage; situation worker: understanding the situation, when there is something new to place |
+| 4. Gathering | Situation worker's gathering stage, by its information plan, through the tool layer and memory and knowledge's retrieval |
+| 5. Weighing evidence | Situation worker's weighing stage: fixed code treating conflicts by the business's rules |
+| 6. Choosing the next step | Situation worker's deciding stage |
 | 7. Permission | The fixed check in the tool layer and the communication layer; configuration writes its store, its memberships, and its channel bindings |
 | 8. Time and waiting | Situation worker writes every wait, including those a tool declares, and sets each time signal; the book of waits is kept with the situation records; the status-check service waits on outside systems |
 | 9. People | Situation worker creates the work; the communication layer sends it; the conversation manager records the answer |
@@ -434,7 +481,7 @@ Time, failure, and security are not parts either. Each one touches every part, s
 | 11. Communicating | Conversation manager decides whether to tell; communication layer sends |
 | 12. Channels | Communication layer, including the consent records; the conversation manager wakes the affected situations after a platform rule change |
 | 13. Failure and recovery | Situation worker declares it; tool layer retries transient failures |
-| 14. Memory | Memory |
+| 14. Memory and knowledge | Memory and knowledge |
 | 15. Settings and change | Configuration |
 | 16. Improving the product | Improvement |
 | 17. The business view | Owner view |
@@ -470,6 +517,8 @@ Who is in charge of each of these instead, and how Tend works with them, is in [
 Each of these was weighed and turned down on purpose: <!-- Section 7 archive: rejected alternatives -->
 - **Rejected:** the AI's conversation as the truth of a situation. A later run could not read it safely, and it could not be audited.
 - **Rejected:** a timer that sends a message directly. It would skip understanding, the permission check, and the channel rules.
+- **Rejected:** one fixed pipeline for every message, the harness study's first-draft loops: the same effort for "hi" and for intricate work. Replaced on 2026-10-29 by the product loop. <!-- PL-1; PL-2 -->
+- **Rejected:** each stage of the product loop as a part of its own. A stage is a component of a loop; it owns no record, and runs inside one of these ten parts. This keeps the rejection below of one part for each group of responsibilities. <!-- PL-1 -->
 - **Rejected:** the intake step as the only writer of a situation. It would join reading messages with deciding the next step.
 - **Rejected:** a tool writing its result into the situation as truth. A tool returns evidence; the situation worker decides what it means.
 - **Rejected:** one part for each group of responsibilities. That would make many small parts that must constantly coordinate.
