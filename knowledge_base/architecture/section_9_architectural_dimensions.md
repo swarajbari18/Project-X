@@ -10,6 +10,18 @@ This file is the integrated Section 9 result. It records what the dimensions col
 
 **Status update (after the Section 6–8 settle pass).** R9-01 to R9-04 are resolved in Sections 6–8. Scenario codes: the old U1–U5 are now CASE-1 to CASE-5, and the security test is the T-A/T-B check. The scratch records in `section_9_scratch/` keep their old labels. Use this mapping when reading them. Old section numbers used in the scratch records (§6.2 to §6.13) resolve in `archive_section_6_before_plain_rewrite.md`, the Section 6 text as it was before the plain-language rewrite.
 
+**Update 2026-10-28: memory and knowledge.** Swaraj replaced the earlier memory picture. The source is the Level 2 page "how memory and knowledge works with the loops". What changed:
+- memory and knowledge runs beside every loop, on its own thread;
+- each loop waits for its package before each part;
+- it creates and maintains the links between situations;
+- skills live in versioned object storage;
+- a business may connect its own MCP servers;
+- a claim may be sent between situations, through intake;
+- an outreach has a central situation;
+- erasure happens only through a confirmed tool.
+
+This pass stresses that design across the seventeen dimensions; see "Memory and knowledge under the dimensions" in part 4, and findings R9-18 to R9-26 (R9-25 and R9-26 added 2026-10-29, when understanding was put first).
+
 ## 1. Purpose
 
 Sections 6–8 constructed responsibilities, logical boundaries, interactions, and representative behavior. Section 9 projects cross-cutting forces onto that AI and asks whether the architecture remains correct under time, change, failure, uncertainty, consistency, state, concurrency, permission, provenance, growth, operating burden, observation, human behavior, automated reasoning, evolution, integration diversity, and communication constraints.
@@ -88,11 +100,38 @@ The most consequential intersections are:
 
 - **situation worker** keeps each situation's versioned current record and selects its next behavior inside the rules and grants the business sets. It owns nothing in the business's sense (Level 2: Tend does not own anything). Local atomicity, latest-state re-evaluation, and no external canonical-data takeover remain load-bearing.
 - **intake step and communication layer** are the ingress and egress boundaries. The intake step sits inside the conversation manager. Timers start the situation worker, and channel rules do not become business-specific workflow logic.
-- **B-Memory** remains advisory and scoped. Its serve path and must-not rules are established; learning/promotion beyond those constraints is not.
+- **B-Memory**, now **memory and knowledge**, presents advice and decides nothing; each loop waits for its package before each part. Since 2026-10-28 it runs beside every loop and hands a package before each part, creates and maintains links, and keeps skills and procedures. Its must-not rules are unchanged. Learning and promotion beyond those rules are still not established.
 - **B-Visibility** remains read-only and derived, but provisional. The current responsibility inventory, freshness/lineage presentation, and owner-view join require review.
 - **Adjacent-Tool**, **Adjacent-Config**, **Adjacent-Improvement**, and distributed **S/T/U** controls remain interaction/permission contracts, not new generic Section 9 subsystems.
 
 No dimension, by itself, justifies splitting a currently accepted boundary or creating a new one. A later reconciliation may revise that conclusion if concrete evidence shows a problem with who owns what, correctness, change, or recovery the current AI cannot represent.
+
+### Memory and knowledge under the dimensions (2026-10-28)
+
+| Dimension | The stress | What holds |
+|---|---|---|
+| Time | "The Diwali sale" has different dates each year | The present time is in every package; business events are found by their name or alias before the conversation manager's reading; the reading turns time words into dates; which year is advice, with reasons, and the other year stays an alternative (updated 2026-10-29) |
+| Understanding | A message's words mean something only in this business (a sale, a term, "yesterday") | The conversation manager understands each arrival and writes its reading before it routes; routing's candidates come from the reading, by exact values (added 2026-10-29) |
+| Change over time | A skill or procedure changes while a run uses it | A run keeps the skill version it read first and records it; a procedure is pinned per situation |
+| Failure | Memory and knowledge does not answer | The step waits a set time, then a person; if only the AI part fails, the fixed items arrive |
+| Uncertainty | Several candidates fit a customer's words | All are presented with what tells them apart; the step asks or decides |
+| Consistency | An index lags a save | Needed items come from typed fields, not indexes |
+| State | Links and learned items are not situation records | They are memory and knowledge's own records; only a confirmed erasure touches a situation record |
+| Concurrency | Two messages a second apart, on one channel or two; a version arrives mid-decision | One routing run per person, keyed by the person ID (updated 2026-10-29); decisions on the newest version |
+| Permission and security | A message asks to search another customer's orders; a confidential date helps understand a customer's message; a business connects an MCP server | Every search for records starts with the step's boundary in fixed code; the business's own knowledge may help a step understand, each item marked with who may be told it, and the send check decides what each person may be told (updated 2026-10-29); MCP tools are captured, hashed, and permission-checked |
+| Ownership and provenance | Learned knowledge without a source | Every item cites its record; fixed code checks the citations |
+| Scaling | A customer with 10,000 finished situations | Routing looks at them only when the reading says the message refers to a past purchase or earlier work, and then narrows them by the reading's exact values (dates, kinds, most recent first) before matching any description; a small set comes back (updated 2026-10-29) |
+| Operational complexity | An AI call at every point | Accepted by Swaraj; measured at Level 3 |
+| Observability | Why was this step given this item? | Each package is recorded in the trace as references |
+| Human behaviour | An employee says a link is wrong | They may remove it; the removal is recorded |
+| AI behaviour | The AI part picks a candidate or invents an item | It presents only; every item must come from retrieval or the fixed part; it never chooses |
+| Evolution | A business writes its own skill | Skill text is guidance; it cannot grant a permission or change a rule |
+| Integration diversity | An order no situation has read | Memory and knowledge presents the tool; the worker reads it |
+| Channels | A message is written for a customer | The package before writing holds the recipient's preferences, the business's words, the channel's conventions, and communication lessons for this audience; the send check still applies |
+
+<!-- C7; C8; N37; R9-25; R9-26; A15; B10; D1; D10; D11; D12; D13; D14; D15; D16; D17; D2; D3; D4; D5; D6; D7; D8; D9; F7; N19; N20; N23; N24; N26; N27; N29; N31; N32; N33, U7; N34; R9-18; R9-19 -->
+
+No dimension forces a new part. Memory and knowledge stays one part with fixed and AI pieces inside it.
 
 ### Cross-dimension findings carried forward
 
@@ -110,12 +149,21 @@ These are not silently resolved here. They are candidates for the next method st
 | R9-08 | Rule-context wording | Four-plane semantics distinguish live facts/platform constraints/grants from pinned business policies/workflows; some Section 6/8 shorthand and AC-4/T5 wording can read differently. Normalize the language without making pinned business rules live or grants stale. | D2, D8, D15 |
 | R9-09 | Information lifecycle tension | Trace-always, reconstruction, redaction, deletion, minimization, CoT/gift-CoT access, and learning eligibility are not fully reconciled. Preserve audit meaning while deferring storage, retention, masking, and deletion mechanics. | D9, D12, D14 |
 | R9-10 | Currentness/evidence gap | A current situation worker version does not guarantee that each external claim remains current enough for the next decision; source ordering, late results, clock disagreement, and action-relative freshness are not universally specified. | D1, D2, D4, D7, D9, D16 |
-| R9-11 | Cross-situation consistency gap | Per-situation atomic commits are supported; a change fan-out affecting multiple linked situations has no established cross-node atomicity/recovery contract. | D5, D6, D7, D10, D11 |
+| R9-11 | Cross-situation consistency gap (resolved) | Per-situation atomic commits are supported; a change fan-out affecting multiple linked situations had no cross-node contract. Resolved: Section 12 decision 23 (one event saved once, then written into each, resumable), and since 2026-10-28 the three paths of N25 (an event written into each; a worker's send through intake, keyed and counted per pair; a person's situation's automatic send to its central situation). | D5, D6, D7, D10, D11 |
 | R9-12 | Human-work scope gap | Section 6 J9 requires substitute-permission checks before irreversible action on transferred/covered work; Section 8 ties the parenthetical J9 validation to “approval class.” Reconcile scope. | D8, D13 |
 | R9-13 | Human-work/meeting integration | Meeting-specific situation/person counters, terminal senior route, and surfacing senior inaction are in Level 2 but not fully integrated into Section 8’s general human-work protocol. Keep meeting rules scoped to meetings. | D13 |
 | R9-14 | Visibility/communication hierarchy | Broad business/Level 1 visibility language is narrowed by Channel Level 2's product-defined role/partner scope and legal floor/whitelist. Preserve actor-, purpose-, and task-scoped disclosure. | D8, D9, D12, D17 |
 | R9-15 | Fallback constraint | “Fallback lane always exists” means a candidate path, not guaranteed adapter availability, consent, lawful basis, addressability, or authorization. Reconcile wording so fallback never bypasses a check. | D15, D17 |
 | R9-16 | Terminology/actor mapping | Product Builder/configurator and Tend product-team capability authoring are distinct actors/permission paths; normalize parent wording without merging roles. | D15 |
+| R9-18 | Latency and cost (trade-off) | Each loop waits for memory and knowledge's package before every part, and its AI part runs at every point. Swaraj chose that on 2026-10-28. The cost, 10 to 23 AI calls before a first reply (10 to 20 before understanding was added on 2026-10-29), is this design's estimate. No delay target exists; Level 3 must measure the delay a customer sees and may run the AI part on a smaller model. | D1, D10, D11, D14 |
+| R9-19 | Index lag (the design's trade-off, not yet reviewed by Swaraj) | Indexes and links are written behind the loop, so a search right after a save may miss the newest version. Needed items never lag: the fixed parts read typed fields written by the situation's own save. Only help items found by search can lag. | D5, D7 |
+| R9-20 | Tool supply from businesses (resolved) | A business may connect any MCP server (Swaraj, 2026-10-28), while the catalogue must stay versioned and hashed with no runtime registration. Resolved by N27: the configurator connects through a fixed tool; the tool list is captured, versioned and hashed; a change waits for re-approval; tool output is outside text; every call passes the permission check. | D8, D15, D16 |
+| R9-21 | Central situation load (the design's trade-off, not yet reviewed by Swaraj) | In an outreach, every new version of every person's situation becomes an arrival for the central situation. Thirty people bring at least thirty wakes of the central worker. The cost grows with the number of people and is bounded by their activity; the owner hears only material changes. | D10, D11, D13 |
+| R9-22 | Send loops between situations (resolved) | Two workers could send claims to each other forever. Resolved by the per-pair send count within a window (IB-16); past it, the decision must choose another step, such as a person. | D7, D11 |
+| R9-23 | Erasure against never-rewritten records (resolved) | Situation records are never rewritten, yet the law can require erasure. Resolved by Swaraj on 2026-10-28: erasure only through the erasure tool's confirmation rule; the one exception that removes data from situation records, with a record of the erasure kept without the data (U7, IB-19). | D6, D8, D9, D12 |
+| R9-25 | Understanding before routing (resolved, 2026-10-29) | Routing had acted before the message was understood: "the Diwali sale" was searched as words, and its dates were kept from routing by the sender's view. Resolved by C7, C8, N37, IB-21: the reading first, with the business's meanings in front of it; candidates from the reading. The cost is one AI turn, already counted in N35. Filtering by the reading's values should cost less than the earlier search; this is expected, not yet measured. | D1, D2, D3, D10 |
+| R9-26 | Using versus showing (resolved, 2026-10-29) | One view filter did two jobs: what a step may use to understand, and what it may be shown or a person told. Resolved by N34: knowledge may help any step understand; records stay inside the step's boundary; the send check decides what each person may be told. | D8, D9, D15 |
+| R9-24 | Package staleness (resolved) | A package is built for a version; a newer version may arrive while the step reasons. Resolved by F7 and IB-20: the decision is checked against the newest version and made again if stale; a cache never guards a decision (N33). | D5, D7 |
 | R9-17 | Evidence completeness | Section 8’s carrier and partial-answer walks support situation-level updates; exact external recipient/change matrix and owner-view derivation remain open. | D12, D17 |
 
 Some rows are explicit numbering or who-owns-what mismatches; others are deliberately open contracts or unresolved policy interpretations. Section 10 must classify each as contradiction, gap, unsupported claim, accepted trade-off, or non-blocking unknown before the architecture is revised.

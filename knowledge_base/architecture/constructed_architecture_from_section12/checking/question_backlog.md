@@ -18,7 +18,7 @@ The labels: <!-- method: the question backlog -->
 
 The AI that wrote this folder chose each label below, under the project owner (the person designing Tend, not the business owner)'s instruction of 2026-10-21 to finish without stopping to ask. On 2026-10-22 the project owner answered the seven questions labelled Blocking, and accepted the other labels with every other recommendation of this design. No question is Blocking now. <!-- construction record, entry 21: full agency; decided by the owner, 2026-10-22 -->
 
-Some answers rest on the business's memory answers, which are still marked "pending review". Their label is Resolved, but their status is **Provisional**. <!-- Level 2 memory: pending review -->
+Some answers rest on the business's memory and knowledge answers. Until 2026-10-28 these were marked "pending review" and Provisional; on 2026-10-28 the project owner pointed to them as the answers, so they are Decided. <!-- Level 2 memory: pending review; decided by the owner, 2026-10-28: memory and knowledge -->
 
 ## 1. The questions about the design itself
 
@@ -56,11 +56,11 @@ The problem statement's section on unknowns asks thirteen questions about how bu
 |---|---|---|
 | How do businesses decide that they have enough information? | Resolved | [the deciding file](../responsibility_view/deciding_and_permission.md): "enough" is judged for each step, against what that step risks |
 | Which business decisions can be standardised? | Resolved | [the deciding file](../responsibility_view/deciding_and_permission.md): which decisions can always be automated, and policies kept as fixed-shape records |
-| How much variation exists between businesses? | Resolved | [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md): each business fills its own values inside fixed shapes; the core stays the same |
+| How much variation exists between businesses? | Resolved | [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md): each business fills its own values inside fixed shapes; the core stays the same |
 | Which sources of information do businesses trust most? | Deferred to configuration | [the gathering file](../responsibility_view/gathering_and_trust.md): the source to rely on is chosen per kind of claim; each business sets its own order |
 | How should conflicting information be resolved? | Resolved | [the gathering file](../responsibility_view/gathering_and_trust.md): a fixed order, then a person |
 | When should a person become involved? | Resolved | [the deciding file](../responsibility_view/deciding_and_permission.md) and [the time and people file](../responsibility_view/time_people_and_meetings.md) |
-| What information should be remembered? | Resolved | [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md); its lists are Provisional |
+| What information should be remembered? | Resolved | [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md); its lists are Decided since 2026-10-28 |
 | How do businesses explain their own decisions? | Resolved | [the business view file](../responsibility_view/business_view_and_capabilities.md): every step is recorded with its reason, and a person's choice is recorded with the authority they used |
 | How should success be measured? | Resolved | Tend's own behaviour is measured by the observer's checks and by the learning measures, as counts, never a number the AI makes up; each situation records its outcome, so a business's results can be counted from the records ([the business view file](../responsibility_view/business_view_and_capabilities.md); [the memory file](../responsibility_view/memory_configuration_and_improvement.md)) |
 | How will these needs change as businesses grow? | Resolved | [the parts file](../boundary_view/the_parts.md): no growth needed a new part; a larger business adds roles, narrows grants, and switches on more capabilities |
@@ -148,20 +148,21 @@ Answered in [the time and people file](../responsibility_view/time_people_and_me
 
 ### Memory and Knowledge
 
-Answered in [the memory file](../responsibility_view/memory_configuration_and_improvement.md).
+Answered in [the memory and knowledge file](../responsibility_view/memory_configuration_and_improvement.md), and in the Level 2 page "how memory and knowledge works with the loops".
 
 | Question | Label | Note |
 |---|---|---|
-| What should Tend remember? | Resolved | Provisional: rests on answers marked "pending review" |
-| What should never become memory? | Resolved | Provisional: rests on answers marked "pending review" |
-| What belongs in conversation history? | Resolved | Provisional: rests on answers marked "pending review" |
-| What belongs in long-term business knowledge? | Resolved | Provisional: rests on answers marked "pending review" |
-| How should previous conversations influence future decisions? | Resolved | Provisional: rests on answers marked "pending review" |
-| How do we prevent outdated knowledge from influencing new decisions? | Resolved | Provisional: rests on answers marked "pending review" |
-| How do we update knowledge when reality changes? | Resolved | Provisional: rests on answers marked "pending review" |
-| Who owns business knowledge? | Resolved | Provisional: rests on answers marked "pending review" |
-| Can Tend learn automatically? | Resolved | Provisional: rests on answers marked "pending review" |
-| If so, what kind of learning is acceptable? | Resolved | Provisional: rests on answers marked "pending review" |
+| What should Tend remember? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| What should never become learned knowledge? | Resolved | Decided since 2026-10-28 |
+| What belongs in conversation history? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| What belongs in long-term business knowledge? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| How should previous conversations influence future decisions? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| How do we prevent outdated knowledge from influencing new decisions? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| How do we update knowledge when reality changes? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| Who owns business knowledge? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| Can Tend learn automatically? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| If so, what kind of learning is acceptable? | Resolved | Decided since 2026-10-28 (the project owner pointed to these answers) |
+| How does memory and knowledge work with the loops of the conversation manager, the situation worker and the communication layer? | Resolved (2026-10-28) | The Level 2 page "how memory and knowledge works with the loops"; decisions 26 to 31 |
 
 ### Communication
 
@@ -258,7 +259,7 @@ Answered in [the business view file](../responsibility_view/business_view_and_ca
 
 ### Growth and Evolution
 
-Answered in [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).
+Answered in [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).
 
 | Question | Label | Note |
 |---|---|---|
@@ -338,7 +339,7 @@ These come from [the gap register](gap_register.md); the numbers match its rows.
 | Q5 | Does a timer, or only the service's answer, wake a recheck? | Resolved | The answer wakes; the wait's time signal wakes when the limits run out |
 | Q6 | Which part holds the book of waits? | Resolved | [Decision 22](../decision_view/the_decisions.md): data kept with the situation records |
 | Q7 | What do other parts do while the record, the worker, or the communication layer is down? | Resolved | A rule for each, in the parts file |
-| Q8 | What happens when memory cannot be reached and its context is needed? | Resolved | That step is not taken; Tend waits, or gives it to a person |
+| Q8 | What happens when memory and knowledge cannot be reached and its context is needed? | Resolved | The loop waits a set time for the package; then the step goes to a person (since 2026-10-28) |
 | Q9 | Who writes consent records? | Resolved | [Decision 23](../decision_view/the_decisions.md): the communication layer's fixed consent code |
 | Q10 | Which of the four states gives each of the eleven labels the business owner sees? | Resolved | A mapping table, in the records file |
 | Q11 | Does a legal deletion reach the audit? | Deferred to configuration | Each market's law decides. If a law requires it, the deletion reaches the audit too, as it already reaches every version |
@@ -385,4 +386,4 @@ These come from [the gap register](gap_register.md); the numbers match its rows.
 
 None. The seven that blocked completion — Q1, Q2, Q3, Q6, Q9, Q17, and Q20 — were answered on 2026-10-22. [The completion record](completion_record.md) says what complete means here.
 
-The memory rules rest on the business's memory answers, still marked "pending review"; those rules stay **Provisional** until the project owner reviews them. That does not block the design: each such rule holds until then, and reopens only that rule. <!-- Level 2 memory: pending review -->
+The memory and knowledge rules rest on the business's memory and knowledge answers, which the project owner pointed to as the answers on 2026-10-28; they are Decided. How a lesson could become more than advice stays Provisional.

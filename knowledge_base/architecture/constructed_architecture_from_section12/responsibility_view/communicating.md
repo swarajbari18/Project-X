@@ -8,7 +8,7 @@ Tend is the software that keeps a business's operational problems moving. Each p
 
 Three stories run through this file.
 
-**Meera's parcel.** Meera wrote on WhatsApp on Sunday at 09:00, asking where her parcel is. Tend replied that morning. The carrier's tracking has not changed since. Arjun, an employee, handles deliveries. Tend owes Meera an update by Monday at 10:00. <!-- written for this file: Meera's messages -->
+**Meera's parcel.** Meera wrote on WhatsApp on Sunday at 09:00, asking where her parcel is. Tend replied that morning. The carrier's tracking has not changed since. Kabir, an employee, handles deliveries. Tend owes Meera an update by Monday at 10:00. <!-- written for this file: Meera's messages -->
 
 **The investor.** An investor asks the business for two things: its pitch deck, and its revenue figure. The deck is ready. The revenue figure is still being checked. <!-- Level 2 communication: the investor ruling -->
 
@@ -62,6 +62,16 @@ Saying something to a person takes three separate acts. Three different parts ow
 
 The next step is chosen in the decision. Whether to tell the person is a different choice, made by the conversation manager. <!-- Level 2 communication: who decides what -->
 
+**A reply with no situation behind it** (added 2026-10-29). An arrival that is not about the business ("hi", a general question, a sum) ends at understanding, in the conversation manager's arrival loop, and starts no situation. The project owner: "you immediately answer back with hi, how are you". So the conversation manager makes a **reply decision**, in fixed code, saved with the arrival, and the communication layer writes and sends the reply. <!-- PL-7; PL-8 -->
+- **A greeting** gets a reply, unless a newer arrival from the same person is already queued, or a greeting was already answered since their last business message. (A call, not yet confirmed.)
+- **A general question or a sum** gets a short answer, unless the business switched this off for customers; then its polite line. (A call.)
+- **A thank-you that answers nothing** gets no reply, unless the business set a courtesy reply. (A call.)
+- **What the reply may say:** nothing about the business. It may repeat a question Tend already asked this person, and, for a message that also had business asks, say that the rest is being worked on. The send check enforces it.
+
+<!-- PL-9 -->
+
+**An answer from what Tend holds** (added 2026-10-29; the project owner's ruling of 2026-09-05). When every business ask in an arrival is answered by a current claim in the sender's own situation, with no open conflict on its field, or by a fact the business configured, the conversation manager tells the person at once. The worker records the asks as answered afterwards. Answering from a configured fact extends the ruling, and is a call, not yet confirmed. <!-- PL-10 -->
+
 The worker and the conversation manager never call each other. The worker saves a new version of the situation. That save sends a short notice that a new version exists. The conversation manager reads the new version. <!-- Level 2 communication: the ticket picture -->
 
 Think of the situation as a work ticket. The worker updates the ticket with its work: done, waiting, and so on. The conversation manager watches the ticket. When the ticket changes, it reads the change, and tells the person. <!-- Level 2 communication: the ticket picture -->
@@ -96,7 +106,7 @@ A change that would surprise the person is told before it happens. <!-- Section 
 
 When a message arrives, Tend records it, and finds or creates its situation. That record is Tend's own proof, for the business, that the message came in. <!-- I1; Level 2 communication: recording is internal -->
 
-By default, Tend does not send a reply only to confirm receipt, such as "we received your message". A reply carries something real about the situation, or an honest promise tied to it. <!-- I1 -->
+By default, Tend does not send a reply only to confirm receipt, such as "we received your message". A reply carries something real about the situation, or an honest promise tied to it. <!-- I1 --> A reply to "hi", or a short answer to a general question, is not a receipt: it answers what the person asked. <!-- PL-8 -->
 
 A business may set up its own acknowledgement, with its own wording. <!-- I1 -->
 
@@ -305,7 +315,7 @@ A message to an employee or the owner puts first: <!-- Level 2 communication: to
 
 A message to a partner explains the part of the problem the partner owns, what it is asked to do or look into, and the information it needs for that. It never shows the full record of the customer or the business. <!-- Level 2 communication: to a partner -->
 
-Meera's parcel shows the difference. Meera hears that the parcel is delayed, that the business is checking with the carrier, and when she will hear next. Arjun hears that the carrier's tracking has not moved since Sunday, that Meera was promised an update by Monday at 10:00, and what he is asked to do. <!-- written for this file: Meera's messages -->
+Meera's parcel shows the difference. Meera hears that the parcel is delayed, that the business is checking with the carrier, and when she will hear next. Kabir hears that the carrier's tracking has not moved since Sunday, that Meera was promised an update by Monday at 10:00, and what he is asked to do. <!-- written for this file: Meera's messages -->
 
 Tend does not tell a customer they are wrong. It shows what the record says. <!-- Section 8 additions: not wrong -->
 
@@ -355,7 +365,7 @@ Tend never: <!-- Level 2 communication: conflict don'ts -->
 - asks a customer to settle a disagreement inside the business;
 - takes a step with real consequences while the disagreement blocks that step.
 
-Different people need different amounts. Meera may need a short, neutral account, and the next step. Arjun or the owner may need all the evidence, and who is responsible. The carrier may need only the conflicting delivery details it is asked to look into. <!-- Level 2 communication: conflict for each person -->
+Different people need different amounts. Meera may need a short, neutral account, and the next step. Kabir or the owner may need all the evidence, and who is responsible. The carrier may need only the conflicting delivery details it is asked to look into. <!-- Level 2 communication: conflict for each person -->
 
 Communicating does not settle the disagreement. Finding and weighing it belongs to [the gathering file](gathering_and_trust.md). Choosing what to do about it belongs to [the deciding file](deciding_and_permission.md). Communicating says the result, safely. <!-- Level 2 communication: conflict boundary -->
 
@@ -420,11 +430,11 @@ Before a draft is sent, fixed code checks that it is in the business's language.
 ## The check before anything is sent
 
 The communication layer sends a message only when all of these hold. When the message is a start, the five checks for a start, described below, must also pass. <!-- IB-5 -->
-- the intent is on a saved version of the situation;
-- the conversation manager decided it is worth telling;
+- the intent is on a saved version of the situation, and the conversation manager decided it is worth telling; or the conversation manager's reply decision is saved with the arrival it answers;
 - the permission check returns Allow for this channel, this person, and this kind of content;
 - the channel's rules hold: the window, the template, and the consent;
-- only the allowed fields remain in the message.
+- only the allowed fields remain in the message;
+- a reply to an arrival that is not about the business carries no claim about the business. <!-- PL-9 -->
 
 A resend of an earlier message may use an intent on an older version, on purpose. <!-- IB-5 -->
 
@@ -497,7 +507,7 @@ When a platform changes its rules, the product team updates that channel's rule 
 
 The update announces itself. The conversation manager then reads the book of waits. It finds the situations with a step pending on that channel, and writes a new version into each, so each wakes and plans again. The change is saved once first, and each of those versions carries its reference; if the writing stops part-way, it starts again and skips the situations already written. Every other open situation meets the new rule at its next wake. A message that is no longer allowed is stopped at the check before sending. When many situations are affected, their wakes are released at a steady pace. <!-- decided by the owner, 2026-10-12: rule record updated; Section 11: platform rule change; decided 2026-10-22: platform rule wake; settled 2026-10-22: steady pace -->
 
-A business's own policy stays as it was when the situation opened. A platform's rule is always the newest one. The full rule is in [the memory and configuration file](memory_configuration_and_improvement.md). <!-- Q3 -->
+A business's own policy stays as it was when the situation opened. A platform's rule is always the newest one. The full rule is in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md). <!-- Q3 -->
 
 ## Replying, or starting a message
 
@@ -574,7 +584,7 @@ Consent is not one thing. It depends on who is on the other side, and on whether
 
 | | Customer or prospect | Employee | Partner |
 |---|---|---|---|
-| **Replying** | Given by writing in. Stay on the current channel. No consent record is needed. | No consent is needed for work contact. Use the work channel Arjun chose. | Given by the arrangement with the business. |
+| **Replying** | Given by writing in. Stay on the current channel. No consent record is needed. | No consent is needed for work contact. Use the work channel Kabir chose. | Given by the arrangement with the business. |
 | **Starting** | The purpose must be allowed. The person must have agreed, or another legal ground must apply. The channel must allow this message now. | Not a consent question. The business contacts its staff about their job. | Set by the business, limited to what the task needs, and subject to the partner's own rules. |
 
 <!-- L2; Level 2 channels: consent table -->

@@ -159,6 +159,7 @@ The ten questions are necessary but not sufficient. The discussion added these c
 - How should memory be scoped between businesses?
 - How should Tend learn from its own mistakes?
 - How do we evaluate automatic learning?
+- How does memory meet the conversation manager and the situation worker?
 
 These are not separate product categories. They explain the mechanisms required to answer the ten original questions coherently.
 
@@ -177,3 +178,5 @@ The physical storage mechanism is not decided at Level 2.
 Project X does not require a dedicated graph-memory technology. Typed references can produce graph-shaped knowledge without choosing graph storage.
 
 The LLM can propose a learning item or a relationship between items. It cannot directly establish authoritative identity, supersession, permission or policy.
+
+How memory and knowledge takes part in the loops of the conversation manager, the situation worker and the communication layer is answered in [how memory and knowledge works with the loops](how_does_memory_and_knowledge_work_with_the_loops.md). Its Level 1 framing is [memory and knowledge as an agency](memory_and_knowledge_level_1_framing.md); the stories that test it are in [the tests](memory_and_knowledge_design_tests.md). Corrected 29 October 2026: understanding comes first in every loop, and the business's own knowledge may help any step understand, while records stay within each step's boundary.

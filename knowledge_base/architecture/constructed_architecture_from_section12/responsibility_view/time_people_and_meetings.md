@@ -8,7 +8,7 @@ Tend is the software that keeps a business's operational problems moving. Each p
 
 Two stories run through this file.
 
-**Meera's parcel.** Meera asks where her parcel is. The business ships through a carrier, an outside company that delivers its parcels. The carrier's tracking has not changed for two days. Arjun, an employee, handles deliveries. <!-- written for this file: Meera's parcel -->
+**Meera's parcel.** Meera asks where her parcel is. The business ships through a carrier, an outside company that delivers its parcels. The carrier's tracking has not changed for two days. Kabir, an employee, handles deliveries. <!-- written for this file: Meera's parcel -->
 
 **Priya's meeting.** The owner gave Tend thirty people to contact about a product. Priya is one of them. She asks to speak to a person before she buys. <!-- Level 2 authority: thirty addresses; Product Vision: the meeting -->
 
@@ -70,7 +70,7 @@ Two questions describe a wait. The first is where the wait sits. There are three
 - **The situation.** The situation itself is paused, because its calls have not returned enough.
 - **A set date.** The situation is parked until a date, such as a delivery due date.
 
-A situation wait lets the current conversation end. Tend may have sent Meera an update, or handed work to Arjun. The situation stays open behind the scenes. <!-- Level 2 coordination: three levels -->
+A situation wait lets the current conversation end. Tend may have sent Meera an update, or handed work to Kabir. The situation stays open behind the scenes. <!-- Level 2 coordination: three levels -->
 
 The second question is what the wait is for. There are three answers: <!-- Level 2 coordination: three subjects -->
 - **An answer:** from a customer, an employee, a partner, or a tool.
@@ -323,7 +323,7 @@ Repeating a failed call is a different question, with its own rules, written in 
 
 When work is interrupted — by a crash, a restart, or an update to Tend — it is rebuilt from the newest saved version. <!-- H6 -->
 
-Recovery does not restore an old picture and carry on. It rebuilds the open situation and runs the decision again on the newest facts. If Arjun answered during the outage, Tend uses his answer. <!-- H6; Level 2 coordination: recovery -->
+Recovery does not restore an old picture and carry on. It rebuilds the open situation and runs the decision again on the newest facts. If Kabir answered during the outage, Tend uses his answer. <!-- H6; Level 2 coordination: recovery -->
 
 A worker that crashes mid-run continues the work. It does not start over. <!-- H6 -->
 
@@ -337,7 +337,7 @@ Lost work cannot exist either, because what Tend knows is kept in the record, no
 
 People and systems never need to share one conversation. Each one adds its result to the situation's record. <!-- Level 2 coordination: independent actors -->
 
-Arjun answers. The carrier reports. Each result lands on the record as a new version, and the decision runs again. <!-- Level 2 coordination: independent actors -->
+Kabir answers. The carrier reports. Each result lands on the record as a new version, and the decision runs again. <!-- Level 2 coordination: independent actors -->
 
 Nothing waits for everyone to finish. A result is used when it arrives, if it matters and comes from the right source. <!-- Level 2 coordination: independent actors -->
 
@@ -370,7 +370,7 @@ The same person can play different roles in different situations. The role they 
 
 One situation can need several kinds of help at once. Suppose Meera says the parcel marked as delivered never reached her. <!-- Level 2 people: the delivery dispute -->
 - Meera may need to confirm that she did not receive it.
-- Arjun may need to look into the order.
+- Kabir may need to look into the order.
 - The carrier may need to investigate the delivery.
 - The owner may need to approve compensation.
 
@@ -419,7 +419,7 @@ Before asking, Tend weighs: <!-- Level 2 people: interruption -->
 - whether the channel fits;
 - whether the person agreed to, or set up, this kind of notice.
 
-Requests are not all the same size. A customer confirming a lookup is a small request. Arjun investigating a failed delivery is a larger one. The owner approving compensation is a large interruption. A meeting with a partner may need several people, planned ahead. <!-- Level 2 people: interruption -->
+Requests are not all the same size. A customer confirming a lookup is a small request. Kabir investigating a failed delivery is a larger one. The owner approving compensation is a large interruption. A meeting with a partner may need several people, planned ahead. <!-- Level 2 people: interruption -->
 
 Tend may lighten the load: <!-- Level 2 people: interruption -->
 - wait for an event it already expects;
@@ -456,7 +456,7 @@ Tend weighs: <!-- Level 2 people: the right target -->
 - the limits on sharing data;
 - the business's fallback and escalation rules.
 
-Meera's parcel goes to Arjun, because he handles deliveries. <!-- J3; written for this file: Meera's parcel -->
+Meera's parcel goes to Kabir, because he handles deliveries. <!-- J3; written for this file: Meera's parcel -->
 
 The target need not be one named person. It can be an employee, a role, a team, a queue, an on-call rota, an approval group, the owner, a partner's representative, or another interested party. <!-- Level 2 people: the right target -->
 
@@ -493,7 +493,7 @@ A work item shows: <!-- IA-14; Level 2 people: what a work item shows -->
 
 A work item is open, waiting for a handoff, waiting for a response, completed, or cancelled. <!-- IA-14 -->
 
-One situation can hold several work items. In Meera's dispute there are four: Arjun's check, Meera's confirmation, the carrier's investigation, and the owner's approval. Each has its own responsible party, its own authority, and its own limit on what may be seen. <!-- Level 2 people: several work items -->
+One situation can hold several work items. In Meera's dispute there are four: Kabir's check, Meera's confirmation, the carrier's investigation, and the owner's approval. Each has its own responsible party, its own authority, and its own limit on what may be seen. <!-- Level 2 people: several work items -->
 
 Tend does not force the work under one made-up owner. But a group is never shown as responsible without saying who answers for each piece. <!-- Level 2 people: five roles -->
 
@@ -533,7 +533,7 @@ The situation worker records what the answer means, and the decision runs again.
 
 A request for approval is a special case. It creates work for the approver, but the permission check still happens at the moment of the step. The rules for approvals live in [the deciding file](deciding_and_permission.md). <!-- Section 8: approval is not work -->
 
-Acknowledging is not completing. When Arjun says "seen, on it", the work stays open until it is done. Whether his acknowledgement stops the escalation clock depends on the business's policy. <!-- Level 2 people: acknowledgement -->
+Acknowledging is not completing. When Kabir says "seen, on it", the work stays open until it is done. Whether his acknowledgement stops the escalation clock depends on the business's policy. <!-- Level 2 people: acknowledgement -->
 
 ## When nobody answers
 
@@ -623,7 +623,7 @@ Tend learns that someone is away only from a source: the person marking themselv
 
 Moving the work does not move the authority. <!-- J9 -->
 
-A person covering for Arjun may be able to do his work, but not to approve what he could approve. <!-- J9; Level 2 people: authority stays -->
+A person covering for Kabir may be able to do his work, but not to approve what he could approve. <!-- J9; Level 2 people: authority stays -->
 
 So before any step that cannot be undone, on work that was handed on or covered, Tend checks that the new person has the permission. <!-- J9 -->
 
@@ -794,11 +794,11 @@ Tend records the outcome, decides its own next step, and sends the work to a per
 
 A partner is contacted only when escalation calls for it, and only when the business's policy allows partner contact. <!-- K4; decided by the owner, 2026-10-12: partners after escalation -->
 
-Back to Meera. Arjun owns the delivery work, and he has not acted within the business's time. The business's path may remind him, escalate, wait for a set event, or contact the carrier directly. <!-- Level 2 meetings: the partner trigger -->
+Back to Meera. Kabir owns the delivery work, and he has not acted within the business's time. The business's path may remind him, escalate, wait for a set event, or contact the carrier directly. <!-- Level 2 meetings: the partner trigger -->
 
 Contacting the carrier is one option. It is never automatic. <!-- Level 2 meetings: the partner trigger -->
 
-In Meera's case, the business's path first reminds Arjun. He still does not act, and the business allows partner contact, so Tend contacts the carrier. The carrier reports that the parcel is held at a depot, and gives a delivery date. Tend tells Meera what the carrier reported. When the parcel arrives, the worker records the work as resolved. The conversation manager completes the situation once no wait is open and the last message has gone out. <!-- written for this file: Meera's outcome -->
+In Meera's case, the business's path first reminds Kabir. He still does not act, and the business allows partner contact, so Tend contacts the carrier. The carrier reports that the parcel is held at a depot, and gives a delivery date. Tend tells Meera what the carrier reported. When the parcel arrives, the worker records the work as resolved. The conversation manager completes the situation once no wait is open and the last message has gone out. <!-- written for this file: Meera's outcome -->
 
 Who is told first comes from the business's settings. It is not always the partner. <!-- settled page: who is told first -->
 

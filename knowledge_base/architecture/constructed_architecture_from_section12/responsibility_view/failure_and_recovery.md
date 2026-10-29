@@ -273,6 +273,7 @@ Which fallback sources a business allows is set with its settings; how the "weak
 
 - **The AI, or the provider that runs it, is down.** Situations wait, go to a person, or stop safely. Nothing is sent without a recorded decision. <!-- Section 6 additions: degraded service -->
 - **The conversation manager is down.** Incoming messages wait. Nothing is sent. <!-- Section 7: failure and unavailability -->
+- **Understanding the arrival cannot run** (its AI is down), or routing's check fails twice: the arrival goes to the person the business named for arrivals Tend could not place. A message that is not about the business waits for that person too; nothing is guessed. (Added 2026-10-29.) <!-- settled 2026-10-22: memory unreachable; PL-3; PL-6 -->
 - **The tool layer is down.** The situation worker does not save a change that depends on it. <!-- Section 7: failure and unavailability -->
 - **The owner's view is down.** The record is not affected. The owner may hear later. <!-- Section 7: failure and unavailability -->
 - **A part cannot be reached.** Its waits stay honest inside their bounds. Past their bounds, the situation worker records a failure. <!-- Section 7: failure and unavailability -->

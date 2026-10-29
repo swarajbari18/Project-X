@@ -30,7 +30,7 @@ A **part** is a piece of Tend that does some of these jobs. One part can hold se
 - The **communication layer** checks, sends, and records each message. <!-- Section 7: the parts -->
 - The **tool layer** is the only way Tend calls an outside system. It checks permission before every call. <!-- Section 7: the parts -->
 - The **status-check service** waits on a slow outside system and asks it for news, through the tool layer. Its answer comes back as an arrival (an arrival is anything that comes in from outside — a message, an outside system's answer — saved as a new version) on the wait it answers. <!-- Section 7: the parts; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer -->
-- **Memory** keeps what Tend learned, and hands each step what it needs. It writes no truth about a situation; it proposes. <!-- Section 7: the parts -->
+- **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a package of what it needs to know. It keeps the links between situations, skills and procedures, and what Tend learned. It decides nothing, and writes no situation record except an erasure the erasure tool has confirmed. <!-- Section 7: the parts; N19; A15; U7 -->
 - **Configuration** holds the business's settings and grants. Only the configurator's fixed tools write to it. <!-- Section 7: the parts -->
 - The **owner view** builds the screens people open, from the saved records. It writes nothing. <!-- Section 7: the parts -->
 - **Improvement** is how the product team makes Tend behave better, for every business. It never changes a business rule. <!-- Section 7: the parts -->
@@ -78,31 +78,31 @@ Told in full in [the situation file](the_situation.md).
 - **Decides:**
   - The situation worker sets waiting or blocked.
   - Only the conversation manager sets completed, and only when no wait is open and the last message has gone out. <!-- decided by the owner, 2026-10-12 -->
-  - The intake step decides whether a message reopens a closed situation. <!-- A8 -->
+  - Understanding the arrival decides whether a message reopens a closed situation; routing carries it out. <!-- A8; PL-3 -->
 - **Done by:** the conversation manager and the situation worker, each writing into the situation record. <!-- Section 7 writer table: who writes what -->
 - **When it goes wrong:** a wrongly closed problem is reopened, with its reason. A new problem gets a new, linked record. <!-- A8; A7 -->
 
-## 2. Routing each change to the right problem
+## 2. Routing each change to the right problem, once it is understood
 
 Told in full in [the understanding and routing file](understanding_and_routing.md).
-- **For:** getting each change to the right situation before anything else happens. Meera's message goes to her parcel's situation. <!-- B2 -->
-- **Outcome:** each change is attached to its situation, starts a new one, or is held. <!-- B4 -->
-- **Takes in:** a message, an instruction, a system report, an agent's result, or time. <!-- B1 -->
+- **For:** getting each change to the right situation before anything is gathered, from what the change was understood to mean. Meera's message goes to her parcel's situation. <!-- B2; C7 -->
+- **Outcome:** each change is attached to its situation, starts a new one, or is held; or it ends without a situation: answered (not about the business), kept (nothing to do), or answered at once from what Tend holds and placed, marked. <!-- B4; C9; PL-5 -->
+- **Takes in:** a message, an instruction, a system report, an agent's result, or time; and, for an arrival with words, its understanding artifact. <!-- B1; C8; PL-3 -->
 - **Passes on:** the attached, new, or held change. Its new version wakes the situation worker. <!-- B4; Section 7: how the two parts work together -->
 - **Keeps:** the incoming record, with the platform's reference to the original message. <!-- B7 -->
-- **Decides:** the conversation manager, at its intake step. <!-- B4 -->
+- **Decides:** understanding the arrival says where each ask fits; fixed code chooses the ending; routing, fixed code, carries it out. <!-- B4; PL-5; PL-6 -->
 - **Done by:** the conversation manager. <!-- Section 7 writer table: who writes what -->
-- **When it goes wrong:** a weak match asks the sender; it never guesses. A wrong routing is split, linked, or rerouted later. A merge joins two situations that are one problem, and is recorded. <!-- B3; B4 -->
+- **When it goes wrong:** when understanding cannot tell, Tend asks the sender; it never guesses. A wrong routing is split, linked, or rerouted later. A merge joins two situations that are one problem, and is recorded. <!-- B3; B4 -->
 
-## 3. Understanding what the change adds
+## 3. Understanding the change first, and what it adds
 
 Told in full in [the understanding and routing file](understanding_and_routing.md).
-- **For:** updating the situation with what the change adds, before anything is decided. <!-- C1 -->
+- **For:** understanding each change before anything acts on it, routing included: understanding the arrival first (the conversation manager's one AI stage, which writes the understanding artifact), then, when there is new content to place, understanding the situation (the worker's first stage). <!-- C7; C8; C1; PL-3; PL-11 -->
 - **Outcome:** the situation shows what was observed, claimed, inferred, and decided, kept apart. "The carrier says delivered" is not "Meera received it". <!-- C4 -->
-- **Takes in:** the routed change. <!-- C1 -->
+- **Takes in:** the arrival, with memory and knowledge's package of what its words mean in this business; then the routed change. <!-- C8; C1 -->
 - **Passes on:** a new version of the situation, and what is still unresolved, sorted by what it blocks. <!-- C5 -->
 - **Keeps:** uncertainty and ambiguity, recorded. A guess is never stored as a fact. <!-- C2 -->
-- **Decides:** the conversation manager records what came in; the situation worker writes what Tend concludes. <!-- Section 7 writer table: who writes what -->
+- **Decides:** the situation worker decides what Tend concludes from new content. The understanding artifact is an interpretation, not a decision; it does decide which ending an arrival takes, through fixed code. <!-- Section 7 writer table: who writes what; C8; C10; PL-5 -->
 - **Done by:** the conversation manager and the situation worker.
 - **When it goes wrong:** an unresolved point stays visible. Nothing is assumed in its place. <!-- C2 -->
 
@@ -112,10 +112,10 @@ Told in full in [the gathering file](gathering_and_trust.md).
 - **For:** finding only the information that could change the next safe step. <!-- D1 -->
 - **Outcome:** each needed fact comes from the source that holds it, with its source and time. Tend asks the carrier's tracking system where Meera's parcel is, and records the answer with its time. <!-- D4; D2; E1 -->
 - **Takes in:** the open questions of the situation, and the business's list of sources. <!-- D2; D3 -->
-- **Passes on:** claims, each with its source and time, to the next step's decision. <!-- E1 -->
+- **Passes on:** claims, each with its source and time, to weighing evidence and then deciding. Its information plan stays in the situation for the next pass. <!-- E1; PL-12 -->
 - **Keeps:** each claim. <!-- E1 -->
 - **Decides:** the situation worker judges whether there is enough. Gathering never decides that. <!-- F5 -->
-- **Done by:** the situation worker, through the tool layer. <!-- Section 7: the parts -->
+- **Done by:** the situation worker's gathering stage, through the tool layer and memory and knowledge's retrieval. It reads, and asks people only for information; it is passed when Tend already holds an answer that counts as evidence. <!-- Section 7: the parts; PL-12 -->
 - **When it goes wrong:** if no system and no person can answer, Tend records that it cannot know this here. That is not a failure. Only that question stops; the rest of the situation goes on. <!-- D8; O10 -->
 
 ## 5. Weighing evidence and disagreement
@@ -226,21 +226,21 @@ Told in full in [the failure file](failure_and_recovery.md).
 - **Done by:** the situation worker declares it; the tool layer retries transient failures, never a step that cannot be undone.
 - **When it goes wrong:** when no safe step is left and no one is left to escalate to, the situation is shown as blocked, with its reason. In Meera's example, the carrier's tracking is down past its limit: Tend records the failure, tells Meera honestly, and the business's escalation path runs. <!-- Section 8 states; M2 -->
 
-## 14. Remembering and learning
+## 14. Memory and knowledge: context, links, and learning
 
-Told in full in [the memory and configuration file](memory_configuration_and_improvement.md).
-- **For:** handing each step the memory it needs, and learning how to work better for one business. <!-- N1; N3 -->
+Told in full in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md).
+- **For:** handing each part of each loop the knowledge it needs before it runs, linking situations, and learning how to work better for one business. <!-- N1; N3; N19; A15 -->
 - **Outcome:** Tend gets better at its own work. No rule, permission, or approval is ever changed by learning. <!-- N3; decided 2026-10-03: the learning ban -->
-- **Takes in:** traces of past work, read after each save. <!-- IB-12 -->
-- **Passes on:** a small, relevant set to each step; candidates for settings to the configurator. <!-- N1; N13 -->
-- **Keeps:** lessons, business knowledge, and lookups, each with its origin and scope. The list of kinds is **Provisional**. <!-- N16; Level 2 memory: the kinds -->
+- **Takes in:** at each point, what the loop holds; each version's notice; traces of past work, read after each save. <!-- IB-12; IB-15; IB-18 -->
+- **Passes on:** a package before each part of each loop; links; candidates for settings to the configurator. <!-- N1; N13; N19; A15 -->
+- **Keeps:** links between situations; lessons, business words, business events and learned subjects; skills and procedures, versioned; its indexes; each with its origin and scope. <!-- N16; N26; A15; Level 2 memory: the kinds -->
 - **Decides:** fixed code checks each lesson. Each business chooses whether learning is on, off, or checked by a person. <!-- N6 -->
-- **Done by:** memory.
-- **When it goes wrong:** a lesson that makes things worse can be undone. That rule is **Provisional**. Memory with no item that fits never blocks a decision. Memory that cannot be reached blocks only a step that is safe only with its context. <!-- Level 2 learning; Section 7 memory: missing memory; settled 2026-10-22: memory unreachable -->
+- **Done by:** memory and knowledge.
+- **When it goes wrong:** a lesson that makes things worse can be undone. Knowledge with nothing that fits never blocks a decision. If its package does not arrive, the loop waits a set time, then the step goes to a person; if only its AI part fails, the fixed items still arrive. <!-- Level 2 learning; N31 -->
 
 ## 15. Holding the business's settings, and handling change
 
-Told in full in [the memory and configuration file](memory_configuration_and_improvement.md).
+Told in full in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md).
 - **For:** keeping the business's own decisions — settings, policies, workflows, and grants — as checked records. <!-- Q1 -->
 - **Outcome:** each situation knows which version of each rule governs it. <!-- Level 2 growth: the rule context -->
 - **Takes in:** the configurator's choices; the product team's capabilities and the fixed forms each setting must have. <!-- Level 2 growth: who decides what -->
@@ -252,10 +252,10 @@ Told in full in [the memory and configuration file](memory_configuration_and_imp
 
 ## 16. Improving the product
 
-Told in full in [the memory and configuration file](memory_configuration_and_improvement.md).
+Told in full in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md).
 - **For:** making Tend behave better for every business, from checked traces. <!-- R3 -->
 - **Outcome:** better behaviour, with no business rule ever built into the AI. <!-- R3 -->
-- **Takes in:** traces, kept apart from business memory. <!-- R1 -->
+- **Takes in:** traces, kept apart from memory and knowledge. <!-- R1 -->
 - **Passes on:** changes to how Tend assembles its instructions for each step, after fixed checks, reference cases, and a review. <!-- R2; Level 2 prompt constitution: the optimiser gates -->
 - **Keeps:** no business's data for training, by default. <!-- Level 2 compliance: no training by default -->
 - **Decides:** the product team. People keep the core rules. <!-- R2 -->
@@ -338,7 +338,7 @@ Told in full in [the harness and compliance file](harness_and_compliance.md).
 
 Every change travels the same loop. Meera's question shows it. <!-- Section 7: how the two parts work together -->
 1. Meera asks where her parcel is. Routing attaches her message to her parcel's situation, and understanding records what it adds.
-2. The new version wakes the situation worker. Gathering asks the carrier; weighing the evidence notes what is known and what is not. Memory hands over what helps.
+2. The new version wakes the situation worker. Gathering asks the carrier; weighing the evidence notes what is known and what is not. Memory and knowledge's package, before each part, hands over what helps.
 3. Choosing the next step picks one step. The permission check allows it, refuses it, or asks a person first.
 4. The step runs: a wait, work for a person, a meeting or a partner contact, a call through a capability, a message, or a safe stop.
 5. The new version wakes the conversation manager. It decides whether Meera should hear the news now. The communication layer sends it, on a channel the rules allow.
@@ -348,13 +348,13 @@ Every change travels the same loop. Meera's question shows it. <!-- Section 7: h
 
 Around the loop sit the rules that do not change from step to step: the business's settings, the fixed code around the AI, and the walls between businesses. Watching Tend and improving the product run alongside. They never change a situation themselves. <!-- Section 7: the parts -->
 
-A change to a situation never reaches another part by a direct call. It is saved as a new version, and the short notice that announces it wakes the next part. A part may still ask another for a read or a step: the worker asks memory, or the tool layer; but nothing changes a situation until it is saved. <!-- Section 7: the parts never call each other -->
+A change to a situation never reaches another part by a direct call. It is saved as a new version, and the short notice that announces it wakes the next part. A part may still ask another for a read or a step: the loop waits for memory and knowledge's package, or the worker asks the tool layer; but nothing changes a situation until it is saved. <!-- Section 7: the parts never call each other -->
 
 | Responsibility | Passes on to |
 |---|---|
 | 1. One record per problem | Every part reads the newest version |
-| 2. Routing | Understanding |
-| 3. Understanding | Gathering; choosing the next step |
+| 2. Routing | Understanding the situation, for the update after routing |
+| 3. Understanding | Routing, or an answer with no situation, after understanding the arrival; gathering; choosing the next step |
 | 4. Gathering | Weighing evidence; the business's systems, through the tool layer, to ask |
 | 5. Weighing evidence | Choosing the next step |
 | 6. Choosing the next step | Permission, if the step has an effect outside Tend. Then the step that runs: gathering, time and waiting, people, meetings and partners, communicating, the business's systems, or failure. A resolved situation goes to the conversation manager, which sets completed. |

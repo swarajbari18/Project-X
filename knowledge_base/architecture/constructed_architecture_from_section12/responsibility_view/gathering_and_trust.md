@@ -107,11 +107,20 @@ In the refund story, Tend may first confirm which refund the customer means, and
 
 The situation worker follows this order when it proposes each request to a source. <!-- Section 8: source priority -->
 
+## Gathering is a stage of the situation loop
+
+Since 2026-10-29, gathering is a stage of its own in the worker's situation loop, between understanding the situation and weighing evidence ([Tend's product loop](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md), part D3). Level 1: "re-enter the normal process of understanding, gathering, deciding and acting". <!-- PL-12 -->
+- **It runs** when an unknown that matters to an open ask is open, or when deciding sends it back for a named need.
+- **It is passed** when memory and knowledge's package maps every such unknown to an item Tend already holds that counts as evidence: a current claim, or a fact the business configured.
+- **Its information plan** says what information could change the next safe step, which source holds it, and in what order. The AI writes it; fixed code checks it, and runs the reads. The plan is saved in the situation. A step that waits on an earlier result runs at a later entry.
+- **An explore step,** for open research, reads one source at a time, each result fed back, until its target is met, its read limit is reached, or the progress rule stops it.
+- **It reads, and asks people only for information.** Level 2: "Gathering may ask an employee or partner for information." A question to a person is a step of the information plan: the communication layer sends it, with its send check, and a wait is written for the answer; a question to an employee is a work item. Gathering takes no other step with an effect.
+
 ## One pass, then the situation worker decides again
 
-Gathering is one pass. The situation worker asks the sources once, in ranked order. It does not keep asking until it feels satisfied. <!-- Level 2 gathering: one pass (Fork A); S3 -->
+Each entry into gathering is one pass. The situation worker asks the sources once, in ranked order. It does not keep asking until it feels satisfied. <!-- Level 2 gathering: one pass (Fork A); S3 -->
 
-It records what comes back, writes a new version of the situation, and shows what is still missing. Then it decides the next step again. <!-- Level 2 gathering: one pass (Fork A) -->
+It records what comes back, writes a new version of the situation, and shows what is still missing. Then weighing evidence runs, and the worker decides the next step again. <!-- Level 2 gathering: one pass (Fork A); PL-13 -->
 
 Gathering never judges whether it has enough. The situation worker judges that when it decides the next step, against the business's policy and what is at stake. <!-- F5; Section 8 gather rule --> Each pass asks at least one source. <!-- Section 8 gather rule -->
 
@@ -217,7 +226,7 @@ An inference may be used for now when its other possible readings would not chan
 
 ## Fixed code weighs the evidence, not the AI
 
-Fixed code weighs the evidence, by its source and by rules. The AI does not decide what is true. <!-- E2 -->
+Fixed code weighs the evidence, by its source and by rules. The AI does not decide what is true. <!-- E2 --> Weighing evidence is a stage of its own in the situation loop: it runs whenever new claims came in, before deciding, and has no AI. <!-- PL-13 -->
 
 The rules look at three things. <!-- Level 2 trust: evaluator inputs -->
 - The source: who it is, where its answer came from, and how recent it is.

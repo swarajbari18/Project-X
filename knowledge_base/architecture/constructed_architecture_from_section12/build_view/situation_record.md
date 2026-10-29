@@ -6,6 +6,8 @@ This file is for whoever builds the situation record. It can be built from this 
 
 **Words used here.** A **situation** is one operational problem, such as Meera's late parcel or the refund on order 9912. A **version** is one saved state of a situation, after a change. A **notice** is the short internal signal a new version sends; people never see it. The **conversation manager** takes in each message and alone sets a situation to completed; the **situation worker** reasons about one situation and writes what Tend concludes. A **run** is one pass of the worker over one situation. A **wait** is a pause until one named thing happens. The **book of waits** is one shared table of every open wait that may outlast its run, across all situations. An **arrival** is anything that comes in from outside: a message, an outside system's answer. A **claim** is one statement from one source, with a time. A **link** is a recorded connection between two situations. A **work item** is a task for one named person. A **held note** records that a message may belong to a situation; it changes nothing there. A **handoff** passes work from one person to another. The **reopened mark** shows that a closed situation was closed wrongly. <!-- A1; HC-1; Section 7: the parts table; S1; HC-3; decided 2026-10-22: the book of waits; decided 2026-10-22: the status-check answer; E1; A3; IA-14; B9; J8; A8 -->
 
+**Words added 2026-10-29.** The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.)
+
 **More words.** A tool **declares** a wait when its result states, in a fixed form, what is awaited, from whom, and what ends it. A wait's **time signal** is the alarm the situation worker sets for the wait's due time; it wakes only the worker. The **technology stage** is Level 3, where the technology is chosen part by part. <!-- decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the book of waits; method: the build order -->
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
@@ -22,12 +24,13 @@ Two parts write to it: the conversation manager writes what comes in, and the si
 
 **3. What does it do?**
 - It holds the versions of each situation. Each version can be read on its own, without the ones before it. <!-- A1 -->
-- It holds each situation's links to other situations, its outcome when it closes, and its state: running, waiting, blocked, or completed. <!-- A3; states: liveness -->
+- It holds each situation's outcome when it closes, and its state: running, waiting, blocked, or completed. <!-- states: liveness -->
+- It does not hold the links between situations. Since 2026-10-28 those are memory and knowledge's own records, kept beside the situations; a link never changes a situation's record. <!-- A3; A15 -->
 - Each new version carries its notice. The part that saves the version sends the notice, in the same run; the record itself sends nothing and acts on nothing. <!-- HC-1; Section 7: the record does not act -->
 - Beside the situations, it keeps the **book of waits**: one shared table of every open wait that may outlast its run. A wait enters the book in the same save that writes it, and leaves in the save that ends it, so the book and the situations cannot disagree. A wait that begins and ends inside one run is not written there. <!-- decided 2026-10-22: the book of waits; settled 2026-10-22: short waits -->
 
 **4. What does it never do?**
-- It never rewrites an old version. A correction is a new version; the old one stays as history. The one exception is a deletion the law requires. <!-- HC-1; Level 2 compliance: deletion everywhere -->
+- It never rewrites an old version. A correction is a new version; the old one stays as history. The one exception is a deletion the law requires, and it happens only through the erasure tool's confirmation flow, carried out by memory and knowledge's cleaner, with a record kept that an erasure happened, without the erased data. <!-- HC-1; Level 2 compliance: deletion everywhere; U7; IB-19 -->
 - It never decides anything, and never sets an alarm or wakes anyone. The situation worker sets each wait's time signal. <!-- Section 8: two writers, one record; Section 7: the record does not act; decided 2026-10-22: the book of waits -->
 - It never becomes the record of another system's facts. A carrier's tracking stays with the carrier; the record keeps what Tend was told, with its source and time. <!-- Level 1: does not own other systems' facts; E1 -->
 
@@ -37,10 +40,12 @@ It owns the versions and the book of waits. It writes nothing of its own; each k
 
 | Change | Written by |
 |---|---|
-| The first version of a new situation; each arrival — an incoming message, a person's answer, an outside system's answer such as the status-check service's; whether an update is worth telling; one version in each situation affected by a platform rule change; completed | Conversation manager |
-| Facts and claims; conflicts; corrections; the next step; what should be said; waits and their book entries, including a wait a tool declares; what an outside answer means; outcomes; the work recorded as resolved; work for a person; whether a link is accepted | Situation worker |
+| The first version of a new situation; each arrival — an incoming message, a person's answer, an outside system's answer such as the status-check service's — with the conversation manager's understanding artifact of each arrival that carries words (an interpretation, since 2026-10-29; first called the "reading"); the mark "answered by the conversation manager from" the items it told, when an arrival was answered from what Tend holds; whether an update is worth telling; one version in each situation affected by a platform rule change; completed | Conversation manager |
+| Its understanding of new content (since 2026-10-29); the information plan, gathering's artifact (since 2026-10-29, later); facts and claims; conflicts; corrections; the next step; what should be said; waits and their book entries, including a wait a tool declares; what an outside answer means; outcomes; the work recorded as resolved; work for a person | Situation worker |
 
-<!-- construction record, entry 21: writer question; construction record, entry 21: return path; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the status-check answer; decided 2026-10-22: platform rule wake -->
+An arrival that is not about the business, or that has nothing to do, is not a version of any situation: it is kept in the person's message history, with its understanding artifact and the conversation manager's reply decision. <!-- PL-5; PL-7; PL-8 -->
+
+<!-- C8; C10; A15; PL-10; PL-12; construction record, entry 21: writer question; construction record, entry 21: return path; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the status-check answer; decided 2026-10-22: platform rule wake -->
 
 These changes are saved together, in one version: <!-- S4 -->
 - Tend's reply, with the cancelling of the wait it answers. <!-- IB-3 -->
@@ -67,13 +72,13 @@ The full state rules are in [the records file](../state_view/the_records.md). <!
 
 **7. What makes it change, and what makes it grow?**
 
-It changes when a situation must remember a kind of fact it has no place for today, such as a new kind of link. This is the design's reading. <!-- change drivers: situation record -->
+It changes when a situation must remember a kind of fact it has no place for today, such as a new kind of claim. This is the design's reading. <!-- change drivers: situation record -->
 
 It grows with the number of open situations. Each business's situations, and its book of waits, are kept in that business's own storage. If reading the book becomes slow, the table can be split at the technology stage — by business, or by due time; the rule, one book kept with the situations, does not change. <!-- Level 1: more situations; decision record 12; decided 2026-10-22: the book of waits -->
 
 **8. What starts it, what does it read, and what does it hand on?**
 
-A write from the conversation manager or the situation worker starts it. The writer's notice reaches the other part. Any part that reads gets the newest version: the communication layer, memory, and the owner view. The book of waits is read by the intake step, to match an arrival to the wait it ends; by the owner view, to show what each situation is waiting for; by the status-check service, to read a wait it must serve; and by the worker after a restart, to set every time signal again. <!-- Section 7: how the two parts work together; decided 2026-10-22: the book of waits -->
+A write from the conversation manager or the situation worker starts it. The writer's notice reaches the other part. Any part that reads gets the newest version: the communication layer, memory and knowledge, and the owner view. The book of waits is read by the intake step, to match an arrival to the wait it ends; by the owner view, to show what each situation is waiting for; by the status-check service, to read a wait it must serve; and by the worker after a restart, to set every time signal again. <!-- Section 7: how the two parts work together; decided 2026-10-22: the book of waits -->
 
 **9. How does it work inside?**
 1. A writer saves a new version, built on the version it read.

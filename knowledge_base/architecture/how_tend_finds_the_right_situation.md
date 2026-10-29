@@ -1,5 +1,9 @@
 # How Tend finds the right situation
 
+**Note added 2026-10-29.** Since 29 October the conversation manager understands each message first: before it chooses, it writes a reading of what the message asks and refers to, with the business's meanings of its words (a sale's dates, a word's meaning) in front of it, and the situations that could match are found from that reading. The short situations below still go in front of it; they now serve its reading too. See the Level 2 page "how memory and knowledge works with the loops", corrected that day.
+
+**Note added 2026-10-28.** This page is the agreed picture of 3 October. Since 28 October, memory and knowledge places the short situations before routing reasons, and checks again before routing's choice is checked; it creates the links between situations; and the note that a step is told "a foreign reference was seen and not opened" is removed. See the Level 2 page "how memory and knowledge works with the loops".
+
 A message comes in. A proved binding of the phone, mailbox, or login says which channel this is. A human is verified by an identity provider before Tend treats them as that person. The words in the message do not rename them. It shows that person a few short summaries. It chooses one situation, or asks, or waits. It opens that one situation. It does the work. Someone hears something only if the situation is written that way.
 
 This file is that picture. Sitting one is the picture, then how the parts work together, then what we decided. Sitting two is the nine situations, which keep every path that was tried.

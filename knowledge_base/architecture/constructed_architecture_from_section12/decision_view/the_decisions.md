@@ -30,7 +30,7 @@ A rule with no status word next to it is **Decided**. Every rule that is not Dec
 - An **arrival** is anything that comes into Tend from outside: a customer's message, a provider's answer, a platform's news. The intake step saves each one as a new version. <!-- decided 2026-10-22: the status-check answer -->
 - The **tool layer** is the only way Tend calls an outside system, such as a payment provider. <!-- Section 7: tool layer -->
 - The **status-check service** waits on a slow outside system and asks it for news. <!-- decided by the owner, 2026-10-17 -->
-- **Memory** keeps what Tend learned. **Configuration** holds the business's settings and permissions. The **owner view** builds the screens the business owner opens. <!-- Section 7: the parts table -->
+- **Memory and knowledge** runs beside every loop, hands each part the context it needs, keeps the links between situations, and keeps what Tend learned. **Configuration** holds the business's settings and permissions. The **owner view** builds the screens the business owner opens. <!-- Section 7: the parts table -->
 - **The AI** suggests the next step. **Fixed code** is code that always makes the same check. <!-- Level 2 security: the spine -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. The **book of waits** is the list of every wait that may outlast its run, across all situations. <!-- HC-3 -->
@@ -41,6 +41,8 @@ A rule with no status word next to it is **Decided**. Every rule that is not Dec
 - The **business's answers** are the business's own written answers to the engineering questions about how Tend should work. The **problem statement** is the first description of what Tend is for, written before the design began.
 
 Where a decision's other options or its reopen condition were first written down at completion, on 2026-10-22, the decision says so. <!-- settled 2026-10-22: options and reopen conditions -->
+- The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.) (Added 2026-10-29.)
+- A step's **boundary** is the set of records it may be shown to act on, set by fixed code: for understanding the arrival (and so routing), the sender's own records; for the worker, its own situation in full, and other situations' typed fields where the worker view rule allows. The business's own knowledge (events, words, procedures, lessons) is not limited by it. A person's **view** is what that person may see, and so what they may be told. (Added 2026-10-29.)
 
 ## 1. The AI suggests; fixed code decides
 
@@ -177,18 +179,19 @@ For example, with the setting at 500, a refund of 300 needs no person; the refun
 
 Until 2026-10-22, the third point read "a platform rule change re-checks every open situation". Decision 24 narrows who is woken at once; every situation still meets the new rule before it next acts. <!-- decided 2026-10-22: platform rule wake -->
 
-## 11. Memory suggests; it never decides
+## 11. Memory and knowledge presents; it never decides
 
-- **The problem:** can what Tend learns change how it behaves for a business? <!-- decision record 9 -->
-- **The evidence:** a lesson can be wrong, and a lesson must never give Tend a new permission unless a person checks it. <!-- decision record 9 -->
+- **The problem:** can what Tend knows and learns change how it behaves for a business, and who decides with it? <!-- decision record 9 -->
+- **The evidence:** a lesson can be wrong, and a lesson must never give Tend a new permission unless a person checks it. The project owner, 2026-10-28: memory and knowledge's "main purpose is context engineering, not decision making". <!-- decision record 9; decided by the owner, 2026-10-28: memory and knowledge -->
 - **The options:** <!-- Section 7 archive: memory record -->
-  - memory inside the situation worker. **Rejected.**
-  - one part that serves memory and another that learns. **Rejected.**
-- **The choice:** memory may suggest links and lessons. It cannot change a rule, a permission, an approval, an owner, a legal limit, or the line around a step that cannot be undone. The configurator checks each suggested setting; only the configuration tools apply it. <!-- decision record 9 -->
-- **The trade-off and the cost:** slower learning. <!-- decision record 9 -->
+  - memory and knowledge inside the situation worker. **Rejected.**
+  - one part that serves knowledge and another that learns. **Rejected.**
+  - memory and knowledge choosing candidates for a step. **Rejected (2026-10-28):** a step that cannot see the choice cannot be checked.
+- **The choice:** memory and knowledge presents knowledge, every candidate with what tells them apart, and advice marked as advice. It never chooses between candidates, chooses the next step, or says a claim is true. It cannot change a rule, a permission, an approval, an owner, a legal limit, or the line around a step that cannot be undone. The configurator checks each suggested setting; only the configuration tools apply it. (Rewritten 2026-10-28; it was "memory suggests; it never decides".) <!-- decision record 9; N20 -->
+- **The trade-off and the cost:** slower learning; each step must still decide with what it was given. <!-- decision record 9 -->
 - **Reopen if:** a way to promote lessons is decided. Until then, how lessons are promoted is **Provisional**. <!-- decision record 9 -->
 
-For example, memory may suggest "always refund this customer". Nothing changes until the configurator checks it, and a refund still needs the same fixed checks. <!-- release check: planted memory -->
+For example, a learned note may say "always refund this customer". It is presented as a claim with its source; a refund still needs the same fixed checks. <!-- release check: planted memory -->
 
 ## 12. One situation per problem; linked, never merged
 
@@ -290,7 +293,7 @@ Some earlier lines — in the business's time answers and in an older rule list 
 
 These seven were answered by the project owner on 2026-10-22, each by accepting the recommended option. The full comparison of every option is in [the seven blocking questions](../checking/blocking_questions.md). Each decision below gives its short form. <!-- decided by the owner, 2026-10-22 -->
 
-They share one idea. When something happens, the part closest to it **declares** it; the one writer named for that kind of change in [the records file](../state_view/the_records.md) **saves** it; and the save's notice **wakes** the next step. A change never reaches another part by a direct call: it is saved, and the save's notice wakes the next step. A part may still ask another for a read or a step — the worker asks memory, or the tool layer — but what it learns changes a situation only when it is saved. <!-- decided by the owner, 2026-10-22 -->
+They share one idea. When something happens, the part closest to it **declares** it; the one writer named for that kind of change in [the records file](../state_view/the_records.md) **saves** it; and the save's notice **wakes** the next step. A change never reaches another part by a direct call: it is saved, and the save's notice wakes the next step. A part may still ask another for a read or a step — the loop waits for memory and knowledge's package, or the worker asks the tool layer — but what it learns changes a situation only when it is saved. <!-- decided by the owner, 2026-10-22 -->
 
 ## 19. A tool declares the wait it hands off; the worker's fixed code saves it
 
@@ -433,7 +436,219 @@ For example, WhatsApp shortens Meera's reply window: it now closes at 15:00, not
 
 Customers and partners are not members. A customer's channel identifies the contact for their own situations, and never grants a permission. <!-- decided 2026-10-22: identity and permission -->
 
-For example, Arjun works for the shop and writes on WhatsApp: "approve the refund of 1,500 on order 9912". The words are recorded as a claim. Tend sends a sign-in link to his bound WhatsApp; he signs in with the provider; the permission check reads his live membership and grants; the approval records Arjun, his sign-in identity, the time, and the refund it covers.
+For example, Kabir works for the shop and writes on WhatsApp: "approve the refund of 1,500 on order 9912". The words are recorded as a claim. Tend sends a sign-in link to his bound WhatsApp; he signs in with the provider; the permission check reads his live membership and grants; the approval records Kabir, his sign-in identity, the time, and the refund it covers.
+
+## Decisions 26 to 31: memory and knowledge (2026-10-28)
+
+The project owner rejected the earlier picture of memory on 2026-10-28, and answered its questions. The design that carries these decisions is the Level 2 page "how memory and knowledge works with the loops". <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+
+## 26. Memory and knowledge runs beside every loop, and each loop waits for its package
+
+- **The problem:** a step reasons well only if the right context is in front of it before it starts; a step that must ask for context cannot know what it does not know.
+- **The evidence:** the project owner: memory and knowledge is "a part of the harness itself that runs parallel to the loop", and "before running the next part of the loop… it will wait for the memory and knowledge layer's response, whether it says this is some knowledge you should have, or whether it says none, or an empty event". <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+- **The options:**
+  - memory and knowledge only as a tool a step calls. **Rejected:** that was the earlier picture.
+  - memory and knowledge beside the loop, with a package at fixed points. **Chosen.**
+- **The choice:** memory and knowledge runs on its own thread. Before each part of the conversation manager's, the situation worker's and the communication layer's loops, the loop hands it what it holds and waits for its package: knowledge, or an explicit empty answer. Its AI part runs at every point; none runs after a decision that ends the run. Its slow jobs run behind and never block a loop. <!-- N18; N19; IB-15 -->
+  - (Changed later on 2026-10-29, decision 37: the points come before each stage that reasons, and are named by it; the stages that are fixed code are observed, not served.) <!-- PL-17 -->
+- **The trade-off and the cost:** 10 to 23 AI calls before a first reply in the design of 2026-10-29 morning. Under the product loop the cost follows the message: 2 + 2 for "hi", 4 + 4 for Arjun's Diwali message (decision 35). No delay target exists yet. <!-- N35; R9-18; PL-2 -->
+- **Reopen if:** measured delay or cost at the technology stage is more than businesses accept.
+
+## 27. Memory and knowledge creates and maintains links
+
+- **The problem:** who decides that two situations are linked?
+- **The evidence:** the project owner: "it should be the memory and knowledge layer that creates the link, not the worker". The business's answers: the AI may propose a relationship, but structured rules reconcile it, and an uncertain match stays unresolved. <!-- decided by the owner, 2026-10-28: memory and knowledge; A15 -->
+- **The options:**
+  - the worker accepts or denies each proposed link (the rule of 2026-10-09). **Rejected (2026-10-28).**
+  - memory and knowledge creates links by fixed rules. **Chosen.**
+- **The choice:** a shared number or incident code in two situations' records makes a link. A shared meaning alone is proposed and stays unresolved until a signal appears: a shared number, an employee's word, or a finding while gathering. An employee who may see both situations may remove a link. A link shares context and never carries a change. <!-- A15; N25 -->
+- **The trade-off and the cost:** a wrong number in a record can make a wrong link; it only adds context, and can be removed.
+- **Reopen if:** links made from records mislead workers often.
+
+## 28. A claim reaches another situation only as an arrival
+
+- **The problem:** how does a corrected address in a customer's situation reach the team's situation that waits for it?
+- **The options:**
+  - the first worker writes into the other situation. **Rejected:** two writers for one record.
+  - a link carries the change. **Rejected:** a link shares context only.
+  - the worker sends the claim through intake. **Chosen.**
+- **The choice:** a worker may decide to send a claim to another situation. Its fixed code hands the claim to intake, keyed so a repeat is dropped; a count per pair of situations within a window stops endless sending. The receiving worker decides what the claim means. <!-- IB-16; N25 -->
+- **The trade-off and the cost:** one more arrival, wake and decision per send.
+- **Reopen if:** sends between situations become frequent enough to need a different path.
+
+## 29. An outreach has one central situation
+
+- **The problem:** where does the progress of thirty people's situations live, and who tells the business owner?
+- **The evidence:** the project owner: "There is no such thing as a board." One situation per person, and one central situation linked to all of them; every update goes to it; "only significant things will be communicated". <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+- **The choice:** the conversation manager creates one situation per person and one central situation. Each new version of a person's situation is handed by fixed code to intake as an arrival on the central situation, typed fields only. The update decision on the central situation tells the business owner only what is material. Nothing goes back down automatically. <!-- B6; IB-17 -->
+- **The trade-off and the cost:** the central situation wakes on every person's update.
+- **Reopen if:** outreach sizes make the central situation's wakes cost more than they help.
+
+## 30. Skills live in versioned object storage, and a business may extend Tend
+
+- **The problem:** where do written methods live, and may a business add its own skills and tools?
+- **The evidence:** the project owner: skills live in object storage, versioned, for product and business alike, "because they are also evolving all the time, and we don't want mismatch between different durable object and workers with the version of code they are running"; a business "can add any skill text… They can connect with any MCP server that they want". The business's security answers: the tool catalogue is versioned and hashed, and no tool is registered at runtime. <!-- decided by the owner, 2026-10-28: memory and knowledge; U5 -->
+- **The choice:** skills and procedures live in object storage, versioned; a run records the skill version it used; a procedure is pinned per situation. A business may write skills and connect any MCP server: the configurator connects it through a fixed tool; its tool list is captured, versioned and hashed; a change waits for re-approval. A step may use only tools presented to it. A skill's text grants nothing. <!-- N26; N27 -->
+- **The trade-off and the cost:** more text and tools to search; more outside text to treat as untrusted.
+- **Reopen if:** a business skill or MCP tool is found to bypass a check.
+
+## 31. Nothing is erased, except through a confirmed tool
+
+- **The problem:** the law can require a customer's data to be erased, while situation records are never rewritten.
+- **The evidence:** the project owner: "We do not erase anything"; where compliance requires it, "not the AI will erase it" — the AI may propose it in the tool, and the tool has a confirmation rule. The business's compliance answers: deletion reaches every place the data lives. <!-- decided by the owner, 2026-10-28: memory and knowledge; U7 -->
+- **The choice:** in normal work nothing is erased; knowledge is retired, superseded or marked stale. Only the erasure tool erases, after its confirmation flow returns the business owner's or the configurator's yes. Memory and knowledge's cleaner then erases everywhere, situation records included, and keeps a record that an erasure happened, without the data. <!-- U7; IB-19 -->
+- **The trade-off and the cost:** situation records are no longer strictly never rewritten.
+- **Reopen if:** a market's law requires erasure without the business's confirmation.
+
+## Decisions 32 and 33: understanding comes first (2026-10-29)
+
+The project owner found that routing decided before "the Diwali sale" was understood: "You just disregarded understanding in itself." An audit of the whole conversation followed. These two decisions carry its result. <!-- decided by the owner, 2026-10-29: understanding first -->
+
+## 32. The conversation manager understands each arrival before it routes it
+
+- **The problem:** routing chose a situation for "the one I ordered in the Diwali sale still hasn't come" without knowing which sale, or when. It searched forty finished situations on his words, such as "Diwali", and the sale's dates reached only the worker, after routing.
+- **The evidence:**
+  - The project owner: "The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing, when there is the retrieval thing, the retrieval would have been much simpler this time. We would just know the dates of the sales and we could just make a filter about that."
+  - The Product Vision: "Tend should never take an action before understanding the situation."
+  - Level 2's ambiguity page builds candidate interpretations, then applies routing.
+  - Level 2's 4 September note makes the conversation manager's MEANING step understanding at entry, its result the next version.
+- **The options:**
+  - one routing call writes the meaning and the choice together. **Rejected:** the candidates would be found before the meaning, and the meaning could be bent to fit them.
+  - memory and knowledge writes the meaning. **Rejected:** it would be deciding what an arrival means.
+  - route on hard signals only, and let the worker sort out the rest. **Rejected:** twin situations; acting before understanding.
+  - the conversation manager writes its reading first; candidates come from the reading; code chooses when it can, the AI when it cannot. **Chosen.**
+- **The choice:**
+  - Before the reading, memory and knowledge hands the conversation manager the business's events and words found in the arrival, earlier readings, and the time.
+  - The reading records what is asked, what the arrival refers to (time words turned into dates), the sender's claims, what is unknown, whether it refers to earlier work, the kind, and whether it is work at all.
+  - Routing's candidates come from the reading: its exact values first, description only inside them. When the reading says the message refers to a past purchase or earlier work, a small set of the sender's own closed situations is looked at, as agreed on 2026-10-03.
+  - The reading is saved with the arrival, as an interpretation, never a conclusion.
+  - The worker understands new content before it plans or decides.
+  - An arrival that is not work starts no situation.
+  - The routing queue is per person.
+
+  <!-- C7; C8; C9; C10; N37; IB-21; IB-22; IB-23 -->
+- **The trade-off and the cost:** one more AI turn per arrival that carries words, and a turn of understanding when a worker's wake brings new content. Routing's retrieval becomes a filter.
+- **Reopen if:** the worker's understanding often contradicts the reading, which would show routing's package lacks what understanding needs.
+- **Changed later on 2026-10-29 (decisions 34 to 36).** The reading is now the understanding artifact. Choosing where an arrival fits is part of understanding, through its wider look; routing is fixed code, with no AI turn. Memory and knowledge's package after the reading is now the package before the wider look, and runs only when the wider look needs it.
+
+## 33. Using knowledge is separate from showing records
+
+- **The problem:** "routing uses the sender's view" kept the business's own knowledge (the sale's dates, visible to employees) from the step that had to understand a customer's message.
+- **The evidence:**
+  - The project owner, 27 October: the conversation manager "cannot move out of its boundaries to see the whole business thing. So there needs to be some component that can see the whole thing and that can aid him. That is the memory and knowledge layer."
+  - He had rejected the 26 October rule that limited memory to the speaker's records.
+  - Level 2: "Tend may use a confidential source internally while sending only a limited description externally."
+- **The options:**
+  - one view filter before every search (the 2026-10-28 rule). **Rejected.**
+  - no limit. **Rejected:** the law and Level 2's visibility rules.
+  - use the business's knowledge everywhere; show records only inside each step's boundary; mark who may be told each item. **Chosen.**
+- **The choice:**
+  - Memory and knowledge may use the business's own knowledge, from anywhere in the business, to help any step understand.
+  - As records to act on, it shows a step only those inside the step's boundary. For routing, that is the sender's own records.
+  - Another person's record never shapes a step's understanding, and is never hinted at.
+  - The send check holds what each person is told.
+
+  <!-- N34 -->
+- **The trade-off and the cost:** fixed code must keep the line between business knowledge and a person's records, by the kind of record.
+- **Reopen if:** any message carries knowledge its recipient may not be told, or a step's understanding is found shaped by another person's record.
+
+## Decisions 34 to 37: the product loop (2026-10-29, later)
+
+The project owner read the memory and knowledge tests and still saw no understanding section before routing in the stories. He asked whether understanding and routing were separate components or one technical skeleton shared with the worker: "we do not want that king of loop our loop is the philosophy with which we are working". Then: "the loops do not look natural to me … I am first and foremost a product engineer." And on the harness study: its purpose was to find "what are the types of LLM interaction architectures that can help us make understanding, that can help us make routing", not to draw Tend's loops. The Level 2 answer is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md). <!-- decided by the owner, 2026-10-29: the product loop; PL-1 -->
+
+## 34. Tend's loops are built from the product's stages
+
+- **The problem:** the harness study's first-draft loops gave the conversation manager and the worker one technical shape (code step, the AI proposes, code checks, act, go round), with memory and knowledge's packages placed before AI turns. The product's stages were steps inside it:
+  - understanding was "routing's" first turn;
+  - gathering was one choice of a decision;
+  - weighing evidence was not a step at all.
+
+  Swaraj's earlier harness, TeleChat, ran one fixed pipeline for every message, so "hi" and an intricate question got the same effort.
+- **The evidence:**
+  - Level 1: "re-enter the normal process of understanding, gathering, deciding and acting".
+  - Level 2 keeps the stages apart ("Understanding is not Gathering"; "Gathering is not Decision Making").
+  - The project owner: "Each step had a option to whether go to the next step of the loop or whether to exit right there and there"; "the harness should be flexible enough that the effort auto adjusts".
+  - The research of 14 September: "the harness owns what may happen and what counts as done, the loop owns how to get there".
+- **The options:**
+  - one fixed pipeline for every message. **Rejected:** the same effort for everything.
+  - one ReAct loop that chooses its own path. **Rejected as the product loop:** the model would decide when to stop and what to do, with no fixed place for permission, claims and honest endings. It is kept as the explore step inside gathering.
+  - a first AI call that rates difficulty and picks a path. **Rejected:** a model's number steering control.
+  - each stage as a part of its own. **Rejected:** stages own no records; Section 7 rejected one part per group of responsibilities.
+  - stages a person would recognise, with fixed code choosing passes and endings from facts the stages wrote. **Chosen.**
+- **The choice:**
+  - **Four loops, each made of stages:**
+    - the arrival loop: intake, understanding the arrival, routing;
+    - the situation loop: understanding the situation, gathering, weighing evidence, deciding, acting;
+    - the update loop;
+    - the message loop.
+  - **Passes and endings.** Any stage may be passed when it has nothing to do, or end the loop. Fixed code chooses; the AI never decides to continue; no model's score steers anything.
+  - **Inside each stage,** the AI uses the kind of interaction its job needs, from the harness study's catalogue.
+
+  <!-- PL-1; PL-2; PL-11; PL-12; PL-13; PL-14; PL-15; PL-18 -->
+- **The trade-off and the cost:** more design: each stage's artifact, conditions and limits must be specified. In return, the effort follows the message, and every option is a fact code can test.
+- **Reopen if:** a stage's pass or ending cannot be decided from a fact the stages wrote.
+
+## 35. Understanding the arrival is the conversation manager's one AI stage; routing is fixed code
+
+- **The problem:** the morning's design put the AI's choice of situation inside "routing", and named the whole conversation manager's work after routing although most of it was understanding.
+- **The evidence:** the project owner:
+  - "So routing is more code based."
+  - "instead of having that heading in design as routing, the heading as understanding would have been much better".
+  - "once it has understood, it generates a reasoning artifact that we can use as a JSON to route."
+- **The options:**
+  - keep routing's AI choice. **Rejected:** the owner's words.
+  - **Chosen:** understanding writes the artifact, fit included (with a wider look when needed), and routing carries it out in fixed code.
+- **The choice:**
+  - **The understanding artifact.** Understanding the arrival writes it: each ask and whether it is about the business; what each refers to; claims; unknowns; whether it answers a question Tend asked; earlier work or a past purchase; what Tend holds that answers each ask; where each ask fits.
+  - **The wider look.** Memory and knowledge narrows the sender's own situations by what understanding resolved, and understanding chooses among them. An empty set means new work.
+  - **The endings,** chosen by fixed code: reply; nothing to do; answered from what Tend holds; hold and ask; routed.
+  - **Routing** checks the artifact and carries it out. A failed check goes back once, then to a person.
+- **Cost:** one AI pass for most arrivals; a second only for the wider look with a set to choose from.
+
+  <!-- PL-3; PL-4; PL-5; PL-6 -->
+- **The trade-off and the cost:** understanding must say where each ask fits; routing can no longer repair a weak understanding. Routing's check and its fallback to a person cover that.
+- **Reopen if:** understanding's fits are often refused by routing's check.
+
+## 36. An arrival that is not about the business is answered and never becomes a situation; an arrival Tend can already answer is answered at once
+
+- **The problem:** "hi", "what's the capital of India?" or a sum would have started situations, adding noise to Tend's knowledge and paying for every stage. A question whose answer Tend already holds would have woken the worker.
+- **The evidence:**
+  - The project owner, 2026-10-29: "If I just say hi to my agent, it should obviously first not create a situation … This message will only be a noise in our knowledge framework. So instead of going to the next step, that is routing, it will just reply back from that."
+  - The project owner, 2026-09-05 (harness study, Part 13): "If the conversation manager feels that the situation model itself has enough information to answer the user back, it just does that." This ruling never reached Sections 6 to 12.
+  - Level 2 communication: "Tend should not communicate merely because it can produce words"; no "message received" reply by default.
+- **The options:**
+  - a situation for every arrival. **Rejected.**
+  - a reply decision in the conversation manager, saved with the arrival, with strict limits. **Chosen.**
+- **The choice:**
+  - **An arrival that is not about the business** ends at understanding. No situation is started. It is kept in the person's message history, marked, and memory and knowledge never learns from it.
+  - **The reply decision** (fixed code), with three calls not yet confirmed by the project owner:
+    - a greeting gets a reply, unless a newer arrival is queued or a greeting was already answered since the last business message;
+    - a general question gets a short answer, unless the business switched this off for customers;
+    - a thank-you that answers nothing gets no reply, unless the business set a courtesy reply.
+  - **What such a reply may say:** nothing about the business. It may repeat a question already asked; the send check enforces this.
+  - **An arrival Tend can already answer** (a current claim in the sender's own situation, with no open conflict, or a configured fact read from its own store) is placed, marked, and answered at once; the worker records it afterwards. Answering from a configured fact extends the 5 September ruling, and is a call, not yet confirmed.
+  - **The send check's "saved decision"** includes the reply decision.
+
+  <!-- PL-7; PL-8; PL-9; PL-10 -->
+- **The trade-off and the cost:** a new path out of Tend that has no situation behind it; it is kept narrow by the rule against business claims and by the send check.
+- **Reopen if:** a reply to an arrival that is not about the business is ever found carrying a business claim, or businesses report the general answers as unwanted.
+
+## 37. Memory and knowledge serves the stages that reason
+
+- **The problem:** the morning's design placed packages before every part of each loop, including parts that are fixed code (routing's check, acting), where nothing can use them.
+- **The evidence:** the project owner, 2026-10-28: "Memory AI should run at every part of the loop. If not for injecting something, at least for observing it before and after", and of a run that has ended, "it would just be a wasteful run".
+- **The options:**
+  - a package before every part. **Rejected:** packages nothing can use.
+  - a package before each stage that reasons, and observation of the stages that are code. **Chosen.**
+- **The choice:**
+  - **A package comes before:** understanding the arrival; the wider look; understanding the situation; gathering; deciding; writing.
+  - **Observed, not served:** intake, routing, the reply and update decisions, weighing evidence, acting and the send check.
+  - **Carried over:** a passed stage's package carries to the next stage.
+  - **Names:** points are named by the stage they precede; the codes R1 to R3, W0 to W3 and C1 are retired.
+
+  <!-- PL-17 -->
+- **The trade-off and the cost:** memory and knowledge's AI part still makes about half the calls before a first reply; Level 3 may give it a smaller, faster model.
+- **Reopen if:** a stage that is fixed code is found to need knowledge it cannot get from the records.
 
 ## Other decisions the design rests on
 
@@ -453,7 +668,7 @@ These are decided, and written in full in the views. A status word marks any par
 - **A partner is contacted only after escalation**, and only when the business's policy allows it. <!-- K4 -->
 - **A fact in an outgoing message comes from a tool result in the same run.** <!-- Level 2 security: the fixed list -->
 - **No personal data goes into a trace.** <!-- settled page: no personal data in a trace -->
-- **Learning is on by default**; each business can switch it off, or require a person to check each lesson. This rests on the memory conversation record, not only on the memory answers still marked "pending review". <!-- N6 -->
+- **Learning is on by default**; each business can switch it off, or require a person to check each lesson. This rests on the business's written answers on learning, which the project owner pointed to as the answers on 2026-10-28. <!-- N6 -->
 - **An approver's answer reaches the situation as an arrival.** The conversation manager saves it, as it saves every person's answer; the worker hands it to the waiting tool step as that step's result, and the tool checks again before it acts. This replaces the earlier interaction design's line that an approval does not come back through the conversation manager. <!-- closed item: approval answer route; AC-3 -->
 - **What was sent is kept in the communication layer's own record** of what was sent, not as a version of the situation. Its save is announced like any other, so the situation's history can be read with it. <!-- Section 7: the sent record, two readings -->
 - **The observer is a regular check that runs alongside the parts.** It reads the records and reports what it finds; it acts on nothing, and it is not a part of its own. <!-- Section 7: the observer -->
@@ -489,4 +704,4 @@ The calls made while writing these files are listed in [the decisions register](
 
 Nothing in these decisions blocks the next stage. The values each business or market sets — limits per run, the status-check service's limits, wait limits, legal values — are set with each business's settings, or when Tend enters a market. They are listed in [the gap register](../checking/gap_register.md). <!-- later files: proposal limits; Level 2 failure: the numbers -->
 
-How lessons are promoted stays **Provisional** (decision 11), as do the memory rules that rest only on the business's memory answers, which the project owner has not yet reviewed. <!-- decision record 9; Level 2 memory: pending review -->
+How lessons are promoted stays **Provisional** (decision 11). The rules that rest on the business's memory and knowledge answers are Decided: on 2026-10-28 the project owner pointed to those answers as the answers. <!-- decision record 9; Level 2 memory: pending review -->

@@ -1,5 +1,10 @@
 # What are the compliances of each actor and each tech stack we will use?
 
+## Note added 2026-10-28 — erasure only through a confirmed tool
+
+Swaraj, 28 October 2026: "We do not erase anything." Where the law requires erasure, "not the AI will erase it". The AI may propose an erasure inside the erasure tool. The tool has a confirmation rule: it runs its pre-configured confirmation flow to the owner or the configurator, and erases only after their yes. The erasure then reaches every place the data lives, including situation records, which are otherwise never rewritten. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part E3.
+
+
 ## Where this question came from
 
 Level 1 asks it directly. The category handoff pushed it further:

@@ -1037,3 +1037,100 @@ How this message was read, so the owner can check it:
 **What stays as it is.** The memory rules resting on Level 2 answers still marked "pending review" stay Provisional until the owner reviews that folder. How lessons are promoted stays Provisional. Values each business or market sets are deferred to configuration; a few technical choices to Level 3; a few details to implementation. Files outside the Section 12 folder were not edited: the earlier lines that a later decision replaced are listed in the conflict register, section 2, for correction where they sit.
 
 **Applying them.** The design files first: the decisions, the parts, the records, the rules, the interactions. Then every file that repeats a point: the behaviour view (16 files), the responsibility view (11), the build view (11), the traceability view, and the checking folder. Hidden labels for items now settled were renamed: "call not yet confirmed:" became "accepted call:" (the observer's seat became "changed call:"), and settled "open item:" labels became "closed item:".
+
+## 22. Memory and knowledge redone, and carried through Sections 6 to 12 (2026-10-26 to 2026-10-28)
+
+**What happened.** In October 2026 Swaraj said: "the loop that we engineer in itself was a complete failure". his September words had memory watching the loop, keeping links, and loading each step, but Section 12 (written by Claude) had drawn memory as loaders a step calls plus a writer that reads finished work. A first proposal page (26 and 27 October) was rejected on 28 October: it engineered from the Arjun story, made fixed code do what code cannot, let memory decide, used a WhatsApp number as a person, and assumed skills everywhere.
+
+**The method Swaraj set.** Treat memory and knowledge as "an agency within the agency". Take it through the three levels: Level 1, an audit, then Level 2 answering every engineering question with its feasibility. Stories are tests, never the basis. Keep everything he has said; if the technical or readability audits contradict it, throw the audits out: "I am the boss here."
+
+**What was written.** In `Level 2/memory_and_knowledge/`: the Level 1 framing, the Level 2 design ("how memory and knowledge works with the loops"), and thirty-five tests, all passing. Swaraj's answers of 28 October are recorded in the folder's conversation file.
+
+**Swaraj's decisions of 28 October.** Always "memory and knowledge". It runs beside the loops on its own thread; before each part of a loop, the loop waits for its package (knowledge, or an explicit empty answer); its AI part runs at every part. Its fixed parts do only limited exact work. Retrieval is every technique known, to remove ambiguity (his Creator-joy and J&F research). It creates and maintains links, replacing the 2026-10-09 rule (entry 16 above) that the worker accepts or denies each link. The worker reaches the web; memory and knowledge learns. Outreach has one central situation, not a board. Skills live in versioned object storage. A business may write skills and connect any MCP server. Nothing is erased except through a confirmed tool. The 3 October foreign-reference note is removed. He pointed to the Level 2 memory folder as the answers to the remaining questions.
+
+**Carried through.** Section 6: A14, A15, B10, F7, F8, N18–N35, U7 added; B5, B6, O1 and others changed. Section 7: the memory and knowledge part rewritten; links, writers, configuration; IB-15–IB-20. Section 8: packages in the run, the routing table, CASE-7, anti-patterns. Section 9: the stress table and R9-18–R9-24. Section 10: the 28 October decisions and audit register part P. Section 11: decision 9 rewritten, decisions 15–19, a re-stabilization (Stabilized, 2026-10-28). Section 12: every view; the build view's `memory.md` replaced by `memory_and_knowledge.md`; the overview's build order changed (memory and knowledge's fixed parts now come with the first slice); decisions 26–31; conflicts 16–23; the completion record re-confirmed. Dated notes were added to Level 2 pages in growth, journey, compliance, and understanding the situation where the new decisions changed them.
+
+**Audits.** Technical audits by Claude, against Swaraj's words and the Level 2 folder. Readability audits by subagents, against `conversation with swaraj.md` and Swaraj's words. A first readability audit's nine "quote not found" claims were rejected after checking the session record; its real findings were applied.
+
+**What stays as it is.** How lessons are promoted stays Provisional. The memory rules that rested on "pending review" answers are now Decided, because Swaraj pointed to that folder as the answers on 28 October; this replaces entry 21's line that they stay Provisional until he reviews the folder. This is Claude's reading of his instruction, flagged to him. The codes named above are listed, with their meanings, in the Section 10 audit register, part P, and the code indexes.
+
+## 23. Understanding comes first: the whole conversation audited (2026-10-29)
+
+**What happened.** Swaraj proofread the memory and knowledge tests, starting with Arjun's "Diwali sale". He asked whether understanding comes before routing, and found that it did not: "You just disregarded understanding in itself… The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing, when there is the retrieval thing, the retrieval would have been much simpler this time. We would just know the dates of the sales and we could just make a filter about that." He had said the same on 27 October ("First, it has to figure out the aspect of time"). He asked for the whole conversation to be audited, and for a plan to find the mistakes he had not found: "I do not want any more babysitting to you." He approved the plan with "go."
+
+**The method.** Two registers were built from the sources, not from Claude's pages:
+- Swaraj's words since the Cursor transcript, each quoted exactly and turned into a test;
+- the settled rules of Level 1, Level 2 and the harness study, each turned into a test.
+
+The loops were rebuilt from Level 1 and Level 2. The design was traced against both registers line by line. Each defect was named as a kind, and every file was searched for that kind. Tests were walked again against a rubric of process, not results, and fifteen tests were written to break the design. The working is in `memory_and_knowledge_drafts/` (files 40 to 46).
+
+**What it found.** 24 defects in 12 kinds, from two roots:
+1. **Understanding had no place in the loops.** Section 7 had made the conversation manager a router that "only records and routes", though its own rule HC-2 said it "works out what an incoming message means". The 28 October design kept that, put the sale's meaning in the worker after routing, and searched past situations on the message's raw words before understanding it. (A first correction then over-restricted that search, against the 3 October agreed picture; it was withdrawn the same day. The 3 October rule stands, now driven by the reading.)
+2. **A person's visibility was applied to Tend's own reasoning.** "Routing uses the sender's view" kept the sale's dates from the step that had to understand. That brought back "point 5" of the 26 October proposal (which limited memory's searches to the speaker's own records), which Swaraj had rejected, and contradicted Level 2's "Tend may use a confidential source internally".
+
+Also found:
+- the routing queue keyed by channel address;
+- a test that used a detail its worker was never shown;
+- tests passed on results;
+- three quotes that said more than Swaraj said;
+- the Level 2 design without alternatives, trade-offs, evaluation criteria or limits;
+- two misses from 28 October: a board left in the routing responsibility file, and "whether a link is accepted" left in the worker's writers row.
+
+**What changed.**
+- **Level 2:** the framing (responsibility 11, T7, a new question 41), the design (the reading; points R1 to R3 and W0; using versus showing; candidates from the reading; revisiting its own advice; a failure rule for understanding; Part H), the tests (the rubric; fifty walks), a dated note on the same-situation page, and the conversation record.
+- **Section 6:** C7 to C10, N36, N37 added; B5, B10, N19 to N23, N29 to N31, N34, N35 changed.
+- **Section 7:** the writers table carries the reading; IB-21 to IB-23 added; HC-2 changed.
+- **Section 8:** the packages, intake, routing outcomes, CASE-1, CASE-7, three anti-patterns.
+- **Section 9:** R9-25 and R9-26.
+- **Section 10:** the 2026-10-29 decision; audit register part Q.
+- **Section 11:** decisions 20 and 21; rules 35 to 37; stabilization reopened and given again.
+- **Section 12:** every view: decisions 32 and 33; three new rules that always hold; conflicts 24 to 27; decisions register part 6; stabilization re-checked.
+
+**No new question for Swaraj.** Every choice was settled by his words or by Level 2. Three calls from 28 October still need his confirmation; none blocks the work: (1) whether the memory rules that rested on "pending review" answers are Decided; (2) how an MCP server is connected; (3) when a central situation ends.
+
+## 24. The product loop: loops built from the product's stages (2026-10-29, later)
+
+**What Swaraj said.**
+- He read the memory and knowledge tests and still saw no understanding section before routing.
+- He asked whether understanding and routing were separate components or one technical skeleton shared with the worker: "we do not want that king of loop our loop is the philosophy with which we are working".
+- Then: "the loops do not look natural to me … I am first and foremost a product engineer"; "Routing, I don't think would be much of a LLM thing"; and "If I just say hi to my agent, it should obviously first not create a situation".
+- On the harness study: its purpose was to find "the types of LLM interaction architectures" for each component, not to draw Tend's loops. It is to be rewritten, or removed if that is too costly.
+- Section 12 is to be reworked; Sections 6 to 11 are not to be touched.
+
+**The method** (drafts 48 to 53 in `memory_and_knowledge_drafts/`):
+- every decided record the redesign touches was listed first;
+- the work was walked as a capable employee would do it;
+- a first design was attacked with simple, harder and very hard cases;
+- the design was rebuilt twice from what the cases showed (twenty findings).
+
+**What it found.**
+- The loops came from the harness study's first drafts, which called themselves "a candidate to be challenged, not a decision".
+- The study had already asked for each component's loop to be classed by kind, but never defined the kinds.
+- Swaraj's ruling of 5 September, that the conversation manager answers when the situation already holds the answer, never reached Sections 6 to 12.
+- The research of 14 September had named the deeper problem: a harness can execute perfectly and still answer badly.
+
+**What changed.**
+- **Level 2:**
+  - a new folder, `the_product_loop/`, with the design, 37 tests and the conversation record;
+  - the memory and knowledge design: points named by stage; its loops part pointing to the new page; the cost counted again;
+  - its tests: every walk under stage headings, plus tests 51 and 52;
+  - notes on the understanding pages; `STRUCTURE.md`.
+- **The harness study:** rewritten, from 2,134 lines to 391, as the catalogue of kinds of LLM interaction, the sources, the rulings, the improvement machinery and the compute decisions. Its drafted loops were removed, and a map shows where each old part went.
+- **Section 12:** every view.
+  - The build files for the conversation manager and the situation worker were rewritten.
+  - Decisions 34 to 37; six rules that always hold; interaction 27; conflicts 28 to 34; decisions register part 7; the stabilization re-check.
+  - The PL codes were added to every code index.
+- **Sections 6 to 11:** not changed. One line in Section 6 ("How the parts relate") still lists routing before understanding; Section 12 governs.
+
+**Calls not yet confirmed by Swaraj:**
+1. general questions answered briefly by default;
+2. no reply to a thank-you by default;
+3. the greeting rules (no reply when a newer arrival is queued, or a greeting was already answered);
+4. planning inside gathering;
+5. memory and knowledge serving the stages that reason and observing the rest;
+6. answering at once from a fact the business configured (the 5 September ruling covered a situation's own facts).
+
+**Corrected the same day:** the first version said gathering only reads. That contradicted Level 2 ("Gathering may ask an employee or partner for information"), and the record had not been in the list checked first. Gathering now asks people for information.
+
+**One option** was surfaced and not applied: answering "any update?" for every open situation at once (it would change rule B3).
+

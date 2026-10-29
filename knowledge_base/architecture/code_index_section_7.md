@@ -16,7 +16,7 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 |------|---------------|--------|--------|
 | B-Story | The situation story: keeps each situation's record, decides the next step, commits every truth change. | Harness: situation worker (lines 1119–1121); Section 6 rules A, C–F, H, J, K, M, O10, P | Decided (the concept); the name is architecture-only |
 | B-Membrane | The door for messages, in and out. Routes events, applies the communication rules, sends what the story decided. | Harness: conversation manager and communication layer (lines 518–534); Communication files | Decided (concept); name architecture-only |
-| B-Memory | Observes work, learns, keeps business knowledge, supplies context. | Harness: observer and loader (lines 1085–1090); Memory files | Decided (concept); name architecture-only |
+| B-Memory | Memory and knowledge: runs beside the loops on its own thread; hands a package before each part of each loop; finds knowledge (retrieval capability); creates and maintains links; keeps skills, procedures and learned knowledge; learns. Decides nothing; writes no situation record except a confirmed erasure. | Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops; Swaraj 2026-10-28; Harness observer and loader (lines 1085–1090) | Decided (Swaraj, 2026-10-28); name "memory and knowledge" by Swaraj |
 | B-Visibility | Derived views for owner, admin, and builder. Writes no story truth. | Explainability D3, D4, D5 | Decided (concept); name architecture-only |
 | Adjacent-Tool | The tool layer: permission before each call, bounded retry, intent before an irreversible effect, structured evidence back. | Harness: deterministic tool layer (line 1270); Compliance file (lines 55–57) | Decided (concept); name architecture-only |
 | Adjacent-Poll | The polling service: runs polling jobs for outside systems and returns results as events. | Swaraj's direction (recorded in Section 7 on 2026-10-09); Section 6 H8 and M5 | Decided (its own part); Open (number of status calls inside a tool) |
@@ -95,7 +95,7 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | B3 | Tiered routing: clear match attaches; weak match asks. | Understanding (routing) | Decided |
 | B4 | Routing is corrected when evidence shows it was wrong. | Understanding (routing) | Decided |
 | B5 | Assemble incoming context once. | Understanding | Decided |
-| B6 | One list creates separate situations and one board. | Product Vision (lines 99–105, 337–347) | Decided |
+| B6 | One list creates one situation per person and one central situation linked to all of them; no board. | Swaraj 2026-10-28; Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops D4; Product Vision (lines 99–105, 337–347) | Decided (Swaraj, 2026-10-28) |
 | B8 | Unclear: prefer separate situations with a link. | Understanding (routing) | Decided |
 | B9 | Weak match records a held attachment without changing the situation. | Understanding (routing) | Decided |
 | I1 | Express a material change; no default receipt message. | Communication (when should Tend communicate, lines 4–10, 37, 63–67) | Decided |
@@ -115,7 +115,7 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | T2 (egress) | Policy check before an outgoing message: Allow, Deny, StepUp. | Compliance (lines 55–57) | Decided |
 | T11 | Field-level visibility. | Level 2 who-may-grant (lines 72–78); channels Q4; compliance (line 84) | Decided (rule); Open (exact role configuration format) |
 
-### Memory (B-Memory)
+### Memory and knowledge (B-Memory)
 
 | Code | Plain meaning | Source | Status |
 |------|---------------|--------|--------|
@@ -223,9 +223,27 @@ Group letters (B, C, D, E, F, G, H, I, J, K, L, M, N, O, R, S, T, and P, Q, U) n
 | AC-4 | The authoritative permission store is read at enforcement. A cache never decides. | Harness (lines 2038–2042); coordination (line 170) | Decided |
 | D8 | Match each ask to a source. If none can answer, record capability-absent. If a person can answer, open human work. | Gathering map; explainability (line 28) | Decided |
 | HC-1 | Write and announce together. An unannounced write is retried. | Coordination (line 168); time (line 108) | Decided |
-| HC-2 | The conversation manager routes incoming messages. Only the situation worker commits conclusions. | Section 7 writer rules; Level 2 understanding (routing) | Decided (writer split); Provisional (artifact shape) |
+| HC-2 | The conversation manager works out what an incoming message means (its reading, an interpretation), then routes it. Only the situation worker commits conclusions. | Section 7 writer rules; Level 2 understanding (routing; ambiguity §9; 2026-09-04 MEANING note); Swaraj 2026-10-29; Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops A4, F2 | Decided (Swaraj, 2026-10-29: understanding first; working decision in Level 2) |
 | HC-3 | Every wait goes in the book of waits. One check-in per situation. No polling inside the harness. | Time (line 106); coordination (lines 161–163) | Decided |
-| IB-12 | Traces go to memory in the background and never block a commit. | Harness (lines 1104–1110) | Decided |
-| IB-13 | Memory proposes configuration. Only the configurator's tools apply it, after validation. | Configuration capability (lines 13, 24) | Decided (apply path); Decided by Swaraj, Level 2 silent (memory observes setup sessions) |
-| IB-14 | Training-grade traces go to the improvement path, apart from business memory. | Harness (lines 1322–1343) | Decided |
+| IB-12 | Traces go to memory and knowledge in the background and never block a commit. | Harness (lines 1104–1110) | Decided |
+| IB-13 | Memory and knowledge proposes configuration. Only the configurator's tools apply it, after validation. | Configuration capability (lines 13, 24) | Decided (apply path); Decided by Swaraj, Level 2 silent (memory and knowledge observes setup sessions) |
+| IB-14 | Training-grade traces go to the improvement path, apart from memory and knowledge. | Harness (lines 1322–1343) | Decided |
+| IB-15 | Before each part of each loop, the loop hands memory and knowledge what it holds and waits for its package. | Swaraj 2026-10-28 ("before running the next part of the loop… it will wait"); Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops A1, A2 | Decided (Swaraj, 2026-10-28) |
+| IB-16 | A worker's send to another situation goes through intake as a keyed arrival, with a per-pair count. | Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops D3 | Decided (working decision in Level 2, written 2026-10-28 on Swaraj's instruction) |
+| IB-17 | A person's situation in an outreach hands each new version to intake as an arrival for its central situation; nothing goes back down automatically. | Swaraj 2026-10-28 ("every single update will go to… the central situation model"); Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops D4 | Decided (Swaraj, 2026-10-28; mechanism Decided (working decision in Level 2, written 2026-10-28 on Swaraj's instruction)) |
+| IB-18 | Memory and knowledge's link keeper creates links from shared numbers and incident codes; writes no situation record. | Swaraj 2026-10-28; Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops D2, Part G | Decided (Swaraj, 2026-10-28) |
+| IB-19 | Only the erasure tool starts an erasure, after its confirmation flow; the cleaner carries it out everywhere. | Swaraj 2026-10-28; Compliance (deletion recursive); Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops E3 | Decided (Swaraj, 2026-10-28) |
+| IB-20 | A decision is checked against the newest version before it acts; re-checked just before an irreversible action. | Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops F1 | Decided (working decision in Level 2, written 2026-10-28 on Swaraj's instruction) |
+| IB-21 | The conversation manager understands an arrival before routing it and saves its reading with the arrival; the worker reads the reading and never re-derives the meaning. | Level 2 understanding (ambiguity §8.1: "Other responsibilities consume the explicit result"); harness 12.4; Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops F2 | Decided (Swaraj, 2026-10-29: understanding first; working decision in Level 2) |
+| IB-22 | Routing runs one at a time per person, keyed by the person ID found from the channel address; two channels of one person share one queue. | Swaraj 2026-10-28 ("not a WhatsApp number"); Level 2 coordination (one situation, one story); Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops F2 | Decided (Swaraj, 2026-10-29: understanding first; working decision in Level 2) |
+| IB-23 | The worker understands new content before it plans or decides; a new situation's reading is its first understanding. | Swaraj (Cursor transcript); Level 2 understanding and gathering; Level 2 memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops F1 | Decided (Swaraj, 2026-10-29: understanding first; working decision in Level 2) |
 | M5 | Unknown outcome on an irreversible action: the same key is reused only if the other side honours it; otherwise a bounded status check and a separate polling service; after the settle window, no automatic redo. | Failure (conversation file, line 52; recover file, lines 18–19) | Decided (rule); Decided (separate polling service); Open (number of status checks) |
+
+
+## Changes of 2026-10-28
+
+The memory part is now memory and knowledge (Swaraj, 2026-10-28), designed in `Level 2/memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md`. Links are created and maintained by memory and knowledge's link keeper; the 2026-10-09 rule (memory proposes, the situation worker accepts or denies) is superseded. Outreach has a central situation, not a board. Added IB-15 to IB-20. Section 6's new codes A14, A15, N18–N35 and U7 are carried by the memory and knowledge part.
+
+## Changes of 2026-10-29 (understanding comes first)
+
+The writers table now carries the conversation manager's reading of each arrival, which HC-2 had always implied ("works out what an incoming message means"). The memory and knowledge section's points, fixed parts, retrieval filter and visibility rule changed: R1 before the reading, R2 with candidates from it, R3 before the check after an AI choice, W0 before the worker understands new content; using the business's knowledge is separate from showing records. Added IB-21, IB-22, IB-23; changed HC-2. Source: the Level 2 design, corrected 29 October 2026, and the audit in `memory_and_knowledge_drafts/` (files 40 to 46).

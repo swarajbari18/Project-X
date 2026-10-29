@@ -18,6 +18,20 @@ Two conversations can be **related** without being the **same** situation.
 
 Related means they share context that may matter — same customer, same order, same incident — but they still need **separate** situation models and **separate** resolution paths.
 
+**Note added 2026-10-29 — understanding comes first.** The two jobs below ("First — route" and "Second — understand") read as "route, then understand". Swaraj, 29 October 2026: "before routing you have to understand the situations first and then route", and "The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing… the retrieval would have been much simpler this time." The rest of Level 2 already said so:
+- the Product Vision: "Tend should never take an action before understanding the situation";
+- Level 1: receive, then "Tend understands the situation";
+- the ambiguity page: build candidate interpretations, then "apply the existing routing decisions";
+- the relevance page: the component "understands the language in it. Based on that understanding, it attaches";
+- the note of 4 September: MEANING is understanding at message entry, and its validated result becomes the next version.
+
+So the order is:
+1. **Understand the arrival.** What it asks, what it refers to, which time it means, what is only the sender's claim.
+2. **Route** from that understanding.
+3. **Update** each routed situation's full model with what the arrival adds.
+
+"Second — understand" below means step 3, the full update, which does come after routing. The router never routes on words it has not understood. Later on 29 October 2026 the order was set out as [Tend's product loop](../the_product_loop/how_does_the_product_loop_work.md): **understanding the arrival** (the conversation manager's one AI stage) works out what each ask means and where it fits, and writes its understanding artifact; **routing** is fixed code that carries it out; the situation worker's understanding then updates each routed situation.
+
 When an event arrives, Tend does two jobs before gathering from business systems.
 
 **First — route.** Decide which situation model or models this event updates. Create a new situation when the event starts a new problem.
@@ -374,6 +388,8 @@ Do not link all open situations for a customer by default.
 ---
 
 ### What a link stores
+
+Note added 2026-10-28: memory and knowledge creates and maintains links (Swaraj, 28 October 2026). A shared number or incident code from records is a signal, and the link is made. A shared meaning alone is proposed and stays unresolved until a signal appears. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D2.
 
 A link is a Tend artifact (Category 3 in “What Tend stores”).
 
@@ -794,7 +810,7 @@ Decisions locked in this answer:
 - Same situation vs related vs unrelated — three distinct relationships.
 - Related situations stay separate models; link for shared context; do not merge by default.
 - When unsure between same and related → separate + link over silent merge.
-- Route and understand share the same incoming-event context pool; assemble once, two passes.
+- Route and understand share the same incoming-event context pool; assemble once, two passes. (Note 2026-10-29: routing starts by understanding the arrival; see the note under "Answer".)
 - Router uses open-situation summaries; understanding uses full models for routed situation(s) only.
 - Default routing candidates are open situations; closed only on explicit reference.
 - Answered is not a situation status; new problem → new situation; same unfinished problem → reopen.
@@ -874,6 +890,8 @@ Understanding needs the **full** model for the situation(s) the router picked.
 **1. Assemble incoming-event context once.**
 
 Message + customer + available history + open situation summaries.
+
+Note added 2026-10-28: memory and knowledge places this bundle. Before the router reasons, and again after it writes down what it thinks, memory and knowledge's package arrives: see [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md). The router still makes the routing decision.
 
 Add targeted closed-situation lookup only if the message references something that might be a reopen.
 
@@ -1087,7 +1105,7 @@ Gather → may correct route / split / merge / link
 ### Decisions locked in this section
 
 - Route and understand share the same **incoming-event context pool** at ingest time.
-- **Assemble once, two passes** — router then understanding on routed situation(s).
+- **Assemble once, two passes** — router then understanding on routed situation(s). (Note 2026-10-29: the router's pass begins by understanding the arrival itself, and routes from that reading. The second pass is the full update of the routed situations. See the note under "Answer".)
 - Router uses **summaries** of open situations; understanding uses **full models** for routed situation(s) only.
 - Default routing candidates: **open situations** only; closed only on explicit reference.
 - **Answered** is not a situation status; **resolved** is operational closure.

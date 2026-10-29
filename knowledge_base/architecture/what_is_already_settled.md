@@ -8,6 +8,44 @@ If a note disagrees with Level 2, Level 2 governs, whatever the date.
 
 This page does not replace the product vision or the Level 2 knowledge base.
 
+## Understanding comes first (settled 2026-10-29)
+
+Tend understands each arrival before it acts on it, routing included.
+
+The conversation manager writes a reading of each arrival: what is asked, what it refers to, time words turned into dates, the sender's claims, what is unknown, whether it is work at all.
+
+Before the reading, memory and knowledge hands it what the arrival's words mean in this business.
+
+Routing's candidates come from the reading, by exact values first. When the reading says a message refers to a past purchase, routing gets a small set of the sender's own closed situations (agreed 3 October), narrowed by the reading's values before any description is matched.
+
+The worker understands new content before it plans or decides.
+
+Using knowledge is not showing records: the business's own knowledge may help any step understand; records shown stay inside each step's boundary; the send check decides what each person may be told.
+
+The routing queue is per person, not per channel address.
+
+## Memory and knowledge (settled 2026-10-28)
+
+Always called memory and knowledge, never just memory.
+
+It runs beside every loop, on its own thread.
+
+Before each part of a loop, the loop waits for its package: knowledge, or an explicit empty answer.
+
+It sees the whole business, and decides nothing.
+
+It creates and maintains the links between situations.
+
+It keeps skills and procedures in object storage, versioned.
+
+A business may write skills and connect its own MCP servers.
+
+An outreach has one central situation, not a board.
+
+Nothing is erased, except through the erasure tool's confirmation.
+
+The design is the Level 2 page "how memory and knowledge works with the loops".
+
 ## The job
 
 A delivery changes, and nobody is sitting on it.
@@ -28,7 +66,7 @@ When Tend must wait, it records the wait.
 
 ## The situation and the message that leaves it
 
-Priya's outreach is one situation.
+Priya's situation is one of thirty in the owner's outreach, which also has one central situation.
 
 It is not the chat thread.
 
@@ -86,7 +124,7 @@ It is read when a refund is attempted.
 
 The situation rules above are what the architecture work uses.
 
-The exact fields of that projection are still open in the Level 2 memory notes.
+The exact fields of that projection are deferred to Level 3 (field names of packages).
 
 ## What learning may change
 
@@ -311,7 +349,7 @@ How the owner's view is arranged on a screen is still open.
 
 A word that drifts, or a tool that fails the same way twice, is still open.
 
-The exact fields of the memory projection are still open in the Level 2 notes.
+The exact fields of memory and knowledge's packages are deferred to Level 3.
 
 The audit retention period, per market. Level 2 says it is enumerated when a market is entered. The research folder has no number, so none is set here.
 

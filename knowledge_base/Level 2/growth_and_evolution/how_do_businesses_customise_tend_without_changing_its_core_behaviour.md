@@ -1,5 +1,10 @@
 # How do businesses customise Tend without changing its core behaviour?
 
+## Note added 2026-10-28 — skill text and MCP servers are inside the governed zone
+
+Swaraj, 28 October 2026: a business may write any skill text and connect any MCP server. This page's line "customisation never means write your own logic" still holds in this sense: a skill is guidance text that the AI reads, not code that runs, and it cannot grant a permission, change a rule, or cross an invariant. Tools from a connected server pass the same permission check as every tool. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D6.
+
+
 ## Where this question came from
 
 Level 1 says the same core serves every business and "the difference is how much is configured". Every earlier category kept saying "that's a knob" and moving on. This question finally says what a knob *is*, and how we tell a knob from the core.

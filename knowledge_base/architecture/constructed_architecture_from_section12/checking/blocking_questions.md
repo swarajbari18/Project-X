@@ -584,9 +584,9 @@ The send check reads the list at the moment of every send, so a withdrawal stops
 
 ## Question 7. How is a checked person matched to their permissions while Tend runs?
 
-**The story.** Arjun works for the shop. He writes on WhatsApp: "approve the refund of 1,500 on order 9912" — Meera's refund, which is above the shop's refund setting, so it needs a person's yes. Tend must know three things, and record a fourth:
-1. Is this really Arjun?
-2. Is Arjun still a member of this shop?
+**The story.** Kabir works for the shop. He writes on WhatsApp: "approve the refund of 1,500 on order 9912" — Meera's refund, which is above the shop's refund setting, so it needs a person's yes. Tend must know three things, and record a fourth:
+1. Is this really Kabir?
+2. Is Kabir still a member of this shop?
 3. May he approve a refund of that size?
 4. Exactly who approved, and how Tend knew it was him.
 
@@ -624,19 +624,19 @@ The send check reads the list at the moment of every send, so a withdrawal stops
 
 **The options.**
 - **A. Email address as the key** that joins a person to their role.
-- **B. The WhatsApp number is the person.** A known number counts as Arjun.
+- **B. The WhatsApp number is the person.** A known number counts as Kabir.
 - **C. Membership, bound channels, and a fresh sign-in for any step that could move money or change settings.** Three records, each kept by one part and written by one:
   1. **The sign-in identity:** the provider and the provider's id for the person. The sign-in provider keeps it.
   2. **Membership:** this sign-in identity is a member of this business, with these roles. It is kept in each business's own storage. Configuration's fixed tools write it, when the configurator invites or removes someone. A person who works for two shops has two memberships, one in each.
-  3. **Channel bindings:** Arjun's WhatsApp, Telegram, and email are tied to his membership. A binding is made only while Arjun is signed in: configuration's fixed tool sends a one-time link to the handle, and he opens it. The binding keeps its evidence, and a date to review it.
+  3. **Channel bindings:** Kabir's WhatsApp, Telegram, and email are tied to his membership. A binding is made only while Kabir is signed in: configuration's fixed tool sends a one-time link to the handle, and he opens it. The binding keeps its evidence, and a date to review it.
 
   **What each run trusts.** Each run's identity is set once, at intake, from what can be checked:
   - a **sign-in** proves the person;
   - a **bound channel** proves only the channel, and names the member it is bound to.
 
   So:
-  - **Routine words from a bound channel** — a reply, information, an answer to a work item — are recorded as "came through the WhatsApp bound to Arjun's membership, person not verified", and weighed as claims.
-  - **Any step that needs a person's permission** needs a fresh sign-in through the sign-in provider. That means: approving; any step the permission check sends to a person; exports; changing grants or settings; moving a channel; and anything the configurator does. Tend may send a link to Arjun's bound channel, but the link only opens the sign-in provider's own check. The channel carries the link; it proves nothing. The time of the sign-in comes from the provider.
+  - **Routine words from a bound channel** — a reply, information, an answer to a work item — are recorded as "came through the WhatsApp bound to Kabir's membership, person not verified", and weighed as claims.
+  - **Any step that needs a person's permission** needs a fresh sign-in through the sign-in provider. That means: approving; any step the permission check sends to a person; exports; changing grants or settings; moving a channel; and anything the configurator does. Tend may send a link to Kabir's bound channel, but the link only opens the sign-in provider's own check. The channel carries the link; it proves nothing. The time of the sign-in comes from the provider.
 - **D. A sign-in for every message.** Even routine replies from staff need a sign-in.
 
 **How they compare.**
@@ -653,7 +653,7 @@ The send check reads the list at the moment of every send, so a withdrawal stops
 
 **Recommendation: C.**
 - A sign-in proves the person; a bound channel proves only the channel, and names the member.
-- At every step, the permission check reads the live membership, roles, and grants. When Arjun leaves, his membership ends that minute, so his very next step fails.
+- At every step, the permission check reads the live membership, roles, and grants. When Kabir leaves, his membership ends that minute, so his very next step fails.
 
 **Every approval records:**
 - the member;
@@ -668,7 +668,7 @@ This answers the question no file had settled: how an approver's "yes" is tied t
 **Customers and partners are not members.** A customer's channel identifies the contact for their own situations, and never grants permission. A partner sees only the fields on its list.
 
 **Two smaller questions inside this one, each To confirm.**
-- **How fresh is fresh?** How many minutes after signing in may Arjun approve money, or the configurator change a setting, before a new sign-in is needed? Recommended: 15 minutes; each business may shorten it. (NIST's 15 minutes is a different measure — time with no activity — so this number is your choice.)
+- **How fresh is fresh?** How many minutes after signing in may Kabir approve money, or the configurator change a setting, before a new sign-in is needed? Recommended: 15 minutes; each business may shorten it. (NIST's 15 minutes is a different measure — time with no activity — so this number is your choice.)
 - **Changed and moved bindings.** When a bound WhatsApp identifier changes — a new phone, for example — the binding is suspended until it is proved again. Moving a binding to another person needs the configurator. Recommended: yes to both.
 
 **How we will know it stays right.**

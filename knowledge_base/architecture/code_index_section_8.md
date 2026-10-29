@@ -77,15 +77,15 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | IB-9 | An unknown-outcome recheck timer wakes the situation worker and uses the same status path. | Time (how should Tend react, line 18) does not name a recheck timer | Architecture-only |
 | IB-10 | An unknown outcome on an irreversible action keeps the situation waiting until the settle window ends. | Failure (line 44); failure recovery (line 19) | Decided |
 | IB-11 | Starting an action, recording it unknown, and waiting are saved in one version. | Architecture-only | Architecture-only |
-| IB-12 | Traces go to memory asynchronously and never block a commit. | Harness (lines 1104–1110) | Decided |
+| IB-12 | Traces go to memory and knowledge asynchronously and never block a commit. | Harness (lines 1104–1110) | Decided |
 | IB-13 | Memory proposes configuration. Only the configurator's tools apply it, after validation. | Configuration capability (lines 13, 24); Section 6 N13 | Decided (apply path); Open (memory observes setup sessions) |
-| IB-14 | Training-grade traces go to the improvement path, apart from business memory. | Harness (lines 1322–1343) | Decided |
+| IB-14 | Training-grade traces go to the improvement path, apart from memory and knowledge. | Harness (lines 1322–1343) | Decided |
 
 ## Human work, the owner, and communication (IA-7, IA-14, O, J, K)
 
 | Code | Plain meaning | Source | Status |
 |------|---------------|--------|--------|
-| IA-7 | The owner hears three classes of event. Routine progress stays on the board. Level 2 also lets an event that changes the business's next decision reach the owner at once. | Business view (which events, lines 5, 11–19) | Decided |
+| IA-7 | The owner hears three classes of event. Routine progress stays in the situations (an outreach's central situation). Level 2 also lets an event that changes the business's next decision reach the owner at once. | Business view (which events, lines 5, 11–19) | Decided |
 | IA-14 | Human work items: one responsible party; the fields; the lifecycle; the handoff. | Human collaboration files; Section 6 J4 | Decided (lifecycle); Provisional (field enum) |
 | J1 | Make the need for a person explicit. | Human collaboration | Decided |
 | J2 | Nine kinds of involvement. | Human collaboration (when should Tend involve a person, lines 44–54) | Decided |
@@ -138,10 +138,10 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | B2 | Route each event to its situation before gathering. | Understanding (routing) | Decided |
 | B6 | One list creates separate situations. | Product Vision (lines 99–105) | Decided |
 | C1 | Update the routed situation with what the event adds, before deciding. | Understanding | Decided |
-| N1 | Each step gets only the memory it needs. | Memory (assemble context) | Decided |
+| N1 | Each step gets only the knowledge it needs. | Memory (assemble context) | Decided |
 | N8 | Matching and merging learned claims. Six operations; the full set is Open. | Memory (reconciled and versioned, lines 44–60) | Decided (six); Open (full set) |
-| N11 | Memory is served from a context need. | Memory (retrieval) | Decided |
-| N14 | Structured values are configuration; prose preferences are placed by memory. | Prompt constitution; harness (lines 2092–2099) | Decided |
+| N11 | Knowledge is served from a context need; fixed code limits every search first. | Memory (retrieval); Level 2 how_does_memory_and_knowledge_work_with_the_loops C2 | Decided |
+| N14 | Structured values are configuration; prose preferences are placed by memory and knowledge. | Prompt constitution; harness (lines 2092–2099) | Decided |
 | R3 | Improvement never activates a business rule. | Authority and memory conversation files; research | Decided |
 | U2 | Fields from connected systems are untrusted. Allowlist. Outbound stripped. | Security (lines 123–124) | Decided |
 
@@ -179,7 +179,7 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | Code | Plain meaning | Source | Status |
 |------|---------------|--------|--------|
 | IA-8 | The owner view is derived from committed records. Refresh on commit, grouped per situation; observer events per tick; capability-absent aggregate nightly. Timing figures Open. | Business view (discoveries, line 75); architecture-only (triggers) | Decided (derived); Open (timing) |
-| IA-9 | Memory serves short cards first; the full situation only after a card is chosen; settings are not situation cards. | Memory (retrieval, lines 67–71); architecture-only (cards) | Architecture-only (cards) |
+| IA-9 | Memory and knowledge's routing fixed part serves short typed summaries first; the full situation only after one is chosen; settings are not situation summaries. | Memory (retrieval, lines 67–71); Level 2 how_does_memory_and_knowledge_work_with_the_loops B1 | Decided (2026-10-28) |
 | IA-11 | Learning promotions. Learned lessons may be proposed for promotion; promotion to the registry is Provisional. | Memory (can tend learn automatically, line 16); architecture-only (promotion) | Provisional |
 | IA-12 | Configurator path: the configurator's agent holds the fixed tools; memory proposes candidates. Provisional. | Configuration capability (lines 7, 13, 24) | Provisional |
 | IA-13 | Improvement path: training-grade trace slices; never activates a business rule. | Harness (lines 1322–1343) | Decided |
@@ -208,3 +208,12 @@ Level 2 governs. Where Level 2 disagrees with another source, Level 2 wins. The 
 | M6 | When the automated path is used up, escalate to a person. | Failure; section 6 J3 and K4 | Decided |
 | U1 | Tenant isolation is mechanical on every store, cache, key, index, log, and model call. | Level 1 section 8; compliance (release gate T-A) | Decided |
 | T | Group letter for the permission checks. The rows are T2, T4, T5, T7, T8. | Section 6 group T | See row for each code |
+
+
+## Codes used from 2026-10-28
+
+Section 8 now also carries IB-15 to IB-20 (defined in `code_index_section_7.md`) and F7, F8, N19, N20, N22, N23, N25, N27, N28, N31, N33, N34, A15 (defined in `code_index_section_6.md`). New walkthrough: CASE-7, Arjun's corrected pin code sent from his situation to the warehouse team's situation through intake. Source: `Level 2/memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md` and its tests (test 1).
+
+## Codes used from 2026-10-29 (understanding comes first)
+
+Section 8 now also carries C7, C8, C9, C10, N36, N37 (defined in `code_index_section_6.md`) and IB-21, IB-22, IB-23 (defined in `code_index_section_7.md`). Changed in the visible text: where the packages arrive (R1 before the reading, R2 after it, R3 before the check after an AI choice, W0 before the worker understands new content), intake (the first version carries the reading), the routing outcomes (not work; code decides when it can), the memory and knowledge section (using versus showing; candidates from the reading), CASE-1, CASE-7, three anti-patterns, and the decisions.

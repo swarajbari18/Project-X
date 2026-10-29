@@ -114,9 +114,9 @@ A closed situation informs a new one only through explicit links and relevance. 
 
 "Reopened" is a mark on the same record. It is not a new record. Its exact form is left to whoever builds the record (deferred to implementation); the rule above does not depend on it. <!-- A8 -->
 
-The intake step — the fixed step that reads each new message when it arrives — decides whether a message reopens a situation. It reopens one only when the message refers to that closed situation explicitly, and continues the same unfinished problem. <!-- A8 -->
+Understanding the arrival (the conversation manager's one AI stage, which reads each new message before anything acts on it) decides whether a message reopens a situation. It reopens one only when the message refers to that closed situation explicitly, and continues the same unfinished problem. <!-- A8 -->
 
-The intake step decides; the situation worker then marks the record reopened, with the reason, and sets it running. <!-- A8; Section 8: the states table -->
+Understanding the arrival decides, and routing carries it out; the situation worker then marks the record reopened, with the reason, and sets it running. <!-- A8; Section 8: the states table -->
 
 Before any important next step, Tend reads the latest record. A reopened run — a pass of the situation worker over a reopened situation — checks again every fact it relies on that may have changed, as any run does. <!-- A8; closed item: reopen check -->
 
@@ -150,7 +150,7 @@ A reopen does not, by itself, change the person's relationship. Their stage is s
 
 A business document can arrive without being asked for: a supplier's bill of materials, an invoice, a balance sheet request.
 
-The intake step matches it to the open situation involving that sender, or to that person's record, and files it there. It is filed away so it can be found later. If nothing matches, a person sees it. No action is taken on the document alone. <!-- decided by the owner, 2026-10-10 -->
+Understanding the arrival matches it to the open situation involving that sender, or to that person's record, and routing files it there. It is filed away so it can be found later. If nothing matches, a person sees it. No action is taken on the document alone. <!-- decided by the owner, 2026-10-10 -->
 
 ## What this responsibility refuses
 
@@ -165,7 +165,7 @@ This file lists only the refusals of this area. The full list of what Tend refus
 | One versioned record per problem <!-- A1 --> | In: what arrives from any channel. Out: a new version per change | Tend writes it. The conversation manager sets completed | A wrong routing is split, linked, or rerouted once later evidence shows it. A merge joins two situations that are one problem; related situations stay linked <!-- B4 --> |
 | Linking without merging <!-- A3; A5 --> | In: a shared order, incident, or follow-on. Out: a typed link | Tend, on evidence | A wrong link can be removed, and the removal is recorded <!-- Level 2 understanding: unlink --> |
 | Closing a finished problem <!-- A6; A9 --> | Out: the recorded outcome | The conversation manager sets completed | A wrongly closed problem reopens with its reason <!-- A8 --> |
-| Reopening only a wrongly closed problem <!-- A8 --> | In: a message that refers to the closed situation | The intake step decides, on a fixed list of signals | A genuinely new problem is a new situation, linked to the old one <!-- A7 --> |
+| Reopening only a wrongly closed problem <!-- A8 --> | In: a message that refers to the closed situation | Understanding the arrival decides, on a fixed list of signals; routing carries it out | A genuinely new problem is a new situation, linked to the old one <!-- A7 --> |
 | Keeping the stated ask apart from the inferred problem <!-- A12 --> | In: what the person asked. Out: both, side by side | Tend writes both; the person may correct either | A correction is written as a new version; the old one stays in history |
 | Knowing a contact from evidence <!-- A11; A13 --> | In: evidence about the person | The business sets how a supplied lead is treated | An unknown relationship stays unknown until evidence settles it |
 | Filing an unsolicited document <!-- decided by the owner, 2026-10-10 --> | In: a document from outside | A person sees anything unmatched | Nothing is done on the document alone |

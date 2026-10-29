@@ -7,18 +7,23 @@ In plain words: a situation can go no further, its work is cut short, or it was 
 ## Words in this file
 
 - **Tend** is the software that keeps a business's operational problems moving. Each problem is one **situation**, such as Meera's late parcel. <!-- A1 -->
-- The **conversation manager** takes in each arrival — a person's message, or an outside system's answer — puts it on the right situation, decides whether a person should hear an update, and alone sets a situation to completed. Its **intake step** reads each new arrival first, and saves it as a new version. <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer -->
+- The **conversation manager** takes in each arrival (a person's message, or an outside system's answer) through its **arrival loop**:
+  - its **intake step** saves it, and finds who sent it;
+  - **understanding the arrival**, its one AI stage, works out what the arrival means and where it fits;
+  - **routing**, fixed code, puts it on the right situation, or the conversation manager answers it at once when no situation is needed.
+
+  It decides whether a person should hear an update, and alone sets a situation to completed. (The arrival loop, since 2026-10-29: [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).) <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer; PL-3; PL-5; PL-6 -->
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory** keeps what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
 - The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
-- **The AI** suggests a step; **fixed code** — code that always makes the same check — checks it. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2 -->
+- **The AI** writes a reasoning artifact in the stages that reason, and in the worker's deciding stage proposes a step; **fixed code** (code that always makes the same check) checks it, and chooses which stage runs next. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2; PL-1 -->
 - A **grant** is a range of steps a business allows Tend to take without asking. The **configurator** is the person who sets the business up: the business owner, or someone the business owner names. Only the configurator's fixed tools write grants. <!-- T3; G7 -->
 - A **member** is a person who works for the business, proved by the sign-in provider the business uses (the outside service that checks who a person is when they sign in); customers and partners are not members. A **fresh sign-in** is one made within the last 15 minutes. A channel **bound** to a member shows only which channel a message came through, and names that member; it does not prove who is typing. <!-- decided 2026-10-22: identity and permission -->
 - An **arrival** is anything that comes in from outside — a person's message, or an outside system's answer — saved as a new version. A tool **declares** a wait when its result states, in a fixed form, what is awaited, from whom, and what ends it. <!-- decided 2026-10-22: the status-check answer; decided 2026-10-22: the wait a tool declares -->
@@ -49,8 +54,8 @@ Meera's refund situation was completed last month. She writes: "You said my refu
 
 ```text
 1.  Meera                -> conversation manager : "You said my refund was done, but it never arrived."
-2.  conversation manager -> conversation manager : the intake step: the message refers to the closed refund situation; the same problem has come back
-3.  conversation manager -> situation record     : new version on the closed situation, with her message and the intake step's finding: the closure was wrong
+2.  conversation manager -> conversation manager : understanding the arrival: the message refers to the closed refund situation; the same problem has come back
+3.  conversation manager -> situation record     : routing (fixed code): new version on the closed situation, with her message and the understanding artifact's finding: the closure was wrong
 4.  situation record     -> situation worker     : notice
 5.  situation worker     -> situation record     : the same situation reopened, back to running, with the reason
 6.  situation worker     -> tool layer           : ask the payment provider about the refund
@@ -64,11 +69,11 @@ Meera's refund situation was completed last month. She writes: "You said my refu
 - **Starts with:** Meera's message. <!-- B1 -->
 - **Started by:** Meera.
 - **The responsibility:** keeping each problem as one record. <!-- A1 -->
-- **Part in charge:** the intake step decides; the situation worker reopens the record and sets it back to running. <!-- A8; Section 8: the states table -->
+- **Part in charge:** understanding the arrival decides; the situation worker reopens the record and sets it back to running. <!-- A8; Section 8: the states table; PL-3 -->
 - **The information:** her message, and the closed situation it refers to.
 - **The current state:** completed.
 - **What is uncertain:** where the money went.
-- **Who may decide:** the intake step decides whether the closure was wrong. <!-- A8 -->
+- **Who may decide:** understanding the arrival decides whether the closure was wrong; routing, fixed code, carries that out. <!-- A8; PL-6 -->
 - **The decision:** the closure was wrong; reopen the original. <!-- A8 -->
 - **The change of state:** completed to running, on the same record, with the reason recorded. "Reopened" is a mark on the same record, not a new record; its exact form is left to whoever builds the record (deferred to implementation). <!-- Section 8: the states table; A8 -->
 - **The success path:** the provider shows where the refund is; Meera is told.
@@ -78,7 +83,7 @@ Meera's refund situation was completed last month. She writes: "You said my refu
 - **The outside system:** the payment provider.
 - **What it changes next:** the reopened situation runs the common path again.
 - **The final state:** the conversation manager sets completed again, once the refund is confirmed, no wait is still running, and the last message has gone out.
-- **How it is checked:** the intake step's decision on whether the closure was wrong; the worker reading the newest version; the completion check. <!-- A8; IB-4; IA-23 -->
+- **How it is checked:** the understanding artifact's finding that the closure was wrong, and routing's check of it; the worker reading the newest version; the completion check. <!-- A8; IB-4; IA-23 -->
 - **Rebuilt afterwards from:** the closed version, Meera's message, the reopen with its reason, and what followed. <!-- O7 -->
 
 Time alone does not stop a reopen. A customer can come back six months later because the same problem has returned; the test is still whether that problem was never finished. <!-- A8 -->

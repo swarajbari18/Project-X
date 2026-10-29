@@ -83,3 +83,7 @@ The retrieval result is context for reasoning. The evidence and control responsi
 Memory retrieval is a multi-stage, scope-first, context-aware process.
 
 Semantic similarity is one candidate-generation signal, not the source of truth and not the versioning mechanism.
+
+How memory and knowledge finds things is decided in [how memory and knowledge works with the loops](how_does_memory_and_knowledge_work_with_the_loops.md), part C. It follows Swaraj's retrieval pattern from his earlier projects: the step says what it needs; a retrieval capability decides how; exact filters run first; exact, keyword, meaning and link searches run in parallel; their orderings are fused by rank and reranked; a governance gate in fixed code runs last. The stages on this page still hold inside that pattern.
+
+Note added 2026-10-29: the structured context need starts from what the step understood. For an arrival, understanding the arrival turns the message's words into exact values (dates, numbers, kinds), and the situations it may fit are found by those values first, in its wider look (renamed later on 29 October; see [the product loop](../the_product_loop/how_does_the_product_loop_work.md)). A person's own past is looked at only when the understanding artifact says the message refers to a past purchase or earlier work, and description is matched only inside what the exact values leave. Swaraj: "We would just know the dates of the sales and we could just make a filter about that."

@@ -161,6 +161,9 @@ knowledge_base/
 │   │   ├── how_should_new_learning_be_reconciled_and_versioned.md
 │   │   ├── how_should_memory_be_retrieved.md
 │   │   ├── how_do_we_assemble_context_for_each_situation_phase.md
+│   │   ├── how_does_memory_and_knowledge_work_with_the_loops.md
+│   │   ├── memory_and_knowledge_level_1_framing.md
+│   │   ├── memory_and_knowledge_design_tests.md
 │   │   ├── how_should_memory_be_scoped_between_businesses.md
 │   │   ├── how_should_tend_learn_from_its_own_mistakes.md
 │   │   └── how_do_we_evaluate_automatic_learning.md
@@ -178,6 +181,10 @@ knowledge_base/
 │   ├── prompt_constitution/
 │   │   ├── prompt_constitution_conversation_and_discoveries.md
 │   │   └── understanding_the_prompt_constitution.md
+│   ├── the_product_loop/
+│   │   ├── how_does_the_product_loop_work.md
+│   │   ├── the_product_loop_design_tests.md
+│   │   └── the_product_loop_conversation_and_discoveries.md
 │   ├── time/
 │   │   ├── time_conversation_and_discoveries.md
 │   │   ├── understanding_all_time_questions.md
@@ -350,6 +357,7 @@ The `memory_and_knowledge/` subfolder focuses on what Tend retains, what becomes
 - semantic identity, references, reconciliation and versioning;
 - conceptual storage responsibilities;
 - retrieval and situation-phase-specific context assembly;
+- how memory and knowledge serves each stage of Tend's product loop (the loops themselves are in `the_product_loop/`), how it finds things, and how it creates links between situations (with its own Level 1 framing and its tests);
 - outdated knowledge, correction and retirement; and
 - evaluation of whether learning actually improves behaviour.
 
@@ -369,6 +377,8 @@ The `coordination/` subfolder focuses on how a situation that involves several a
 - how interrupted work is recovered from durable records.
 
 The `time/` subfolder focuses on how Tend reacts when time changes the situation without any actor acting. It covers deadlines, the response promise versus resolution promise, scheduled work, the representation of waiting, automatic ends of waiting, and the situation-level check-in that makes forgotten work impossible. It deliberately shares the wait spine, its definitions and the three wait levels (tool/operation, situation, time/scheduled) with the Coordination category, so the two categories do not maintain two different models of waiting.
+
+The `the_product_loop/` subfolder holds Tend's loops, built on 29 October 2026 from the product's own stages after Swaraj rejected the harness study's first-draft loops ("the loops do not look natural to me … I am first and foremost a product engineer"). It covers the four loops (arrival, situation, update, message) and their stages (understanding the arrival, routing as fixed code, understanding the situation, gathering, weighing evidence, deciding, acting, writing); how any stage may end the loop; how the effort a message gets follows what it needs, without the prompt or a model's score; the kinds of AI use inside a stage, taken from the harness study; memory and knowledge's packages before the stages that reason; and its tests, from "hi" to a research brief.
 
 The `prompt_constitution/` subfolder holds the pre-architecture decision on the model's standing text (§4A item 13b; full reasoning in study Part 14). It covers the four text layers (universal core, stage constitutions, runtime-injected business preferences, memory-owned assembly templates), their owners and lifetimes, the rule that deterministic rules never enter text, the writing discipline (case-general principles, positive alternatives over prohibitions, short per stage), and the prompt-optimizer boundary (memory-owned assembly text only, constitution permanently human territory).
 

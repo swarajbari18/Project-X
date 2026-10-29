@@ -10,6 +10,8 @@ This file is for whoever builds the tool layer. It can be built from this file a
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 
+**Updated 2026-10-28.** The business's tools now include the tools of MCP servers the business connects. A call runs only for a tool memory and knowledge presented to that step in this run. The erasure tool, like every tool that needs a yes, runs its own confirmation flow. <!-- N27; U7 -->
+
 **1. What is this part for?**
 
 It is the only way Tend calls an outside system. Every call passes the permission check here, before it runs. <!-- Section 7: the parts table; Section 7: tool layer -->
@@ -20,6 +22,7 @@ Every call to the outside world must pass one permission check, and one note of 
 
 **3. What does it do?**
 - Runs the permission check before every call, reading the trusted permission store at that moment. <!-- Section 7: tool layer -->
+- Serves two stages of the situation loop (since 2026-10-29): gathering's reads, which change nothing outside Tend, and acting's steps, which may. Both pass the same permission check, and both return evidence, never a decision. <!-- PL-12; PL-15 -->
 - For any call that changes something outside Tend, runs these steps in order: <!-- decision record 5 -->
   1. check that a source can answer;
   2. check permission;
@@ -31,6 +34,9 @@ Every call to the outside world must pass one permission check, and one note of 
 - Makes the status-check service's asks, as the same tool's read-only status check, with the same permission check and call record as any call. <!-- decided 2026-10-22: the service calls through the tool layer -->
 - Runs the approval step: when a person must approve first, the request goes through it. An approval covers one request and is used once. It lapses if the situation changes, or when the business's deadline for that kind of approval passes. It passes to another person only where a grant allows it. With no response, the request goes to the escalation path. A situation cannot close while an approval request is open. The approver must be a member, freshly signed in. <!-- T7; accepted call: one approval, one request; decided 2026-10-22: identity and permission -->
 - Makes the sends the communication layer passes to it. <!-- M4 -->
+- Calls the tools of MCP servers the business connected, exactly like its own: the same permission check, the same call record. What they return is outside text, a claim from that system, never an instruction. <!-- N27 -->
+- Refuses a call to a tool that was not presented to the calling step in this run. <!-- N27 -->
+- Runs the erasure tool. The AI may fill its form. The tool sends its confirmation request to the business owner or the configurator, through the communication layer. Nothing is erased until one of them says yes. Then it hands the confirmed erasure to memory and knowledge's cleaner, its background part for erasures. <!-- U7; IB-19 -->
 
 **4. What does it never do?**
 - It never decides the next step. <!-- Section 7: tool layer -->
@@ -38,6 +44,7 @@ Every call to the outside world must pass one permission check, and one note of 
 - It never repeats a step that cannot be undone when its result is unknown. The one exception: after asking the other side for the result and finding it still unknown, it may send the same request again, with the same reference, when the other side can recognise it as a repeat and will not act twice. <!-- Section 8: resend or new start -->
 - It never shows connection codes to the AI. <!-- Section 7 additions: connection codes -->
 - It never reaches a place that is not on the tool's list. <!-- Section 7 additions: destinations -->
+- It never registers a tool while running. A connected MCP server's tools join only through the configurator's fixed tool, as a captured, versioned list. <!-- U5; N27 -->
 - The AI never calls the approval step, and holds no approval state. <!-- T7 -->
 
 **5. What does it own and write?** <!-- Section 7: tool layer writes -->
