@@ -1,5 +1,10 @@
 # How should Tend think about follow-up and nurture versus outreach?
 
+## Note added 2026-10-28 — one central situation, not a list
+
+Swaraj, 28 October 2026: "There is no such thing as a board." Outreach has one situation per person, and one central situation linked to all of them, which tracks the progress. Every update from a person's situation goes to the central situation. The conversation manager decides, by the decided rules for what reaches an owner, whether the owner hears it: "Only significant things will be communicated." Where this page says the owner sees "one list", read: the owner opens the central situation. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D4.
+
+
 ## The short answer
 
 **Follow-up, nurture and business-directed outreach can all be situations Tend coordinates.** The boundary is not who contacted whom first. The boundary has two tests. Did the business give a clear purpose, a target, and follow-up rules? Can Tend act within the business's permissions, source limits, privacy rules, and channel rules?

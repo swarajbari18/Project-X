@@ -1,6 +1,20 @@
 # What does it mean to understand what an actor is asking or what an event changed?
 
 ## Answer
+## Note added 2026-10-29 — the conversation manager's understanding
+
+The MEANING step below (the conversation manager's step that works out what an arrival means, named in the harness study) is now **understanding the arrival**, the conversation manager's one AI stage, in [how Tend's product loop works](../the_product_loop/how_does_the_product_loop_work.md), part C2. It writes an **understanding artifact**. (Earlier on 29 October it was called the conversation manager's "reading".)
+- It comes first, before any routing. Swaraj, 29 October 2026: "before routing you have to understand the situations first and then route".
+- Before it, memory and knowledge hands the conversation manager what the arrival's words mean in this business: its events and dates, its words, places and aliases, facts the business configured, the sender's open situations and their waits, earlier understanding artifacts, the time.
+- It records each ask and whether it is about the business, what each refers to (time words turned into dates), the sender's claims, what is unknown, what Tend already holds that answers it, and where each ask fits.
+- A message that is not about the business ("hi", a general question) ends here: it is answered, and no situation is created.
+- Routing is fixed code that carries out the artifact. Swaraj: "Routing, I don't think would be much of a LLM thing."
+- It is saved with the arrival, as an interpretation.
+
+It uses only what Tend already holds; reading a business system is gathering's work, as this page says below.
+
+The architecture's conversation manager had been described as one that "only records and routes, and leaves the reasoning to the worker". That loses this step, and is corrected.
+
 ## Note added 2026-09-04 — the MEANING artifact is Understanding's proposal, not a second situation model
 
 The conversation manager's MEANING step "writes the first version of the situation model" (study Part 6) is now clarified (study Part 12 §12.4): there is ONE situation model, owned by Understanding-as-responsibility. MEANING is the LLM's *proposal* for advancing it (interpretation, candidate situations, purpose template, ask list, new-or-join); VALIDATE (code) resolves 0/1/many and decides patch/create/clarify. The validated result becomes the next version. Later versions are authored through whichever loop touches the model (conversation manager patches on message entry; situation worker advances evidence/waits/outcomes during a wake) — one model, many writers, version-forward. Fork B ("the worker only updates the situation model") is consistent with this.

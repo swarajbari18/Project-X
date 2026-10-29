@@ -1,5 +1,10 @@
 # How do we make a software product secure? What are the best security practices?
 
+## Note added 2026-10-28 — business-connected MCP servers and catalogue integrity
+
+Swaraj decided on 28 October 2026 that a business may connect any MCP server. Point 13 below (catalogue integrity) still holds. A server is connected by the configurator through a fixed configuration tool, never by the AI at runtime. Its tool list is captured, versioned and hashed when connected; a later change to that list waits for the configurator's approval. Its tools pass the permission check like every tool, and what they return is outside text. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D6.
+
+
 ## Where this question came from
 
 Level 1 asks it directly. It is the heart of this category.

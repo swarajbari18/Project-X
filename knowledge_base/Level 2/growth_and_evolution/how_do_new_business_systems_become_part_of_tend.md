@@ -1,5 +1,10 @@
 # How do new business systems become part of Tend?
 
+## Note added 2026-10-28 — a business may also connect an MCP server itself
+
+Swaraj, 28 October 2026: a business may connect any MCP server it wants. That is a second way a system joins, beside the product-built capability described below. The configurator connects the server through a fixed configuration tool. Its tool list is captured, versioned and hashed when connected, and a later change to it waits for the configurator's approval. Its tools join the business's tool list, under the business's grants. Memory and knowledge presents the subset a step needs. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D6.
+
+
 ## Where this question came from
 
 Level 1 asks how a new business system (a CRM, an ERP, a shipping platform, an inventory system) becomes part of Tend. Level 1 already defined what a system is *for* Tend: a source of information, an owner of records, something Tend may update with permission. This question is about the joining itself — the procedure that turns "the business uses HubSpot" into "Tend can work with HubSpot".

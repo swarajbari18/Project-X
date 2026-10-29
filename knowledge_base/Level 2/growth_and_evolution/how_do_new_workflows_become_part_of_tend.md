@@ -1,5 +1,10 @@
 # How do new workflows become part of Tend?
 
+## Note added 2026-10-28 — businesses may write their own skills and procedures
+
+Swaraj, 28 October 2026: a business "can add any skill text. They can add any product [template]… They can connect with any MCP server that they want", and memory and knowledge presents the right subset at each part of the loop. So a business is no longer limited to filling product templates. It may write its own procedure or skill. Skills and procedures are kept in object storage, versioned. A situation still keeps the procedure version it started with. A business-written skill is guidance text: it cannot grant a permission or change a rule. See [how memory and knowledge works with the loops](../memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md), part D6.
+
+
 ## Where this question came from
 
 Level 1 asks how a new workflow becomes part of Tend. The Product Builder actor already "defines workflows" (Level 1). But nothing defined what a workflow *is*, and nothing said what happens when a workflow changes while situations are running on it.
