@@ -14,6 +14,8 @@ This file is for whoever builds the status-check service. It can be built from t
 
 It is the one place that waits on an outside system while the work goes on. <!-- decided by the owner, 2026-10-17 -->
 
+It is the product loop's one use of **watching from outside** (the harness study, Part 1): it keeps a named wait alive and does no reasoning; when the outside system answers, or the wait's time is up, the work wakes. <!-- PL-18 -->
+
 **2. Why is it a separate part?**
 
 It serves many situations at once, so the situation worker never has to stop and wait. The boundary decision is in [the parts file](../boundary_view/the_parts.md). <!-- decided 2026-10-09: the status-check service; decided by the owner, 2026-10-17 -->

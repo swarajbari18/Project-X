@@ -10,6 +10,8 @@ This file is for whoever builds configuration. It can be built from this file al
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 
+**Updated 2026-10-28.** A business may connect any MCP server; configuration captures its tool list. A business's skills and procedures live in memory and knowledge's versioned object storage; a procedure's parameters stay here. <!-- N27; N26 -->
+
 **1. What is this part for?**
 
 It holds the business's settings and permissions, written only by the configurator's fixed tools. It is the only writer of the trusted permission store. <!-- Section 7: configuration; AC-4 -->
@@ -37,9 +39,19 @@ If the AI could change a grant, it could give itself permission to send a refund
 - Carries each policy through its life: drafted; checked; switched on; versioned; replaced or expired; retired. No version quietly overwrites another. <!-- Q2 -->
 - Holds the business's compliance settings for each market. <!-- Section 7 additions: compliance settings -->
 - Shows a missing or unsupported setting as a gap, never refusing it silently. <!-- Q4 -->
+- Connects an MCP server the business chooses, through the configurator's fixed tool. It captures the server's tool list, versions it, and records its hash; the tools join the business's tool list under the business's grants. When the server later changes its tool list, the new version waits for the configurator's approval; until then, the old list stands. <!-- N27; U5 -->
+- Holds a procedure's parameters. The procedure's text, like every skill, lives in memory and knowledge's object storage. <!-- N26 -->
+- Holds the business's learning mode: automatic (the default), off, or each lesson checked by a person. <!-- N6 -->
+- Holds the product loop's business settings (added 2026-10-29), each with a product default:
+  - the **currentness rule** for each kind of claim: how old a claim may be and still be told as current, when the conversation manager answers from what Tend holds. With no rule for a kind, that kind is never answered that way. Deferred to configuration;
+  - whether a **general question** from a customer (not about the business) gets a short answer, or the business's polite line instead. Product default: a short answer (a call, not yet confirmed by the project owner);
+  - a **courtesy reply** to a thank-you that answers nothing. Product default: none (a call, not yet confirmed);
+  - the stage limits: AI passes of understanding the arrival, turns per gathering pass, reads per explore step, rounds per run. Starting values are in the memory and knowledge design; final values deferred to Level 3.
+
+  The configuration's own store is what the conversation manager reads when it answers from a configured fact, such as the business's hours; a cache never stands in for it. <!-- PL-8; PL-10; PL-2 -->
 
 **4. What does it never do?**
-- No AI, no background program, and no memory may change a grant, a membership, or a binding. <!-- Section 7: configuration; decided 2026-10-22: identity and permission -->
+- No AI, no background program, and no part of memory and knowledge may change a grant, a membership, or a binding. <!-- Section 7: configuration; decided 2026-10-22: identity and permission -->
 - It never takes a bound channel, a name, a phone number, or an email address as proof of a person; only a sign-in through the sign-in provider proves one. <!-- decided 2026-10-22: identity and permission -->
 - It never takes free text or free code as a setting. <!-- Q1 -->
 - It never lets a setting cross a hard rule; such a request is refused, and the refusal shown. <!-- Level 2 growth: the hard line -->
@@ -52,7 +64,8 @@ If the AI could change a grant, it could give itself permission to send a refund
 - the business's settings, each with its fixed shape;
 - the shapes the product team wrote, and the checks for each setting;
 - each capability's and each policy's place in its life;
-- the compliance settings for each market.
+- the compliance settings for each market;
+- each connected MCP server's captured tool list, with its version and hash. <!-- N27 -->
 
 The product team writes the shapes, the list of capabilities, and the hard rules. The business fills in values, chooses what to switch on, and decides who holds which role and grant. Neither can do the other's part. <!-- Level 2 growth: who decides what -->
 
@@ -88,7 +101,7 @@ It changes when a new kind of setting appears, a new country's legal rules apply
 It grows as a business adds roles, narrows grants, switches on capabilities, and fills in policy values; the core stays the same. <!-- Level 2 growth: one person or a team -->
 
 **8. What starts it, what does it read, and what does it hand on?**
-- **Starts it:** the configurator, through the fixed tools, after a fresh sign-in through the sign-in provider — within the last 15 minutes, unless the business has set less; a setting memory proposes, which the configurator checks. <!-- G7; N13; decided 2026-10-22: identity and permission; settled 2026-10-22: fresh sign-in -->
+- **Starts it:** the configurator, through the fixed tools, after a fresh sign-in through the sign-in provider — within the last 15 minutes, unless the business has set less; a setting memory and knowledge proposes, which the configurator checks. <!-- G7; N13; decided 2026-10-22: identity and permission; settled 2026-10-22: fresh sign-in -->
 - **Reads:** the shapes and checks for each setting; the hard rules.
 - **Hands on:** the trusted permission store, membership, and channel bindings, read by the permission check and the intake step; the settings, read when they are used; the version of each policy, recorded when a situation opens. <!-- AC-4; Level 2 growth: the rule context -->
 
@@ -145,7 +158,7 @@ The walks are in [how a situation moves](../behaviour_view/how_a_situation_moves
 
 | Rule | How a break would show |
 |---|---|
-| Only the configurator's fixed tools write grants | A grant changed by the AI, or by memory |
+| Only the configurator's fixed tools write grants | A grant changed by the AI, or by memory and knowledge |
 | Every setting has a fixed shape and passes its check | A setting saved as free text |
 | A business policy never changes silently under an open situation | Meera's return handled under rules she was never told about |
 | A removed grant, or a removed membership, stops working at once | An employee who left still approving refunds |
@@ -159,11 +172,12 @@ The walks are in [how a situation moves](../behaviour_view/how_a_situation_moves
 Every change: who changed what, when, and why, with the configurator's sign-in identity and sign-in time; each binding's evidence; and which version of which rule governed each step of each situation. <!-- Level 2 authority: the configuration tools; Level 2 growth: the rule context -->
 
 **15. How do we know it is built correctly?**
-- A grant change attempted by any path other than the configurator's fixed tools fails. A failure looks like: a grant whose record shows the AI or memory as its writer.
+- A grant change attempted by any path other than the configurator's fixed tools fails. A failure looks like: a grant whose record shows the AI or memory and knowledge as its writer.
+- A connected MCP server that adds a tool does not make it usable until the configurator approves the new list. A failure looks like: a call to a tool that is not in an approved list.
 - A setting with the wrong shape is refused before it is applied. A failure looks like: a refund setting saved as free text.
 - A policy change leaves open situations on their version until the business owner moves them. A failure looks like: Meera's open return handled under the new policy with no choice recorded.
 - The refund setting changed mid-situation is the value met at the next refund attempt. A failure looks like: a refund checked against the old value after the change.
-- A member removed at 10:00 cannot approve at 10:01. A failure looks like: Arjun's approval accepted after the configurator removed him.
+- A member removed at 10:00 cannot approve at 10:01. A failure looks like: Kabir's approval accepted after the configurator removed him.
 
 <!-- G7; Q1; Q3; decided by the owner, 2026-10-10: refund setting read at attempt -->
 
@@ -173,4 +187,4 @@ Nothing in this part is open. The exact set of tools is designed when they are b
 
 **17. Where did this come from?**
 
-[The parts file](../boundary_view/the_parts.md) (the boundary decision), [the interactions file](../interaction_view/the_interactions.md) (interactions 20, memory proposes; 21, a setting or rule changes), [the decisions file](../decision_view/the_decisions.md) (decision 25, membership and channel bindings; decisions 8, checked people and grants; 9, the refund setting; 10, policies fixed per situation), and [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).
+[The parts file](../boundary_view/the_parts.md) (the boundary decision), [the interactions file](../interaction_view/the_interactions.md) (interactions 20, memory and knowledge proposes; 21, a setting or rule changes), [the decisions file](../decision_view/the_decisions.md) (decision 25, membership and channel bindings; decisions 8, checked people and grants; 9, the refund setting; 10, policies fixed per situation), and [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).

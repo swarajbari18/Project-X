@@ -4,7 +4,7 @@ This file is for whoever builds improvement. It can be built from this file alon
 
 **Statuses.** A rule is **Decided** unless one of these words sits beside it: **Provisional** (a working choice with a condition for reopening it), or **deferred to configuration**, **deferred to Level 3**, or **deferred to implementation** (a value or a detail left, on purpose, to each business or market, to the stage that chooses the technology, or to whoever builds it; the rule around it is Decided). The project owner is the person designing Tend. On 2026-10-22 the project owner accepted every recommendation this design had made, and asked for the smaller questions inside them to be settled in the way that best fits; those points are Decided. A rule marked as "the design's reading" was worked out from its sources rather than found written down; it is Decided too. The earlier words **To confirm** and **Open** are no longer used. "The business owner" means the person who runs the business Tend serves. <!-- decided by the owner, 2026-10-22 -->
 
-**Words used here.** A **trace** is the saved record of one run of work. The **product team** is the people who build Tend. **Instruction templates** are the fixed text that puts Tend's instructions together for one step; memory owns and versions them, and improvement may edit them within set limits. The **core rules** are the text, written by people, that holds at every step: never guess; end each run honestly; state doubt with its reason; the AI may suggest but never decide. A trace is **verified** when a person or a fixed check has confirmed what it recorded. A **reference case** is a fixed example with a known right answer, including cases where Tend should refuse. **Training** means using records to change an AI model. <!-- O7; Level 2 prompt constitution: four layers; R3; Level 2 prompt constitution: the optimiser gates -->
+**Words used here.** A **trace** is the saved record of one run of work. The **product team** is the people who build Tend. **Instruction templates** are the fixed text that puts Tend's instructions together for one step; memory and knowledge owns and versions them, and improvement may edit them within set limits. The **core rules** are the text, written by people, that holds at every step: never guess; end each run honestly; state doubt with its reason; the AI may suggest but never decide. A trace is **verified** when a person or a fixed check has confirmed what it recorded. A **reference case** is a fixed example with a known right answer, including cases where Tend should refuse. **Training** means using records to change an AI model. <!-- O7; Level 2 prompt constitution: four layers; R3; Level 2 prompt constitution: the optimiser gates -->
 
 **More words.** An **arrival** is anything that comes in from outside — a person's message, or an outside system's answer — saved as a new version. A **capability** is one action Tend can take, such as checking where a delivery is; each business switches on the ones it wants. <!-- decided 2026-10-22: the status-check answer; accepted call: capabilities -->
 
@@ -16,12 +16,12 @@ It is how the product team makes Tend behave better for every business, from che
 
 **2. Why is it a separate part?**
 
-Memory and improvement read the same records of past runs, but produce different things. Memory keeps one business's knowledge. Improvement changes the product's behaviour for every business. A lesson from one business's refunds, applied to every business, would change how every business is treated. The boundary decision is in [the parts file](../boundary_view/the_parts.md). <!-- Section 7 archive: improvement record; N15 -->
+Memory and knowledge and improvement read the same records of past runs, but produce different things. Memory and knowledge keeps one business's knowledge. Improvement changes the product's behaviour for every business. A lesson from one business's refunds, applied to every business, would change how every business is treated. The boundary decision is in [the parts file](../boundary_view/the_parts.md). <!-- Section 7 archive: improvement record; N15 -->
 
 **3. What does it do?**
 - Learns only from traces that a person or a fixed check has verified. <!-- R3 -->
-- Proposes changes to the step instructions memory owns, within the limits memory sets. <!-- Section 7: improvement; R2 -->
-- Keeps the traces it learns from apart from business memory. <!-- R1 -->
+- Proposes changes to the step instructions memory and knowledge owns, within the limits memory and knowledge sets. Since 2026-10-29 the step instructions are those of the product loop's stages that reason, one at a time: understanding the arrival, understanding the situation, gathering's information plan, deciding, writing, and memory and knowledge's package. <!-- Section 7: improvement; R2; PL-18 -->
+- Keeps the traces it learns from apart from memory and knowledge. <!-- R1 -->
 
 **4. What does it never do?**
 - It never writes one business's rule into the instructions used for every business. <!-- Section 7: improvement -->
@@ -37,7 +37,7 @@ Memory and improvement read the same records of past runs, but produce different
 
 **5. What does it own and write?**
 
-Proposed changes to the step instructions memory keeps. The traces it learns from are kept apart from business memory. <!-- Section 7: improvement; R1 -->
+Proposed changes to the step instructions memory and knowledge keeps. The traces it learns from are kept apart from memory and knowledge. <!-- Section 7: improvement; R1 -->
 
 **6. What does it decide, and what may it not decide?**
 
@@ -58,13 +58,13 @@ It changes when a pattern across many past runs shows Tend making the same mista
 
 **8. What starts it, what does it read, and what does it hand on?**
 - **Starts it:** a run's trace being saved, which it learns from later; the product team, which starts each change to the instructions.
-- **Reads:** verified traces, kept apart from business memory. No personal data is in a trace. <!-- R1; R3; settled page: no personal data in a trace -->
+- **Reads:** verified traces, kept apart from memory and knowledge. No personal data is in a trace. <!-- R1; R3; settled page: no personal data in a trace -->
 - **Hands on:** proposed changes to the step instructions, through the checks and the review. A change to the text, a tool, or the list of capabilities re-runs the tests before it is released. <!-- Level 2 prompt constitution: the optimiser gates; Section 8 additions: tests before release -->
 
 **9. How does it work inside?**
 
 The step instructions and the stage rules are versioned separately, because they have different writers; each trace records the version of both. <!-- Q9 -->
-1. Verified traces are gathered, apart from business memory.
+1. Verified traces are gathered, apart from memory and knowledge.
 2. A change to the step instructions is proposed.
 3. It passes fixed checks, the reference cases, and a review by people.
 4. Only then is it released, after the tests re-run.
@@ -111,7 +111,7 @@ For example, a change to how Tend words the end of a message is proposed from ma
 
 **12. What happens when things go wrong?**
 
-If improvement is down, it cannot change how Tend behaves now, any business's memory, any situation, or any permission. The records of past runs stay available, so it can catch up later. <!-- scratch: improvement unavailable -->
+If improvement is down, it cannot change how Tend behaves now, any business's knowledge in memory and knowledge, any situation, or any permission. The records of past runs stay available, so it can catch up later. <!-- scratch: improvement unavailable -->
 
 **13. Which rules must always hold here?**
 
@@ -137,8 +137,8 @@ Each proposed change, the traces behind it, the checks it passed, and who review
 
 **16. What is still open?**
 
-Nothing in this part is open. When a trace counts as training material stays **Provisional**, with the other learning rules, until the project owner reviews the business's memory answers. <!-- Level 2 learning: training traces; Level 2 memory: pending review -->
+Nothing in this part is open. A step's trace counts as training material only when three things hold: the AI proposed a bounded piece of work; fixed code checked it; and an outcome anyone can see followed. Every other step is recorded for the audit only. This comes from the Level 2 answers on learning, which the project owner pointed to as the answers on 2026-10-28. <!-- Level 2 learning: training traces; Level 2 memory: pending review -->
 
 **17. Where did this come from?**
 
-[The parts file](../boundary_view/the_parts.md) (the boundary decision), [the interactions file](../interaction_view/the_interactions.md) (interaction 19, traces), and [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).
+[The parts file](../boundary_view/the_parts.md) (the boundary decision), [the interactions file](../interaction_view/the_interactions.md) (interaction 19, traces), and [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md).

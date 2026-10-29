@@ -10,11 +10,19 @@ This file is for whoever builds the communication layer. It can be built from th
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 
+**Updated 2026-10-28.** Before a message is written, the communication layer waits for memory and knowledge's package: the recipient's preferences and the business's own words. <!-- N19 -->
+
+**Updated 2026-10-29: the message loop.** The communication layer's work is the **message loop** of [Tend's product loop](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md): writing (its one AI stage, after memory and knowledge's package), the send check, sending and recording (fixed code). It now also writes the conversation manager's **replies** to arrivals that ended at understanding: a greeting, a general question, a question Tend can already answer. A reply to an arrival that is not about the business says nothing about the business; the send check enforces it. <!-- PL-8; PL-9; PL-17 -->
+
 **1. What is this part for?**
 
 It shapes, checks, sends, and records each message to a person. <!-- Section 7: the parts table -->
 
-It sends only after the situation worker has written what should be said and the conversation manager has decided to tell. <!-- IB-5 -->
+It sends only after a saved decision to send:
+- the situation worker has written what should be said, and the conversation manager's update decision has decided to tell; or
+- the conversation manager's reply decision, saved with an arrival, has decided to reply.
+
+<!-- IB-5; PL-8 -->
 
 **2. Why is it a separate part?**
 
@@ -30,7 +38,7 @@ The part that decides the next step never sends. A message goes out only with a 
 - Keeps each business's **consent records**, through its fixed consent code, and reads them at every send. <!-- decided 2026-10-22: consent records -->
 
 **4. What does it never do?**
-- It never decides what to say; the situation worker writes that. <!-- Section 11 §5: the parts table -->
+- It never decides what Tend tells a person about the business; the situation worker writes that, or the conversation manager's answer from what Tend holds names the items. For a reply to an arrival that is not about the business, it writes the reply itself, and says nothing about the business. <!-- Section 11 §5: the parts table; PL-9 -->
 - It never decides whether to tell; the conversation manager does. <!-- decided: the update decision -->
 - It never sends a draft, or the AI's raw words; only a saved decision to send. <!-- Section 8 anti-patterns -->
 - It never sends a "we received your message" reply by default. <!-- Section 8: what a message looks like -->
@@ -71,16 +79,17 @@ It changes when a new channel appears, when a platform changes its rules, or whe
 It grows with the number of messages and channels. This is the design's reading. <!-- Level 1: more situations -->
 
 **8. What starts it, what does it read, and what does it hand on?**
-- **Starts it:** a "worth telling" from the conversation manager; a delivery receipt from a channel; the notice of an arrival that is an opt-in or an opt-out, which wakes the consent code. <!-- Section 8: which change starts which part; Section 8: delivery acknowledgement; decided 2026-10-22: consent records -->
-- **Reads:** the version with what should be said; the channel's rule record; consent records; the trusted permission store, through the permission check. <!-- IB-5; L2 -->
+- **Starts it:** a "worth telling" or a reply decision from the conversation manager; a delivery receipt from a channel; the notice of an arrival that is an opt-in or an opt-out, which wakes the consent code. <!-- Section 8: which change starts which part; Section 8: delivery acknowledgement; decided 2026-10-22: consent records -->
+- **Reads:** memory and knowledge's package before writing; the version with what should be said; the channel's rule record; consent records; the trusted permission store, through the permission check. <!-- IB-5; L2 -->
 - **Hands on:** the send, to the tool layer; the sent record, whose save is announced; consent entries; a receipt saved in the sent record, whose announced save wakes the worker only when a send is pending. <!-- M4; Section 8: delivery acknowledgement; decided 2026-10-22: consent records -->
 
 **9. How does it work inside?**
-1. Receive the "worth telling" and the version.
-2. Choose the channel by the rules.
-3. Run the send check.
-4. Pass the send to the tool layer.
-5. Record what was sent, and later any receipt.
+1. Receive the "worth telling" and the version, or the reply decision and its arrival.
+2. Memory and knowledge's package arrives: the recipient's preferences; the business's listed words; the channel's conventions; and lessons filed for communication with this kind of recipient (updated 2026-10-29, from Level 2's context assembly: "business terminology, channel conventions and communication corrections relevant to the current audience"). The message is written only from the claims the decision lists. A reply to an arrival that is not about the business is written from the arrival's understanding artifact, answers what was asked, and carries no claim about the business. Writing is one structured answer: the message, each business claim pointing to its source. <!-- N19; N14; PL-9; PL-18 -->
+3. Choose the channel by the rules.
+4. Run the send check. Besides its four checks, a reply to an arrival that is not about the business is stopped if it carries any claim about the business. A refused message goes back to writing once, with the reasons, then to the worker or a person. <!-- PL-9 -->
+5. Pass the send to the tool layer.
+6. Record what was sent, and later any receipt.
 
 The consent code runs on its own trigger: <!-- decided 2026-10-22: consent records -->
 1. The notice of an arrival wakes it: "STOP", an unsubscribe click, "please stop", a platform's own signal such as a block, or an opt-in the business collected, which arrives through a tool with its evidence.
@@ -89,7 +98,7 @@ The consent code runs on its own trigger: <!-- decided 2026-10-22: consent recor
 4. The next send check reads it.
 
 ```text
-worth telling + version ─▶ choose channel ─▶ send check: decision saved? Allow? channel rules met? only allowed details?
+worth telling + version, or a reply decision ─▶ [package] writing ─▶ choose channel ─▶ send check: decision saved? Allow? channel rules met? only allowed details? no business claim in a reply to a message not about the business?
                                                    │ any "no" ─▶ stopped, with its reason
                                                    ▼ all "yes"
                                            tool layer sends ─▶ sent record ─▶ (later) delivery receipt

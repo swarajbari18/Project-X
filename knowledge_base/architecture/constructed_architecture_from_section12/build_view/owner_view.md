@@ -79,7 +79,7 @@ an alert is due ─────────┘                                  
 | [1. An irreversible action's outcome stays unknown](../behaviour_view/kind_01_unknown_result.md) | Shows the refund waiting, with its timeline once a person must decide |
 | [2. An outside system is down, slow, or too stale](../behaviour_view/kind_02_outside_system_down.md) | The wait, and a deadline at risk, as an alert where it puts the business at risk |
 | [3. A partial answer arrives](../behaviour_view/kind_03_partial_answer.md) | What is answered and what is still open |
-| [4. One instruction fans out to many people](../behaviour_view/kind_04_one_to_many.md) | The whole assignment on one board |
+| [4. One instruction fans out to many people](../behaviour_view/kind_04_one_to_many.md) | Shows the central situation: the state of each person, each one a step away; the business owner hears only what is material |
 | [5. No source and no person can answer](../behaviour_view/kind_05_no_source.md) | The honest answer given |
 | [6. A timer and a reply race](../behaviour_view/kind_06_timer_and_reply.md) | Not involved beyond the common path |
 | [7. An unrequested document or unknown event arrives](../behaviour_view/kind_07_unrequested_arrival.md) | A document that matched nothing, for a person |
