@@ -352,7 +352,7 @@ The same holds for orders, payments, stock, and messages. They live in the busin
 
 When a capability is missing, Tend says so honestly, and says what would fix it. For example: "connect the contact provider, or provide an email." <!-- P2 -->
 
-A missing capability is shown as a gap. It is never refused silently. How a capability is added is written in [the memory and configuration file](memory_configuration_and_improvement.md). <!-- Q4 -->
+A missing capability is shown as a gap. It is never refused silently. How a capability is added is written in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md). <!-- Q4 -->
 
 ## What a capability is
 

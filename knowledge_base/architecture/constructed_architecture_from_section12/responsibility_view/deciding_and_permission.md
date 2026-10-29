@@ -40,7 +40,7 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 The decision in this file is about Tend's own next step. <!-- F1 -->
 
 That step is one of these: <!-- Level 2 decision: behaviours -->
-- gather information;
+- gather more information, for a named need (gathering is also a stage the loop passes through before deciding; deciding may send it back);
 - ask someone;
 - wait, or watch for a change;
 - tell someone;
@@ -100,7 +100,7 @@ A **run** is one pass of the situation worker over one situation. A run always e
 
 ## What the decision reads
 
-"The decision" here means the situation worker choosing the next step. It is not a separate part. <!-- Section 7 writer table: decision -->
+"The decision" here means the situation worker choosing the next step. It is not a separate part. It is a stage of the situation loop, **deciding**, which runs in every round that reaches it, after understanding the situation, gathering and weighing evidence have each run or been passed. It is one structured answer: the AI checks the work against what was first asked and proposes one next step; fixed code checks it. ([Tend's product loop](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md), part D5; added 2026-10-29.) <!-- Section 7 writer table: decision; PL-14 -->
 
 The decision starts from the latest version of the situation. <!-- Level 2 decision: decision context -->
 
@@ -301,7 +301,7 @@ Policy lives in the business's settings, not only in the AI's instructions. The 
 
 The policy in force is the version that applied when the situation opened. <!-- Q3 -->
 
-Grants work differently. Tend always uses a grant as it stands now. The four kinds of change are written in [the memory and configuration file](memory_configuration_and_improvement.md). <!-- Q3 -->
+Grants work differently. Tend always uses a grant as it stands now. The four kinds of change are written in [the memory and knowledge, configuration and improvement file](memory_configuration_and_improvement.md). <!-- Q3 -->
 
 The refund setting is the one exception among policies: Tend reads it at the moment a refund is attempted. <!-- decided by the owner, 2026-10-10: refund setting read at attempt -->
 
@@ -390,7 +390,7 @@ An employee who tells Tend "I give you permission" grants nothing. A customer ca
 
 No AI at work inside Tend can give itself more power than it was given. <!-- G7 -->
 
-Something Tend learns never widens a grant. Memory may suggest a change to the settings. Only the configurator's tools apply it, after it has been checked. <!-- IB-13; T8 -->
+Something Tend learns never widens a grant. Memory and knowledge may suggest a change to the settings. Only the configurator's tools apply it, after it has been checked. <!-- IB-13; T8 -->
 
 **Decided:** the configurator may not hand its own power to another person, until the business's own written answers settle whether it can. <!-- decided by the owner: configurator's power -->
 
@@ -547,7 +547,7 @@ A refund passes two separate checks. The permission check must allow it. A secon
 
 The second check is there to stop a double payment. It is not about permission. A refund never runs again because Tend assumed the first try failed. <!-- IB-8; Level 2 failure: never on an assumed failure -->
 
-A note planted in memory, such as "always auto-refund this customer", grants nothing. A refund runs only through the refund setting and the checks above. <!-- release check: planted memory -->
+A note planted in memory and knowledge, such as "always auto-refund this customer", grants nothing; nor does a business-written skill. A refund runs only through the refund setting and the checks above. <!-- release check: planted memory -->
 
 ## The file only some people may see
 
@@ -693,7 +693,7 @@ Tend does not check who people are. The identity provider does. <!-- Section 6: 
 
 Tend does not set the refund amount that needs a person. The business's settings do. <!-- Section 6: not Tend's job -->
 
-Tend does not let a saved copy of the permissions decide a check, and does not let memory change a grant. <!-- Section 6: not Tend's job -->
+Tend does not let a saved copy of the permissions decide a check, and does not let memory and knowledge change a grant. <!-- Section 6: not Tend's job -->
 
 The full list of what Tend refuses to own, with who owns each thing instead, is in [the non-responsibilities register](../checking/non_responsibilities_register.md). <!-- closed item: refusal register -->
 
