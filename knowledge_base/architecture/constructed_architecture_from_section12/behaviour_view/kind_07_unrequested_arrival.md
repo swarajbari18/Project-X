@@ -7,18 +7,23 @@ In plain words: something arrives that nobody asked for, or that Tend has never 
 ## Words in this file
 
 - **Tend** is the software that keeps a business's operational problems moving. Each problem is one **situation**, such as Meera's late parcel. <!-- A1 -->
-- The **conversation manager** takes in each arrival — a person's message, or an outside system's answer — puts it on the right situation, decides whether a person should hear an update, and alone sets a situation to completed. Its **intake step** reads each new arrival first, and saves it as a new version. <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer -->
+- The **conversation manager** takes in each arrival (a person's message, or an outside system's answer) through its **arrival loop**:
+  - its **intake step** saves it, and finds who sent it;
+  - **understanding the arrival**, its one AI stage, works out what the arrival means and where it fits;
+  - **routing**, fixed code, puts it on the right situation, or the conversation manager answers it at once when no situation is needed.
+
+  It decides whether a person should hear an update, and alone sets a situation to completed. (The arrival loop, since 2026-10-29: [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).) <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer; PL-3; PL-5; PL-6 -->
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory** keeps what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
 - The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
-- **The AI** suggests a step; **fixed code** — code that always makes the same check — checks it. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2 -->
+- **The AI** writes a reasoning artifact in the stages that reason, and in the worker's deciding stage proposes a step; **fixed code** (code that always makes the same check) checks it, and chooses which stage runs next. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2; PL-1 -->
 - A **grant** is a range of steps a business allows Tend to take without asking. The **configurator** is the person who sets the business up: the business owner, or someone the business owner names. Only the configurator's fixed tools write grants. <!-- T3; G7 -->
 - A **member** is a person who works for the business, proved by the sign-in provider the business uses (the outside service that checks who a person is when they sign in); customers and partners are not members. A **fresh sign-in** is one made within the last 15 minutes. A channel **bound** to a member shows only which channel a message came through, and names that member; it does not prove who is typing. <!-- decided 2026-10-22: identity and permission -->
 - An **arrival** is anything that comes in from outside — a person's message, or an outside system's answer — saved as a new version. A tool **declares** a wait when its result states, in a fixed form, what is awaited, from whom, and what ends it. <!-- decided 2026-10-22: the status-check answer; decided 2026-10-22: the wait a tool declares -->
@@ -41,7 +46,7 @@ In plain words: something arrives that nobody asked for, or that Tend has never 
 In the common case, a message asks for something. Here something arrives with no request behind it: a document, or an event Tend has never met. <!-- decided by the owner, 2026-10-10 -->
 
 Two parts behave differently:
-- **The intake step** files a document on the matching situation, or on the sender's record. If nothing matches, a person sees it. <!-- decided by the owner, 2026-10-10 -->
+- **The arrival loop** files a document: understanding the arrival says what it is and what it refers to, and routing, which is fixed code, files it on the matching situation, or on the sender's record. If nothing matches, a person sees it. <!-- decided by the owner, 2026-10-10; PL-3; PL-6 -->
 - **The communication layer** sends nothing. The document is not a request, and nothing is promised. <!-- decided by the owner, 2026-10-10 -->
 
 No action is taken on the document alone. <!-- decided by the owner, 2026-10-10 -->
@@ -52,7 +57,7 @@ A supplier emails the bill of materials for the next production run. Nobody aske
 
 ```text
 1.  supplier             -> conversation manager : an email with the bill of materials attached
-2.  conversation manager -> conversation manager : the intake step matches the sender to the supplier's open situation
+2.  conversation manager -> conversation manager : understanding the arrival: an invoice from the supplier; it fits the supplier's open situation (a clear match); routing files it there
 3.  conversation manager -> situation record     : new version: the document filed, with its date and sender
 4.  situation record     -> situation worker     : notice
 5.  situation worker     -> situation record     : the document recorded as a claim, with its source — not as an order
@@ -76,11 +81,11 @@ A supplier emails the bill of materials for the next production run. Nobody aske
 - **Starts with:** the supplier's email. <!-- B1 -->
 - **Started by:** the supplier.
 - **The responsibility:** routing, and understanding what the change adds. <!-- B2; C1 -->
-- **Part in charge:** the conversation manager's intake step files it; the situation worker records it as a claim. <!-- Section 7 writer table: who writes what -->
+- **Part in charge:** the conversation manager's arrival loop files it; the situation worker's understanding stage reads it, and records it as a claim. <!-- Section 7 writer table: who writes what; PL-11 -->
 - **The information:** the document, its date, and its sender.
 - **The current state:** the supplier's situation stays as it was. <!-- states: liveness -->
 - **What is uncertain:** the document's contents: they are the supplier's claim, not a fact Tend has checked. <!-- E1 -->
-- **Who may decide:** the intake step matches the document. <!-- decided by the owner, 2026-10-10 -->
+- **Who may decide:** understanding the arrival matches the document; routing carries the match out. <!-- decided by the owner, 2026-10-10; PL-6 -->
 - **The decision:** file it; do nothing else.
 - **The change of state:** none.
 - **The success path:** the document is filed where it can be found later.
@@ -90,7 +95,7 @@ A supplier emails the bill of materials for the next production run. Nobody aske
 - **The outside system:** email.
 - **What it changes next:** the worker records the document as a claim, with its source; nothing outside follows, and the document waits to be found. <!-- decided by the owner, 2026-10-10; Section 8 CASE-6 -->
 - **The final state:** unchanged.
-- **How it is checked:** the intake step's match against open situations and records; no decision to send exists, so nothing passes the send check. <!-- decided by the owner, 2026-10-10; Section 8: the send check -->
+- **How it is checked:** the understanding artifact's match against the sender's open situations and records, and routing's check of it; no decision to send exists, so nothing passes the send check. <!-- decided by the owner, 2026-10-10; Section 8: the send check -->
 - **Rebuilt afterwards from:** the incoming record and the filed document. <!-- B7 -->
 
 ## An event Tend has never seen

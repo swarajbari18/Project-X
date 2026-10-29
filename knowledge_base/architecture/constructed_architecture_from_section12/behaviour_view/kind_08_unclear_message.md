@@ -7,18 +7,24 @@ In plain words: Tend cannot tell which situation a message belongs to.
 ## Words in this file
 
 - **Tend** is the software that keeps a business's operational problems moving. Each problem is one **situation**, such as Meera's late parcel. <!-- A1 -->
-- The **conversation manager** takes in each arrival — a person's message, or an outside system's answer — puts it on the right situation, decides whether a person should hear an update, and alone sets a situation to completed. Its **intake step** reads each new arrival first, and saves it as a new version. <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer -->
+- The **conversation manager** takes in each arrival (a person's message, or an outside system's answer) through its **arrival loop**:
+  - its **intake step** saves it, and finds who sent it;
+  - **understanding the arrival**, its one AI stage, works out what the arrival means and where it fits;
+  - **routing**, fixed code, puts it on the right situation, or the conversation manager answers it at once when no situation is needed.
+
+  It decides whether a person should hear an update, and alone sets a situation to completed. (The arrival loop, since 2026-10-29: [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).) <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer; PL-3; PL-5; PL-6 -->
+- The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.) (Added 2026-10-29.)
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory** keeps what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
 - The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It is kept in the conversation manager's own record of held notes, not in any situation, and changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
-- **The AI** suggests a step; **fixed code** — code that always makes the same check — checks it. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2 -->
+- **The AI** writes a reasoning artifact in the stages that reason, and in the worker's deciding stage proposes a step; **fixed code** (code that always makes the same check) checks it, and chooses which stage runs next. The **permission check** answers Allow, Deny, or "a person must approve first". <!-- Level 2 security: the spine; T2; PL-1 -->
 - A **grant** is a range of steps a business allows Tend to take without asking. The **configurator** is the person who sets the business up: the business owner, or someone the business owner names. Only the configurator's fixed tools write grants. <!-- T3; G7 -->
 - A **member** is a person who works for the business, proved by the sign-in provider the business uses (the outside service that checks who a person is when they sign in); customers and partners are not members. A **fresh sign-in** is one made within the last 15 minutes. A channel **bound** to a member shows only which channel a message came through, and names that member; it does not prove who is typing. <!-- decided 2026-10-22: identity and permission -->
 - An **arrival** is anything that comes in from outside — a person's message, or an outside system's answer — saved as a new version. A tool **declares** a wait when its result states, in a fixed form, what is awaited, from whom, and what ends it. <!-- decided 2026-10-22: the status-check answer; decided 2026-10-22: the wait a tool declares -->
@@ -38,12 +44,12 @@ In plain words: Tend cannot tell which situation a message belongs to.
 
 ## What is different here
 
-In the common case, the intake step finds one clear match. Here it finds several possible matches, or none. <!-- Section 8: routing outcomes -->
+In the common case, understanding the arrival finds one clear match. Here it finds several situations the message could fit, and cannot tell which. Understanding comes first: what the message asks and refers to, with the business's meanings of its words in front of it, and the sender's open situations presented by memory and knowledge. <!-- Section 8: routing outcomes; C7; C8; N37; PL-3 -->
 
 Tend never guesses. A weak match means Tend asks the sender. <!-- B3 -->
 
 One part behaves differently:
-- **The intake step** asks instead of attaching. While it waits for the answer, it records a **held note**: a note that the message may belong to a situation. The note changes nothing in that situation. <!-- B3; B9 -->
+- **The arrival loop** asks instead of attaching. Its ending is "hold and ask": routing, which is fixed code, records a **held note** (a note that the message may belong to a situation), and the conversation manager's reply decision asks the sender which one. The note changes nothing in that situation. <!-- B3; B9; PL-5; PL-8 -->
 
 ## Example walk: "Any update?" from a customer with three open orders
 
@@ -51,9 +57,10 @@ Meera has three open orders: 9910, 9911, and 9912. She writes "Any update?". <!-
 
 ```text
 1.  Meera                -> conversation manager : "Any update?"
-2.  conversation manager -> conversation manager : the intake step finds three possible situations, none clear
-3.  conversation manager -> held notes           : a held note: "may belong to 9910, 9911, or 9912"
-4.  conversation manager -> communication layer  : ask Meera which order she means (worth asking now)
+2.  memory and knowledge -> conversation manager : the package before understanding: her three open situations, as typed summaries; the time
+2a. conversation manager -> conversation manager : understanding the arrival: asks for news; about the business; no order named; fits: cannot tell between 9910, 9911 and 9912
+3.  conversation manager -> held notes           : routing (fixed code): a held note: "may belong to 9910, 9911, or 9912"
+4.  conversation manager -> communication layer  : the reply decision: ask Meera which order she means
 5.  communication layer  -> communication layer  : send check
 6.  communication layer  -> Meera                : "Happy to help — is this about order 9910, 9911, or 9912?" — sent through the tool layer
 7.  Meera                -> conversation manager : "9912"
@@ -62,14 +69,16 @@ Meera has three open orders: 9910, 9911, and 9912. She writes "Any update?". <!-
 10. (from here, the common path)
 ```
 
-<!-- B3; B9; IB-2 -->
+<!-- B3; B9; IB-2; PL-5; PL-6 -->
+
+The option of answering all three at once, when each holds a current claim, was surfaced on 2026-10-29 and not applied: it would change decided rule B3. It is listed for the project owner in the Level 2 page on the product loop.
 
 ## The walk, step by step
 
 - **Starts with:** Meera's message. <!-- B1 -->
 - **Started by:** Meera, writing from the WhatsApp number on her contact record, the channel identifier kept for her own situations. A customer's channel identifies the contact for her own situations; it grants no permission. Who sent the message is fixed once, at intake. <!-- Section 11: who may see what walk; AC-1; decided 2026-10-22: identity and permission -->
 - **The responsibility:** routing each change to the right problem. <!-- B2 -->
-- **Part in charge:** the conversation manager, at its intake step. <!-- B4 -->
+- **Part in charge:** the conversation manager: understanding the arrival finds it cannot tell; routing keeps the held note; the reply decision asks. <!-- B4; PL-5 -->
 - **The information:** short summaries of Meera's open situations, never their full records. <!-- B5 -->
 - **The current state:** the three situations are unchanged.
 - **What is uncertain:** which order she means.
@@ -83,9 +92,9 @@ Meera has three open orders: 9910, 9911, and 9912. She writes "Any update?". <!-
   - A message placed wrongly. Later evidence corrects it: the situations are split or linked, or the message is moved. Two situations later found to be one problem are merged, and the merge is recorded with its reason. <!-- B4 -->
 - **A person stepping in:** none.
 - **The outside system:** the channel Meera used.
-- **What it changes next:** Meera's answer arrives as a new message and is placed. If she never answers, the held message stays held and changes nothing. Her next message runs the match again. A held note still unplaced when the business's wait limit passes goes to a person to place. <!-- IB-2; closed item: unanswered routing question -->
+- **What it changes next:** Meera's answer arrives as a new message; understanding finds it answers Tend's question, a clear match, and routing places both. If she never answers, the held message stays held and changes nothing. Her next message is understood afresh. A held note still unplaced when the business's wait limit passes goes to a person to place. <!-- IB-2; closed item: unanswered routing question -->
 - **The final state:** the message sits on its situation.
-- **How it is checked:** the intake step's match test; the held note, which changes nothing in any situation; the send check before the question goes out. <!-- B3; B9; Section 8: the send check -->
+- **How it is checked:** the understanding artifact's "cannot tell" and routing's check of it; the held note, which changes nothing in any situation; the send check before the question goes out. <!-- B3; B9; Section 8: the send check; PL-6 -->
 - **Rebuilt afterwards from:** the incoming record, the held note, the question sent, and her answer. <!-- B7 -->
 
 When it is unclear whether two messages belong together, Tend creates a separate situation and links it, rather than merging them silently. <!-- B8 -->
