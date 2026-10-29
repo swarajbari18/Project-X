@@ -2,17 +2,18 @@
 
 This register lists each decision Tend's design rests on, its reason in one line, and what would make us look at it again. It is for checking. The full reasoning lives in [the decisions file](../decision_view/the_decisions.md); this register points there and does not retell it. <!-- method: the decisions register -->
 
-It has four parts:
+It has five parts (the fifth added on 2026-10-28):
 - the twenty-five decisions;
 - the calls the design made earlier, accepted by the project owner on 2026-10-22;
 - the calls made while writing this folder, accepted the same day;
-- the points settled on 2026-10-22, under the project owner's instruction to settle the smaller questions in the way that best fits.
+- the points settled on 2026-10-22, under the project owner's instruction to settle the smaller questions in the way that best fits;
+- the decisions of 2026-10-28 on memory and knowledge (part 5).
 
 Status words are the folder's status words, explained in [the map](../map.md): **Decided**, **Provisional**, **Rejected**, and the three deferral labels. The earlier words **To confirm** and **Open** are no longer used. The project owner is the person designing Tend; the business owner runs the business Tend serves.
 
 **What happened on 2026-10-22.** The project owner answered the seven questions that had blocked completion, by accepting the recommended answer to each. In the same message, they accepted every other recommendation this design had made, and asked for the smaller questions inside them to be settled in the way that best fits. So every call in parts 2 and 3 is now **Decided**, and part 4 lists every point settled that day. Each can still be changed: say which, and the design is changed first, then every file that repeats it. <!-- decided by the owner, 2026-10-22 -->
 
-## 1. The twenty-five decisions
+## 1. The twenty-five decisions (thirty-three with parts 5 and 6)
 
 | # | Decision | Its reason, in one line | Reopen if | Status |
 |---|---|---|---|---|
@@ -26,7 +27,7 @@ Status words are the folder's status words, explained in [the map](../map.md): *
 | 8 | Permissions belong to checked people; only the configurator writes grants | A name or number is not proof; a stored copy can be stale | Approvals become unworkable | Decided |
 | 9 | The refund setting starts at zero and is read at each refund | The business sets its own limit | The business's security answers are changed back to their earlier wording: every refund needs a person | Decided |
 | 10 | Business policies fixed per situation; platform rules apply to open work | A promise is not changed silently; platform rules must apply now | The deadline default proves unsafe | Decided; its platform-rule point narrowed by decision 24 |
-| 11 | Memory suggests; it never decides | A lesson can be wrong | A way to promote lessons is decided | Decided (how lessons are promoted: **Provisional**) |
+| 11 | Memory and knowledge presents; it never decides (rewritten 2026-10-28; it was "memory suggests") | A lesson can be wrong; its job is context engineering, not decision making | A way to promote lessons is decided | Decided (how lessons are promoted: **Provisional**) |
 | 12 | One situation per problem; linked, never merged | A customer has many problems, each with its own history | Linked situations contradict each other, or a journey can no longer be worked out (written down 2026-10-22) | Decided |
 | 13 | A closed situation reopens only when its closure was wrong | Keeps the history; catches wrong closures | Wrong closures turn up often | Decided |
 | 14 | A reply goes on the channel the person used; a new message on the first allowed channel; consent is per channel; a withdrawal stops what was withdrawn | Each platform has its own rules, and a person may agree to one channel but not another | A platform changes its rules | Decided |
@@ -73,7 +74,7 @@ The project owner told the writer on 2026-10-21 to finish this folder without st
 
 **How statuses were read**
 1. The fourteen [earlier decision records](../../section_11_decision_records.md) count as Decided. The [earlier stabilization](../../section_11_stabilization.md)'s verdict, "Stabilized", is not used as a basis on its own.
-2. Rules resting only on the business's memory answers, still marked "pending review", are Provisional. This stays so until the project owner reviews those answers.
+2. (Until 2026-10-28) Rules resting only on the business's memory answers, then still marked "pending review", are Provisional. This stays so until the project owner reviews those answers.
 3. Rules from the research that appear in the concluding-audit additions of 2026-10-12 are Decided.
 4. Where the construction record had left a rule unconfirmed, the mark was kept, even where an older file said Decided — until 2026-10-22, when every such rule was settled.
 5. Every status legend uses one definition of Provisional: "a working choice that carries a condition for reopening it".
@@ -92,7 +93,7 @@ The project owner told the writer on 2026-10-21 to finish this folder without st
 14. An approval's answer is saved as an arrival by the conversation manager, and handed to the waiting tool step as its result (settled in [the conflict register](conflict_register.md), row 8, and written in the decisions file, "Other decisions").
 15. A blocked situation has no check-in.
 16. The person who takes a question Tend has never met is named by the business's own rules.
-17. The reasons kept from the archived design are these: keeping the conversation manager thin, keeping memory apart from the worker, and keeping the owner view apart.
+17. The reasons kept from the archived design are these: keeping the conversation manager thin, keeping memory and knowledge apart from the worker, and keeping the owner view apart.
 
 **Choices of shape**
 18. A summary file of all twenty-two responsibilities, with what each passes to which, was added to the responsibility view.
@@ -122,7 +123,7 @@ The project owner asked for "the smaller questions inside" to be settled "with t
 
 **Parts and records** — in [the parts file](../boundary_view/the_parts.md) and [the records file](../state_view/the_records.md):
 11. While the situation record, the situation worker, or the communication layer is down, each other part follows its own written rule for that case. <!-- settled 2026-10-22: part outages -->
-12. When memory cannot be reached and a step is safe only with its context, that step is not taken: Tend waits for memory, or gives the step to a person. <!-- settled 2026-10-22: memory unreachable -->
+12. When memory and knowledge cannot be reached and a step is safe only with its context, that step is not taken: Tend waits for memory and knowledge, or gives the step to a person (since 2026-10-28: the loop waits a set time for the package, then the step goes to a person). <!-- settled 2026-10-22: memory unreachable -->
 13. When the trusted permission store is back after an outage, every held step is checked again from the start. <!-- settled 2026-10-22: access after the store returns -->
 14. The status-check service keeps a record of its own asks for each wait it serves — how many, and when it may ask next — like the tool layer's record of tries. It learns of each wait from the wait's notice, reading the wait from the book of waits. The record is not a list of what situations wait for: it is never used to match an arrival, and it is rebuilt from the book after a restart; so the book stays the only such list. <!-- settled 2026-10-22: the service's own list -->
 15. How each of the eleven labels the business owner sees is worked out from the records. <!-- closed item: label mapping -->
@@ -177,15 +178,77 @@ The project owner asked for "the smaller questions inside" to be settled "with t
 54. The emergency switches: the business owner or the configurator for one business; the product team, with a second person, for all. <!-- closed item: emergency switch holder -->
 55. The fixed points where rules from law, platforms, and buyers are checked. <!-- closed item: compliance checkpoints -->
 
-**Memory, configuration, and improvement** — in [the memory, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md):
+**Memory and knowledge, configuration, and improvement** — in [the memory and knowledge, configuration and improvement file](../responsibility_view/memory_configuration_and_improvement.md):
 56. The step instructions and the stage rules are versioned separately. <!-- Q9 -->
 57. The business owner may answer a policy notice for one situation, or for all at once. <!-- Level 2 growth: open -->
 58. The configurator's identity is checked like any member's, with a fresh sign-in for every configurator action. <!-- Level 2 authority: configuration open -->
-59. What each kind of memory allows, and which learning measures apply in each mode, stay **Provisional**, like the other memory lists. <!-- Q8; owner item 27 -->
+59. What each kind of learned knowledge allows, and which learning measures apply in each mode, follow the business's written answers; since 2026-10-28 these are Decided, because the project owner pointed to those answers as the answers. <!-- Q8; owner item 27; decided by the owner, 2026-10-28: memory and knowledge -->
 
 **The design's own records**
 60. A new kind of situation enters the list when a walk shows a part behaving in a way no kind covers; the project owner approves it. <!-- closed item: new kinds -->
 61. The options for decisions 5 and 6, and the reopen conditions for decisions 1, 4, and 12, are written down in the decisions file. <!-- settled 2026-10-22: options and reopen conditions -->
+
+## 5. The decisions of 2026-10-28: memory and knowledge
+
+The project owner rejected the earlier picture of memory, answered its questions, and pointed to the business's written answers on memory and knowledge as the answers. The design is the Level 2 page "how memory and knowledge works with the loops". Each decision is written in full in [the decisions file](../decision_view/the_decisions.md).
+
+| # | Decision | Its reason, in one line | Reopen if | Status |
+|---|---|---|---|---|
+| 26 | Memory and knowledge runs beside every loop; each loop waits for its package before each part | A step reasons well only with the right context in front of it before it starts | Measured delay or cost is more than businesses accept | Decided |
+| 27 | Memory and knowledge creates and maintains links; a shared number makes one, meaning alone waits for a signal | Creating and maintaining knowledge is its job; a worker sees one situation | Links from records mislead workers often | Decided |
+| 28 | A claim reaches another situation only as an arrival through intake, keyed, counted per pair | One writer per record; a link shares context only | Sends become frequent enough to need another path | Decided |
+| 29 | An outreach has one central situation; no board | The task's progress belongs in one situation that can be worked and explained | The central situation's wakes cost more than they help | Decided |
+| 30 | Skills and procedures in versioned object storage; a business may write skills and connect MCP servers; only presented tools are used | Skills change often; no worker may run a different version; businesses work differently | A business skill or MCP tool bypasses a check | Decided |
+| 31 | Nothing is erased, except through the erasure tool's confirmation | The AI never erases; where a law requires erasure, the business owner or the configurator confirms it first | A market's law requires erasure without the business's confirmation | Decided |
+
+Also settled that day, from the Level 2 answers and the design. Each is written in the views:
+- a person is one record with one ID, which their channel addresses point to (the parts file);
+- the points where a loop waits for memory and knowledge's package, and what a package holds (the interactions file; extended on 2026-10-29 with the points before the reading, after it, and before the worker understands new content);
+- memory and knowledge's two fixed parts, and its retrieval steps (the memory and knowledge build file);
+- written reasoning with sections fixed code can check (the situation worker build file);
+- decisions made on the newest version, by checking the work (the rules that always hold);
+- one routing run per person at a time (the conversation manager build file; corrected on 2026-10-29, when it still said "per channel address");
+- which other situations a worker may see (the memory and knowledge build file);
+- the removal of the 2026-10-03 note that a step is told "a foreign reference was seen and not opened" (the decisions file, decision 26), Claude's recommendation, which the project owner allowed;
+- business events as learned knowledge (the memory and knowledge build file);
+- who establishes which fact (the responsibility view);
+- memory and knowledge's background parts (the parts file);
+- the cost, 10 to 23 AI calls before a first reply (10 to 20 before the reading was added on 2026-10-29), and the starting values, deferred to configuration (the memory and knowledge build file).
+
+## 6. The decisions of 2026-10-29: understanding comes first
+
+The project owner found that routing decided before "the Diwali sale" was understood, and asked for the whole conversation to be audited. The audit's working is in `memory_and_knowledge_drafts/` (files 40 to 46).
+
+| # | Decision | Why | Reopen if | Status |
+|---|---|---|---|---|
+| 32 | The conversation manager understands each arrival and writes its reading before it routes; candidates come from the reading by exact values; the worker understands new content before it plans or decides; not work starts no situation; the queue is per person | "The first thing should have been understanding"; the Product Vision; Level 2's ambiguity page and its 4 September note | The worker's understanding often contradicts the reading | Decided |
+| 33 | Using knowledge is separate from showing records: the business's knowledge may help any step understand; records stay inside each step's boundary; the send check holds what a person is told | "There needs to be some component that can see the whole thing and that can aid him"; Level 2: "Tend may use a confidential source internally" | A message carries knowledge its recipient may not be told, or a step's understanding is shaped by another person's record | Decided |
+
+Also settled that day, from the Level 2 answers and the design:
+- memory and knowledge revisits its own earlier advice at every point (the memory and knowledge build file);
+- when its AI part fails before a reading, a word the reading cannot resolve is marked unknown, and routing holds and asks if its choice depends on it (the memory and knowledge build file);
+- step instructions, the per-step templates, are memory and knowledge's (the memory and knowledge build file);
+- the board left in the routing responsibility file, and the worker's "whether a link is accepted" left in the situation record file, were removed: both were missed on 2026-10-28.
+
+## 7. The decisions of 2026-10-29, later: the product loop
+
+The project owner asked for loops built from the product's stages: "the loops do not look natural to me … I am first and foremost a product engineer". The working is in `memory_and_knowledge_drafts/` (files 48 to 53); the Level 2 page is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).
+
+| # | Decision | Why | Reopen if | Status |
+|---|---|---|---|---|
+| 34 | Tend's loops are built from the product's stages (arrival, situation, update, message loops); any stage may be passed or end the loop; fixed code chooses from facts the stages wrote; inside each stage the AI uses the kind of interaction its job needs | "Each step had a option to whether go to the next step of the loop or whether to exit right there and there"; "the harness should be flexible enough that the effort auto adjusts" | A stage's pass or ending cannot be decided from a fact the stages wrote | Decided |
+| 35 | Understanding the arrival is the conversation manager's one AI stage; it writes the understanding artifact (fit included, with a wider look when needed); routing is fixed code | "So routing is more code based"; "once it has understood, it generates a reasoning artifact that we can use as a JSON to route" | Understanding's fits are often refused by routing's check | Decided |
+| 36 | An arrival that is not about the business is answered and never becomes a situation, and is never learned from; an arrival Tend can already answer is answered at once, from a current claim or a configured fact | "This message will only be a noise in our knowledge framework"; the ruling of 2026-09-05, restored | A reply to such an arrival carries a business claim, or businesses report general answers as unwanted | Decided, with three calls in the reply decision and the answer from a configured fact not yet confirmed |
+| 37 | Memory and knowledge serves the stages that reason, named by stage; the stages that are fixed code are observed, not served | "Memory AI should run at every part of the loop"; a package nothing can use would be "a wasteful run" | A stage that is fixed code needs knowledge it cannot get from the records | Decided |
+
+Also settled that day, from the Level 2 answers and the design:
+- the harness study was rewritten as the catalogue of kinds of LLM interaction; its drafted loops were removed (the project owner, 2026-10-29);
+- gathering is a stage with its own information plan, which reads and asks people only for information; the plan lives there (the situation worker build file);
+- weighing evidence is a stage of its own, in fixed code (the situation worker build file);
+- the send check's "saved decision" includes the conversation manager's reply decision (the communication layer build file);
+- the business sets a currentness rule for each kind of claim; with no rule, that kind is never answered from what Tend holds (the configuration build file);
+- the cost before a first reply follows the message: 2 + 2 AI calls for "hi", 4 + 4 for Arjun's Diwali message, where the morning's design took 10 to 23 for every business message;
+- one option was surfaced and not applied: answering "any update?" for every open situation at once, which would change decided rule B3.
 
 ## Where each decision's reasoning lives
 

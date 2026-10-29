@@ -6,6 +6,23 @@ The design here is built from the whole knowledge base during the earlier design
 
 The earlier design sections (6 to 11) sit in the parent folder. While this folder was written, they were the foundation it was checked against. Now that it is done, they are the history it links to. Nothing here is copied from them. Where a later decision replaced one of their lines, the line is listed in the conflict register, so it can be corrected where it sits.
 
+**Updated later on 2026-10-29: the product loop.** The project owner asked for loops built from the product's own stages: "the loops do not look natural to me … I am first and foremost a product engineer", and "Routing, I don't think would be much of a LLM thing". Every view was reworked that day to the Level 2 page [how Tend's product loop works](../../Level%202/the_product_loop/how_does_the_product_loop_work.md). In brief:
+- Tend's loops are four (arrival, situation, update, message), each made of stages.
+- **The arrival loop.**
+  - The conversation manager's one AI stage is understanding the arrival.
+  - Routing is fixed code.
+  - An arrival that is not about the business is answered, and starts no situation.
+  - An arrival Tend can already answer is answered at once.
+- **The situation loop** is understanding the situation, gathering, weighing evidence, deciding, acting, each run only when it has something to do.
+- **Memory and knowledge** serves the stages that reason.
+- **The effort a message gets** follows what it needs.
+
+The decisions are 34 to 37 in [the decisions file](decision_view/the_decisions.md); the codes are the PL codes in each view's code index. The harness study (`knowledge_base/agent_harness_study.md`) was rewritten the same day as the catalogue of kinds of LLM interaction each stage may use inside it. Sections 6 to 11 were not changed. <!-- PL-1 -->
+
+**Updated 2026-10-29: understanding comes first.** The project owner found that routing decided before "the Diwali sale" was understood. The conversation manager now writes a reading of each arrival before it routes, and routing's candidates come from it; the worker understands new content before it plans or decides; memory and knowledge uses the business's own knowledge to help any step understand, and shows each step only the records inside its boundary; the routing queue is per person. New decisions 32 and 33; every view is updated; the audit's working is in `memory_and_knowledge_drafts/` (files 40 to 46).
+
+**Updated 2026-10-28.** The project owner replaced the earlier picture of memory with **memory and knowledge**, designed in the Level 2 page "how memory and knowledge works with the loops". Every view was updated that day; the build view's memory file is now [memory_and_knowledge.md](build_view/memory_and_knowledge.md); decisions 26 to 31 were added. An outreach now has a central situation instead of a board.
+
 ## The folders
 
 Each folder holds one or more files. This map lists every folder and every file. Each new file is added here when it is written.
@@ -20,7 +37,7 @@ Each folder holds one or more files. This map lists every folder and every file.
 | `constraint_view/` | What must the architecture always preserve? | [the_rules_that_always_hold.md](constraint_view/the_rules_that_always_hold.md), [code_index.md](constraint_view/code_index.md) |
 | `decision_view/` | Why was it built this way? | [the_decisions.md](decision_view/the_decisions.md), [code_index.md](decision_view/code_index.md) |
 | `traceability_view/` | Where did each structure come from? | [the_chain.md](traceability_view/the_chain.md), [code_index.md](traceability_view/code_index.md) |
-| `build_view/` | What do I build, part by part, and how do I know each part is right? | [overview.md](build_view/overview.md), [situation_record.md](build_view/situation_record.md), [situation_worker.md](build_view/situation_worker.md), [conversation_manager.md](build_view/conversation_manager.md), [communication_layer.md](build_view/communication_layer.md), [tool_layer.md](build_view/tool_layer.md), [status_check_service.md](build_view/status_check_service.md), [memory.md](build_view/memory.md), [configuration.md](build_view/configuration.md), [owner_view.md](build_view/owner_view.md), [improvement.md](build_view/improvement.md), [code_index.md](build_view/code_index.md) |
+| `build_view/` | What do I build, part by part, and how do I know each part is right? | [overview.md](build_view/overview.md), [situation_record.md](build_view/situation_record.md), [situation_worker.md](build_view/situation_worker.md), [conversation_manager.md](build_view/conversation_manager.md), [communication_layer.md](build_view/communication_layer.md), [tool_layer.md](build_view/tool_layer.md), [status_check_service.md](build_view/status_check_service.md), [memory_and_knowledge.md](build_view/memory_and_knowledge.md), [configuration.md](build_view/configuration.md), [owner_view.md](build_view/owner_view.md), [improvement.md](build_view/improvement.md), [code_index.md](build_view/code_index.md) |
 | `checking/` | Is it complete, traceable, and justified? | [decisions_register.md](checking/decisions_register.md), [gap_register.md](checking/gap_register.md), [conflict_register.md](checking/conflict_register.md), [non_responsibilities_register.md](checking/non_responsibilities_register.md), [question_backlog.md](checking/question_backlog.md), [stabilization.md](checking/stabilization.md), [audit_record.md](checking/audit_record.md), [construction_history.md](checking/construction_history.md), [completion_record.md](checking/completion_record.md), [blocking_questions.md](checking/blocking_questions.md), [code_index.md](checking/code_index.md) |
 | (root) | What is in this folder, and where does each thing live? | [map.md](map.md) |
 
@@ -28,7 +45,7 @@ In the table above, "the system" means Tend. "A kind of situation" means one cla
 
 Nine of the folders are views. Each answers exactly one question. All nine describe one design seen from different sides, so they must agree. When two views disagree, the disagreement goes to the checking folder as a finding and gets fixed. It is never settled by taste.
 
-The build view holds the overview file and one file per part. A part is one of the ten big pieces the design is made of. The boundary view names them: the situation record, the situation worker, the conversation manager, the communication layer, memory, the owner view, the tool layer, the status-check service, configuration, and improvement. Two of them, the situation worker and the communication layer, sit inside the conversation manager, yet each has its own file. The conversation manager's file covers the manager's own acts — intake, routing, the update decision, and setting completed — and names the parts it contains.
+The build view holds the overview file and one file per part. A part is one of the ten big pieces the design is made of. The boundary view names them: the situation record, the situation worker, the conversation manager, the communication layer, memory and knowledge, the owner view, the tool layer, the status-check service, configuration, and improvement. Two of them, the situation worker and the communication layer, sit inside the conversation manager, yet each has its own file. The conversation manager's file covers the manager's own acts — intake, routing, the update decision, and setting completed — and names the parts it contains.
 
 Every part file uses one heading, and beneath it the same seventeen questions and answers, in the same order. That shape is **Decided** (2026-10-17). The questions come from the method's part-file list: what the part is for, why it is separate, what it does, what it never does, what it owns and writes, what it decides, what makes it change, what starts it, how it works inside, how it behaves in each kind of situation, its key moments, when things go wrong, the rules that must hold, what must be visible afterwards, how we know it is built correctly, what is still open, and where it came from.
 
@@ -73,4 +90,4 @@ The agent that wrote the file checks every finding against its source. It fixes 
 
 The decisions are recorded in [the construction record](../construction_record.md), entry 21. If the construction record marks a point as not yet agreed or not yet answered, this folder does not treat it as settled either. No file here presents an unsettled point as decided.
 
-After 2026-10-22, no point in this folder is unsettled. What remains is labelled for the stage that sets it: a value each business or market sets (deferred to configuration), a technical choice (deferred to Level 3), or a detail for whoever builds it (deferred to implementation). The memory rules that rest only on answers still marked "pending review" stay **Provisional** until the owner reviews those answers.
+After 2026-10-22, no point in this folder is unsettled. What remains is labelled for the stage that sets it: a value each business or market sets (deferred to configuration), a technical choice (deferred to Level 3), or a detail for whoever builds it (deferred to implementation). Since 2026-10-28 the memory and knowledge rules are Decided: the project owner pointed to the business's answers as the answers. How a lesson could become more than advice stays **Provisional**.

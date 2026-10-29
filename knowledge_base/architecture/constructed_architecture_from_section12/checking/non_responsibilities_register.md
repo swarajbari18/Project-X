@@ -16,9 +16,9 @@ This list is the full list: it is the problem statement's own. The problem state
 - **Why excluded:** a policy is the business's own decision; Tend runs inside it. The design's reading.
 - **Who owns it:** the business.
 - **How Tend works with it:** the configurator writes the business's policies into its settings, through fixed tools; Tend reads them, and never learns them from old situations. <!-- decided 2026-10-03: settings are settings; G7 -->
-- **Who may say yes:** the business owner, or the configurator they name. Not Tend, not the AI, not memory. <!-- G7; N13 -->
+- **Who may say yes:** the business owner, or the configurator they name. Not Tend, not the AI, not memory and knowledge. <!-- G7; N13 -->
 - **The evidence:** the problem statement; the business's growth answers.
-- **What could move the line:** nothing in Tend's purpose. Tend may suggest a setting the business could adopt — memory proposes, the configurator checks — but the business decides, and only the configuration tools write it. Tend never creates a policy on its own. The design's reading. <!-- N13; G7 -->
+- **What could move the line:** nothing in Tend's purpose. Tend may suggest a setting the business could adopt — memory and knowledge proposes, the configurator checks — but the business decides, and only the configuration tools write it. Tend never creates a policy on its own. The design's reading. <!-- N13; G7 -->
 
 ## 2. The business's strategy
 

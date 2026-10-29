@@ -856,3 +856,39 @@ The logical design leaves these to Level 3. Each one is named so it is not lost.
 - **README:** stale rows (CASE count, Section 7 tranche, "Kanban", IA-8, "Two conflicts"); a new section listing this register and the walkthrough.
 - **Settled-items page and the how-Tend file:** doubled words, and a fragment rewritten as a pointer.
 - **Level 2:** not edited. The owner's files are listed in Section 10 under "Level 2 wording to change".
+
+## P. Memory and knowledge reconciliation (2026-10-28)
+
+Swaraj found that decisions about memory and knowledge had not reached Sections 6 to 12. This pass reconciled them. Source: the Level 2 page `Level 2/memory_and_knowledge/how_does_memory_and_knowledge_work_with_the_loops.md`, its Level 1 framing and its tests.
+
+| ID | What was wrong in Sections 6 to 12 | Kind | Now |
+|---|---|---|---|
+| MK-1 | The part was called "memory", and was drawn as loaders a step calls plus a writer that reads finished work. Swaraj's September words in the harness study already had it watching the loop and loading each step. | Contradiction with the owner's words | Memory and knowledge runs beside every loop; each loop waits for its package before each part (N18, N19, IB-15) |
+| MK-2 | The worker accepted or denied each link (2026-10-09). | Superseded by the owner | Memory and knowledge creates and maintains links (A15, IB-18) |
+| MK-3 | An outreach was "thirty situations and one board". The harness study's earliest design had a parent situation; Section 12 replaced it with a board. | Contradiction with the owner's words | One central situation, linked to every person's situation; every update goes up as an arrival (B6, IB-17) |
+| MK-4 | Retrieval was described as summaries plus "semantic similarity". Swaraj's own retrieval research (Creator-joy, J&F) was not used. | Gap | The retrieval pattern (N23) |
+| MK-5 | Skills, and where they live, were not in Sections 6 to 12. | Gap | Skills and procedures in object storage, versioned (N26); businesses may write skills and connect MCP servers (N27) |
+| MK-6 | Who reaches outside knowledge was not settled. | Gap | The worker; memory and knowledge learns (N28) |
+| MK-7 | Erasure from situation records was an open conflict with never rewriting them. | Gap | Only the confirmed erasure tool, the one exception (U7, IB-19) |
+| MK-8 | A step was told "a foreign reference was seen and not opened" (2026-10-03). | Removed on Claude's recommendation, which Swaraj allowed (corrected 2026-10-29) | Removed; a number outside the step's boundary is never hinted at (N34) |
+| MK-9 | How a change in one situation reaches another was an unknown (R9-11). | Gap | Three paths (N25, IB-16, IB-17) |
+| MK-10 | A person was identified by channel address in places. | Contradiction with Level 2 (the identity-bearing anchor) | A person ID; channels point to it (A14) |
+| MK-11 | No rule required a decision to be made on the newest version before every action. | Gap | F7, IB-20 |
+
+## Q. Understanding comes first (2026-10-29)
+
+Swaraj found that the memory and knowledge tests let routing decide before "the Diwali sale" was understood, and asked for the whole conversation to be audited. The audit built two registers (his words; Level 1, Level 2 and the harness study), traced the Level 2 design against them, and found 24 defects in 12 kinds. Full working: `memory_and_knowledge_drafts/` (files 40 to 46). The defects that reached Sections 6 to 12:
+
+| ID | What was wrong | Kind | Now |
+|---|---|---|---|
+| UF-1 | Routing acted before the arrival was understood. | Contradiction with Level 2 (Product Vision; ambiguity §9) and Swaraj's words | The reading first (C7, C8, B5, IB-21) |
+| UF-2 | The conversation manager "only records and routes, and leaves the reasoning to the worker"; the first version held only "what came in". Rule HC-2 already said it "works out what an incoming message means". | Level 2 rule dropped (the 4 September MEANING note) | The conversation manager writes its reading, an interpretation, never a conclusion (HC-2, the writers table) |
+| UF-3 | Routing used "the sender's view" for everything, so the business's own knowledge could not help it understand. | Contradiction with Swaraj's words (27 October) and Level 2 (who owns information: "use a confidential source internally") | Using is not showing (N34) |
+| UF-4 | Routing searched a sender's finished situations on the message's raw words, before the message was understood. The search itself is the 2026-10-03 agreed rule; searching before understanding was the fault. | Acting before understanding | The 2026-10-03 rule, driven by the reading: its exact values first, description only inside them (N37) |
+| UF-5 | The routing queue was keyed by channel address. | Contradiction with Swaraj's words ("not a WhatsApp number") | Per person (B10, IB-22) |
+| UF-6 | The worker had no understanding part; understanding was folded into planning and deciding. | Contradiction with Level 2 and Swaraj's words | W0 and understanding (C10, IB-23) |
+| UF-7 | An arrival that is not work started a situation. | Level 2 and harness rule dropped | No situation (C9) |
+| UF-8 | When memory and knowledge's AI part failed, the step went on, even if understanding then lacked the business's meaning. | Contradiction with Level 2 failure ("hold what depends on the dead source") | Held and asked when routing depends on it (N31) |
+| UF-9 | Memory and knowledge's revisiting of its own work had been reduced to citation checks. | Swaraj's word narrowed | It revisits its earlier advice at every point (N36) |
+| UF-10 | The architecture was declared stable with these defects inside. | A verdict on results, not process | Stabilization reopened and given again (Section 11; checking/stabilization.md) |
+

@@ -99,3 +99,30 @@ Findings rejected, with their reasons:
 - No index row's status still says To confirm or Open.
 - Every link between files, and every link to a heading, resolves.
 - No visible sentence outside the legends and the historical analysis uses To confirm or Open as a status.
+
+## Audits of 2026-10-28 (memory and knowledge)
+
+- **Technical audits**, by Claude, file by file, against Swaraj's 27 and 28 October words and the Level 2 folder. Every quote attributed to Swaraj was checked against the session record. One sweep at the end found no leftover "board", no live rule that the worker accepts links, and no live "pending review" Provisional mark.
+- **Readability audits**, by five subagents, against `conversation with swaraj.md` and Swaraj's words: the Level 2 pages; Sections 6 and 7; Sections 8 to 11; the build view; the other views. About 140 findings. Rejected: nine claims that a quote was "not found" (each quote is in the session record), and two others that contradicted Swaraj's own words ("fill its product written templates" is his, corrected on 2026-10-29 from a paraphrase; the reason "because it is its responsibility to create and maintain knowledge" is his). Applied: the rest, including the erasure exception added wherever "a version is never rewritten" appeared, the four contradictions left in unchanged lines, broken text left after Provisional tags were removed, and a self-contained memory and knowledge build file.
+- **Kept as Claude's call, flagged to Swaraj:** the memory rules that rested on answers marked "pending review" are Decided, because he pointed to the Level 2 memory folder as the answers on 2026-10-28.
+
+## Audits of 2026-10-29 (understanding comes first)
+
+- **Technical audit, by Claude**, against two registers: Swaraj's words since the Cursor transcript (70 items, quoted exactly), and the settled rules of Level 1, Level 2 and the harness study (48 rules). The registers, the loops rebuilt from Level 1 and Level 2, the trace, the 24 defects in 12 kinds, the break tests and the design thinking are in `memory_and_knowledge_drafts/` (files 40 to 47).
+- **Tests walked against process, not results.** Before the fix, 12 of the 35 earlier tests passed the rubric, and 13 of 15 new break tests failed. After it, all 50 pass.
+- **Mechanical checks:**
+  - phrases of each kind of mistake searched across the knowledge base;
+  - every new code given a row in each code index that uses it, plus 20 codes from 2026-10-28 that had none;
+  - every link in the 91 changed files resolves;
+  - every quote attributed to Swaraj in the added text checked against his messages, which corrected two quotes.
+- **Readability audits, by three subagents**, against `conversation with swaraj.md` and Swaraj's words: the Level 2 pages (25 findings), Sections 6 to 11 (27), Section 12 (21). Most were applied. Rejected, with reasons:
+  - "You just disregarded understanding in itself." needs no ellipsis: it is a complete sentence in his message;
+  - "routing check" has one meaning, because the check always runs and R3 precedes it only when the AI chose;
+  - the duplicate N20 tag and the older terms ("exact keys", "claim") were left: 2026-10-28 text, outside this change;
+  - dated correction notes were kept, so Swaraj can see what changed while he proofreads.
+- **Found through the audits:**
+  - the name Arjun was a customer in Swaraj's story and an employee in older Section 12 files; the employee became Kabir;
+  - "reading" collided with the older status label "the design's reading"; both are now defined;
+  - the memory responsibility file still carried the old search rule.
+- **One correction of Claude's own correction.** The first fix let routing look at a sender's finished situations only on an explicit reference to earlier work. That overturned the 3 October agreed picture ("a small set of his own finished situations that could be that purchase"). It was replaced the same day: the 3 October rule stands, driven by the reading, with exact values first and description only inside them.
+

@@ -76,42 +76,20 @@ Decision traceability:     complete — twenty-five decisions
 Build view:                complete
 Audits:                    all passed; see the audit record
 
-Remaining Provisional:     the memory rules that rest only on the business's memory answers,
-                           which are still marked "pending review" — the kinds of memory, what
-                           learning may improve, the checks on a lesson and their list, what a
-                           new lesson may do, a memory item's fields and states, undoing a
-                           lesson, what an earlier exchange may supply, the learning measures,
-                           and when a trace counts as training material; how a lesson could
-                           become more than advice; the list of configuration tools, until the
-                           exact set is designed; how the completion check is built
-Deferred to Level 3:       which technologies build the design; how stateless, synchronous,
-                           asynchronous, and ephemeral work is built; which kind of Telegram
-                           connection Tend uses; which capabilities come in the first list;
-                           thresholds for stopping a business that abuses a channel
-Deferred to configuration: each business's numbers: wait limits, check-in intervals, escalation
-                           paths, reminders, retry limits and asks per outside system, question
-                           and send limits, the refund setting, approval deadlines, meeting
-                           limits, waivers, and expiry; the owner view's accepted lag; who takes
-                           a question Tend has never met; how long a policy notice may wait;
-                           which fallback sources a business allows; how a supplied lead is
-                           treated; the feedback wait; each market's legal values, including
-                           consent, windows, field lists, audit retention, and whether a legal
-                           deletion reaches the audit
-Deferred to implementation: the exact form of the "reopened" mark; the format of each role's
-                           field list; the exact form of a proposal and the fields the
-                           permission check reads; the meeting capability's own booking steps;
-                           the exact set of configuration tools
+Remaining Provisional:     how a lesson could become more than advice. (Until 2026-10-28 this
+                           line also listed the memory rules resting on answers marked "pending
+                           review"; since 2026-10-28 they are Decided. See part 3.)
 Blocking Level 2 questions: none
 Conditions for reopening:  each decision's own condition, in the decisions register; the project
-                           owner's review of the business's memory answers; new evidence that
+                           owner's review of this design; new evidence that
                            changes a part, a writer, or a rule
 
 Status:                    COMPLETE
 Reason:                    Every responsibility has a part, every record has one writer, every
                            kind of situation is walked through, every decision has its reason,
                            options, and reopen condition, and every file has passed both audits.
-                           Nothing left changes a part, a writer, or a rule outside memory: the
-                           Provisional memory rules each reopen alone, and every deferred item
+                           Nothing left changes a part, a writer, or a rule: the one Provisional
+                           rule (lesson promotion) reopens alone, and every deferred item
                            is a value or a detail, not a design choice.
 
 Next frontier:             Level 3, technical architecture, starting from the build view and
@@ -122,3 +100,54 @@ Next level:                Level 3
 ```
 
 <!-- method: the completion record; method: closing the backlog -->
+
+## 3. Update of 2026-10-28: memory and knowledge
+
+The project owner rejected the earlier picture of memory and set the design of **memory and knowledge** (the Level 2 page "how memory and knowledge works with the loops", with its Level 1 framing and tests). Sections 6 to 11 and every view in this folder were updated on 2026-10-28; the build view's memory file was replaced by [memory and knowledge](../build_view/memory_and_knowledge.md). Decisions 26 to 31 were added, and decision 11 rewritten.
+
+The "Remaining Provisional" line above is narrowed: the memory rules that rested on answers marked "pending review" are Decided, because on 2026-10-28 the project owner pointed to those answers as the answers. How a lesson could become more than advice stays Provisional.
+
+Status: COMPLETE, as of 2026-10-28.
+
+## 4. Update of 2026-10-29: understanding comes first
+
+The project owner found that routing decided before "the Diwali sale" was understood, and asked for the whole conversation to be audited. The audit's registers, trace and defects are in `memory_and_knowledge_drafts/` (files 40 to 47).
+
+Every view in this folder was updated:
+- **Build view:** the conversation manager understands first and writes its reading; the worker understands new content; memory and knowledge's points, lookups, retrieval and visibility rules; the overview, the situation record and the communication layer.
+- **Other views:** the boundary, interaction, state and constraint views (three new rules that always hold); the decision view (decisions 32 and 33); the traceability, behaviour and responsibility views.
+- **Checking folder:** decisions register part 6, conflicts 24 to 27, and the stabilization re-check.
+- **Every code index** gained the new codes.
+
+Two misses from 2026-10-28 were also fixed: a board left in the routing responsibility file, and "whether a link is accepted" left in the worker's writers row.
+
+Status: COMPLETE, as of 2026-10-29, once the readability audits are applied (see the audit record).
+
+## 5. Update of later on 2026-10-29: the product loop
+
+The project owner asked for Tend's loops to be built from the product's stages ("the loops do not look natural to me … I am first and foremost a product engineer"), for routing to be code, and for the harness study to be rewritten as the catalogue of kinds of LLM interaction. The working is in `memory_and_knowledge_drafts/` (files 48 to 53); the Level 2 answer is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md), with its tests.
+
+Every view in this folder was reworked:
+- **Build view.**
+  - The overview: the path every change takes is now the product loop, and so is the build order.
+  - The conversation manager: the arrival loop and its endings, routing as code, and the reply decision.
+  - The situation worker: the situation loop's stages, and the information plan.
+  - Memory and knowledge: packages by stage.
+  - The communication layer: the message loop and the reply rule.
+  - The situation record, configuration (currentness rules and the reply settings), the tool layer, the status-check service and improvement.
+- **Other views:**
+  - the boundary view's parts and responsibilities table;
+  - the interaction view (interactions 1, 3, 4 and 8 rewritten; interaction 27 added);
+  - the behaviour view (the common walk, and the fifteen kinds' wording);
+  - the state view (the understanding artifact, the person's message history, the information plan);
+  - the constraint view (six rules added);
+  - the decision view (decisions 34 to 37);
+  - the traceability view;
+  - the responsibility view (understanding and routing rewritten; gathering, deciding, communicating, harness, memory, failure, and the summary updated).
+- **Checking folder:** decisions register part 7, conflicts 28 to 34, and the stabilization re-check.
+- **Every code index** gained the PL codes.
+
+Sections 6 to 11 were not changed, on the project owner's instruction.
+
+Status: COMPLETE, as of later on 2026-10-29, once the readability audits are applied (see the audit record).
+

@@ -16,6 +16,8 @@ Then it records what is decided, what is open, and what each open item needs.
 - Your Level 2 edits of 2026-10-09 are confirmed. They are now part of the communication rules in Section 8.
 - Some Level 2 lines still say the opposite of decisions made here. You change those lines. The list is near the end.
 - Sections 6 to 9 were edited to match the decided items, the settled naming, and the concluding audit of 2026-10-12.
+- **2026-10-28: memory and knowledge.** You rejected the earlier memory picture and answered its questions. Your decisions are recorded below, under "Decided by you on 2026-10-28". Sections 6 to 9 were edited to carry them, and the Section 9 findings R9-18 to R9-24 are reconciled under "Items from Section 9".
+- **2026-10-29: understanding comes first.** You found that routing decided before "the Diwali sale" was understood, and asked for the whole conversation to be audited. Your decision is recorded below, under "Decided by you on 2026-10-29". Sections 6 to 9 carry it; findings R9-25 and R9-26 are reconciled under "Items from Section 9".
 
 ---
 
@@ -137,6 +139,37 @@ Each decision gives what was decided, its source, and its status.
 
 20. **Conversation manager.** It is the whole system that reacts to a pattern and sends messages. Its parts are the intake step, the situation worker, and the communication layer. Tools are a different context. They are not part of it.
     *Decided by you, in your message correcting my earlier definition. The naming of the parts is confirmed in the open decisions.*
+
+### Decided by you on 2026-10-28 (memory and knowledge)
+
+Each was decided in your messages of 28 October 2026. The design that carries them is the Level 2 page "how memory and knowledge works with the loops".
+
+- **The name.** The part is always "memory and knowledge", never just "memory". Knowledge is situations, skill files and business rules linked together, with reasoning over them.
+- **How it runs.** It runs beside the loops, on its own thread, and fires its slow jobs behind them. Before each part of a loop, the loop waits for its answer: knowledge, or an explicit empty answer. Its AI part runs before every part, except after a decision that ends the run.
+- **Its fixed parts.** The conversation manager's and the situation worker's fixed parts are different, and each does only limited, exact work. The rest is its AI part.
+- **It does not decide.** Its job is context engineering, not decision making.
+- **Retrieval.** Retrieval combines every technique known, to remove ambiguity (your words), as in your Creator-joy and J&F research. The methods this design uses from that research: exact filters first, keyword, meaning and link searches, combining their rankings, reordering, and a fixed final check. No thresholds.
+- **Links.** Memory and knowledge creates and maintains links, not the worker. This replaces your decision of 2026-10-09 (memory proposes, the worker accepts or denies).
+- **Outside knowledge.** The worker searches the web; memory and knowledge says a subject is unknown, presents the skill and tools, and learns what the worker established.
+- **Outreach.** One situation per person and one central situation linked to all of them. Every update goes to the central situation. Only significant things reach the owner. There is no board.
+- **Skills.** Product and business skills live in object storage, versioned, not shipped with the code.
+- **Businesses may extend Tend.** A business may write any skill text, fill templates, and connect any MCP server. Memory and knowledge presents the subset of tools each part needs.
+- **Erasure.** Nothing is erased in normal work. Where the law requires it, the AI may propose an erasure inside the erasure tool, and the tool's confirmation rule asks the owner or configurator.
+- **The foreign-reference note is removed.** A step is no longer told that "a foreign reference was seen and not opened". (Corrected 2026-10-29: this was Claude's recommendation, which you allowed: "if you think it should be removed, then remove it".)
+- **The person.** A person has a unique ID, not a WhatsApp number; channels point to it.
+
+### Decided by you on 2026-10-29 (understanding comes first)
+
+- **Understanding comes before routing, and before any action.** Your words: "before routing you have to understand the situations first and then route", and "The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing, when there is the retrieval thing, the retrieval would have been much simpler this time. We would just know the dates of the sales and we could just make a filter about that." The Product Vision ("Understand before acting"), Level 1 ("A customer starts a conversation"), and two Level 2 pages in the understanding folder (the ambiguity page and the relevance page) already said so. One Level 2 sentence ("First — route… Second — understand", on the same-situation page) now carries a dated note.
+- **What follows from your words of 27 October and from Level 2**, applied without a new question to you:
+  - the conversation manager writes a **reading** of each arrival, an interpretation saved with it;
+  - routing's candidates come from the reading, by exact values;
+  - the worker understands new content before it plans or decides;
+  - memory and knowledge uses the business's own knowledge to help any step understand, and shows each step only the records inside its boundary. Your words: "there needs to be some component that can see the whole thing and that can aid him". Level 2: "Tend may use a confidential source internally while sending only a limited description externally";
+  - the routing queue is per person;
+  - an arrival that is not work creates no situation;
+  - memory and knowledge revisits its own advice.
+- The audit's registers, its 24 defects, and the design thinking are in `memory_and_knowledge_drafts/` (files 40 to 46).
 
 ### Settled by Level 2
 
@@ -329,12 +362,21 @@ Section 9 listed findings from its dimension tests. Each one now has a status.
 | 8 | Wording of the rule context | Architecture wording. Sections 6 and 8 edited. |
 | 9 | Traces, redaction, deletion and learning | Open. Conflicts 22 and 23 cover it. The retention period is open. |
 | 10 | Stored claims that may be out of date | Partly settled. Level 2 says the latest information is always read. The age limit is open. |
-| 11 | One change that touches several linked situations | Architectural unknown. Each situation saves on its own. It stays visible. |
+| 11 | One change that touches several linked situations | Resolved. Section 12 decision 23: the change is saved once, then written into each situation, and a writer that stops part-way resumes. Since 2026-10-28, a change reaches another situation in only three ways: one event written into each; a worker's send through intake, keyed and counted per pair; a person's situation's automatic send to its central situation. |
 | 12 | Substitute checks for transferred work before an irreversible action | Section 8 must use the scope set in Section 6. Edited. |
 | 13 | Meeting counters and the senior route | Partly settled (gap 12). |
 | 14 | Visibility limits from channel rules | Settled by Level 2 (gap 8). |
 | 15 | The fallback lane | Level 2 says the email lane is never blocked. Consent and address rules still apply. An email to start contact needs consent and an unsubscribe route (Level 2 channel-choice file). |
 | 16 | The configurator and the product team's capability authoring | Different roles. Open wording: Sections 7 and 8 still merge them. |
+| 18 | Each loop waits for memory and knowledge at every part: 10 to 23 AI calls before a first reply (10 to 20 before understanding was added on 2026-10-29) | Accepted trade-off, chosen by you on 2026-10-28. Level 3 measures the delay. |
+| 19 | Indexes and links are written behind the loop, and can lag | Accepted trade-off. Needed items come from typed fields written by the situation's own save, so they never lag. |
+| 20 | Businesses connecting MCP servers, against a catalogue that must stay hashed with no runtime registration | Resolved: the configurator connects through a fixed tool; the tool list is captured, versioned and hashed; a later change waits for re-approval. |
+| 21 | An outreach's central situation wakes on every person's update | Accepted trade-off. The cost grows with how active the people are. The owner hears only material changes. |
+| 22 | Two workers sending claims to each other forever | Resolved: a count of sends per pair of situations within a window. |
+| 23 | Erasure against records that are never rewritten | Resolved by you on 2026-10-28: only the confirmed erasure tool, the one exception. |
+| 24 | A package built for an older version | Resolved: decisions are checked against the newest version, and a cache never guards a decision. |
+| 25 | Routing acted before the message was understood | Resolved by you on 2026-10-29: the reading first; candidates from it (C7, C8, N37, IB-21). |
+| 26 | One view filter did two jobs: using knowledge, and showing records | Decided by your words of 27 October and by Level 2's rule on who may see and disclose information, applied on 2026-10-29 without a new question to you: knowledge may help any step understand; records stay inside each step's boundary (N34). |
 | 17 | The external recipient list, and how the owner view is derived | The derivation is decided (decision 16). The recipient list is open, and it does not block the design. |
 
 ## Open items from Sections 6 to 8
@@ -409,6 +451,10 @@ Each assumption says what depends on it, and what changes if it is false.
 - **The owner view is built on request.** It can lag behind the records by an amount that has no number yet.
 - **A closed situation is reopened only for a wrong closure.** A customer who returns with a new problem gets a new situation, linked to the old one. The customer's history is spread across two situations.
 - **A status check that does not answer within the bound is declared, not waited on forever.** The situation then waits, or escalates.
+- **Memory and knowledge's AI part runs at every part of every loop** (2026-10-28). Each part costs one more AI call and a wait for the package. In return, each step gets the context it needs before it reasons. You chose this.
+- **Indexes and links lag the loop** (2026-10-28). A search right after a save can miss the newest version. Needed items do not lag.
+- **An outreach's central situation wakes on each person's update** (2026-10-28).
+- **The conversation manager reads each arrival before it routes** (2026-10-29). One more AI turn for each arrival that has text. In return, routing works from what the arrival means, and its candidates come from a filter instead of a search. The worker adds a turn of understanding when a wake brings content its situation has not yet taken in.
 
 ---
 

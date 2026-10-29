@@ -75,7 +75,7 @@ The design is a set of parts. Each part has one job.
 | Communication layer | Shapes, checks, sends, and records each message | Decide what to say |
 | Tool layer | The only way Tend calls an outside system, such as a payment provider or a shipping system | Repeat an action whose result is unknown |
 | Status-check service | Repeats a check on an outside system when a wait is due | Decide anything. It sends each result back as a message. |
-| Memory | Remembers useful context and suggests links or lessons | Change a rule, a permission, or a setting |
+| Memory and knowledge (since 2026-10-28) | Hands each part of each loop what it needs; creates links; keeps skills and learned knowledge | Decide anything; change a rule, a permission, or a setting |
 | Owner view | The owner's summary, built from the records when asked | Write anything |
 | Configuration | Settings and permissions, written only by the configurator, through fixed tools | Be written by anyone else |
 | Improvement | Learns from saved traces to improve the product | Change a business rule on its own |
@@ -184,7 +184,7 @@ The timer wakes the situation worker only. The worker reads the latest record. I
 | Grant or change a permission | The configurator | The configuration tools | A second person, for compliance settings | The audit record |
 | Share a file or deck | The grant | The tool layer | A named approver | The permission check |
 | Contact a partner | The business's policy, after escalation | The communication layer | Nobody extra | The policy check |
-| Memory suggests a change | Nobody | Nothing | The configurator | Nothing else |
+| Memory and knowledge suggests a change | Nobody | Nothing | The configurator | Nothing else |
 
 ---
 
@@ -304,3 +304,33 @@ I could not find your messages for the 2026-10-09 and 2026-10-10 decisions. The 
 - **ArchUnit, freezing rule.** A stored list of known violations. Later checks report only new ones. Here, the stored list is the list of known contradictions.
 - **OpenTelemetry, traces.** One identifier follows a request across its steps. The design needs the same: one identifier per run, linking intake to send.
 - **The SEI architecture tradeoff analysis method (read through Wikipedia).** Its outputs are trade-off points, sensitivity points, risks, and non-risks. Used for the options table.
+
+
+## Re-check after the memory and knowledge redesign (2026-10-28)
+
+Swaraj replaced the earlier memory picture on 28 October 2026. The new design is in the Level 2 page "how memory and knowledge works with the loops". This re-check asks whether the design is still stable enough to build on.
+
+- **No new part.** Memory and knowledge is still one part. Its inside pieces (two fixed parts, an AI part, a retrieval capability, background parts) do not change who writes what to a situation record. The one new write is a confirmed erasure.
+- **The rules that must always hold still hold, with one exception:** a confirmed erasure may remove data from an old version (decision 19). Otherwise: Only the worker decides the next step; only the conversation manager sets completed; every write is a version announced in the same run; actions go through the tool layer; permissions belong to verified people. Memory and knowledge decides nothing.
+- **Tested.** Thirty-five stories were walked through the new design, in the Level 2 page's tests. All pass. Two known limits remain, each covered: a very large history without a date clue may need a second search or the customer's own answer; a typo matching the customer's own order can misplace one message until the next reply.
+- **Stressed.** Section 9 stressed the design across all seventeen dimensions (findings R9-18 to R9-24). Each is resolved or an accepted trade-off; Section 10 records them.
+- **New decisions.** Decisions 15 to 19 in the decision records file, and decision 9 rewritten.
+- **The cost is accepted.** Ten to twenty AI calls before a first reply. Swaraj chose this. Level 3 measures it.
+
+**Verdict:** Stabilized, as of 2026-10-28, with the trade-offs above.
+
+**Reopened on 2026-10-29.** The verdict above was given on results, not process. The 35 tests "all passed", yet routing decided before "the Diwali sale" was understood. Swaraj found it: "You just disregarded understanding in itself." An audit of the whole conversation then found 24 defects in 12 kinds (`memory_and_knowledge_drafts/`, files 40 to 46).
+
+## Re-check after understanding was put first (2026-10-29)
+
+- **No new part of Tend.** The conversation manager's loop gains one step: the reading, written before it routes. The worker's loop gains one step: understanding, run when a wake brings new content. Who writes what to a situation record is unchanged, except that the conversation manager's write now carries its reading: an interpretation, never a conclusion. Section 7 already said the conversation manager "works out what an incoming message means".
+- **The rules that must always hold still hold.** Three are added: an arrival is understood before Tend acts on it; routing's candidates come from the reading by exact values; using is not showing (rules 35 to 37 in the decision records file).
+- **Tested against process, not only results.** A rubric (R-a to R-i) asks, for every step: what it knew and from where, whether it understood before acting, whether claims stayed claims, whether memory and knowledge decided anything, whether another person's record was shown or hinted, whether retrieval filtered by what was understood, whether anything was keyed by channel, whether quotes are exact, and how many AI calls ran.
+  - Before the fix, 12 of the 35 tests passed it, and 13 of 15 new break tests failed.
+  - After the fix, all 50 pass: the 35 earlier tests and the 15 written to break the design.
+  - One known limit remains (test 26): when a customer mistypes an order number as another of his own orders, one message can be placed on the wrong situation until his next reply corrects it.
+- **Stressed.** Section 9 adds findings R9-25 (understanding before routing) and R9-26 (using versus showing), both resolved.
+- **New decisions.** Decisions 20 and 21.
+- **The cost.** 10 to 23 AI calls before a first reply, against 10 to 20. Routing's retrieval becomes a filter instead of a search, which should cost less; this is expected, not yet measured.
+
+**Verdict:** Stabilized again, as of 2026-10-29, with the trade-offs above. This verdict rests on the process rubric, and on the registers of Swaraj's words and of Level 2 run against the corrected text.

@@ -2,6 +2,10 @@
 
 **Date:** 2026-10-12. This file goes with `section_11_stabilization.md`.
 
+**Updated 2026-10-28.** Decision 9 is rewritten for memory and knowledge, and decisions 15 to 19 are added, from Swaraj's answers of 28 October 2026 and the Level 2 page "how memory and knowledge works with the loops".
+
+**Updated 2026-10-29.** Decisions 20 and 21 are added: understanding comes first, and using knowledge is separate from showing records. Swaraj found that routing decided before "the Diwali sale" was understood. Decision 15's cost is updated.
+
 For each decision, this file says:
 - what was decided,
 - why,
@@ -12,7 +16,7 @@ The last two parts list the rules the design must keep, and what could force a c
 
 ---
 
-## 1. The fourteen decisions
+## 1. The twenty-one decisions
 
 ### 1. One container, three parts inside
 
@@ -37,7 +41,7 @@ The last two parts list the rules the design must keep, and what could force a c
 
 ### 4. Every write is a new version, and its change is announced in the same run
 
-- **Decided:** Every change to a situation is a new version. A version is never rewritten. A write and its announcement happen together. A write without its announcement is retried.
+- **Decided:** Every change to a situation is a new version. A version is never rewritten, except by a confirmed erasure (decision 19, added 2026-10-28). A write and its announcement happen together. A write without its announcement is retried.
 - **Why:** The history stays explainable.
 - **Cost:** Storage grows with each version.
 - **Reopen if:** storage becomes a measured problem. No budget is set yet.
@@ -78,11 +82,11 @@ The last two parts list the rules the design must keep, and what could force a c
 - **Cost:** Old versions stay in use until they are moved.
 - **Reopen if:** the default at a deadline turns out to be unsafe.
 
-### 9. Memory suggests. It never decides.
+### 9. Memory and knowledge presents. It never decides.
 
-- **Decided:** Memory can suggest links and lessons. It cannot change a rule, a permission, an approval, an owner, a legal limit, or the line around an action that cannot be undone. The configurator checks each suggested setting. Only the configuration tools apply it.
-- **Why:** A lesson can be wrong. A change of authority needs a person behind it.
-- **Cost:** Slower learning.
+- **Decided:** Memory and knowledge presents knowledge, candidates and advice to each step. It never chooses between candidates, chooses the next action, or says a claim is true. It can learn lessons and propose settings. It cannot change a rule, a permission, an approval, an owner, a legal limit, or the line around an action that cannot be undone. The configurator checks each suggested setting. Only the configuration tools apply it. (Rewritten 2026-10-28; it was "Memory suggests. It never decides.")
+- **Why:** Swaraj: its "main purpose is context engineering, not decision making". A lesson can be wrong. A change of authority needs a person behind it.
+- **Cost:** Slower learning. Each step still has to decide with what it was given.
 - **Reopen if:** a way to promote lessons is decided. It is provisional now.
 
 ### 10. A closed situation reopens only when its closure was wrong
@@ -124,12 +128,80 @@ The last two parts list the rules the design must keep, and what could force a c
 
 ---
 
+### 15. Memory and knowledge runs beside every loop, and each loop waits for it
+
+- **Decided (Swaraj, 2026-10-28):** Memory and knowledge runs on its own thread, beside the loops of the conversation manager, the situation worker and the communication layer. Before each part of a loop, the loop waits for its package: knowledge, or an explicit empty answer. Its AI part runs at every part, except after a decision that ends the run. Its slow jobs (links, indexes, learning) run behind and never block a loop.
+- **Why:** A step reasons well only if the right context is in front of it before it starts. Swaraj: memory and knowledge is "a part of the harness itself that runs parallel to the loop".
+- **Cost:** One more AI call and one more wait at every part: 10 to 23 AI calls before a first reply (10 to 20 before decision 20 added the reading). No delay target exists yet.
+- **Reopen if:** measured delay or cost at Level 3 is more than businesses accept.
+
+### 16. Memory and knowledge creates and maintains links
+
+- **Decided (Swaraj, 2026-10-28):** memory and knowledge creates the links, not the worker. This replaces the 2026-10-09 rule that the worker accepts or denies each link.
+- **How (from the business's Level 2 answers on links and reconciliation):** a shared number or incident code from records makes a link. A shared meaning alone is proposed, and stays unresolved until a signal appears. An employee who may see both situations may remove a link.
+- **Why:** Creating and maintaining knowledge is memory and knowledge's job. A worker sees one situation and cannot see the whole business.
+- **Cost:** A wrong number in records can make a wrong link; the link only shares context, and can be removed.
+- **Reopen if:** links made from records prove wrong often enough to mislead workers.
+
+### 17. An outreach has one central situation
+
+- **Decided (Swaraj, 2026-10-28):** One situation per person, and one central situation linked to all of them. Every new version of a person's situation is sent to the central situation, as an arrival. The conversation manager tells the owner only what is material. There is no board.
+- **Why:** The owner gave one task; its progress belongs in one situation that can be worked and explained.
+- **Cost:** The central situation wakes on every person's update.
+- **Reopen if:** outreach sizes grow until the central situation's wakes cost more than they help.
+
+### 18. Skills live in versioned object storage, and a business may extend Tend
+
+- **Decided (Swaraj, 2026-10-28):** product and business skills live in object storage, versioned, not shipped with the code. A business may write any skill, fill product templates, and connect any MCP server.
+- **How (the design's reading, keeping the business's security answer that no tool is registered at runtime):** procedures are kept with skills; the configurator connects a server through a fixed tool; its tool list is captured, versioned and hashed, and a change waits for the configurator's approval. A step may use only tools presented to it. A skill grants nothing.
+- **Why:** Skills change all the time; versioning them apart from the code keeps every worker on the same version. Businesses work differently.
+- **Cost:** More text and more tools to search, and more outside text to treat as untrusted.
+- **Reopen if:** a business skill or MCP tool is found to bypass a check.
+
+### 19. Nothing is erased, except through a confirmed tool
+
+- **Decided (Swaraj, 2026-10-28):** In normal work, nothing is erased: knowledge is retired, superseded or marked stale. Where the law requires erasure, the AI may propose it inside the erasure tool; the tool's confirmation rule asks the owner or configurator; then the erasure reaches every place the data lives, situation records included.
+- **Why:** "We do not erase anything", and "not the AI will erase it". The law still gives customers the right to deletion.
+- **Cost:** Situation records are no longer strictly never rewritten; one confirmed path can remove data from them.
+- **Reopen if:** a market's law requires erasure without the business's confirmation.
+
+### 20. Understanding comes first
+
+- **Decided (Swaraj, 2026-10-29, and Level 2):** Tend understands each arrival before it acts on it, routing included.
+  - The conversation manager writes a **reading**: what is asked, what the arrival refers to (time words turned into dates), the sender's claims, what is unknown, whether it refers to earlier work, its kind, and whether it is work at all.
+  - Before the reading, memory and knowledge hands it the business's events and words found in the arrival, earlier readings, and the time.
+  - Routing's candidates come from the reading by exact values. Code decides when it can; the AI chooses only when code cannot.
+  - The reading is saved with the arrival, as an interpretation, never a conclusion.
+  - The worker understands new content before it plans or decides.
+  - An arrival that is not work creates no situation.
+  - The routing queue is per person.
+- **Why:**
+  - Swaraj: "The first thing should have been understanding where it would understand what the Diwali sale was about, and so in routing, when there is the retrieval thing, the retrieval would have been much simpler this time. We would just know the dates of the sales and we could just make a filter about that."
+  - The Product Vision: "Tend should never take an action before understanding the situation."
+  - Level 2's ambiguity page builds candidate interpretations before it applies routing. Its 4 September note makes the conversation manager's MEANING step understanding at entry.
+- **Cost:** one more AI turn per arrival that carries words, and a turn of understanding when a worker's wake brings new content. Routing's retrieval becomes a filter, not a search, which should cost less; this is expected, not yet measured.
+- **Reopen if:** the reading is often contradicted by the worker's understanding, which would mean routing's package lacks what understanding needs.
+
+### 21. Using knowledge is separate from showing records
+
+- **Decided by Swaraj's words of 27 October and by Level 2's rule on who may see and disclose information, applied on 2026-10-29 without a new question to him:**
+  - Memory and knowledge may use the business's own knowledge, from anywhere in the business, to help any step understand: events and dates, words, products, procedures, lessons. Each item is marked with who may be told it.
+  - As records to act on, it shows a step only those inside the step's boundary. For routing, that is the sender's own records.
+  - Another person's record never shapes a step's understanding, and is never hinted at.
+  - What a person is told is held by the send check.
+- **Why:**
+  - Swaraj: "there needs to be some component that can see the whole thing and that can aid him. That is the memory and knowledge layer." He had rejected "point 5" of the 26 October proposal, which limited memory's searches to the speaker's own records.
+  - Level 2: "Tend may use a confidential source internally while sending only a limited description externally."
+  - The 28 October rule "routing uses the sender's view" kept the sale's dates from the step that had to understand.
+- **Cost:** fixed code must keep the line between business knowledge and a person's records, by the kind of record.
+- **Reopen if:** any message is found to carry knowledge its recipient may not be told, or a step's understanding is found shaped by another person's record.
+
 ## 2. The rules the design must keep
 
 These are the design's own rules. Each one can be checked. The words after each rule say how a break would show.
 
 **Writing and waiting**
-1. Each change is a new version. A version is never rewritten. (A rewritten version is a break.)
+1. Each change is a new version. A version is never rewritten, except by an erasure the erasure tool has confirmed (decision 19). (Any other rewritten version is a break.)
 2. A write and its announcement happen in the same run. (A write with no announcement is a break.)
 3. A repeated delivery of the same change is ignored. (A repeat that acts twice is a break.)
 4. Every wait is written down, with what it waits for. (A wait with no record is a break.)
@@ -162,9 +234,9 @@ These are the design's own rules. Each one can be checked. The words after each 
 25. An approval is asked again after any change. (An action that uses an earlier approval is a break.)
 26. An approval for a disclosure is checked like any other action. (A disclosure with no check is a break.)
 
-**The AI, tools, memory, and configuration**
+**The AI, tools, memory and knowledge, and configuration**
 27. Text from the AI, or from a tool, is data. It is never an instruction. (A plan that changes because of a text, without the worker's check, is a break.)
-28. Memory only suggests. (A setting changed from a memory suggestion is a break.)
+28. Memory and knowledge only presents and proposes. (A setting changed from its suggestion alone is a break. So is memory and knowledge choosing a candidate or the next step.)
 29. A configuration suggestion is applied only after the configurator checks it. (A suggestion applied with no check is a break.)
 
 **The owner view and data**
@@ -173,6 +245,11 @@ These are the design's own rules. Each one can be checked. The words after each 
 32. Each business's data is kept apart in every store and every AI call. (A query that returns another business's rows is a break.)
 33. Each reader sees only the fields on its own list. The default is nothing. (A field outside a reader's list is a break.)
 34. No personal data goes into a trace. (A trace with personal data in it is a break.)
+
+**Understanding (added 2026-10-29)**
+35. An arrival is understood before Tend acts on it. (A routing decision with no reading saved beside it is a break. So is a plan or decision made on new content that no understanding has placed.)
+36. Routing's candidates come from the reading: by its exact values first, by description only inside them. (A routing candidate found by searching a person's past on the message's raw words, before the reading, is a break.)
+37. Using is not showing. (A record from outside a step's boundary shown or hinted to it is a break. So is a message carrying an item its recipient may not be told.)
 
 ---
 
@@ -192,7 +269,10 @@ Level 1 lists 16 rules that must always hold. Section 7 of the stabilization fil
 | A business policy changes | Its new version. A notice to the owner. A check with a deadline. | Open situations' current version, until the owner decides |
 | A business setting changes, such as the refund setting | The setting, read the next time it is used | Open situations (not checked again) |
 | An outside system changes how it behaves | The tool layer and its connector | The decision rules; the shape of the records |
-| Memory suggests a new kind of lesson | Memory. Then the configurator checks it before anything changes. | Rules, permissions, approvals |
+| Memory and knowledge suggests a new kind of lesson | Memory and knowledge. Then the configurator checks it before anything changes. | Rules, permissions, approvals |
+| A skill or procedure changes | Its new version in object storage. Runs read it from their next start; situations keep their pinned procedure. | Runs already using the old version; permissions |
+| A business connects or changes an MCP server | Configuration: the captured, versioned tool list, after the configurator's approval | Permission checks; the first-party catalogue |
+| A new retrieval method proves better | Memory and knowledge's retrieval capability, chosen by evaluation | The governance gate; the boundary each search for records starts with; understanding before routing |
 | The AI gets a new ability | Its proposal step only | Permission checks, approvals, "completed" |
 | A new law, or a new market | Configuration checks. Values are set when the market is entered. | The worker's logic; the owner view |
 | Growth: more situations, or more businesses | Separate situations and separate stores | The boundaries. No new part without evidence. |
