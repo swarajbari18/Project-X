@@ -21,6 +21,7 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 - What does one version physically contain, given each must be readable on its own?
 - What happens to a save built on a version that does not exist yet?
 - How does a retried save learn that its first try worked?
+- After a deploy, the front door may call an object still running older code, by default for up to 5 minutes (lesson 6, a fact from Cloudflare). How do saves stay compatible across that window?
 - Does a refusal throw an error, or come back as a value such as `{ saved: false, reason }`? Lesson 6 showed the runtime logging thrown refusals as uncaught exceptions.
 - Our own shape checks are the default (Decided). A hand-written check can drift from its type without any warning, so each shape needs forbidden-case tests. At what point would a library like Zod earn its place?
 

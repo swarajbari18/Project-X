@@ -49,10 +49,12 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | A language, its checker and a validation library are three things | Lesson 5, section 2 | Not yet | — | — |
 | How CPython and V8 run code; the JIT; the GIL; the event loop | Lesson 5, section 3 | Not yet | — | — |
 | Choosing a language by where it must run | Lesson 5, sections 7 and 8 | Not yet | — | — |
-| A binding: a name, not an address or a password | Lesson 6, section 2 | Not yet | — | — |
-| `getByName` reaches one object, and creates it if needed | Lesson 6, section 3 | Not yet | — | — |
-| Tools versus what ships; the bundler | Lesson 6, section 1 | Not yet | — | — |
-| What local can and cannot prove | Lesson 6, section 5 | Not yet | — | — |
+| A Worker is the whole package; front door code and classes are inside it | Lesson 6, section 1 | Not yet | — | — |
+| `exports` says what the code contains; a binding says what it may reach | Lesson 6, section 2 | Not yet | — | — |
+| Cloudflare goes by what `main` exports, not by file names | Lesson 6, section 3 | Not yet | — | — |
+| One upload; how the call arrives decides which part runs; the bundler | Lesson 6, section 4 | Not yet | — | — |
+| `getByName` fetches nothing, and a wrong name makes a new empty object | Lesson 6, section 5 | Not yet | — | — |
+| What local can and cannot prove | Lesson 6, section 8 | Not yet | — | — |
 
 ---
 
@@ -63,6 +65,7 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 - **He notices what is missing.** He insisted the person-to-situation link "has to be there". It was missing from the views, and he was right.
 - **He drops his own idea when the facts say so.** He worked through a large cross-business idea, then saw for himself that each business's own channel already answers it, and scrapped it.
 - **He refuses to follow fashion.** He asked whether TypeScript's popularity had a real reason, and asked for evidence even on a decision already made.
+- **Says exactly where the confusion starts.** "You lost me at bindings" came with seven precise questions, and answering them exposed mistakes in the lesson.
 - **He catches contradictions.** He saw that lesson 3 banned AI from tests, while naming a simulated story with real AI as a test.
 
 ---
@@ -103,6 +106,7 @@ Recorded so they are not repeated.
 
 - **An overstated conclusion.** The teacher said Meera's reply "waits in line" for about 8 minutes during a campaign. The arithmetic was right, but she would not wait that long. Corrected in lesson 1, section 7.
 - **Technical names.** "state" meant nothing to him. He asked for product-minded names, even long ones, as long as they follow technical convention. From lesson 2 on, the examples use them.
+- **Labelled files by role.** The teacher called one file "the Worker" and another "the Durable Object", named an object after a person, and said a Worker could reach nothing outside its bindings. Swaraj: "You lost me at bindings." Those questions exposed all of it. Lesson 6 was rewritten, with each claim tested by breaking the project on purpose.
 - **Staying current.** The older test plugin and the older `migrations` list had both been replaced. Checking Cloudflare's docs first avoided teaching them.
 - **Agreed too fast.** The teacher proposed a whole new part for people across businesses, and told Swaraj one chat per business was the wrong product. The facts were already in front of it: each business has its own channel. He saw it first. He had asked to be challenged, and he was not.
 - **Overstated a rule.** It said a trustworthy test uses no AI, and also named a simulated story with real AI as a test. He caught it.

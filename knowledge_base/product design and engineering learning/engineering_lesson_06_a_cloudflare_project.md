@@ -2,9 +2,15 @@
 
 **Taught on:** 4 November 2026, before plan 1 of the Situation Registrar.
 
+**Corrected on 4 November 2026.** Swaraj: "You lost me at bindings." That was the lesson's fault. The first version got four things wrong:
+- It labelled one file "the Worker" and another "the Durable Object". Cloudflare does not work by file.
+- It named an object "meera". One object belongs to a situation, not to a person.
+- It said `getByName` brings an object into being. That happens at the first method call.
+- It said "If a thing is not in this file, your code has no way to reach it." That is only true of Cloudflare's resources. **Measured:** a Worker with no bindings still reached the public internet.
+
 **Why this is on the list now.** Plan 1 sets up the real project. You cannot plan a layout you have never seen.
 
-**This lesson is a real project.** I built a tiny Situation Registrar, and ran it. Everything marked **Measured** happened on this laptop. It lives in `experiments/lesson_06_tiny_cloudflare_project/`, and you can run it yourself:
+**This lesson is a real project.** I built a tiny Situation Registrar and ran it. It lives in `experiments/lesson_06_tiny_cloudflare_project/`. It is a lesson, and it is not Tend's real code. You need no Cloudflare account for any of this.
 
 ```text
 npm install
@@ -13,20 +19,44 @@ npm test           # runs the tests inside Cloudflare's runtime
 npm run dev        # starts it at localhost:8787
 ```
 
-It is a lesson, and it is not Tend's real code. No Cloudflare account is needed for any of this.
+To see every result below for yourself, run `npm install`, then go up one folder, and run `python3 lesson_06_break_it_on_purpose.py`. It breaks one thing at a time, on throwaway copies.
 
-**Labels:** **Measured**, **Fact** (the source is named at the end), and **Proposal** (nobody has approved it yet).
+**Labels:** **Measured** (it ran on this laptop), **Fact** (the source is named at the end), **Proposal** (nobody has approved it yet).
 
 ---
 
-## 1. The whole project
+## 1. The one idea: a Worker is the whole package
+
+**A Worker is the whole package you upload.** All your code is inside it.
+
+That code does two different jobs:
+
+| Job | What it is | How many run | What it keeps |
+|---|---|---|---|
+| **The front door** | The `fetch` function | As many as the requests need | Nothing |
+| **The objects** | Made from the class | Exactly one for each name | Its own SQLite database |
+
+In Python, you would make an object yourself:
+
+```python
+registrar = SituationRegistrar("s-42")
+```
+
+Here, you never do. You give a name, and Cloudflare finds or makes the one object with that name.
+
+**The word "Worker" is slippery.** Cloudflare's own docs call a Durable Object "a special kind of Cloudflare Worker". Tend also has a "situation worker", which is a different thing again. So in this lesson:
+- **"the Worker"** means the whole package;
+- **"the front door code"** means `fetch`;
+- **"the class"** means the Durable Object class.
+
+The project:
 
 ```text
 lesson_06_tiny_cloudflare_project/
-├── wrangler.jsonc              what Cloudflare must know about this project
+├── wrangler.jsonc              describes this Worker to Cloudflare
 ├── src/
-│   ├── front_door.ts           the Worker: takes each request
-│   ├── situation_registrar.ts  the Durable Object: saves versions in SQLite
+│   ├── front_door.ts           holds the front door code, and exports the class
+│   ├── situation_registrar.ts  holds the class
 │   └── save_request.ts         the shape of a save, and its run-time check
 ├── test/
 │   └── situation_registrar.test.ts
@@ -41,98 +71,221 @@ lesson_06_tiny_cloudflare_project/
 └── .wrangler/                  local data, as real SQLite files
 ```
 
-**Measured: tools versus what ships.**
-
-| | Size |
-|---|---|
-| `node_modules`, the tools on your machine | 321 MB |
-| What actually goes to Cloudflare | **2.5 KB** |
-
-The tools help you build, and they never ship. Your Python habit of thinking of installed packages as part of the running app does not carry over here: a tool called a **bundler** gathers only the code that runs, into one small file.
-
 ---
 
-## 2. `wrangler.jsonc`: the one file to understand
+## 2. `wrangler.jsonc`, and bindings
 
-**Wrangler** is Cloudflare's command-line tool. This file tells it everything about your project.
+**Wrangler** is Cloudflare's command-line tool. This file describes one Worker to it.
 
 ```jsonc
 {
   "name": "tiny-situation-registrar",
   "main": "src/front_door.ts",
   "compatibility_date": "2026-11-04",
-  "durable_objects": {
-    "bindings": [{ "name": "SITUATION_REGISTRAR", "class_name": "SituationRegistrar" }]
-  },
+
   "exports": {
     "SituationRegistrar": { "type": "durable-object", "storage": "sqlite" }
+  },
+
+  "durable_objects": {
+    "bindings": [{ "name": "SITUATION_REGISTRAR", "class_name": "SituationRegistrar" }]
   }
 }
 ```
 
 | Line | What it means |
 |---|---|
-| `name` | What this Worker is called on Cloudflare |
-| `main` | The file Cloudflare starts with |
-| `compatibility_date` | "Run my code with the runtime's behaviour as of this date." Cloudflare keeps changing its runtime, and this stops those changes surprising you |
-| `bindings` | **The key idea.** See below |
-| `exports` | Says this class is a Durable Object, with its own SQLite database |
+| `name` | This Worker's name on Cloudflare |
+| `main` | The one file the bundler starts from |
+| `compatibility_date` | "Run my code with the runtime's behaviour as of this date", so Cloudflare's changes do not surprise you |
+| `exports` | What this Worker's code contains |
+| `durable_objects.bindings` | What this Worker's code may reach |
 
-### A binding is the most important idea here
+### "Nothing in this file says worker"
 
-In Python you would write a connection string: a database address and password. Here you never do. You declare a **binding**: a name your code uses to reach something Cloudflare provides.
+**The whole file is about one Worker.** That is why no line needs to say so. `name` and `main` belong to it. One `wrangler.jsonc` describes one Worker.
 
-```typescript
-const registrar = env.SITUATION_REGISTRAR.getByName("meera");
-```
+### "Why is Durable Object in two places?"
 
-Your code has no address and no password. **If a thing is not in this file, your code has no way to reach it.** So this file is also a security boundary. It is why your research said "Bindings are the authorization model", and why one Worker per business can hold only that business's database.
+They answer two different questions.
 
-**Fact.** Cloudflare changed how classes are declared. `exports` replaces an older `migrations` list. Much advice online still shows the old way. This is what "learn the technology's behaviour" means in practice.
+| Block | The question | Read it as | **Measured:** if you remove it |
+|---|---|---|---|
+| `exports` | What is in this code? | "The class called `SituationRegistrar` is a Durable Object class, and each object gets SQLite" | It starts. Then: `SQL is not enabled for this Durable Object class` |
+| `durable_objects.bindings` | What may this code reach? | "Put a door at `env.SITUATION_REGISTRAR`, and make it lead to that class" | The type check refuses it. At run time: `Cannot read properties of undefined (reading 'getByName')` |
 
-### A stage is a block in the same file
+**`exports` builds the room. A binding hands your code a key to it.**
 
-```jsonc
-"env": {
-  "simulation": {
-    "durable_objects": { "bindings": [ ... ] },
-    "exports": { ... }
-  }
-}
-```
-
-**Fact.** Each environment deploys as a separate Worker, named `<name>-<environment>`. Bindings are not inherited, so each stage must list its own. That matches your ruling that each stage has its own data.
-
-**Measured,** a dry run that sends nothing:
+**Why keep them apart?** Because the Worker that contains a class, and a Worker that calls it, can be different. **Fact:** a binding can lead to a class in another Worker, using `script_name`.
 
 ```text
-npx wrangler deploy --dry-run --env simulation
-
-Total Upload: 2.50 KiB / gzip: 1.04 KiB
-env.SITUATION_REGISTRAR (SituationRegistrar)      Durable Object
+Worker A:   "exports":  SituationRegistrar                          contains the class
+Worker B:   "bindings": SITUATION_REGISTRAR, "script_name": "A"     holds a key to it
 ```
+
+In our tiny project, one Worker does both. That is why it looks like repetition.
+
+One limit of this test: locally, with no `exports` block, the class still ran as an object without SQLite. **Fact:** on a real deploy, Cloudflare says "A class that appears only in your code is ignored until you declare it in `exports`". I cannot test a real deploy without an account.
+
+### What a binding is
+
+A **binding** is a named door that Cloudflare gives your code.
+
+- In `durable_objects.bindings`, `durable_objects` says what kind of door. Other kinds are `d1_databases`, `r2_buckets` and `queues`.
+- `"name"` is a label that I made up. **Measured:** I renamed it to `BANANA`, in the file and in the code, and everything still worked.
+- `env` is an object that Cloudflare passes to your code, with one property for each binding. Think of a Python dict you did not build.
+
+So this code holds no address and no password:
+
+```typescript
+env.SITUATION_REGISTRAR
+```
+
+**What this protects, exactly.** Without a binding, your code has no handle on that Cloudflare resource. That is why one business's Worker can hold only that business's databases, and it is what your research meant by "Bindings are the authorization model".
+
+**What it does not protect.** A Worker can still call the public internet. **Measured:** with no bindings at all, `fetch("https://example.com")` answered 200. **Fact:** Workers for Platforms has "Outbound Workers" to control those calls. Plan 1 should look at them.
+
+**Fact.** Cloudflare changed how classes are declared. `exports` replaces an older `migrations` list, and much advice online still shows the old way.
 
 ---
 
-## 3. Following one request through the files
+## 3. How does Cloudflare know which code is which?
 
-```text
-curl POST /situations/meera
-        │
-        ▼
-src/front_door.ts            the Worker. Holds no data. Handles many requests at once.
-        │  env.SITUATION_REGISTRAR.getByName("meera")
-        ▼
-src/situation_registrar.ts   one object, only for Meera. Does one thing at a time.
-        │  isSaveRequest(...)  from src/save_request.ts
-        │  is it built on the newest version?
-        ▼
-its own SQLite file          version saved
+**Not by the file.** **Measured:** I moved every line into one file, called it `any_name_at_all.ts`, and got exactly the same results. My first version's labels were wrong.
+
+It looks at what the `main` file **exports**, and at your configuration.
+
+| What tells it | Where | What it says | **Measured:** if you remove it |
+|---|---|---|---|
+| `export default { fetch }` | Exported from `main` | "Call this for each request" | Refuses to start |
+| The name `fetch` | Inside that export | "This is the request handler" | `Handler does not export a fetch() function` |
+| `export { SituationRegistrar }` | Exported from `main` | "Here is the class" | Refuses to start: `not exported in your entrypoint file: SituationRegistrar` |
+| `extends DurableObject` | On the class | "Its methods can be called from outside" | `does not support RPC, because its class was not declared with extends DurableObject` |
+| The `exports` block | `wrangler.jsonc` | "This class is a Durable Object, with SQLite" | `SQL is not enabled for this Durable Object class` |
+
+(**RPC** means calling a method on something that runs elsewhere.)
+
+This is why `front_door.ts` has that odd line:
+
+```typescript
+export { SituationRegistrar };
 ```
 
-**`getByName("meera")` always reaches the same object, anywhere in the world.** You do not create it first. If it has never existed, it comes into being, and if it is asleep, it wakes. That is how a million situations stay simple.
+The class lives in another file, but Cloudflare only looks at what `main` exports. So `main` must hand it over.
 
-The code that does the work:
+---
+
+## 4. Do the front door and the objects get different files?
+
+**No. There is one upload.**
+
+A tool called a **bundler** starts at `main`, follows every `import`, and joins the code into one file. **Measured:**
+
+```text
+code files that ship:          1  (front_door.js)
+holds the fetch code:          True
+holds the Durable Object class: True
+holds the shape check:         True
+holds a file nothing imports:  False
+how the file ends:
+   export { SituationRegistrar, front_door_default as default };
+```
+
+Look at that last line. It is the two exports from section 3, and they are in the same file.
+
+| | Size |
+|---|---|
+| `node_modules`, the tools on your machine | 321 MB |
+| What goes to Cloudflare | **about 2.6 KB** |
+
+Your tests do not ship either, because nothing in `main` imports them.
+
+**So which part runs? It depends on how the call arrives.**
+- A request from the internet runs `fetch`.
+- A call through a door runs the class's method, on the object with that name.
+
+**Measured,** in the order they ran:
+
+```text
+ran: the fetch code
+ran: the class's whoAmI, for the object named s-42
+```
+
+The rest of the file just sits there unused. So "which files does each one use?" has no answer: they all have everything, and each runs the part it is called for.
+
+### Three things follow from one package
+
+**1. Everything holds the same keys.** **Measured:** the object reported `doorsIHold: ["SITUATION_REGISTRAR"]`, the same as the front door. Bindings belong to the Worker, and not to a file. So a part that must hold fewer keys has to be in its own Worker.
+
+**2. Never share data through a plain variable.** **Measured,** and it surprised me: on my laptop, a plain variable was shared by the front door code and by two different objects.
+
+```text
+first call, to s-42:   fetch saw 1, the object saw 2
+second call, to s-42:  fetch saw 3, the object saw 4
+third call, to s-43:   fetch saw 5, the object saw 6
+```
+
+**Fact:** on Cloudflare, an object sits near where it was first requested, and a request can come from anywhere. So the two can be far apart, and I could not test this there. A plain variable would look fine locally, and could fail once deployed. **This is a case of local lying to you.** Keep data in SQLite.
+
+**3. One upload does not update everywhere at the same moment.** **Fact:** "A request can reach the latest version of your Worker, which then calls a unique Durable Object running a previous version of your code." By default, an object can wait up to 5 minutes. So during a deploy, the front door may speak to an older object. Changes must work with both.
+
+---
+
+## 5. One request, line by line
+
+```text
+curl -X POST localhost:8787/situations/s-42 -d '{"builtOnVersion":0, ...}'
+```
+
+```typescript
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const situationId = new URL(request.url).pathname.split("/")[2];
+    const registrar = env.SITUATION_REGISTRAR.getByName(situationId);
+    const saved = await registrar.saveNewVersion(await request.json());
+    return Response.json({ savedAsVersion: saved });
+  },
+};
+```
+
+(I removed the error handling here, to keep it readable.)
+
+**Step 1: Cloudflare calls `fetch`.** You never call it yourself. Cloudflare passes in `request` and `env`.
+
+**Step 2: The name comes from the URL.**
+
+```text
+"/situations/s-42".split("/")   gives   ["", "situations", "s-42"]
+```
+
+Position 2 is `"s-42"`.
+
+**Step 3: `env.SITUATION_REGISTRAR` is the door** from `wrangler.jsonc`.
+
+**Step 4: `getByName` is Cloudflare's, and I did not write it.** It is a method of the door, just as `.execute()` on a Python database connection is not something you wrote. **Measured:** `wrangler types` reads your config, and generates this:
+
+```typescript
+SITUATION_REGISTRAR: DurableObjectNamespace<SituationRegistrar>;   // from your binding
+getByName(name: string): DurableObjectStub<T>;                     // from Cloudflare
+```
+
+(Shortened slightly.) A **namespace** means all the objects made from one class.
+
+**Step 5: `getByName` fetches nothing.** It gives back a **stub**: a stand-in for an object that may be elsewhere. **Measured:**
+
+```text
+call getByName('s-99'), and nothing else     200
+SQLite files for objects on disk now:        0
+```
+
+**Fact:** it "returns the stub immediately, often before a connection has been established".
+
+**Step 6: `registrar.saveNewVersion(...)` is the real call.** It looks like a local function call. It travels to the object, and the object's code runs there:
+- if the object has never existed, it is created;
+- if it is asleep, it wakes;
+- either way, the method runs, and the answer comes back.
+
+This is the code that runs there:
 
 ```typescript
 saveNewVersion(request: unknown): number {
@@ -152,48 +305,83 @@ saveNewVersion(request: unknown): number {
 }
 ```
 
-You can read this now. `request` is `unknown`, so it must pass the check. After that check, the checker knows its shape, so no `as` is needed.
-
-**Measured,** running it live with `wrangler dev`:
+**Measured,** running it live:
 
 ```text
-save built on 0:              {"savedAsVersion":1}
-save built on 1:              {"savedAsVersion":2}
-save built on an old version: {"refused":"a newer version exists: the newest is 2"}
-wrong shape:                  {"refused":"the save request has the wrong shape"}
-Priya, a different situation: {"newestVersion":0}
+s-42, save built on 0                 {"savedAsVersion":1}
+s-42, save built on 1                 {"savedAsVersion":2}
+s-42, save built on an old version    {"refused":"a newer version exists: the newest is 2"}
+s-42, wrong shape                     {"refused":"the save request has the wrong shape"}
+s-43, a different situation           {"newestVersion":0}
+```
+
+### How does a name become one object?
+
+There is nothing special about the name. I typed it into the command. **Cloudflare turns the name into an ID, using a fixed calculation.** **Measured:**
+
+```text
+the ID worked out from 's-99':       92e642ecaa05b6215098d4d4...
+worked out again from 's-99':        92e642ecaa05b6215098d4d4...   same: True
+worked out from 'S-99', capital S:   7cdb557a833f513538fb1500...   same: False
+```
+
+That is how the same name always reaches the same object. No table of names is needed. The object can read its own name too: **Measured,** `this.ctx.id.name` gave `s-42`.
+
+### The danger this creates
+
+**`getByName` never fails on a wrong name.** It gives you a brand new, empty object. **Measured:** `s-43` was never saved to, and it answered `{"newestVersion":0}` instead of "not found". A typo looks like an empty situation.
+
+The tiny project also takes the name straight from the URL, with no check. So anyone could create objects by typing addresses. **In Tend, the caller must never choose the name.** Your code decides which situation is meant, and the registry can say whether it exists. Plan 5 must settle this.
+
+---
+
+## 6. One situation is one SQLite file
+
+You said local debugging could be "a SQLite file" shown on a screen. **Measured:** I saved twice to `s-42`, and only read `s-43`. Then I stopped the server, and opened the files with ordinary SQLite.
+
+```text
+file 6e06f341b62cac88...sqlite holds: []
+file 7e7d8b04683d8cac...sqlite holds: [(1, 0, 'conversation manager', 'Meera wrote'),
+                                       (2, 1, 'situation worker', 'the carrier answered')]
+```
+
+**The file's name is the ID.** **Measured:** `its name is exactly the ID: True`.
+
+Then I started the server again:
+
+```text
+after stopping and restarting: s-42   {"newestVersion":2}
+```
+
+So what you pictured is how it already works locally. The run store and the whiteboard can use exactly this.
+
+---
+
+## 7. A stage is a block in the same file
+
+```jsonc
+"env": {
+  "simulation": {
+    "exports": { ... },
+    "durable_objects": { "bindings": [ ... ] }
+  }
+}
+```
+
+**Fact.** Each stage deploys as a separate Worker, named `<name>-<stage>`. Bindings are not inherited, so each stage must list its own. That matches your ruling that each stage has its own data.
+
+**Measured,** a dry run that sends nothing:
+
+```text
+npx wrangler deploy --dry-run --env simulation
+
+Total Upload: 2.58 KiB / gzip: 1.09 KiB
+env.SITUATION_REGISTRAR (SituationRegistrar)      Durable Object
 ```
 
 ---
 
-## 4. Your idea was already sitting there
-
-You said local debugging could be "a SQLite file" shown on a screen. **Measured:** after that run, these files were on disk:
-
-```text
-.wrangler/state/v3/do/tiny-situation-registrar-SituationRegistrar/<id>.sqlite
-.wrangler/state/v3/do/tiny-situation-registrar-SituationRegistrar/<id>.sqlite
-.wrangler/state/v3/do/tiny-situation-registrar-SituationRegistrar/<id>.sqlite
-```
-
-**One file per situation.** I opened Meera's with ordinary SQLite:
-
-```text
-[(1, 0, 'conversation manager', 'Meera wrote'),
- (2, 1, 'situation worker', 'the carrier answered')]
-```
-
-Then I stopped the server, and started it again:
-
-```text
-{"newestVersion":2}
-```
-
-So what you pictured is how it already works locally. "One Durable Object per situation" is not an abstract idea. It is one small SQLite file per situation. The run store and the whiteboard can use exactly this.
-
----
-
-## 5. Three commands
+## 8. Three commands
 
 | Command | What it does | Where it runs |
 |---|---|---|
@@ -201,15 +389,16 @@ So what you pictured is how it already works locally. "One Durable Object per si
 | `npx vitest run` | Runs the tests inside that same runtime | Local |
 | `npx wrangler deploy --env simulation` | Sends it to Cloudflare | Cloudflare |
 
-**Measured:** four tests passed in about 3 seconds, inside Cloudflare's runtime, on this laptop. That includes "one situation never sees another".
+**Measured:** four tests passed in about 3 seconds, on this laptop. That includes "one situation never sees another".
 
 ### What local can and cannot prove
 
 | Local proves | Local cannot prove |
 |---|---|
 | The logic is right | How fast it is under real load |
-| Saves, refusals, Durable Objects, SQLite | Real network behaviour |
+| Saves, refusals, objects, SQLite | Real network behaviour |
 | Types and tests | Whether Cloudflare's real limits are hit |
+| | That a plain variable is not shared (section 4) |
 
 **Fact.** The local simulator is called Miniflare. Cloudflare warns it "is not a hardened sandbox", so never use it to run untrusted code.
 
@@ -219,32 +408,31 @@ So what you pictured is how it already works locally. "One Durable Object per si
 
 ---
 
-## 6. What this means for Tend (Proposal)
+## 9. What this means for Tend (Proposal)
 
 Plan 1 settles these. These are questions, and nothing is decided.
 
 **One Worker, or one per part?**
-- Together, they deploy together. That is simple, and lean.
-- Apart, the registrar need not restart when the worker's logic changes. **Fact:** deploying a change restarts a Durable Object, after a delay.
-- A Durable Object can live in another Worker, through `script_name`.
+- Together: one upload, simple, and lean. But every part holds the same keys (section 4).
+- Apart: a part can hold fewer keys, and the registrar need not restart when other logic changes. **Fact:** a deploy restarts an object, after a delay.
 
 **My lean:** start with one, and split when the second component arrives and there is a reason. This matches your "if we need it, then we'll have it".
 
-**One Worker per business.** The design says each business gets its own Worker, through Workers for Platforms. I have not tested how that behaves locally. Plan 1 must check this. The tiny project has none of it.
+**One Worker per business.** The design says each business gets its own Worker, through Workers for Platforms. I have not tested how that behaves locally, and plan 1 must check it. The tiny project has none of it.
 
 **Where the code lives.** The factory says each component keeps its own code, with its tests beside it. So perhaps a `tend/` folder at the root of the repository, with `components/situation_registrar/` inside it.
 
-**Throw, or return a refusal?** The tests passed, but the runtime printed this for each refusal:
+**Throw, or return a refusal?** The tests passed, but the runtime logs each refusal like a crash:
 
 ```text
-uncaught exception; source = Uncaught (in promise); stack = Error: the save request has the wrong shape
+✘ [ERROR] Uncaught Error: a newer version exists: the newest is 2
 ```
 
-A refusal is a normal outcome, and this logs it like a crash. So plan 2 should consider returning `{ saved: false, reason }` instead of throwing. The factory calls this "error meanings".
+A refusal is a normal outcome. So plan 2 should consider returning `{ saved: false, reason }` instead of throwing. The factory calls this "error meanings".
 
 ---
 
-## 7. Staying lean: writing our own shape checks
+## 10. Staying lean: writing our own shape checks
 
 Your ruling: "let's just keep it as lean as possible. If we need it, then we'll have it."
 
@@ -252,8 +440,8 @@ Your ruling: "let's just keep it as lean as possible. If we need it, then we'll 
 
 | | Size to Cloudflare |
 |---|---|
-| Our own check, 17 lines | 2.5 KB (1 KB compressed) |
-| With Zod | 121 KB (20 KB compressed) |
+| Our own check, 17 lines | About 2.5 KB (1 KB compressed) |
+| With Zod | About 121 KB (20 KB compressed) |
 
 **One risk to watch.** This line is a promise, just like `as`:
 
@@ -267,34 +455,46 @@ function isSaveRequest(value: unknown): value is SaveRequest {
 
 ---
 
-## 8. What a senior would remember
+## 11. What a senior would remember
 
-1. `wrangler.jsonc` says what this project may reach. If a thing is not there, the code cannot touch it.
-2. A binding replaces connection strings and passwords.
-3. `getByName` always reaches the same object, and creates it if needed.
-4. Tools are huge, and what ships is tiny.
-5. Locally, a Durable Object is a real SQLite file that you can open.
-6. Local proves logic, not load.
-7. Check Cloudflare's current docs. This changes fast.
+1. A Worker is the whole package. Front door code and classes are both inside it.
+2. Cloudflare goes by what `main` exports, and not by file names.
+3. `exports` says what the code contains. A binding says what the code may reach.
+4. `getByName` fetches nothing and never fails on a wrong name. The method call is the real call.
+5. The same name always gives the same ID, so it reaches the same object.
+6. Bindings belong to the Worker, so everything inside it holds the same keys.
+7. Keep data in SQLite. A plain variable can look shared locally.
+8. Locally, one object is one SQLite file that you can open.
+9. Local proves logic, not load.
+10. Check Cloudflare's current docs. This changes fast.
 
 ---
 
 ## Learning work
 
-**Predict, then check.** You add a second Durable Object class to `src/` called `SituationWorker`, and you do not change `wrangler.jsonc`. Then you call `env.SITUATION_WORKER` from `front_door.ts`. What goes wrong, and at which moment: the type check, or when the code runs?
+**Explain it back.** Tend needs a second class, `ConversationManager`, and the front door must be able to call it. List every line you must add, and say which file each one goes in. Then say what you would see if you forgot each one.
 
-**Spot it outside Tend.** A hotel key card opens only the doors programmed onto it. How is that like a binding? How is it unlike giving a guest the master password?
+**Spot it outside Tend.** A hotel key card opens only the doors programmed onto it. How is that like a binding? What can a guest with that card still do that the card does not control?
 
 ---
 
 ## Sources
 
 - Get started: https://developers.cloudflare.com/workers/get-started/guide/
+- The fetch handler: https://developers.cloudflare.com/workers/runtime-apis/handlers/fetch/
+- Bindings and `env`: https://developers.cloudflare.com/workers/runtime-apis/bindings/
+- What Durable Objects are: https://developers.cloudflare.com/durable-objects/concepts/what-are-durable-objects/
 - Durable Objects, get started: https://developers.cloudflare.com/durable-objects/get-started/
-- The `exports` field: https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
+- `getByName`, `idFromName` and the namespace: https://developers.cloudflare.com/durable-objects/api/namespace/
+- The stub: https://developers.cloudflare.com/durable-objects/api/stub/
+- The object's ID and name: https://developers.cloudflare.com/durable-objects/api/id/
+- The `exports` field, and `script_name`: https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
+- Code updates: https://developers.cloudflare.com/durable-objects/deployments/durable-objects-code-updates/
+- Known issues: https://developers.cloudflare.com/durable-objects/platform/known-issues/
+- Outbound Workers: https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/configuration/outbound-workers/
 - Environments: https://developers.cloudflare.com/workers/wrangler/environments/
 - Compatibility dates: https://developers.cloudflare.com/workers/configuration/compatibility-dates/
 - Local development: https://developers.cloudflare.com/workers/local-development/
 - Writing your first test: https://developers.cloudflare.com/workers/testing/vitest-integration/write-your-first-test/
 - Secrets: https://developers.cloudflare.com/workers/configuration/secrets/
-- Storing state, and code updates: https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/
+- The experiments: `experiments/lesson_06_tiny_cloudflare_project/`, and `experiments/lesson_06_break_it_on_purpose.py`.

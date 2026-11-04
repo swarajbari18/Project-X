@@ -37,10 +37,10 @@ describe("saving a version", () => {
   });
 
   it("one situation never sees another", async () => {
-    const meera = env.SITUATION_REGISTRAR.getByName("test-meera");
-    const priya = env.SITUATION_REGISTRAR.getByName("test-priya");
-    await meera.saveNewVersion({ builtOnVersion: 0, writtenBy: worker, whatChanged: "x" });
-    expect(await meera.newestVersion()).toBe(1);
-    expect(await priya.newestVersion()).toBe(0);
+    const meerasLateDelivery = env.SITUATION_REGISTRAR.getByName("s-42");
+    const priyasRefund = env.SITUATION_REGISTRAR.getByName("s-43");
+    await meerasLateDelivery.saveNewVersion({ builtOnVersion: 0, writtenBy: worker, whatChanged: "x" });
+    expect(await meerasLateDelivery.newestVersion()).toBe(1);
+    expect(await priyasRefund.newestVersion()).toBe(0);
   });
 });

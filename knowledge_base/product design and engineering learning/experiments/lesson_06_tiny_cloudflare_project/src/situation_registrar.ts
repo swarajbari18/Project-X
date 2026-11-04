@@ -1,4 +1,4 @@
-// One object per situation. Each has its own private SQLite database.
+// The Durable Object class. Cloudflare makes one object from it per name, each with its own SQLite.
 import { DurableObject } from "cloudflare:workers";
 import { isSaveRequest } from "./save_request";
 

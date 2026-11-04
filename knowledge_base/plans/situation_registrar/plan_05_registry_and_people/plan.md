@@ -18,6 +18,7 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 
 ## Questions to settle in the planning conversation
 
+- `getByName` never fails on a wrong name: it gives a new, empty object (lesson 6, measured). So who may choose a situation's name, and how does a wrong one get refused? The caller must never choose it.
 - What belongs in the registry, and what stays in the object?
 - How does a second message see a situation the first just created?
 - Is a person record this component's own truth?
