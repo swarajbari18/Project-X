@@ -153,10 +153,10 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 4. **What creates a business, and how people join it.** Open, and deliberately later.
 
 **Housekeeping.**
-- **Your push.** Make a new branch and push that: `git switch -c situation-registrar-plan-1`, then `git push -u origin situation-registrar-plan-1`. No force is needed. Do this before deleting anything, because these commits exist only on this laptop. Do not pull the old branch: on GitHub it holds only two older commits.
+- **This work is on GitHub,** on the branch `situation-registrar-plan-1`. It is not on main yet. It sits directly on top of main, so it will merge with no conflicts. The merge is your call.
+- **Two old branches still need deleting:** `situation-registrar-first-plans`, on GitHub and on this laptop, and `backup/before-splitting-commits`, on this laptop. Claude Code's safety check stopped the assistant deleting them. They hold nothing you need. Do not pull or merge them.
 - **The empty days in your commit graph.** Your call. I did not invent commits for days when no work happened.
 - **A pointer at the repository's root,** so other agents find `agent_memory/`. Your call.
-- **`backup/before-splitting-commits`** is a local branch you can delete.
 - **The copy of Playwright inside the ChatGPT app,** in `/usr/lib/chatgpt/`, needs your admin rights to remove. Your Assignment project's `package.json` also still names Playwright.
 - **`handoff_writing_instructions.md` names a `status_quo.md`** that does not exist anywhere in this repository.
 

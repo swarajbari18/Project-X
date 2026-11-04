@@ -14,4 +14,6 @@ Never rewrite a commit that is already on GitHub, and never suggest a force push
 - If a change would make a force push necessary, say so before doing it, and offer the option that avoids it.
 - Commits that exist only on this laptop are not on GitHub. Say so before anyone deletes a branch.
 
+**What happened next:** on 4 November 2026, the work was pushed normally to a new branch, `situation-registrar-plan-1`, with no force. Swaraj told the assistant to run those commands that one time, so "I push myself" still stands unless he says otherwise. Claude Code's safety check blocked the assistant from deleting the old branches, so that is left for him.
+
 Related: [[feedback-ask-before-acting]].

@@ -143,5 +143,6 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 **Open items that are mine, in case they come up**
 - how to read the isolation audit's "tenant predicate" (conflict 43);
 - the factory's 16 proposals;
-- my push, onto a new branch and with no force. If a branch shows two incoming commits, they are old copies from before my commits were split across days. Never pull or merge them;
+- merging `situation-registrar-plan-1` into main. All this work is on that branch, on GitHub, and it is not on main yet;
+- deleting the old branches `situation-registrar-first-plans` and `backup/before-splitting-commits`. They hold only older copies. Never pull or merge them, and do not delete them yourself unless I ask;
 - removing the copy of Playwright inside the ChatGPT app, which needs my admin rights.
