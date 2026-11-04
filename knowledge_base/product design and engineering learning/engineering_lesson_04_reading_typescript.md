@@ -162,7 +162,47 @@ Research on people learning to code found this exact difference. Asked to explai
 
 ---
 
-## 6. What a senior would remember
+## 6. Swaraj's questions, answered with a run
+
+The script is `experiments/lesson_04_your_questions.ts`.
+
+**"If types disappear, how did you get those errors?"** There are two separate moments.
+- **Building:** a checker called `tsc` reads your source code as text. Types exist here. It runs nothing.
+- **Running:** the types are deleted, and the program runs. Nothing checks anything.
+
+**Measured:** `experiments/lesson_04_two_moments.ts` holds a type error. `node` ran it and printed `written by owner view`. `tsc` refused the same file. So a type error stops the build only if the build runs the checker. That is why the checker belongs in the gate.
+
+**"Why did JSON.parse pass?"** The checker reads source code, and that string's contents only exist while running. So it cannot know. `JSON.parse` returns `any`, and `as` tells the checker a story.
+
+**"Isn't outside data our own once it arrives?"** Ownership is not the line. The line is: **could the checker read this value before the program ran?** If not, it is outside. So messages, network answers, AI output, and even rows read back from our own database are all outside.
+
+**"Will the type check be enabled for an LLM's JSON?"** It is neither on nor off, because no checker exists while running. There are two different agents here:
+
+| | The coding agent | Tend's AI, while running |
+|---|---|---|
+| What it produces | Source code | Text, at run time |
+| When it is checked | At build time, by `tsc` | Only if our code checks its shape |
+
+**"As is a typecast, right?"** No, and this is a Python trap. Python's `int("5")` converts. `as` converts nothing. **Measured:** `"five" as number` stays a string, and plus one gives `five1`.
+
+**`unknown` versus `any`.** `unknown` is honest: "I do not know what this is." The checker then refuses to let you use it until you check (error TS18046). `any` switches checking off. So `unknown` is the right type for outside data, and `as` is what breaks it.
+
+**The fix: text, then parse, then check.** You cannot check the shape before parsing, because until then it is only text.
+
+**"Does TypeScript run line by line?"** Yes. But calling an async function finishes as soon as that function reaches its first `await`. So the line is done, while the work is not. **Measured,** with `await` forgotten and the save refused:
+
+```text
+  outer function: before the save line
+  save: started
+  outer function: after the save line
+  result: saved
+  save: REFUSED, a newer version exists
+  nobody was listening for this error: a newer version exists
+```
+
+**"Is the promise for the whole function?"** Each async call gets its own. The outer function's promise can finish while the inner save is still running. `await` is what joins them.
+
+## 7. What a senior would remember
 
 1. Most of TypeScript is Python with different spelling.
 2. A type is a promise about shape, checked before the code runs.

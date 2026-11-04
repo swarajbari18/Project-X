@@ -43,7 +43,9 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | Types disappear at run time; shape checks | Lesson 4, section 3 | Not yet | — | — |
 | `as` and `any` | Lesson 4, section 3 | Not yet | — | — |
 | Async: a TypeScript call starts at once; a forgotten await is silent | Lesson 4, section 4 | Not yet | — | — |
-| Reading code for its purpose | Lesson 4, section 5 | Not yet | — | — |
+| Reading code for its purpose | Lesson 4, section 5 | **Read:** he named the function's purpose, found the missing await, and questioned `unknown` against `as` | — | — |
+| Building and running are two moments | Lesson 4, section 6 | Not yet | — | — |
+| `unknown` versus `any` | Lesson 4, section 6 | Not yet | — | — |
 
 ---
 
@@ -72,6 +74,11 @@ Each of these came up in his own words on 4 November 2026.
 | One Worker per contact | One front-door Worker per business, in the record | Lesson 1, section 5 |
 | An index on a column lets you query by that column, whatever the column order. He said "every waiting situation" could read the index, when the index is sorted by person first | An index helps from its leftmost column onward; that query reads the whole index | Lesson 2, section 6; revisit |
 | `CREATE INDEX` is rare because indexes are not needed much | Primary keys bring one automatically, and a scan on a small table is invisible | Lesson 2, section 4 |
+
+| `as` is a typecast, as in Python | It converts nothing; it only tells the checker a story | Lesson 4, section 6 |
+| Type checking might be switched on or off for an AI's output | No checker exists while running; only a shape check protects there | Lesson 4, section 6 |
+| Reading the version number after saving proves the save worked | Another part could have raised it, and without await the save may not have finished. The save's own answer is the proof | Lesson 4 conversation, 4 November |
+| A carrier's answer is handled inside the book of waits | The tool returns evidence, and the worker saves the claim through the registrar. The book is only a list | Lesson 4 conversation, 4 November |
 
 **Watch for:** the word "worker" means three things, and this causes confusion (lesson 1, section 1).
 
