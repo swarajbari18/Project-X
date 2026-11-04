@@ -13,6 +13,9 @@ knowledge_base/
 │   ├── construction_record.md
 │   ├── section_6_responsibility_model.md
 │   └── section_7_boundary_model.md
+├── plans/
+│   ├── README.md
+│   └── situation_registrar/
 ├── three_level_framework/
 │   ├── 3_level_framework.md
 │   └── level2_method.md
