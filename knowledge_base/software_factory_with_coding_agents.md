@@ -4,10 +4,11 @@
 
 - **What this file is.** The study record for the software-factory pillar: how Tend gets built with coding agents. Since 1 November 2026 it is also the record of how Swaraj learns software engineering while he builds Tend.
 - **Rewritten on 1 November 2026.** The first version (13 September 2026) was built for Swaraj as a reviewer who never reads code. This version is built for Swaraj as a learner who will read code, because he wants to grow, not only to ship. The conversation behind the change is recorded in "What changed on 1 November 2026".
+- **Changed on 4 November 2026.** Swaraj added the road to customers (local, simulation, beta, production), the simulation, and the whiteboard, and said a component is built completely, over as many plans as it takes. See "What changed on 4 November 2026" and "Where it runs, and how Swaraj sees it".
 - **Nothing here is policy until Swaraj says so.** Each point carries one of these words:
   - **Decided** — Swaraj said it himself, or said yes to it, on the date given.
   - **Proposal** — the assistant's reading or recommendation. A call, not yet confirmed by Swaraj.
-  - **Hypothesis** — a working idea, to be tested the first time the whole loop runs on a real component (the situation record).
+  - **Hypothesis** — a working idea, to be tested the first time the whole loop runs on a real component (the Situation Registrar).
   - **Open** — no answer yet.
   - A point with none of these words is a fact. It comes from the knowledge base, from research, or from Swaraj's own words, and its source is named.
 - **This file stands alone.** Every list and rule it relies on is written out here. You never need to open another file to follow it. The last section, "Where each piece comes from", names the source files for anyone who wants them.
@@ -27,25 +28,30 @@
 - **The harness** — the fixed code around Tend's AI: it runs each AI step, checks what the AI produced, and records what happened. "The harness study" is the knowledge base's study of it.
 - **Shop, business, tenant** — three words for the same thing: one business that uses Tend. "Tenant" is the engineering word.
 - **Bloom and Bob** — two made-up shops loaded into every test run. They prove that one shop can never reach the other shop's data.
+- **The Situation Registrar** — the first component. It keeps each problem's history, sends word to the right parts, keeps the list of every situation, and writes what other parts decide. It decides nothing itself. Older files, and parts of this one, call it the Situation Registrar.
 - **The design** — Tend's architecture, as written in the knowledge base. The build view (see "Component" below) is the part of it that says what to build, one part at a time.
 - **Kind of situation** — the design lists fifteen kinds of situation. Each kind is a type of case where at least one part of Tend behaves differently from the usual path, such as "an outside system is down".
 - **Walk** — one worked example of a kind of situation, step by step, from start to end.
 
 **Words about building**
-- **Component** — one piece of Tend that is built and learned as a unit. The build view is the part of the knowledge base that describes Tend one piece at a time, one file per piece. It calls these pieces **parts**: the situation record, the situation worker, the conversation manager, and so on. Swaraj calls them components, and so does this file.
+- **Component** — one piece of Tend that is built and learned as a unit. The build view is the part of the knowledge base that describes Tend one piece at a time, one file per piece. It calls these pieces **parts**: the Situation Registrar, the situation worker, the conversation manager, and so on. Swaraj calls them components, and so does this file.
 - **Slice** — one path through several components, from start to end. Example: Meera writes "hi", Tend works out what she means, and replies; no situation is created.
 - **Module** — a piece of code inside a component, small enough to plan in one conversation.
 - **The teacher** — the assistant when it teaches. It decides nothing about Tend.
 - **The planning agent** — the assistant when it plans with Swaraj, as a peer.
 - **The implementing agent** — the coding agent that turns an approved plan into tests and code.
-- **The plan** — the natural-language description of one module: what it must do, how it is built, and the exact tests that say it is done. It contains no code.
+- **The plan** — the natural-language description of one module: what it must do, how it is built, and the exact tests that say it is done. It contains no code. One component usually takes several plans.
+- **The simulation** — a deployed copy of Tend where agents and scripts play everyone: customers, employees, owners, and outside systems.
+- **The whiteboard** — the screen where Swaraj watches Tend's parts light up, clicks on them, and steps through a run one state at a time. This is the name used here; Swaraj has not named it.
+- **The run store** — one small SQLite database per run, holding every event of that run in order. The whiteboard reads it.
+- **Story registry** — the list of every story Tend is tested against, in `story_registry.md`.
 - **Translation** — turning the plan into test files and code. The implementing agent writes the code. Swaraj understands it.
 - **Locked value** — an input or an expected result written in the plan before any code exists. The implementing agent may not change it.
 - **Test family** — the group of tests one rule gets: the allowed case, the forbidden case, the edges, and so on.
 - **Manifest** — a list with one line per test, `test ID | input | expected`, made from the test files and compared with the plan.
 - **The gate** — the checks machines run before code is accepted: tests, anti-cheat checks, and scans.
 - **The study** — Swaraj reading the translated code, to learn from it and to find what the gate cannot.
-- **Golden walkthrough** — a full scenario run against the real system, with test data, and every step recorded.
+- **Golden walkthrough** — a full scenario run against the deployed simulation, with test data, and every step recorded.
 - **The learning record** — Swaraj's own record of what he has been taught, where, and how it has been used since.
 - **First pass and second pass** — the two conversations on 13 September 2026 that produced the first version of this file.
 
@@ -137,6 +143,46 @@ Each point below sums up what Swaraj said above; Stage 1 quotes his exact words 
 10. Learning must link ideas together. It must not turn into a procedure to follow.
 11. The fundamentals come first, and they must not depend on one coding language or one technology stack.
 
+## What changed on 4 November 2026
+
+Swaraj read the build view and the views around the Situation Registrar, and found things missing from this file. Obvious dictation slips in his words are fixed in square brackets.
+
+### What Swaraj said
+
+- **Nothing is a demo:** "We are not building some sort of a demo or something. We have to build everything, right? So it might not be complete in like one plan, but one component might have different multiple plans that build on top of it."
+- **There is a road to customers:** "We'll have three stages. One is production, right? Second is our beta stage. Third is our testing simulation environment, where we will simulate things." Local testing comes before those three, also in his words: "we'll try to run it locally. If it runs, then we deploy it." So the road below has four stages.
+- **Agents play everyone:** "Simulation will have an agent as Priya, an agent as Meera, an agent as 50,000 different agents, let's say, right? And we have an agent for the owner, we have agent for the employees, etc., everything."
+- **He must be able to see it:** "If I do this in the terminal, it would be extremely impossible for me to track how the states are changing." And: "I want to see my components on a whiteboard. I want to see them light up. I want to click on it."
+- **Stories are tests:** stories "do not inspire build. They confirm whether our build is correct or not."
+- **Logs can be kept differently:** "it might be storing into the second type of logs which are there to see the state changes, might be a SQLite file then, right? We do not show them on the terminal."
+
+### What this file had wrong
+
+1. **It showed a shop column.** Under "Links, not a procedure", this file's example said a saved situation has "a column, and a key that includes the shop". The design had already rejected that, and given each business its own database. Swaraj: "We will give each business a database. We do not need a shop column." The example is corrected.
+2. **It still called TypeScript open.** Swaraj decided it on 1 November, after this file was written. Corrected.
+3. **It sent golden walkthroughs to "the real system".** They now run in the simulation.
+4. **It wrote Level B logs to a file, for reading as text.** Level B is the temporary, detailed record of what the code did. Swaraj cannot follow it as text. It now goes to the run store, and he watches it on the whiteboard.
+
+### Decided on 4 November 2026
+
+1. A component is built completely, over as many plans as it takes. Nothing is a demo.
+2. Code travels through four stages: local, simulation, beta, production.
+3. Each stage has its own databases and its own businesses. Simulation runs beta's code with simulated actors and its own observation on top. It need not follow legal and privacy rules, because everything in it is made up.
+4. Every component builds its own part of the simulation.
+5. Swaraj watches Tend on a whiteboard, in testing and in production, and never in a terminal.
+6. He can walk through a finished run state by state, as in a debugger.
+7. The main branch carries the simulation. Beta and production branches come later.
+8. Stories confirm the build; they do not inspire it. They are kept in a registry.
+9. Each business has its own database, and there is no shop column.
+10. Each situation's saved history lives in its own Durable Object. Each business has one D1 for its registry, one for configuration, and one for learned knowledge.
+11. The first component is called the Situation Registrar.
+12. Plans live in `knowledge_base/plans/`, with one folder per plan, holding the plan and its final record.
+13. In a simulation, every human is an agent. Each business starts empty, and the world around it is seeded. Only product builders can see it and step in. Sign-in and onboarding come after everything else is built.
+14. While developing locally, debug information goes to a SQLite or JSON file and a local screen, not the terminal.
+15. Simulation uses real AI models. Swaraj: "simulation, I want AI models." A story is checked on what must always be true, not on exact words.
+
+The details are in "Where it runs, and how Swaraj sees it". Swaraj's rulings on the Situation Registrar itself are in `knowledge_base/plans/situation_registrar/starting_point.md`, because they change the design, not this method.
+
 ## The loop
 
 ```text
@@ -168,7 +214,7 @@ Who decides what:
 
 Swaraj: "when I'm building, let's say, one component, for that particular component I'll learn all those concepts … The breadth does not span across the whole product of [Tend], it just spans across that particular component that I'm building … It is always going to be depth first, because the breadth of that particular component we already know, as it is defined in the build view."
 
-**Breadth** is every kind of concept the component touches, and nothing else. For the situation record, that means:
+**Breadth** is every kind of concept the component touches, and nothing else. For the Situation Registrar, that means:
 - **Data and SQL:** how the versions are stored in tables.
 - **Security:** one shop must never read another shop's data.
 - **Design patterns:** for example, one module as the only door to the saved versions.
@@ -186,7 +232,7 @@ This answers a worry from the conversation: that security would be left for late
 
 The build view sets the order: a part comes after the parts whose saved data it reads. The order is the design's own recommendation. The build view records that Swaraj accepted the design's recommendations on 22 October 2026; the arrival-loop step was updated on 29 October. The technology stage (Level 3, where the technology is chosen) may change the order, and must record why.
 
-1. **The situation record**: the saved history of each problem, kept as a list of versions. Beside it sits **the book of waits**: the list of every wait that may outlast one run of work (a run is one pass of work on one situation).
+1. **The Situation Registrar**: the saved history of each problem, kept as a list of versions. Beside it sits **the book of waits**: the list of every wait that may outlast one run of work (a run is one pass of work on one situation).
 2. **Configuration**, at its smallest: the business's settings, permissions, and members.
 3. **The conversation manager's arrival loop**: it takes in each message, works out what it means, and places it on the right problem. With it come **memory and knowledge's fixed parts**, at their smallest: plain lookups, with no AI, that hand each step the facts it needs.
 4. **The situation worker's loop**: it decides the next step for one problem.
@@ -199,21 +245,25 @@ The build view sets the order: a part comes after the parts whose saved data it 
 
 The build view does not finish each part before starting the next.
 - It builds parts in this order until the first thin slice works. In that slice, Meera writes "hi", Tend works out what she means and replies, and no situation is created.
-- That slice touches seven parts, "only the minimum of each": the situation record, configuration, the conversation manager's intake step (the first step of its arrival loop), memory and knowledge's fixed parts, the situation worker, the tool layer, and the communication layer.
+- That slice touches seven parts, "only the minimum of each": the Situation Registrar, configuration, the conversation manager's intake step (the first step of its arrival loop), memory and knowledge's fixed parts, the situation worker, the tool layer, and the communication layer.
 - After that, each new slice adds one kind of situation. It brings in a new part only when that kind needs it.
+
+**How much of a component gets built (Decided, 4 November 2026).** All of it. The slice is the first end-to-end check, and it no longer limits how much of a component is built. Swaraj: "We are not building some sort of a demo." A component takes several plans, one per module.
+
+**A warning about the first slice (fact, checked on 4 November 2026).** The "hi" test creates no situation, so it writes nothing to the Situation Registrar. The record needs other stories to prove it. It has no AI in it, so scripted writers can test it completely before any other part exists.
 
 **For learning, a slice counts as a unit too (Proposal).** A slice is a path through several parts, not a part, but it brings its own concepts to learn. Several kinds of situation are classic engineering problems described in product words. Three of them, with the numbers the design gives them:
 - **A timer and a reply race** (kind 6): two things change one record at the same moment. These are called race conditions.
 - **An outside system is down** (kind 2): retrying, timing out, and knowing when to stop calling.
 - **An irreversible action's outcome stays unknown** (kind 1): making sure something that cannot be undone happens exactly once, even after a crash.
 
-So Tend's own build order brings the engineering in the order it is needed. The situation record's first lessons cover its core. What each kind of situation adds to it comes with that kind's slice.
+So Tend's own build order brings the engineering in the order it is needed. The Situation Registrar's first lessons cover its core. What each kind of situation adds to it comes with that kind's slice.
 
 ### The teacher's first job: find the concepts inside the component (Proposal)
 
 The build view fixes each component's boundary. On purpose, it does not list the concepts inside that boundary: a part file "says what the part must do, not what technology builds it". So the engineering questions sit under its sentences, unnamed. For each component, the teacher's first job is to find them.
 
-Example: seven sentences from the situation record's file, and the question hiding under each.
+Example: seven sentences from the Situation Registrar's file, and the question hiding under each.
 
 | The file says | The question hiding underneath | Its name |
 |---|---|---|
@@ -266,10 +316,10 @@ The assistant's proposals for how to do it (**Proposal**, not yet confirmed):
 
 Swaraj asked how to think while building, and said what he needs (**Decided**, his words, 1 November 2026): "Do I first think about design? Do I think about the patterns? Do I think about security? Or do I think about all three in parallel in tandem? I don't think building a one by one would be the solution because that would not give me and my brain the time to basically interlink multiple things to create wisdom. It will just be like a procedure that I follow. What I need is extensive understanding and insights."
 
-The assistant's answer (**Proposal**): understanding forms where one decision turns out to be several decisions at once. So lessons are built around those points. Example: the rule "every saved situation records which shop it belongs to" is all of these at the same time:
-- **a table decision:** a column, and a key that includes the shop;
-- **a security decision:** Bloom must never see Bob's rows;
-- **a design decision:** only one module is the door to the store, and it always passes the shop;
+The assistant's answer (**Proposal**): understanding forms where one decision turns out to be several decisions at once. So lessons are built around those points. Example: the rule "each business has its own database" is all of these at the same time:
+- **a table decision:** no column names the shop, because the whole database is that shop's;
+- **a security decision:** Bloom's code holds no way to reach Bob's database, so no forgotten filter can leak Bob's rows;
+- **a design decision:** only one module is the door to the store, and it opens only with a checked business identity;
 - **a test:** two shops, and a check that neither can see the other's data.
 
 Walking through design, then patterns, then security as separate steps would be the procedure he warned against.
@@ -358,9 +408,9 @@ If the plan says nothing about one of them, that silence is a plan gap. Each fix
 
 **Step 4 — Trace every test to its rule.** Every test carries the ID of the rule it checks. If a test points at no rule, either the test was invented or the rule is missing. There is no third option.
 
-### A worked example: the situation record
+### A worked example: the Situation Registrar
 
-These rules come from the situation record's part file and from the concurrency rules in the harness study. The test IDs and values are examples for the method, not a finished plan.
+These rules come from the Situation Registrar's part file and from the concurrency rules in the harness study. The test IDs and values are examples for the method, not a finished plan.
 
 - **R1.** A writer saves a new version built on the version it read.
 - **R2.** If a newer version was saved in the meantime, the save is refused. The writer re-reads the newest version and checks its planned step (the change it was about to save) against it. The harness study puts it this way: "A rejected write means re-read and reassess."
@@ -459,7 +509,7 @@ The principles themselves are taught in depth in Learn, when a component needs t
 
 When a plan names a pattern, a machine can check that the code follows it. Each pattern below is given in plain words, with a Tend case and its check.
 - **Repository** — one module is the only door to a store of data.
-  - Tend case: only the situation record's module reads or writes the saved versions.
+  - Tend case: only the Situation Registrar's module reads or writes the saved versions.
   - The check: no other file reaches the database directly.
 - **Strategy** — several ways to do the same job, with a key that picks one.
   - Tend case: a message is checked one way for WhatsApp and another way for email, and the channel's name picks the way.
@@ -513,22 +563,23 @@ Here is why that matters to a plan.
 - The architecture's own audit already lists protection against resending as an item for Level 3.
 
 **Tend's stack today.** Tend runs on Cloudflare. This comes from the harness study's part on data and compute.
-- The conversation manager is a Cloudflare **Worker** (a small program Cloudflare runs on demand), one per business. This is not the same thing as Tend's situation worker.
+- The front door is a Cloudflare **Worker** (a small program Cloudflare runs on demand), one per business. This is not the same thing as Tend's situation worker.
+- The conversation manager is a **Durable Object**, one per person (Swaraj, 4 November 2026; one per person is the design's reading).
 - The situation worker is a **Durable Object** (a small Cloudflare program with its own storage), one per situation.
-- Situation versions live in each business's own **D1** database (Cloudflare's SQL database).
+- Situation versions live in one **Durable Object** per situation, a second one beside the situation worker's. Each business's own **D1** database (Cloudflare's SQL database) holds its registry. This changed on 4 November 2026, as described below.
 - Message content and traces live in Cloudflare's file storage. Its product name is **R2**, which has nothing to do with rule R2 above.
 - Short-lived copies of data, kept for speed, live in **KV** (a fast store that looks things up by key).
 - Some background work runs through **queues**.
 - The code is TypeScript.
 
-**Why TypeScript? The record does not say** (fact, checked on 1 November 2026). The knowledge base treats TypeScript as given. Only one place discusses the switch: the security folder's notes on coding with agents. They say "the switch from Python to TypeScript is not just syntax", but list only security differences.
+**Changed (Decided, Swaraj, 4 November 2026): where a situation's versions live.** They now live in the situation's own Durable Object, not in the business's D1. Swaraj: "One durable object per situation, excellent idea." One D1 runs one query at a time, so a busy business's saves would wait in line behind each other. The business's D1 keeps the registry: the list of situations, people, links, and the shared list of waits. Configuration and learned knowledge each get their own D1. The harness study still says the old thing, and needs updating. The reasons are in `research_insights.md`.
 
-The assistant first guessed that the language followed the platform, because Cloudflare Workers began as a platform for JavaScript and TypeScript. The technical check on 1 November 2026 weakens that guess:
-- Cloudflare's own Python page now says Workers give "a first-class Python experience", with access to D1, Durable Objects, R2, and Queues.
-- InfoQ, a software news site, reported in September 2026 that Python Workers had become generally available. Cloudflare's own announcement was not read.
-- The same coverage names limits: not every Python package works there, and speed and memory use are still being improved.
+**Why TypeScript (Decided, Swaraj, 1 November 2026).** Tend's code runs inside V8, the JavaScript engine in Chrome. TypeScript becomes JavaScript, so it runs there directly. Python needs a separate program to run it (an interpreter), and that program must itself be compiled to run in V8. Three reasons decided it:
+- TypeScript's tests can run inside the real Cloudflare environment, which the gate needs. No official way was found to do this for Python.
+- Chrome's debugging tools can step through TypeScript code.
+- A Python interpreter would take up part of the 128 MB of memory that many situations share.
 
-So the platform no longer settles the choice by itself, and Swaraj already knows Python. **Open:** why TypeScript. It will be examined with Swaraj when the stack comes up in Learn. The answer decides which language Swaraj learns to read first.
+The cost is a new language for Swaraj to read. Knowing Python helps him learn it by comparison. The front end is HTML, CSS and TypeScript. Frameworks are chosen when implementation starts. The full reasons are in `programming_language_decisions.md`.
 
 **One caution.** Plans should get denser in values, not longer in prose: short prose, thick locked tables. If planning starts to feel like writing a book, the line between locked and free has drifted.
 
@@ -560,12 +611,12 @@ The order to adopt them is a first-pass working recommendation (**Proposal**): s
 The principle, stated once: **the plan locks both sides of every comparison**, the input and the expected output. The agent writes neither of them, so it cannot cheat by agreeing with itself.
 
 **4. The golden walkthrough.**
-1. Deploy to the real system, with test data.
+1. Deploy to the simulation, with test data.
 2. Run the scenarios through the real entry point.
-3. Export the traces.
+3. Open the run on the whiteboard.
 4. Mark each step pass or fail.
 
-For Tend, the scenarios are the walks: the step-by-step worked examples of each kind of situation, kept in the knowledge base's behaviour view. Each slice is checked against its kind's walk before the next slice starts.
+For Tend, the scenarios are the stories in the story registry. The walks of each kind of situation, kept in the knowledge base's behaviour view, are among them. Each slice is checked against its kind's walk before the next slice starts.
 
 **What "green" means.**
 - Green means the module tests pass and the golden walkthroughs pass. Green on one and red on the other is broken, not "mostly passing".
@@ -722,9 +773,9 @@ Here is one made-up entry, only to show the shape:
 
 ```text
 Concept:        transaction
-Taught:         the situation record, lesson 2 (date)
+Taught:         the Situation Registrar, lesson 2 (date)
 Used in plan:   "a reply and the cancelling of its wait are saved together"
-Met in code:    the save function in the situation record's store module
+Met in code:    the save function in the Situation Registrar's store module
 Came back:      2 times
 Strength:       spots at once when two saves must happen together
 Misconception:  thought one transaction could cover the database and the queue;
@@ -741,17 +792,59 @@ Both work when the agent does two things, in this order:
 1. It brings the needed piece into the message, so he can follow without opening anything.
 2. It says where he first learned the idea and where he used it, so he can revise.
 
-Here is a made-up example of such a message: "A transaction makes several saves happen together, or not at all. You first met it in lesson 2 of the situation record. You used it in that component's plan, in the rule that saves a reply together with its cancelled wait."
+Here is a made-up example of such a message: "A transaction makes several saves happen together, or not at all. You first met it in lesson 2 of the Situation Registrar. You used it in that component's plan, in the rule that saves a reply together with its cancelled wait."
 
 **Open:** the constitution's wording is Swaraj's to change.
 
-### Where it lives (Proposal; nothing written yet)
+### Where it lives (Proposal)
 
-The folder `knowledge_base/product design and engineering learning/` was named for engineering as well, but so far it holds only product-design lessons. The engineering record would start there, with the first real lesson.
+The folder `knowledge_base/product design and engineering learning/` was named for engineering as well. The engineering lessons and `engineering_learning_record.md` started there on 4 November 2026, with the first real lesson.
+
+**Each plan also has its own record (Decided, Swaraj, 4 November 2026).** It sits beside the plan, in `knowledge_base/plans/<component>/plan_NN_<name>/record.md`. It says what was built, what the gate found, how the walkthrough went, where the code differed from the plan, and what Swaraj learned. Its sections are a **Proposal**.
 
 A side note from 1 November 2026: the design pillar's teaching skill tells an agent to read a `curriculum.md` when it starts. That file is not in the repository.
 
-Nothing has been written yet. Swaraj decided that no async lesson is recorded now (**Decided**, 1 November 2026). Async (code that keeps working while it waits for something slow) is taught when a component needs it.
+Swaraj decided that no async lesson is recorded now (**Decided**, 1 November 2026). Async (code that keeps working while it waits for something slow) is taught when a component needs it.
+
+## Where it runs, and how Swaraj sees it
+
+The full version, with all his words, is in `environments_simulation_and_whiteboard.md`.
+
+### The road to customers (Decided, 4 November 2026)
+
+| Stage | Where | Who is in it | Moves on when |
+|---|---|---|---|
+| 1. Local | Cloudflare's tools on this machine | Scripted actors | The component's tests pass |
+| 2. Simulation | Real Cloudflare, with its own databases | Agents and scripts playing everyone. Each business starts empty, in a seeded world | The evidence shows it works: "first evaluate, to measure, to gain evidence" |
+| 3. Beta | Real Cloudflare | A few real people | What people experience is right |
+| 4. Production | Real Cloudflare | Customers | — |
+
+The main branch carries the simulation. Beta and production branches come later.
+
+### The simulation (Decided, 4 November 2026)
+
+- Agents play Meera, Priya, owners and employees, with different personalities, across two or three kinds of business.
+- Every component builds its own part of it.
+- Its records of each run are used to improve Tend's AI. Swaraj calls this product learning, not business learning. Product learning teaches Tend's way of working, such as when to stop and ask. Business learning would be one shop's own refund rule.
+- Stories check the build, and do not inspire it.
+
+**What it also needs (Proposal).** These are gaps the assistant found in the plan:
+- **Separate resources.** Simulation runs beta's code with its own databases and keys, so real people's data can never enter it. (Decided since: each stage has its own databases and businesses.)
+- **Simulated outside systems.** A carrier, a payment provider and WhatsApp, each keeping its own ledger, so a test can compare what Tend claimed with what happened.
+- **A clock the simulation controls.** A three-day wait cannot take three days to test.
+- **Deliberate failures.** A crash right after a save, a lost notice, a duplicate notice, a deploy mid-run.
+- **Two kinds of actor.** Stories always run with real AI (Decided). For volume alone, scripts can stand in for people, and AIs playing people can stay in the tens. Tokens are the pieces of text an AI reads and writes, and each one costs money. 50,000 AI people, at five turns of 2,000 tokens each, come to 500 million tokens for one run, before Tend's own AI calls.
+- **A limit on the evidence.** A simulated customer saying "thanks" is not a real customer's confirmed outcome. Simulation is strong evidence about the machinery, and weak evidence about real customers. Beta is what checks that.
+- **Load is measured in the simulation only.** Cloudflare's local tools have no real network and no real load.
+
+### The whiteboard (Decided, 4 November 2026)
+
+Swaraj: "I want to see my components on a whiteboard. I want to see them light up. I want to click on it. I want to see the states, how they went through, what was the data coming in, what did it process, what was the data going out." He wants to walk a finished run "like how in VS Code, if you want to run a program and you just click on a red dot", pressing next through each state. He wants it in testing and in production, and never in a terminal.
+
+**How that fits the rules (Proposal).**
+- **One whiteboard, two data sources.** The simulation shows everything. Production shows only Level A, with names hidden, because the architecture says the builder sees only masked and renamed views there. To see more of a live business, the builder needs the business owner's permission.
+- **Walking comes first.** Walking a finished run is always possible, because events are saved in order. Stepping a live run needs a scheduler in the simulation that releases one event at a time, so it comes later.
+- **Replays need the AI's answers saved,** so a replay does not ask the model again.
 
 ## Two kinds of logs
 
@@ -767,8 +860,8 @@ So there are two levels.
 | Purpose | Watching the product behave; the product's evidence | Reviewing the code that was written ("run it and watch") |
 | Read by | The product builder, and audits | Swaraj, during the study |
 | Records | • the versions each wake produces (a wake is each time the situation worker wakes up to work on a situation)<br>• every tool call<br>• every check result, with its reason<br>• every permission decision | The story in sentences: an object was created, where its data came from, which function ran, what changed from A to B |
-| Form | Structured events | Plain sentences, generated by fixed code |
-| Stored | Permanently, per business | Per run, only in development and on the build server. **Never in a business's database.** |
+| Form | Structured events | Structured events in the run store, shown on the whiteboard, and turned into plain sentences by fixed code |
+| Stored | Permanently, per business | Per run, only in development, on the build server, and in the simulation. **Never in a business's database.** |
 | Size | Limited by design | Can be huge, which is why it can be switched off |
 | Switch | Always on | A config flag, **off by default in production** |
 | Personal data | No secrets and no personal data in traces (security folder, August 2026). In production, the builder sees only masked and renamed views, for example "Customer 1" instead of a name (architecture, accepted 22 October 2026). | The same rule. It runs only on test data (Bloom and Bob), never on real data. |
@@ -815,7 +908,7 @@ A hard rule: when `enabled` is false, the Level B logger does nothing at all. It
 **How the agent builds it.**
 - **Level A:** nothing, in most modules, because the harness writes it. If the agent could write Level A events, the product's evidence would be designed by the agent.
 - **Level B:** one small module, the review logger. It is a fixed recorder: `reviewLog.record({ event, entity, field, from, to, at, rule })`.
-  - In development and on the build server, it writes one file per run and turns that file into sentences.
+  - In development, on the build server, and in the simulation, it writes one row per event to that run's SQLite store (Swaraj's suggestion, 4 November 2026; **Proposal** until he confirms the form). The whiteboard reads those rows, and fixed code turns them into sentences.
   - In production, it does nothing.
   - The agent may not add review-log points beyond the plan's list.
 
@@ -823,13 +916,15 @@ A hard rule: when `enabled` is false, the Level B logger does nothing at all. It
 - Level B's defaults are B1 in development, B2 on the build server, and off in production.
 - The golden narrative test is a hard named test.
 
+**Proposal** (4 November 2026): B2 in the simulation, because the whiteboard shows what comes in and goes out of each function.
+
 ## Security in the factory
 
 Swaraj's question in the second pass: security had not been touched in the factory. Could it be built into planning, implementation, review, deployment, and the choice of infrastructure, so that the factory itself is strong? All seven documents in the security folder were read. Most of the answers already existed there. The factory's job is to wire them into its machines.
 
 The spine is **Decided**: **the AI proposes, and fixed code decides.** It was a working decision of Swaraj's compliance and security conversation in August 2026, and it runs through the architecture he accepted on 22 October 2026. In the factory, the implementing agent is the one proposing: it writes the code. The gates decide: a failing test blocks that code.
 
-Security is also part of Learn. The security a component touches is part of its breadth (**Decided** rule, 1 November 2026). For the situation record, that means two things:
+Security is also part of Learn. The security a component touches is part of its breadth (**Decided** rule, 1 November 2026). For the Situation Registrar, that means two things:
 - keeping one shop's data out of every other shop's reach (tenant isolation);
 - deleting one customer's data from a history that is otherwise never changed.
 
@@ -1137,6 +1232,25 @@ Some sources could not be opened during the first pass. They were marked unverif
 10. Learning must link ideas together, not turn into a procedure.
 11. The fundamentals come first, and do not depend on one language or stack.
 
+**Decided (1 November 2026, by Swaraj, after this file was written):** TypeScript for the backend; HTML, CSS and TypeScript for the front end; frameworks chosen when implementation starts.
+
+**Decided (4 November 2026)**, summarised from Swaraj's words, which are quoted under "What changed on 4 November 2026":
+1. A component is built completely, over as many plans as it takes. Nothing is a demo.
+2. Code travels through four stages: local, simulation, beta, production.
+3. Simulation is the beta environment, with simulated actors and its own observation on top.
+4. Every component builds its own part of the simulation.
+5. Swaraj watches Tend on a whiteboard, in testing and in production, and never in a terminal.
+6. He can walk through a finished run, state by state.
+7. The main branch carries the simulation.
+8. Stories confirm the build, and do not inspire it. They are kept in a registry.
+9. Each business has its own database, and there is no shop column.
+10. Each situation's saved history lives in its own Durable Object; each business has a D1 each for its registry, configuration, and learned knowledge.
+11. The first component is called the Situation Registrar.
+12. Plans live in `knowledge_base/plans/`, each with its own final record.
+13. In a simulation, every human is an agent, and only product builders can see it and step in. Sign-in and onboarding come after everything else is built.
+14. While developing locally, debug information goes to a SQLite or JSON file and a local screen, not the terminal.
+15. Simulation uses real AI models, and a story is checked on what must always be true, not on exact words.
+
 **Working recommendations from the first pass.** These are used in this file but were never separately ruled by Swaraj, so they are **Proposals**:
 1. The plan's test table is the manifest's target. Fixed tooling checks that the test files match it exactly.
 2. Start with the three cheap checks (flip, test-ID audit, forbidden-call scan). Add mutation testing after the first module.
@@ -1156,16 +1270,20 @@ Some sources could not be opened during the first pass. They were marked unverif
 11. **Lessons built around linked decisions:** points where one decision is at once a table, security, design, and test decision.
 12. **Fundamentals first, languages by comparison:** how "no particular language" and "learn the language" fit together.
 13. **A language constitution:** a plain-words list of good and bad practice in TypeScript, growing from his lessons.
+14. **What the simulation also needs:** separate resources, simulated outside systems, a controlled clock, deliberate failures, two kinds of actor.
+15. **The whiteboard's two feeds:** everything in the simulation, masked Level A in production. Walking a finished run comes before stepping a live one.
+16. **B2 logging in the simulation.**
 
 **Open:**
 1. **"The three frameworks."** In the first pass Swaraj said "we apply one of the three frameworks that we have", and it was never said which three. The assistant's reading (a call, not yet confirmed): the three levels of the three-level framework, meaning problem, parts and rules, and technology.
 2. **What the agent may still choose freely**, now that structure moves into the plan.
-3. **Why TypeScript,** now that Cloudflare also offers Python. To be examined in Learn when the stack comes up.
+3. **What creates a business, and how people join it.** Nothing in the design does this yet. Swaraj: "We need a component for that." Sign-in and onboarding come after everything else is built. The earlier open items, why TypeScript and where versions live, are decided.
 4. **Whether reaching rung 5 (teach) needs some code writing.** The learning record will show.
 5. **The constitution's wording** for "explain first, then point". This is Swaraj's to change.
 6. **Watching and retiring after release.**
-7. **The first real cycle.** This is the experiment that tests everything above: learn, plan, translate, and review the situation record, then check whether the old failure has gone. The assistant's proposal for the first lesson: what a table is, because everything in the situation record's concept table rests on it.
+7. **The first real cycle.** This is the experiment that tests everything above: learn, plan, translate, and review the Situation Registrar, then check whether the old failure has gone. The assistant's proposal for the first lesson: what a table is, because everything in the Situation Registrar's concept table rests on it.
 8. **Where this file lives and is listed.** Its home, next to the harness study, is still provisional. The first version planned to update two index files, the research base prompt and a status file. Neither is in the repository today (checked on 1 November 2026).
+9. **The isolation audit's "tenant predicate".** The audit is to be used exactly as written (Decided, 13 September 2026). It asks for the query condition naming the shop, and one database per business has no such condition. Swaraj must rule on how to read it. The assistant's reading (**Proposal**): the predicate becomes the step that chooses the business's own database, which must come from a checked identity.
 
 ## Where each piece comes from
 
@@ -1174,7 +1292,7 @@ These are for anyone who wants the full source. Nothing above requires opening t
 **Inside the repository**
 - **Swaraj's words of 1 November 2026:** the conversation of that day, held in Cursor and continued in Claude Code.
 - **The first pass's raw thoughts, diagnosis, and research:** the first version of this file, dated 13 September 2026, in the git history.
-- **The build view:** `knowledge_base/architecture/constructed_architecture_from_section12/build_view/overview.md` and `situation_record.md`.
+- **The build view:** `knowledge_base/architecture/constructed_architecture_from_section12/build_view/overview.md` and `situation_registrar.md`.
 - **The walks:** `knowledge_base/architecture/constructed_architecture_from_section12/behaviour_view/`.
 - **The harness study:** `knowledge_base/agent_harness_study.md`, Part 6 (watching the system) and Part 8 (data and compute).
 - **The security folder:** `knowledge_base/Level 2/compliance_and_security/`, in three files: `the_security_audit_framework.md`, `how_do_we_make_a_software_product_secure.md`, and `how_do_we_apply_security_while_coding_with_agentic_tools.md`.
@@ -1183,6 +1301,14 @@ These are for anyone who wants the full source. Nothing above requires opening t
 - **The masking rule for the builder's view in production:** architecture Section 7, `knowledge_base/architecture/section_7_boundary_model.md`.
 - **The resend item and the note on watching and retiring:** the Section 10 audit register, findings SF-15 and SF-16, in `knowledge_base/architecture/section_10_audit_register.md`.
 - **Swaraj's constitution:** `conversation with swaraj.md`, at the root of the repository.
+- **Added on 4 November 2026, at the root of the repository:**
+  - `environments_simulation_and_whiteboard.md`: the road to customers, the simulation and the whiteboard, in full;
+  - `story_registry.md`: every story, with where it is written;
+  - `knowledge_base/plans/situation_registrar/`: the first component's scope, Swaraj's rulings, and its plans;
+  - `knowledge_base/product design and engineering learning/engineering_lesson_01_how_tend_stores_data.md`: the first engineering lesson;
+  - `research_insights.md`: databases on Cloudflare, evaluation and simulation;
+  - `programming_language_decisions.md`: the language decisions of 1 November;
+  - `agent_memory/`: what the assistant remembers, where Swaraj can read and correct it.
 
 **Outside sources checked on 1 November 2026**
 - Cloudflare Queues delivery guarantees: https://developers.cloudflare.com/queues/learning/delivery-guarantees/
@@ -1197,6 +1323,14 @@ These are for anyone who wants the full source. Nothing above requires opening t
 
 ## Changelog
 
+- **2026-11-04 (fourth pass).**
+  - Added the road to customers, the simulation, the whiteboard, and the run store, from Swaraj's words.
+  - Recorded that a component is built completely, over several plans.
+  - Moved golden walkthroughs to the simulation, and Level B logging from files to the run store.
+  - Corrected the shop-column example, which contradicted the design.
+  - Recorded TypeScript as decided, and replaced that open item with where versions live.
+  - Added the open point on the isolation audit's wording.
+  - Later the same day: updated the name throughout, recorded the conversation manager as a Durable Object, deferred sign-in and onboarding, recorded the name, the storage decision, the plans folder, each plan's record, separate stages, the simulation's click-to-start, and local debugging. Started the engineering lessons and the learning record.
 - **2026-11-01 (third pass: rewrite).**
   - The file was rewritten around Swaraj's growth. In his words: "This is for my benefit, less than the product."
   - Added the Learn stage, whose unit is one component, learned depth first.
