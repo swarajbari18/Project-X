@@ -57,6 +57,7 @@ Quotes are his words; obvious dictation slips are fixed in square brackets.
 14. **Merges and erasures may visit several objects.** "It's fine if merges and erasures have to visit several objects. It's fine, we have given that responsibility to this, right?"
 15. **The name is the Situation Registrar.**
 16. **Plans live in `knowledge_base/plans/`,** with one folder per plan, each holding the plan and its final record.
+18. **Stay lean: we write our own run-time shape checks.** "We will have to code in our type checking at runtime ourselves … We can probably also use some external libraries like Zod … let's just keep it as lean as possible. If we need it, then we'll have it."
 17. **The front door is a Worker, and the conversation manager is a Durable Object.** "The worker is the front door, and the conversation manager would be a durable object." The assistant reads this as one per person. It is not yet settled where the update loop runs.
 
 ---

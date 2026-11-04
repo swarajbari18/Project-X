@@ -180,6 +180,7 @@ Swaraj read the build view and the views around the Situation Registrar, and fou
 13. In a simulation, every human is an agent. Each business starts empty, and the world around it is seeded. Only product builders can see it and step in. Sign-in and onboarding come after everything else is built.
 14. While developing locally, debug information goes to a SQLite or JSON file and a local screen, not the terminal.
 15. Simulation uses real AI models. Swaraj: "simulation, I want AI models." A story is checked on what must always be true, not on exact words.
+16. We write our own run-time shape checks, and add a library only if we need one. Swaraj: "let's just keep it as lean as possible."
 
 The details are in "Where it runs, and how Swaraj sees it". Swaraj's rulings on the Situation Registrar itself are in `knowledge_base/plans/situation_registrar/starting_point.md`, because they change the design, not this method.
 
@@ -1250,6 +1251,7 @@ Some sources could not be opened during the first pass. They were marked unverif
 13. In a simulation, every human is an agent, and only product builders can see it and step in. Sign-in and onboarding come after everything else is built.
 14. While developing locally, debug information goes to a SQLite or JSON file and a local screen, not the terminal.
 15. Simulation uses real AI models, and a story is checked on what must always be true, not on exact words.
+16. We write our own run-time shape checks, and add a library only if we need one.
 
 **Working recommendations from the first pass.** These are used in this file but were never separately ruled by Swaraj, so they are **Proposals**:
 1. The plan's test table is the manifest's target. Fixed tooling checks that the test files match it exactly.

@@ -49,6 +49,10 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | A language, its checker and a validation library are three things | Lesson 5, section 2 | Not yet | — | — |
 | How CPython and V8 run code; the JIT; the GIL; the event loop | Lesson 5, section 3 | Not yet | — | — |
 | Choosing a language by where it must run | Lesson 5, sections 7 and 8 | Not yet | — | — |
+| A binding: a name, not an address or a password | Lesson 6, section 2 | Not yet | — | — |
+| `getByName` reaches one object, and creates it if needed | Lesson 6, section 3 | Not yet | — | — |
+| Tools versus what ships; the bundler | Lesson 6, section 1 | Not yet | — | — |
+| What local can and cannot prove | Lesson 6, section 5 | Not yet | — | — |
 
 ---
 
@@ -99,6 +103,7 @@ Recorded so they are not repeated.
 
 - **An overstated conclusion.** The teacher said Meera's reply "waits in line" for about 8 minutes during a campaign. The arithmetic was right, but she would not wait that long. Corrected in lesson 1, section 7.
 - **Technical names.** "state" meant nothing to him. He asked for product-minded names, even long ones, as long as they follow technical convention. From lesson 2 on, the examples use them.
+- **Staying current.** The older test plugin and the older `migrations` list had both been replaced. Checking Cloudflare's docs first avoided teaching them.
 - **Agreed too fast.** The teacher proposed a whole new part for people across businesses, and told Swaraj one chat per business was the wrong product. The facts were already in front of it: each business has its own channel. He saw it first. He had asked to be challenged, and he was not.
 - **Overstated a rule.** It said a trustworthy test uses no AI, and also named a simulated story with real AI as a test. He caught it.
 - **A careless example.** Lesson 1's query used "not equal", which an index cannot jump to. Corrected in lesson 2.

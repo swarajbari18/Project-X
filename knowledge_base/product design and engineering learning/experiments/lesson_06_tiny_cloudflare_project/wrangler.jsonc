@@ -1,0 +1,32 @@
+{
+  // The name of this Worker on Cloudflare.
+  "name": "tiny-situation-registrar",
+
+  // The file Cloudflare starts with.
+  "main": "src/front_door.ts",
+
+  // Which version of Cloudflare's runtime behaviour this code expects.
+  "compatibility_date": "2026-11-04",
+
+  // A binding: the name our code uses to reach something Cloudflare provides.
+  "durable_objects": {
+    "bindings": [{ "name": "SITUATION_REGISTRAR", "class_name": "SituationRegistrar" }]
+  },
+
+  // Tells Cloudflare this class is a Durable Object with its own SQLite database.
+  "exports": {
+    "SituationRegistrar": { "type": "durable-object", "storage": "sqlite" }
+  },
+
+  // One block per stage. Bindings must be repeated, because each stage is separate.
+  "env": {
+    "simulation": {
+      "durable_objects": {
+        "bindings": [{ "name": "SITUATION_REGISTRAR", "class_name": "SituationRegistrar" }]
+      },
+      "exports": {
+        "SituationRegistrar": { "type": "durable-object", "storage": "sqlite" }
+      }
+    }
+  }
+}

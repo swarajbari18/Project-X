@@ -20,7 +20,11 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 
 - Can a Durable Object's alarm be fired early in a deployed environment?
 - Which test runner and framework choices, if any, does this plan need? (Frameworks are chosen when implementation starts.)
-- Does the run store write a SQLite file, or JSON, on your machine?
+- Does the run store write a SQLite file, or JSON, on your machine? (Locally, a Durable Object is already a real SQLite file, in `.wrangler/state/`.)
+- One Worker for all the parts, or one per part? The assistant leans towards one, and splitting when there is a reason.
+- How does one Worker per business, through Workers for Platforms, behave locally? Untested.
+- Where does the code live? Perhaps `tend/components/situation_registrar/`, with tests beside the code.
+- Which exact tool versions do we lock? Lesson 6's project uses `wrangler`, `vitest` and `@cloudflare/vitest-plugin`.
 
 ## How we will know it works
 

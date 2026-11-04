@@ -13,9 +13,11 @@ Factory (Decided): build everything over several plans, no demos. Plans live in 
 
 The front door is a Worker per business; the conversation manager is a Durable Object (one per person is my reading; where the update loop runs is not settled). A simulated business starts empty in a seeded world. Sign-in and onboarding come after everything else is built.
 
-**State at end of 4 Nov:** lessons 1 to 4 are in `knowledge_base/product design and engineering learning/`, with a measured experiment in `experiments/`. The nine views, decisions 38 to 42, the registers and the harness study are updated to these rulings; sections 6 to 11, Level 1, Level 2 and the `checking/` history keep the old name as written. All eight plans are skeletons. No code exists.
+**State at end of 4 Nov:** lessons 1 to 6 are in `knowledge_base/product design and engineering learning/`, with a measured experiment in `experiments/`. The nine views, decisions 38 to 42, the registers and the harness study are updated to these rulings; sections 6 to 11, Level 1, Level 2 and the `checking/` history keep the old name as written. All eight plans are skeletons. No code exists.
 
 **Gap found:** no part creates a business, lists all businesses, or handles joining as an owner or employee. Recorded in `checking/gap_register.md`. He wants a component for it, built after the core.
+
+**Lean rule, 4 Nov:** we write our own run-time shape checks; a library like Zod only if needed. One more lesson remains before plan 1: how a page gets live updates.
 
 **Rejected, 4 Nov:** a layer for one person across several businesses. Each business is reached on its own channel, and "Tent works inside the business"; do not raise it again. An owner with several businesses may get a view across them in future. Simulation uses real AI models.
 
