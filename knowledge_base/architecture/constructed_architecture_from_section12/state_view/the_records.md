@@ -35,7 +35,7 @@ A rule with no status word next to it is **Decided**: it has a source the projec
   - the **communication layer** sends messages, through the tool layer, and keeps the consent records;
   - the **tool layer** makes every call to an outside system;
   - the **status-check service** waits on an outside system while the work goes on;
-  - **memory and knowledge** hands each part of each loop the context it needs, keeps what Tend learned, and keeps the links between situations;
+  - **memory and knowledge** hands each part of each loop the context it needs, keeps what Tend learned, and decides the links between situations;
   - **configuration** holds the business's settings, permissions, and members;
   - the **owner view** builds the screens the business owner opens;
   - **improvement** is how the product team makes Tend better for every business.
@@ -47,18 +47,21 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 - A **grant** is a range of steps a business allows Tend to take without asking. For example, the business may let Tend send Meera a delivery update without asking first. <!-- T3 -->
 - The **product team** is Tend's own builders.
 
-**Updated 2026-10-28.** Memory and knowledge creates and maintains the links between situations, as its own records; it keeps skills and procedures in object storage, versioned; erasure runs only through the erasure tool's confirmation; claims sent between situations, and an outreach's updates to its central situation, are saved as arrivals. <!-- decided by the owner, 2026-10-28: memory and knowledge -->
+**Updated 2026-10-28.** Memory and knowledge creates and maintains the links between situations (since 2026-11-04 it decides them, and the Situation Registrar stores them); it keeps skills and procedures in object storage, versioned; erasure runs only through the erasure tool's confirmation; claims sent between situations, and an outreach's updates to its central situation, are saved as arrivals. <!-- decided by the owner, 2026-10-28: memory and knowledge -->
 
 **Updated 2026-10-29.** Each arrival that carries words is saved with the conversation manager's **reading** of it: what is asked, what it refers to, time words turned into dates, the sender's claims, what is unknown, and whether it is work at all. The reading is written before routing, and saved as an interpretation, never a conclusion. An arrival that is not work is kept in the person's message history, and starts no situation. <!-- C8; C9; IB-21 -->
+
+**Updated 2026-11-04.** The part once called the situation record is now the **Situation Registrar**. It sends every notice, by a fixed table. It keeps the registry of situations and people. It writes links, splits and merges that other parts decide. It never judges. So "writes" below names the **author** of a change: every write to a situation passes through the registrar. <!-- decided by the owner, 2026-11-04: the registrar -->
+
 - The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.) (Added 2026-10-29.)
 
 ## The rules that hold for every record
 
 - **Nothing is rewritten.** A change is a new version; the old one stays as history. <!-- HC-1 --> The one exception is a deletion the law requires, and it starts only through the erasure tool's confirmation by the business owner or the configurator; then memory and knowledge's cleaner removes the customer's data from every place it lives — records, logs, copies kept for speed, traces, and backups. <!-- Level 2 compliance: deletion everywhere; Section 6: backups; U7; IB-19 --> Whether such a deletion also reaches the audit, which is only ever added to, is set for each market by its law, when Tend enters that market. Where a law requires it, the deletion reaches the audit too. <!-- closed item: deletion and the audit -->
-- **One writer for each kind of change.** Each kind of change has one part allowed to write it. <!-- Section 7 writer table: who writes what -->
-- **Every write sends its notice.** A write and its notice happen in the same run. If a write is saved without its notice, it is unfinished, and is tried again. No separate part checks this. <!-- HC-1; recorded earlier: no separate checker -->
+- **One author for each kind of change, and one door for every write to a situation.** Each kind of change has one part allowed to make it. The Situation Registrar saves it, and records the author. <!-- Section 7 writer table: who writes what; decided by the owner, 2026-11-04: the registrar -->
+- **Every version's notices are saved with it, and delivered.** The Situation Registrar saves them together, and tries again until each is delivered. A second delivery changes nothing. No writer has to send anything. <!-- HC-1; decided by the owner, 2026-11-04: the registrar -->
 - **An arrival is saved before anything acts on it.** It is saved as it came, by the conversation manager, with its understanding artifact when it carries words; the conclusion is the situation worker's. <!-- decided 2026-10-22: the status-check answer; Section 7: HC-2; C8 -->
-- **Memory and knowledge cannot settle a fact.** It presents, and decides nothing about the work. Its own records are links, learned items, skills and procedures, and indexes; it writes no situation record, except a confirmed erasure. For example, two situations hold the same order number in their records, and memory and knowledge links them. What the link means for each situation is for that situation's worker to decide. <!-- N20; N33; A15 -->
+- **Memory and knowledge cannot settle a fact.** It presents, and decides nothing about the work. Its own records are learned items, skills and procedures, and indexes. It decides links, and the Situation Registrar stores them. It writes nothing into a situation; its cleaner asks the Situation Registrar to carry out a confirmed erasure. For example, two situations hold the same order number in their records, and memory and knowledge links them. What the link means for each situation is for that situation's worker to decide. <!-- N20; N33; A15 -->
 - **The owner view writes nothing.** It builds its screens from the records. <!-- Section 8: the save protocol -->
 - **Tend does not own other systems' facts.** A carrier's tracking stays with the carrier. Tend keeps what it was told, with its source and time. <!-- Level 1: does not own other systems' facts; E1 -->
 
@@ -66,14 +69,16 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 
 | Record | What it holds | Who writes it | How it may change |
 |---|---|---|---|
-| **The situation record** | The versions of one situation: what came in, with its understanding artifact; the worker's understanding of what it added; the information plan; what Tend found, its conflicts, its decisions, its waits, its state | The conversation manager and the situation worker, each for its own kinds of change (see the next section) | Only by a new version |
+| **A situation's versions** | The versions of one situation: what came in, with its understanding artifact; the worker's understanding of what it added; the information plan; what Tend found, its conflicts, its decisions, its waits, its state | The conversation manager and the situation worker are the authors, each of its own kinds of change (see the next section). The Situation Registrar saves them | Only by a new version |
 | **The incoming record** | Each arrival as it came, with the channel's or the outside system's reference to the original; the channel keeps the message itself | The conversation manager | Only added to |
 | **Held notes** | A note that a message may belong to a situation, written when understanding cannot tell which situation is meant. It changes nothing in that situation. | The conversation manager's routing, from the understanding artifact | Kept as history |
+| **The registry** | The list of every situation in the business, with its kind, its state, its typed fields and numbers, and the people in it. It is how a situation is found without opening it | The Situation Registrar, from each version | Updated a moment after each save; can be rebuilt from the situations |
+| **Person records** | One record for each human being: a unique person ID, and the channel addresses that point to it. An unknown address gets a new person, marked unknown, made once per address. A person's journey is worked out from their situations, and is never stored | The conversation manager's intake step is the author. The Situation Registrar saves it. No AI decides two records are one person | Updated when an address is added or changed; removed by a confirmed erasure |
 | **The person's message history** | Every arrival from one person that is not a version of any situation: one that is not about the business ("hi", a general question), or that has nothing to do (a thank-you that answers nothing), each with its understanding artifact, marked; and the reply decision made for it. Memory and knowledge never learns from an arrival marked "not about the business", and never presents it to a situation. (Added 2026-10-29.) | The conversation manager | Only added to |
 | **Filed documents** | A document nobody asked for, filed on the matching situation or the sender's record, with its date and sender, or shown to a person. Nothing is done on the document alone | The conversation manager's arrival loop (understanding says what it is; routing files it); the situation worker records it as a claim | Only added to |
-| **The book of waits** | One shared table of every open wait, across all situations, kept with the situation records: what each waits on, what ends it, its due time, and who declared it. A wait that begins and ends inside one run is not written here; any wait that may outlast the run is. | The situation worker, in the same save that writes or ends the wait — including a wait a tool declares, which the worker's fixed code saves | A wait is written, refreshed, or ended, always together with its situation's version. Read by the conversation manager (at intake, and after a platform rule change), the status-check service, the owner view, and — after a restart, to set every time signal again — the worker. |
+| **The book of waits** | Every open wait that may outlast its run: what each waits on, what ends it, its due time, and who declared it. Each wait is held with its situation's versions. A business-wide list copies them. A wait that begins and ends inside one run is not written here; any wait that may outlast the run is. | The situation worker is the author, including a wait a tool declares, which the worker's fixed code saves. The Situation Registrar saves it | A wait is written, refreshed, or ended, always together with its situation's version. The business-wide list is updated a moment later, and can be rebuilt. Read by the conversation manager (at intake, and after a platform rule change), the status-check service, the owner view, and — after a restart, to set every time signal again — the worker. |
 | **The status-check service's record of asks** | For each wait it serves, how many asks it has made, and when it may ask next — like the tool layer's record of its tries. It is not a list of what situations wait for: it is never used to match an arrival, and it is rebuilt from the book of waits after a restart | The status-check service | Updated at each ask; an entry ends when its answer is sent or its limits run out |
-| **Links between situations** | Two situations, the reason they are connected, the kind of connection, when, and who made or removed it | Memory and knowledge's link keeper: from a shared number or incident code in records, or a signal for a relationship its link finder proposed | Created once per key; removed when its signal was wrong, or by an employee who may see both situations; each removal recorded with its author |
+| **Links between situations** | Two situations, the reason they are connected, the kind of connection, when, and who made or removed it | The Situation Registrar stores them. Memory and knowledge's link keeper is the author: from a shared number or incident code in records, or a signal for a relationship its link finder proposed | Created once per key; removed when its signal was wrong, or by an employee who may see both situations; each removal recorded with its author |
 | **Work items for people** | Kind; who is answerable; the deadline; when it was acknowledged, which is not when it was done; its place on the escalation path; the evidence so far | The situation worker; a person's answer is recorded by the conversation manager | A new version of the item |
 | **The sent record** | Each message sent: the message, the reason, the evidence used, the next responsibility, the wait, and the result; delivery receipts. It is not a version of the situation; its save is announced, naming the situation, so the situation's history can be read with it. | The communication layer | Only added to |
 | **The tool layer's records** | The state of each call's tries; the note of what is about to happen, before a step that cannot be undone; the record of each important call, including the status-check service's asks; each business's connection codes, in a locked store | The tool layer | Tries: updated at each try. Notes and call records: only added to |
@@ -96,7 +101,9 @@ A withdrawal of consent stops what the person withdrew, from the very next send.
 
 The audit can be checked for tampering: a separate account writes it, and each entry carries the system's own clock time. <!-- Section 6 additions: tamper-evident audit -->
 
-## Who writes each change to a situation
+## Who is the author of each change to a situation
+
+Every one of these passes through the Situation Registrar, which saves it and sends its notices.
 
 | Change to the situation | Written by |
 |---|---|
@@ -109,7 +116,7 @@ The audit can be checked for tampering: a separate account writes it, and each e
 | An outside system's answer, such as the status-check service's, saved as an arrival on the wait it answers | The conversation manager |
 | A claim another situation's worker sent, saved as an arrival | The conversation manager, handed the claim by the sending worker's fixed code |
 | In an outreach, a person's update, saved as an arrival on the central situation | The conversation manager, handed the update by the person's situation's fixed code |
-| An erasure of a person's data, after the erasure tool's confirmation | Memory and knowledge's cleaner (the one write that removes data from versions) |
+| An erasure of a person's data, after the erasure tool's confirmation | Memory and knowledge's cleaner asks; the Situation Registrar carries it out (the one write that removes data from versions) |
 | A person's answer, including an approver's | The conversation manager |
 | Whether an update is worth telling a person | The conversation manager |
 | After a platform rule changes: one version in each situation with a step pending on that channel | The conversation manager |
@@ -117,6 +124,7 @@ The audit can be checked for tampering: a separate account writes it, and each e
 | Gathered facts and claims, each with its source and time | The situation worker |
 | A conflict between claims | The situation worker |
 | A correction | The situation worker; if the correction came as a message, the conversation manager records the message first |
+| A split, a merge or a reroute, with its reason | The situation worker; the Situation Registrar carries it out, since a worker never writes into another situation |
 | The next step | The situation worker |
 | What should be said | The situation worker |
 | A wait written, refreshed, or ended — including a wait a tool declares; the result of a timer or a check-in; a declared outcome; the work recorded as resolved | The situation worker |
@@ -137,7 +145,8 @@ Some changes must be saved together, in one version: <!-- S4 -->
 - A handoff, pending until the new person accepts it. <!-- IA-14 -->
 - A "Tend cannot know this here" declaration, with its evidence. <!-- O10 -->
 - A closure, with its outcome: one of the eight endings listed in [the situation file](../responsibility_view/the_situation.md). <!-- A6; A9 -->
-- Any wait, with its entry in the book of waits. <!-- decided 2026-10-22: the book of waits -->
+- Any wait, with the version that writes it. Its entry in the business-wide list follows a moment later. <!-- decided 2026-10-22: the book of waits; decided by the owner, 2026-11-04: the registrar -->
+- Every version, with the notices it must send. <!-- decided by the owner, 2026-11-04: the registrar -->
 
 These are the cases found so far. Any further change that must not be seen half-done is added to this list. <!-- S4: the list -->
 
@@ -214,7 +223,7 @@ When more than one label fits, the first one in this table is shown. <!-- closed
 - **A lesson's effect** is checked against old cases. One that makes things worse can be undone: Tend stops presenting it, can restore the previous version, and can name the situations it influenced.
 - **A link** is created, used as context, and removed if its signal was wrong. A relationship based on meaning alone stays unresolved until a signal appears. <!-- A15 -->
 - **A skill or procedure** gets a new version when it changes. A run keeps the skill version it read first; a situation keeps its pinned procedure unless the business owner moves it. <!-- N26 -->
-- **A wait** is written, refreshed, or ended, each time together with its entry in the book of waits. When the situation completes, the situation's check-in is removed, and it never fires again. <!-- HC-3; Section 8 additions: check-in removed; decided 2026-10-22: the book of waits -->
+- **A wait** is written, refreshed, or ended, each time together with its situation's version; the business-wide list follows a moment later. When the situation completes, the situation's check-in is removed, and it never fires again. <!-- HC-3; Section 8 additions: check-in removed; decided 2026-10-22: the book of waits -->
 
 ## What is still provisional
 
