@@ -25,7 +25,7 @@ Status words are the folder's four: Decided, Provisional, Rejected, and Deferred
 | # | The gap | Where it showed up | How it was closed | Status | Backlog |
 |---|---|---|---|---|---|
 | 6 | Which part holds the book of waits | [the parts file](../boundary_view/the_parts.md) | Data kept with the situation records; the worker writes each wait and sets its time signal ([decision 22](../decision_view/the_decisions.md)) | Decided (project owner, 2026-10-22) | Q6 |
-| 7 | What other parts do while the situation record, the situation worker, or the communication layer is down | [situation record](../build_view/situation_record.md), question 12; [communication layer](../build_view/communication_layer.md), question 12 | A rule for each, written in [the parts file](../boundary_view/the_parts.md) | Decided (settled 2026-10-22) | Q7 |
+| 7 | What other parts do while the situation record, the situation worker, or the communication layer is down | [situation record](../build_view/situation_registrar.md), question 12; [communication layer](../build_view/communication_layer.md), question 12 | A rule for each, written in [the parts file](../boundary_view/the_parts.md) | Decided (settled 2026-10-22) | Q7 |
 | 8 | What happens when memory and knowledge cannot be reached and its context is needed for a safe step | [memory and knowledge](../build_view/memory_and_knowledge.md), question 12 | The loop waits a set time for the package; then the step goes to a person (updated 2026-10-28) | Decided (settled 2026-10-22) | Q8 |
 | 9 | Who writes consent records | [communication layer](../build_view/communication_layer.md), question 16 | The communication layer's fixed consent code ([decision 23](../decision_view/the_decisions.md)) | Decided (project owner, 2026-10-22) | Q9 |
 | 10 | How each of the eleven labels the business owner sees is worked out | [the records file](../state_view/the_records.md) | A mapping table, in that file | Decided (settled 2026-10-22) | Q10 |
@@ -107,3 +107,20 @@ These are not gaps in the design. The design holds whatever the values turn out 
 | 31 | Meeting limits, waivers, and expiry rules | [kind 15](../behaviour_view/kind_15_human_commitment.md) | Deferred to configuration | Q31 |
 
 <!-- later files: proposal limits; Level 2 failure: the numbers; Section 7: owner view lag; Level 2 compliance: market values open; Section 8 additions: meeting values -->
+
+## Found on 2026-11-04: nothing creates a business
+
+The project owner asked whether sections 6 to 12 cover creating a business, and people joining it. They cover part of it. **This is Provisional: a real gap, to be designed after the core is built.** The project owner: "I don't think they have to worry about sign in and onboarding at this point."
+
+| What is needed | What the design has today | What is missing |
+|---|---|---|
+| A new owner arrives, and a business comes to exist | "The signup owner" is named as who first holds the configurator role | Nothing creates the business. No part makes its databases, its Worker, or its first settings. No part keeps the list of all businesses |
+| A person chooses to be an owner or an employee | Nothing | The whole choice |
+| An employee joins | Membership exists; the configurator "invites or removes someone"; a channel binding is made through a one-time link | How the invitation works: a link, how it is sent, how long it lasts, and what happens when someone arrives uninvited and must ask to be let in |
+| Sign-in | Decision 25: an outside sign-in provider proves a person; a fresh sign-in within 15 minutes for risky steps | Which provider, and the first-time path |
+| Payment | Decision 15: no free plan; a 14-day trial on the paid plan | Everything that carries it out |
+| A larger business's structure | Research and Level 2: the same engine, with more roles and approval depth, set by configuration | The roles and escalation shapes are not designed for a corporate. The research calls this a hypothesis |
+
+**Rejected on 2026-11-04: a layer for one person across several businesses.** The project owner raised a courier, a contractor and an investor who each deal with several businesses, then answered it himself: each business is reached on its own channel, its own WhatsApp number and its own email. "Tent works inside the business." So they never need one view, and one process seeing another's data is "a compliance nightmare". An owner with several businesses may get a view across them later. That is a future feature, and it is not designed.
+
+**A likely new part.** Configuration works inside one business that already exists. So creating a business is outside it. This suggests an eleventh part, one that sits above all the businesses. Not designed. <!-- decided by the owner, 2026-11-04: the registrar -->
