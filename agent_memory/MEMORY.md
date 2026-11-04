@@ -19,3 +19,4 @@
 - [No Playwright](feedback_no_playwright.md) — never use or install it; browser automation only in a sandbox, after asking; what was removed on 4 Nov, and what remains
 - [Method and mechanism](feedback_explain_method_and_mechanism.md) — say what was done and how, with the real mechanism tied to what he knows; no results alone, no metaphors alone
 - [Delete teaching code](feedback_delete_teaching_code.md) — code written only to teach is deleted once its result is written down; it must not stay for agents to find
+- [No force push](feedback_no_force_push.md) — never rewrite commits already on GitHub or suggest a force push; if history must change, use a new branch

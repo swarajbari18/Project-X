@@ -50,7 +50,7 @@ All of these are in `knowledge_base/product design and engineering learning/`.
 25. `engineering_lesson_08_websockets_from_the_bytes_up.md`: what a WebSocket is, byte by byte.
 26. `engineering_learning_record.md`: what I have shown, what I got wrong, and what the teacher got wrong. Being taught does not count as understanding. Use this to know where to slow down.
 
-That is about 64 files, and about 160,000 tokens.
+That is about 65 files, and about 160,000 tokens.
 
 **E. Read in full only when the plan touches them, and read the whole file when you do**
 
@@ -132,6 +132,7 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 - Never use or install Playwright. Any browser automation must run in a sandbox, and you must ask me first.
 - Never run a command with admin rights. Ask me to do it.
 - Do not push. I push myself.
+- Never rewrite a commit that is already on GitHub, and never suggest a force push. If history must change, use a new branch.
 - Do not spawn subagents unless I ask.
 - Work files live in this project, and never only in a temporary folder.
 - Never write a secret into this repository. It is public.
@@ -142,5 +143,5 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 **Open items that are mine, in case they come up**
 - how to read the isolation audit's "tenant predicate" (conflict 43);
 - the factory's 16 proposals;
-- my push. If the branch shows two incoming commits, they are old copies from before my commits were split across days. Never pull or merge them;
+- my push, onto a new branch and with no force. If a branch shows two incoming commits, they are old copies from before my commits were split across days. Never pull or merge them;
 - removing the copy of Playwright inside the ChatGPT app, which needs my admin rights.

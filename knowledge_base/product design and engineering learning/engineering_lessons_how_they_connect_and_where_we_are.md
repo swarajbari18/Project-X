@@ -153,7 +153,7 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 4. **What creates a business, and how people join it.** Open, and deliberately later.
 
 **Housekeeping.**
-- **Your push.** The branch was rewritten, so it needs `git push --force-with-lease`. Until then, GitHub's two older commits show as incoming. Do not pull or sync them. Your SSH key may still fail. Check github.com/settings/keys.
+- **Your push.** Make a new branch and push that: `git switch -c situation-registrar-plan-1`, then `git push -u origin situation-registrar-plan-1`. No force is needed. Do this before deleting anything, because these commits exist only on this laptop. Do not pull the old branch: on GitHub it holds only two older commits.
 - **The empty days in your commit graph.** Your call. I did not invent commits for days when no work happened.
 - **A pointer at the repository's root,** so other agents find `agent_memory/`. Your call.
 - **`backup/before-splitting-commits`** is a local branch you can delete.
