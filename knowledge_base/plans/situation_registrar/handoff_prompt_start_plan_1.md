@@ -132,6 +132,7 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 - Never use or install Playwright. Any browser automation must run in a sandbox, and you must ask me first.
 - Never run a command with admin rights. Ask me to do it.
 - Do not push. I push myself.
+- Never commit directly to main. All the work so far is on main, so make a new branch from it when you first need to commit.
 - Never rewrite a commit that is already on GitHub, and never suggest a force push. If history must change, use a new branch.
 - Do not spawn subagents unless I ask.
 - Work files live in this project, and never only in a temporary folder.
@@ -143,6 +144,5 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 **Open items that are mine, in case they come up**
 - how to read the isolation audit's "tenant predicate" (conflict 43);
 - the factory's 16 proposals;
-- merging `situation-registrar-plan-1` into main. All this work is on that branch, on GitHub, and it is not on main yet;
 - deleting the old branches `situation-registrar-first-plans` and `backup/before-splitting-commits`. They hold only older copies. Never pull or merge them, and do not delete them yourself unless I ask;
 - removing the copy of Playwright inside the ChatGPT app, which needs my admin rights.

@@ -153,7 +153,7 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 4. **What creates a business, and how people join it.** Open, and deliberately later.
 
 **Housekeeping.**
-- **This work is on GitHub,** on the branch `situation-registrar-plan-1`. It is not on main yet. It sits directly on top of main, so it will merge with no conflicts. The merge is your call.
+- **This work is merged into main,** through a pull request, on 4 November 2026. New work starts on a new branch from main.
 - **Two old branches still need deleting:** `situation-registrar-first-plans`, on GitHub and on this laptop, and `backup/before-splitting-commits`, on this laptop. Claude Code's safety check stopped the assistant deleting them. They hold nothing you need. Do not pull or merge them.
 - **The empty days in your commit graph.** Your call. I did not invent commits for days when no work happened.
 - **A pointer at the repository's root,** so other agents find `agent_memory/`. Your call.
