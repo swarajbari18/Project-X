@@ -55,6 +55,7 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | One upload; how the call arrives decides which part runs; the bundler | Lesson 6, section 4 | Not yet | — | — |
 | `getByName` fetches nothing, and a wrong name makes a new empty object | Lesson 6, section 5 | Not yet | — | — |
 | What local can and cannot prove | Lesson 6, section 8 | Not yet | — | — |
+| Reading a TypeScript class from Python: `extends`, `this`, a method's `()` and `{ }` | Lesson 6, section 11 | Not yet | — | — |
 
 ---
 
@@ -95,6 +96,9 @@ Each of these came up in his own words on 4 November 2026.
 | Node simulates the browser | Same engine, different powers | Lesson 5, section 3 |
 | Python is going down, and experienced developers are leaving | It is growing; the second claim has no evidence I could find | Lesson 5, section 5 |
 | Cloudflare treats Python second because Python is weak at web | Its design runs only JavaScript and WebAssembly | Lesson 5, section 7 |
+| A binding is a simple secret | `env` is key-value, but a binding's value is a live object with methods, and it holds nothing you could print | Lesson 6, section 11 |
+| `getByName` could be called on the class | It belongs to the door. The class is the blueprint for one object | Lesson 6, section 11 |
+| `newestVersion() { }` is a call | It is a method being defined. A class body has no `def` | Lesson 6, section 11 |
 
 **Watch for:** the word "worker" means three things, and this causes confusion (lesson 1, section 1).
 
@@ -107,6 +111,7 @@ Recorded so they are not repeated.
 - **An overstated conclusion.** The teacher said Meera's reply "waits in line" for about 8 minutes during a campaign. The arithmetic was right, but she would not wait that long. Corrected in lesson 1, section 7.
 - **Technical names.** "state" meant nothing to him. He asked for product-minded names, even long ones, as long as they follow technical convention. From lesson 2 on, the examples use them.
 - **Labelled files by role.** The teacher called one file "the Worker" and another "the Durable Object", named an object after a person, and said a Worker could reach nothing outside its bindings. Swaraj: "You lost me at bindings." Those questions exposed all of it. Lesson 6 was rewritten, with each claim tested by breaking the project on purpose.
+- **Simplified too far.** A shortened snippet cut a method's body and hid the `import`, which raised two new questions. Swaraj's instinct about the missing import was right.
 - **Staying current.** The older test plugin and the older `migrations` list had both been replaced. Checking Cloudflare's docs first avoided teaching them.
 - **Agreed too fast.** The teacher proposed a whole new part for people across businesses, and told Swaraj one chat per business was the wrong product. The facts were already in front of it: each business has its own channel. He saw it first. He had asked to be challenged, and he was not.
 - **Overstated a rule.** It said a trustworthy test uses no AI, and also named a simulated story with real AI as a test. He caught it.

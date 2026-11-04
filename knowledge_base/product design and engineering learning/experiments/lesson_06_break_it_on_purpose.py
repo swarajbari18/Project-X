@@ -2,15 +2,17 @@
 
 First run `npm install` inside lesson_06_tiny_cloudflare_project. Then, from this folder:
 
-    python3 lesson_06_break_it_on_purpose.py
+    python3 lesson_06_break_it_on_purpose.py          # every case
+    python3 lesson_06_break_it_on_purpose.py 13 14    # only these cases
 
 It works on throwaway copies, so the project itself is never changed. It sends nothing to Cloudflare.
 """
-import glob, json, os, re, shutil, signal, sqlite3, subprocess, tempfile, time, urllib.error, urllib.request
+import glob, json, os, re, shutil, signal, sqlite3, subprocess, sys, tempfile, time, urllib.error, urllib.request
 
 PROJECT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lesson_06_tiny_cloudflare_project")
 CLEAN_ENV = {**os.environ, "WRANGLER_SEND_METRICS": "false", "NO_COLOR": "1"}
 next_port = [8810]
+ONLY = sys.argv[1:]
 
 GOOD_SAVE_0 = {"builtOnVersion": 0, "writtenBy": "conversation manager", "whatChanged": "Meera wrote"}
 GOOD_SAVE_1 = {"builtOnVersion": 1, "writtenBy": "situation worker", "whatChanged": "the carrier answered"}
@@ -101,11 +103,17 @@ def stop_server(server):
             os.killpg(server.pid, signal.SIGKILL)
 
 
+def chosen(title):
+    return not ONLY or title.split(".")[0] in ONLY
+
+
 def heading(title):
     print(f"\n{'=' * 78}\n{title}\n{'=' * 78}")
 
 
 def run_case(title, change=None, script=None):
+    if not chosen(title):
+        return
     heading(title)
     folder = make_copy(change)
     try:
@@ -270,6 +278,8 @@ def no_doors_at_all(folder):
 
 
 def what_ships():
+    if not chosen("11."):
+        return
     heading("11. WHAT ACTUALLY SHIPS (a dry run: nothing is sent to Cloudflare)")
     folder = make_copy()
     try:
@@ -290,6 +300,8 @@ def what_ships():
 
 
 def survives_a_restart():
+    if not chosen("12."):
+        return
     heading("12. ONE SITUATION IS ONE SQLITE FILE, AND IT SURVIVES A RESTART")
     folder = make_copy()
     try:
@@ -309,6 +321,54 @@ def survives_a_restart():
         shutil.rmtree(folder, ignore_errors=True)
 
 
+def look_at_env(folder):
+    write(folder, ".dev.vars", "A_SECRET=not-a-real-secret\n")
+    replace(folder, "src/front_door.ts", "    // /situations/s-42 gives", """    if (new URL(request.url).pathname === "/look-at-env") {
+      const door = env.SITUATION_REGISTRAR;
+      return new Response([
+        `keys in env:                  ${Object.keys(env).join(", ")}`,
+        `A_SECRET is a:                ${typeof env.A_SECRET}`,
+        `A_SECRET printed:             ${env.A_SECRET}`,
+        `SITUATION_REGISTRAR is a:     ${typeof door}`,
+        `SITUATION_REGISTRAR printed:  ${String(door)}`,
+        `SITUATION_REGISTRAR as JSON:  ${JSON.stringify(door)}`,
+        `its getByName is a:           ${typeof door.getByName}`,
+      ].join("\\n"));
+    }
+    // /situations/s-42 gives""")
+
+
+def print_env(folder, port):
+    with urllib.request.urlopen(f"http://localhost:{port}/look-at-env", timeout=15) as answer:
+        for line in answer.read().decode().splitlines():
+            print("   " + line)
+
+
+DOOR_CALL = "env.SITUATION_REGISTRAR.getByName(situationId)"
+OLD_IMPORT = 'import { SituationRegistrar } from "./situation_registrar";'
+OLD_EXPORT = "export { SituationRegistrar };"
+ONE_LINE_EXPORT = 'export { SituationRegistrar } from "./situation_registrar";'
+
+
+def class_instead_of_door(folder):
+    replace(folder, "src/front_door.ts", DOOR_CALL, "SituationRegistrar.getByName(situationId)")
+
+
+def class_instead_of_door_no_import(folder):
+    class_instead_of_door(folder)
+    replace(folder, "src/front_door.ts", OLD_IMPORT, "")
+    replace(folder, "src/front_door.ts", OLD_EXPORT, ONE_LINE_EXPORT)
+
+
+def door_only_no_import(folder):
+    replace(folder, "src/front_door.ts", OLD_IMPORT, "")
+    replace(folder, "src/front_door.ts", OLD_EXPORT, ONE_LINE_EXPORT)
+
+
+def make_it_with_new(folder):
+    replace(folder, "src/front_door.ts", DOOR_CALL, "new SituationRegistrar({} as DurableObjectState, env)")
+
+
 run_case("0. THE PROJECT AS IT IS", script=normal_story)
 run_case("1. EVERY LINE MOVED INTO ONE FILE, with any name at all", all_in_one_file, normal_story)
 run_case("2. REMOVE  export default { fetch }", no_default_export, one_call)
@@ -324,3 +384,8 @@ run_case("10. NO BINDINGS AT ALL. CAN THE CODE STILL REACH THE PUBLIC INTERNET?"
          lambda folder, port: say(port, "call the fetch code", "/"))
 what_ships()
 survives_a_restart()
+run_case("13. WHAT IS ACTUALLY INSIDE env? A SECRET AND A BINDING, SIDE BY SIDE", look_at_env, print_env)
+run_case("14. CALL getByName ON THE CLASS, WITH THE IMPORT KEPT", class_instead_of_door, one_call)
+run_case("15. CALL getByName ON THE CLASS, WITH NO IMPORT", class_instead_of_door_no_import, one_call)
+run_case("16. NO IMPORT, AND fetch USES ONLY THE DOOR", door_only_no_import, normal_story)
+run_case("17. MAKE THE OBJECT YOURSELF, WITH new", make_it_with_new, one_call)

@@ -455,7 +455,99 @@ function isSaveRequest(value: unknown): value is SaveRequest {
 
 ---
 
-## 11. What a senior would remember
+## 11. Swaraj's questions on reading the code
+
+To run these yourself: `python3 lesson_06_break_it_on_purpose.py 13 14 15 16 17`.
+
+**"Can I read a binding as a simple secret? It's a key-value pair."** Half right. `env` is key-value. But a secret's value is text, and a binding's value is a live object with methods. **Measured:**
+
+```text
+keys in env:                  A_SECRET, SITUATION_REGISTRAR
+A_SECRET is a:                string
+A_SECRET printed:             not-a-real-secret
+SITUATION_REGISTRAR is a:     object
+SITUATION_REGISTRAR printed:  [object DurableObjectNamespace]
+SITUATION_REGISTRAR as JSON:  {}
+its getByName is a:           function
+```
+
+A binding holds no address or password that you could print. That is why `wrangler.jsonc` can sit in your public repo, and `.dev.vars` must never.
+
+**"Could I write `SituationRegistrar.getByName(...)` instead?"** No. **Measured:**
+
+```text
+Type check:  Property 'getByName' does not exist on type 'typeof SituationRegistrar'.
+At run time: TypeError: SituationRegistrar.getByName is not a function
+```
+
+| Thing | What it is | What it offers |
+|---|---|---|
+| `env.SITUATION_REGISTRAR` | The door to all the objects | `getByName` |
+| `SituationRegistrar` | The blueprint for one object | `newestVersion`, `saveNewVersion` |
+
+You cannot build an object yourself either. **Measured,** with `new SituationRegistrar({} as DurableObjectState, env)`:
+
+```text
+TypeError: Failed to construct 'DurableObjectBase': constructor parameter 1 is not of type 'DurableObjectState'.
+```
+
+The type check passed that line, because `as` told the checker a story (lesson 4). Only Cloudflare can supply that first input, which is what holds the object's SQLite.
+
+**"What is `newestVersion() { }`? Why are there curly brackets after the close bracket?"** It is being defined, not called.
+
+```python
+class SituationRegistrar(DurableObject):
+    def newest_version(self) -> int:
+        ...
+```
+
+```typescript
+class SituationRegistrar extends DurableObject {
+  newestVersion(): number {
+    ...
+  }
+}
+```
+
+- `extends DurableObject` is Python's `(DurableObject)`.
+- There is no `def`. Inside a class, a name followed by `()` and `{` defines a method.
+- `()` holds the inputs, and here there are none. `self` is not written, and `this` plays that part.
+- `: number` is Python's `-> int`.
+- `{ }` holds the body, in place of Python's indentation.
+
+The real body:
+
+```typescript
+newestVersion(): number {
+  const row = this.ctx.storage.sql
+    .exec<{ newest: number | null }>("SELECT MAX(version_number) AS newest FROM versions_of_this_situation")
+    .one();
+  return row.newest ?? 0;
+}
+```
+
+It asks this object's own SQLite for the highest version number, and answers 0 if nothing has been saved.
+- `this.ctx.storage.sql` is this object's own SQLite.
+- `.exec<...>(...)` runs the SQL. The `<...>` only tells the checker what the row looks like.
+- `.one()` takes the single row.
+- `row.newest ?? 0` means "if this is empty, use 0". `MAX` over no rows is empty.
+
+**"Don't we have to import the class? Won't it throw 'not defined'?"** Your instinct is right. **Measured,** using the class with no import:
+
+```text
+Type check:  Cannot find name 'SituationRegistrar'.
+At run time: ReferenceError: SituationRegistrar is not defined
+```
+
+But `fetch` never writes the class name. It only writes `env.SITUATION_REGISTRAR`, which Cloudflare passes in. So the real file's `import` is there only so that the file can hand the class to Cloudflare. **Measured:** I replaced the import and the export with this one line, and every result stayed the same:
+
+```typescript
+export { SituationRegistrar } from "./situation_registrar";
+```
+
+---
+
+## 12. What a senior would remember
 
 1. A Worker is the whole package. Front door code and classes are both inside it.
 2. Cloudflare goes by what `main` exports, and not by file names.
