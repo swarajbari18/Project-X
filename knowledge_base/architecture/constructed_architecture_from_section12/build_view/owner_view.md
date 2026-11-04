@@ -20,7 +20,7 @@ Showing the work and carrying messages to customers are different jobs. That rea
 
 **3. What does it do?**
 - Shows the work as things the business owner can open, search, and filter — not as a long chat. <!-- O1 -->
-- Builds each screen from the situation records when asked, and shows when it was last updated. It is never a second copy of the facts: if a screen and the record disagree, the record is right. <!-- O2 -->
+- Builds each screen from the situations' records when asked, and shows when it was last updated. It is never a second copy of the facts: if a screen and the record disagree, the record is right. <!-- O2 -->
 - Explains a step at each person's depth, from the record. <!-- O4 -->
 - Shows the business owner the business's results, such as refunds waiting on a payment provider. It never shows uptime or message counts. Every figure opens to its detail. <!-- O9 -->
 - Shows system health apart from the business's work; the product team's view and the business owner's view differ. <!-- O6 -->

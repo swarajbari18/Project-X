@@ -40,7 +40,7 @@ Every call to the outside world must pass one permission check, and one note of 
 
 **4. What does it never do?**
 - It never decides the next step. <!-- Section 7: tool layer -->
-- It never writes the situation record. What it returns is evidence; the situation worker decides what it means. A wait it hands to the status-check service is declared in its result, and saved by the worker's fixed code. <!-- Section 8: the save protocol; construction record, entry 21: writer question; decided 2026-10-22: the wait a tool declares -->
+- It never writes the situation's record. What it returns is evidence; the situation worker decides what it means. A wait it hands to the status-check service is declared in its result, and saved by the worker's fixed code. <!-- Section 8: the save protocol; construction record, entry 21: writer question; decided 2026-10-22: the wait a tool declares -->
 - It never repeats a step that cannot be undone when its result is unknown. The one exception: after asking the other side for the result and finding it still unknown, it may send the same request again, with the same reference, when the other side can recognise it as a repeat and will not act twice. <!-- Section 8: resend or new start -->
 - It never shows connection codes to the AI. <!-- Section 7 additions: connection codes -->
 - It never reaches a place that is not on the tool's list. <!-- Section 7 additions: destinations -->
@@ -66,7 +66,7 @@ Every call to the outside world must pass one permission check, and one note of 
 
 <!-- Section 7: tool layer; IB-8 -->
 
-The check for an earlier attempt reads the situation record before the note of intent is written, so it never finds its own note. <!-- IB-8: the record check -->
+The check for an earlier attempt reads the situation's record before the note of intent is written, so it never finds its own note. <!-- IB-8: the record check -->
 
 **7. What makes it change, and what makes it grow?**
 
