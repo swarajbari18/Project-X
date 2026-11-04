@@ -46,6 +46,9 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | Reading code for its purpose | Lesson 4, section 5 | **Read:** he named the function's purpose, found the missing await, and questioned `unknown` against `as` | — | — |
 | Building and running are two moments | Lesson 4, section 6 | Not yet | — | — |
 | `unknown` versus `any` | Lesson 4, section 6 | Not yet | — | — |
+| A language, its checker and a validation library are three things | Lesson 5, section 2 | Not yet | — | — |
+| How CPython and V8 run code; the JIT; the GIL; the event loop | Lesson 5, section 3 | Not yet | — | — |
+| Choosing a language by where it must run | Lesson 5, sections 7 and 8 | Not yet | — | — |
 
 ---
 
@@ -55,6 +58,7 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 - **He remembers why a design choice was made.** He explained why the front door is a Worker and the situation worker is a Durable Object, and the record agrees.
 - **He notices what is missing.** He insisted the person-to-situation link "has to be there". It was missing from the views, and he was right.
 - **He drops his own idea when the facts say so.** He worked through a large cross-business idea, then saw for himself that each business's own channel already answers it, and scrapped it.
+- **He refuses to follow fashion.** He asked whether TypeScript's popularity had a real reason, and asked for evidence even on a decision already made.
 - **He catches contradictions.** He saw that lesson 3 banned AI from tests, while naming a simulated story with real AI as a test.
 
 ---
@@ -79,6 +83,11 @@ Each of these came up in his own words on 4 November 2026.
 | Type checking might be switched on or off for an AI's output | No checker exists while running; only a shape check protects there | Lesson 4, section 6 |
 | Reading the version number after saving proves the save worked | Another part could have raised it, and without await the save may not have finished. The save's own answer is the proof | Lesson 4 conversation, 4 November |
 | A carrier's answer is handled inside the book of waits | The tool returns evidence, and the worker saves the claim through the registrar. The book is only a list | Lesson 4 conversation, 4 November |
+
+| Pydantic makes Python enforce types at run time | It checks one moment, when a model is created. Python enforces no hints | Lesson 5, section 2 |
+| Node simulates the browser | Same engine, different powers | Lesson 5, section 3 |
+| Python is going down, and experienced developers are leaving | It is growing; the second claim has no evidence I could find | Lesson 5, section 5 |
+| Cloudflare treats Python second because Python is weak at web | Its design runs only JavaScript and WebAssembly | Lesson 5, section 7 |
 
 **Watch for:** the word "worker" means three things, and this causes confusion (lesson 1, section 1).
 
