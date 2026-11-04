@@ -26,13 +26,13 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 ## Words used here
 
 The parts:
-- The **situation record** is the saved list of versions for one situation. <!-- Section 7: the parts table -->
+- The **Situation Registrar** keeps the saved history of each situation, sends every notice, and keeps the registry of situations and people. It decides nothing. <!-- Section 7: the parts table; decided by the owner, 2026-11-04: the registrar -->
 - The **conversation manager** does four things: it takes in each arrival; it puts the arrival on the right situation; it decides whether a person should hear an update; and it alone sets a situation to completed. Its **intake step** is the fixed first step that reads each new arrival. An **arrival** is anything that comes in from outside: a person's message, an outside system's answer, a platform's news. <!-- Section 7: the parts table; decided 2026-10-22: the status-check answer -->
 - The **situation worker** works one situation through the **situation loop**: understanding what is new, gathering, weighing evidence, deciding, acting; and it writes what Tend concludes. <!-- Section 7: the parts table; PL-1 -->
 - The **communication layer** checks, sends, and records each message, and keeps the consent records. <!-- Section 7: the parts table; decided 2026-10-22: consent records -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier (the delivery company), or a messaging channel. <!-- Section 7: tool layer -->
 - The **status-check service** waits on an outside system while the work goes on. <!-- decided by the owner, 2026-10-17 -->
-- **Memory and knowledge** runs beside every loop. Before each stage that reasons, it hands that stage a **package**: knowledge to use, or an explicit empty answer. It keeps the links between situations, and what Tend learned. <!-- Section 7: memory and knowledge -->
+- **Memory and knowledge** runs beside every loop. Before each stage that reasons, it hands that stage a **package**: knowledge to use, or an explicit empty answer. It decides the links between situations, and what Tend learned. <!-- Section 7: memory and knowledge -->
 - **Configuration** holds the business's settings, permissions, and members. The **configurator** — the business owner, or someone the business owner names — changes them, through fixed tools. <!-- Section 7: configuration; decided 2026-10-22: identity and permission -->
 - The **owner view** builds the screens people open. <!-- Section 7: the parts table -->
 - **Improvement** is how the product team makes Tend behave better for every business, from records of past runs. <!-- Section 7: improvement -->
@@ -46,7 +46,7 @@ The other words:
 - **The AI** writes a **reasoning artifact** in the stages that reason; in deciding, it proposes a next step, called a **proposal**. **Fixed code** (code that always makes the same check) checks it. The AI never decides alone, and never decides to continue. <!-- Level 2 security: the spine; PL-1 -->
 - Tend's **product loop** is four loops made of **stages** (added 2026-10-29): the **arrival loop** (the conversation manager: intake, understanding the arrival, routing), the **situation loop** (the worker), the **update loop** (the update decision), and the **message loop** (the communication layer). A stage with nothing to do is passed; a stage's finding may end the loop. <!-- PL-1 -->
 - **Understanding the arrival** is the conversation manager's one AI stage. It writes an **understanding artifact** before anything acts on an arrival: each ask and whether it is about the business, what each refers to, what Tend already holds that answers it, and where each ask fits. **Routing** is the fixed code that carries it out. <!-- PL-3; PL-6 -->
-- A **wait** is a pause on a situation until one named thing happens. The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A **time signal** is the alarm the worker sets for one wait's due time; it wakes only the worker. A **check-in** is the one regular wake each waiting situation gets, in case an earlier wake was lost. A **follow-up** is a message Tend has planned to send later, held as a wait. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- A **wait** is a pause on a situation until one named thing happens. The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A **time signal** is the alarm the worker sets for one wait's due time; it wakes only the worker. A **check-in** is the one regular wake each waiting situation gets, in case an earlier wake was lost. A **follow-up** is a message Tend has planned to send later, held as a wait. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat. <!-- L1 -->
 - **Evidence** is what an outside system said, with its source and time. <!-- IB-7 -->
 - "**Tend cannot know this here**" means no system and no person can answer a question. <!-- O10 -->
@@ -92,7 +92,7 @@ The people in the examples: Meera, Priya and Arjun are customers. Kabir is the b
 | 17 | One instruction for many people | A list of people | One situation per person, and one central situation linked to all of them |
 | 18 | A person withdraws consent | "STOP", or "stop contacting me" | What was withdrawn stops, from the very next send |
 | 19 | Traces go to memory and knowledge, improvement, and the observer | A run's trace is saved | Lessons learned later; no situation changed |
-| 20 | Memory and knowledge creates a link, or proposes a setting | A shared number in two situations' records; a candidate setting in past work | A link, as memory and knowledge's own record; a setting checked by the configurator |
+| 20 | Memory and knowledge creates a link, or proposes a setting | A shared number in two situations' records; a candidate setting in past work | A link, saved by the Situation Registrar; a setting checked by the configurator |
 | 21 | A setting or a rule changes | A new setting or platform rule | Open situations affected only as the kind of change allows; after a platform rule change, the affected situations are woken at once |
 | 22 | The business owner opens a screen | Someone asks to see the work | A screen built fresh from the records |
 | 23 | The observer reports | Its own checks | The product team's screens |
@@ -108,29 +108,29 @@ Each row is one hand-off: who passes what to whom. This is the common route; the
 | From | To | What passes |
 |---|---|---|
 | A person or system | Conversation manager | An arrival |
-| Conversation manager | Situation record | A new version, with what came in |
-| Situation record | Situation worker | A notice |
+| Conversation manager | Situation Registrar | A new version, with what came in |
+| Situation Registrar | Situation worker | A notice |
 | A time signal the worker set | Situation worker | A due time or a check-in |
 | Conversation manager, situation worker, communication layer | Memory and knowledge | At each point, what the loop holds: the arrival, the situation and version, the reasoning artifact just produced; and what each stage that is fixed code did, for it to observe |
 | Memory and knowledge | Conversation manager, situation worker, communication layer | A package before each stage that reasons |
-| Situation record | Memory and knowledge | Each version's notice, for links, indexes and learning |
+| Situation Registrar | Memory and knowledge | Each version's notice, for links, indexes and learning |
 | Situation worker | Tool layer | A read from gathering's information plan, or a checked call from acting |
 | Tool layer | Trusted permission store | A read at the moment of the check; only configuration writes this store |
 | Tool layer | Outside system | One call |
 | Tool layer | Situation worker | Evidence |
 | Tool layer | Situation worker | A declared wait, when the tool hands off the waiting |
-| Situation record | Status-check service | The saved wait's notice; the service reads the wait from the book of waits |
+| Situation Registrar | Status-check service | The saved wait's notice; the service reads the wait from the situation the notice names |
 | Status-check service | Tool layer | An ask, when the service decides to ask |
 | Status-check service | Conversation manager | Its answer, as an event addressed to its wait |
-| Conversation manager | Situation record | The answer, saved as an arrival |
-| Situation worker | Situation record | What Tend concludes, as a new version |
-| Situation record | Conversation manager | A notice |
+| Conversation manager | Situation Registrar | The answer, saved as an arrival |
+| Situation worker | Situation Registrar | What Tend concludes, as a new version |
+| Situation Registrar | Conversation manager | A notice |
 | Conversation manager | Communication layer | Worth telling: the update decision, recorded, asking it to send what the worker saved; or a reply decision, saved with an arrival |
 | Communication layer | Tool layer | The send |
 | Communication layer | A person | A checked message |
 | A run's trace | Memory and knowledge, improvement, observer | Later, in the background |
 | Memory and knowledge | Configurator | A proposed setting |
-| Owner view | Situation record | A read, when someone asks |
+| Owner view | Situation Registrar | A read, when someone asks |
 
 <!-- IB-15; IB-18; Section 7: how the two parts work together; Section 8: which change starts which part; AC-4; M4; IB-12; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer -->
 
@@ -447,10 +447,10 @@ Traces for improving the product go only with the business's written permission.
 ## 20. Memory and knowledge creates a link, or proposes a setting
 
 - **Starts it:** a version notice shows the same order number, tracking number or incident code in typed fields of two situations, taken from an outside system's record or a person's confirmed answer; or memory and knowledge finds a candidate setting in past work. <!-- A15; IB-18; N13 -->
-- **Goes to:** a link is created by memory and knowledge's link keeper. A setting goes to the configurator. <!-- A15; IB-13 -->
+- **Goes to:** a link is made by memory and knowledge's link keeper, and the Situation Registrar stores it. A setting goes to the configurator. <!-- A15; IB-13 -->
 - **Carries:** the link's two situations, its reason and its type; or the candidate setting, with where it came from. <!-- A15; N5 -->
 - **Decides:** fixed rules decide the link. A link is made on a signal: a shared number or incident code from records, an employee's word, or a finding while gathering. The link keeper (memory and knowledge's fixed background part for links) makes it once per key. A relationship based on meaning alone, proposed by the link finder (memory and knowledge's AI background part that notices situations that sound alike), stays unresolved until a signal appears. The configurator checks a setting. <!-- A15; IB-13 -->
-- **Changes:** the link is memory and knowledge's own record; no situation changes. Only the configuration tools apply a setting. <!-- A15; IB-13 -->
+- **Changes:** the link is saved in the registry; no situation changes, and no part is woken. Only the configuration tools apply a setting. <!-- A15; IB-13 -->
 - **If it fails:** a link whose signal turns out wrong is removed; an employee who may see both situations may remove any link; each removal is recorded with its author. A lesson never widens a grant. <!-- A15; Section 8 anti-patterns: a lesson widens a grant -->
 - **Comes back:** the link appears in each situation's next package, as context. What it means for each situation is that situation's worker's judgment. A link never carries a change.
 
@@ -544,7 +544,7 @@ For example, Priya asks for a meeting. The central situation records it, and the
 - **Goes to:** the tool layer, which runs the erasure tool. <!-- IB-19 -->
 - **Carries:** whose data, and the reason.
 - **Decides:** the erasure tool's confirmation rule sends the request, through the communication layer, to the business owner or the configurator. Nothing is erased until their yes. <!-- U7; IB-19 -->
-- **Changes:** after the yes, memory and knowledge's cleaner (its background part for erasures) erases the person's data everywhere it lives: <!-- U7; IB-19 -->
+- **Changes:** after the yes, memory and knowledge's cleaner (its background part for erasures) erases the person's data everywhere it lives, asking the Situation Registrar to carry it out in situations and the registry: <!-- U7; IB-19 -->
   - the person record and their channel addresses;
   - every index;
   - learned items whose only source is them;
@@ -570,6 +570,16 @@ For example, Priya asks for a meeting. The central situation records it, and the
 - **Comes back:** nothing to any situation.
 
 For example, a new number writes "hi". Tend answers "Hi! How can I help you today?", and nothing else exists afterwards but the two messages in that person's history.
+
+## 28. The Situation Registrar sends a notice
+
+- **Starts it:** any version is saved. <!-- decided by the owner, 2026-11-04: the registrar -->
+- **Goes to:** the parts a fixed table names for that kind of change. The full table is in [the Situation Registrar's file](../build_view/situation_registrar.md), question 8. A writer never hears about its own write.
+- **Carries:** which situation, which version, what kind of change, and the message's tracking number.
+- **Decides:** nothing. The table reads typed fields the writer set, never what a message means.
+- **Changes:** nothing; the notices were saved with the version.
+- **If it fails:** the Situation Registrar tries again until the notice is delivered. A notice can arrive twice, and the second does nothing. If the writer dies right after saving, the notice still goes out.
+- **Comes back:** whatever the woken part writes next.
 
 ## When two things happen at once
 

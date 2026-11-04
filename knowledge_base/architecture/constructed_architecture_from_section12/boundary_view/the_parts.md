@@ -51,11 +51,11 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 - A **capability** is one action the business has switched on, such as checking where a delivery is. <!-- P1 -->
 - A **run** is one pass of the situation worker over one situation. <!-- S1 -->
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat. <!-- L1 -->
-- A **link** is a recorded connection between two situations, such as two problems on the same order. Memory and knowledge creates and keeps links, as its own records. <!-- A3; A15 -->
+- A **link** is a recorded connection between two situations, such as two problems on the same order. Memory and knowledge decides links, and the Situation Registrar stores them. <!-- A3; A15 -->
 - A **package** is what memory and knowledge hands a part of a loop before that part runs: knowledge to use, or an explicit empty answer. <!-- N19 -->
 - To **escalate** is to pass work to the next person on the business's own list, when it is not done. <!-- J5 -->
 - **Compliance settings** are the business's legal and platform rules for each country or region it works in. <!-- Section 7 additions: compliance settings -->
-- A **design reading** (written "the design's reading") is something the design inferred where nobody had written a rule. It is not the conversation manager's reading of an arrival. The project owner accepted every design reading in this file on 2026-10-22. <!-- change drivers: situation record -->
+- A **design reading** (written "the design's reading") is something the design inferred where nobody had written a rule. It is not the conversation manager's reading of an arrival. The project owner accepted every design reading in this file on 2026-10-22. <!-- change drivers: situation registrar -->
 - Tend's **product loop** is four loops, each made of **stages**: the **arrival loop** (the conversation manager: intake, understanding the arrival, routing), the **situation loop** (the situation worker: understanding the situation, gathering, weighing evidence, deciding, acting), the **update loop** (the conversation manager's update decision), and the **message loop** (the communication layer). A stage is a component of a loop, not a part: it runs inside one of the ten parts. Any stage may be passed when it has nothing to do, or end the loop when its finding makes the rest pointless; fixed code chooses. (Added 2026-10-29; the Level 2 page is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md).) <!-- PL-1 -->
 - The **understanding artifact** is what understanding the arrival writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. Until later on 2026-10-29 it was called the **reading**; the status label "the design's reading" is a different thing. <!-- PL-3 -->
 - A step's **boundary** is the set of records it may be shown to act on, set by fixed code: for understanding the arrival (and so routing), the sender's own records; for the worker, its own situation in full, and other situations' typed fields where the worker view rule allows. The business's own knowledge (events, words, procedures, lessons) is not limited by it. A person's **view** is what that person may see, and so what they may be told. (Added 2026-10-29.)
@@ -79,7 +79,7 @@ This file says what each part does. It does not say what software builds it; tha
 
 | Part | Its job | What it must never do |
 |---|---|---|
-| Situation record | The saved history of one problem, kept as a list of versions; the book of waits is kept with these records | Rewrite an old version |
+| Situation Registrar | Keeps each problem's saved history as a list of versions, with the book of waits; sends every notice; keeps the registry of situations and people; writes what other parts decide about them | Decide or judge anything; rewrite an old version |
 | Situation worker | Works one problem through the situation loop (understanding, gathering, weighing evidence, deciding, acting), and writes what Tend concludes | Send a message; set a situation to completed |
 | Conversation manager | Takes each arrival and understands it (its one AI stage); answers it, keeps it, or places it on the right problem by fixed code; decides whether a person should hear an update; sets completed | Decide the next step for the problem |
 | Communication layer | Shapes, checks, sends, and records each message; keeps the consent records | Decide what to say |
@@ -100,41 +100,49 @@ The conversation manager holds three things: the intake step, the situation work
 
 The tool layer is outside the conversation manager. <!-- decided by the owner, 2026-10-10: what the conversation manager contains -->
 
-The situation record only holds the history. The other nine act. <!-- Section 11 §5: the parts table -->
+The Situation Registrar holds the history and delivers the notices, and decides nothing. The other nine decide or act. <!-- Section 11 §5: the parts table -->
 
-The intake step and the situation worker never call each other directly. One writes a version of the situation; its notice wakes the other, which reads it. The situation record, and its notices, are the only connection between them. <!-- Section 7: the parts never call each other -->
+The intake step and the situation worker never call each other directly. One writes a version of the situation; its notice wakes the other, which reads it. The Situation Registrar, and its notices, are the only connection between them. <!-- Section 7: the parts never call each other -->
 
 The worker reaches outside systems only through the tool layer. The tool layer returns what it found to the worker as evidence. <!-- IB-7 -->
 
 For example, Meera, a customer of the business, writes "Where is my parcel?":
-1. The conversation manager matches her message to her open parcel situation, and saves it there as a new version. Saving that version sends a notice.
+1. The conversation manager matches her message to her open parcel situation, and saves it there as a new version. The Situation Registrar then sends a notice.
 2. The notice wakes the situation worker. It decides to ask the carrier, the delivery company. The permission check says Allow, and the tool layer asks. The carrier answers "out for delivery, due Tuesday". The worker saves that answer as a new version.
 3. That version's notice wakes the conversation manager. It decides Meera should hear this now, because she asked and the answer is in.
 4. The communication layer runs its send check — its check before each message goes out — sends Meera "Your parcel is out for delivery, due Tuesday", and records what it sent.
 
 <!-- Section 7: how the two parts work together -->
 
-## 1. The situation record
+## 1. The Situation Registrar
 
-**What it is.** The saved history of one problem, kept as a list of versions. <!-- Section 11 §5: the parts table -->
+Older files call this part the situation record.
 
-**What it does.** It keeps each problem as one record, with its whole history. Each version can be read on its own. <!-- A1 -->
+**What it is.** Each problem's saved history, kept as a list of versions, and the door every write to a situation passes through. <!-- Section 11 §5: the parts table; decided by the owner, 2026-11-04: the registrar -->
 
-**What it owns.** The versions of each situation, its outcome when it closes — one of the eight endings listed in [the situation file](../responsibility_view/the_situation.md) — and its state. <!-- A1; A3; states: liveness -->
+**What it does.**
+- It keeps each problem as one record, with its whole history. Each version can be read on its own. <!-- A1 -->
+- It sends every notice, by a fixed table, and tries again until each is delivered.
+- It keeps the registry: every situation, every person, and who is in what.
+- It writes the links, splits and merges other parts decide.
 
-Kept with the situation records is the **book of waits**: one shared table of every open wait that may outlast its run, across all situations. A wait that begins and ends inside one run is not written there; any wait that may outlast the run is. A wait enters the book in the same save that writes it, and leaves in the save that ends it, so the book and the situations cannot disagree. The book is data; nothing in it acts. <!-- decided 2026-10-22: the book of waits -->
+<!-- decided by the owner, 2026-11-04: the registrar -->
 
-**What it may decide.** Nothing. The conversation manager and the situation worker write to the situation record, each only its own kinds of change; only the situation worker writes the book of waits. <!-- Section 8: two writers, one record -->
+**What it owns.** The versions of each situation, its outcome when it closes — one of the eight endings listed in [the situation file](../responsibility_view/the_situation.md) — and its state; the registry; the links; the notices not yet delivered. <!-- A1; A3; states: liveness; decided by the owner, 2026-11-04: the registrar -->
+
+It also keeps the **book of waits**: every open wait that may outlast its run, across a business's situations. A wait that begins and ends inside one run is not written there; any wait that may outlast the run is. A wait is saved with its situation's version. The business-wide list is updated a moment later, and can be rebuilt from the situations. <!-- decided 2026-10-22: the book of waits; decided by the owner, 2026-11-04: the registrar -->
+
+**What it may decide.** Nothing. It refuses only what a fixed table can answer: a wrong shape, an out-of-date version, an author who may not make that change, or a missing partner such as a closure with no outcome. It never asks why. <!-- Section 8: two writers, one record; decided by the owner, 2026-11-04: the registrar -->
 
 **What lies outside it.** It never rewrites an old version. A correction is a new version, and the old one stays as history. <!-- HC-1 -->
 
 It never becomes the truth about another system's facts. The carrier's tracking data stays with the carrier; the record keeps what Tend was told, with its source and time. <!-- Level 1: does not own other systems' facts; E1 -->
 
-It never sets an alarm or wakes anyone. The situation worker sets each time signal. <!-- Section 7: the record does not act; decided 2026-10-22: the book of waits -->
+It never sets a wait's alarm. The situation worker sets each time signal. It never takes a write from outside Tend: outside events pass the intake step or the tool layer first. <!-- decided 2026-10-22: the book of waits; Section 7: HC-2; decided by the owner, 2026-11-04: the registrar -->
 
-**What would make it change.** The business needs the record to remember a kind of fact about a problem that it has no place for today, such as a new kind of claim. This is the design's reading. <!-- change drivers: situation record -->
+**What would make it change.** The business needs the record to remember a kind of fact about a problem that it has no place for today, such as a new kind of claim, or a new part needs to hear about a kind of change. This is the design's reading. <!-- change drivers: situation registrar; decided by the owner, 2026-11-04: the registrar -->
 
-**Why it stays separate.** Two parts write to it: the conversation manager writes what comes in, and the situation worker writes what Tend concludes. Each part's news reaches the other through it. So it belongs to neither writer alone. <!-- Section 8: two writers, one record; Section 7: the parts never call each other -->
+**Why it stays separate.** The conversation manager, the situation worker and memory and knowledge all write through it, and each part's news reaches the others through it. So it belongs to none of them alone. <!-- Section 8: two writers, one record; Section 7: the parts never call each other; decided by the owner, 2026-11-04: the registrar -->
 
 **When it is down.** No step is taken that cannot be saved. Arrivals are held where they came in until they can be saved; nothing is sent; no decision is made. When work is interrupted — by a crash, a restart, or an update to Tend — each situation is rebuilt from its newest saved version and continues; it does not start over. Every time signal is set again from the book of waits. <!-- H6; settled 2026-10-22: part outages -->
 
@@ -278,7 +286,7 @@ It writes no version of a situation. <!-- Section 8: the save protocol -->
 
 **What lies outside it.** <!-- Section 7: tool layer; Section 8: resend or new start -->
 - It never decides the next step.
-- It never writes the situation record. What it returns is evidence; the situation worker decides what it means.
+- It never writes the situation's record. What it returns is evidence; the situation worker decides what it means.
 - It never repeats a step that cannot be undone on an unknown result. It first asks the other side for the result. Only if the result is still unknown, and the other side recognises the same reference, may it send the same request again with that reference. No other repeat is made.
 - It asks an outside system for news at most five times for one wait, and only where it knows how fast that system usually answers. A business may set its own number. Then it hands the waiting to the status-check service, and its result declares the wait. <!-- M5; settled 2026-10-22: the five per wait; decided 2026-10-22: the wait a tool declares -->
 
@@ -302,7 +310,7 @@ It decides **when** to ask. The tool layer makes each ask, as the same tool's re
 
 **What it owns.** Nothing in any situation. When the answer comes, it sends it as an event, naming the wait it answers and the outside system's own reference. The intake step saves it as an arrival; the arrival's notice wakes the situation worker. The service's asking never wakes a situation; only its answer does. <!-- decided 2026-10-22: the status-check answer; construction record, entry 21: asking does not wake -->
 
-It learns of each wait it must serve from that wait's notice, and reads the wait from the book of waits. It keeps its own **record of asks**: for each wait it serves, how many asks it has made and when it may ask next — like the tool layer's record of its tries. It is not a list of what situations wait for: it is never used to match an arrival, it is rebuilt from the book of waits after a restart, and it decides nothing about any situation. <!-- settled 2026-10-22: the service's own list -->
+It learns of each wait it must serve from that wait's notice, and reads the wait from the situation the notice names. It keeps its own **record of asks**: for each wait it serves, how many asks it has made and when it may ask next — like the tool layer's record of its tries. It is not a list of what situations wait for: it is never used to match an arrival, it is rebuilt from the book of waits after a restart, and it decides nothing about any situation. <!-- settled 2026-10-22: the service's own list -->
 
 **What it may decide.** Nothing about any situation. It decides only when to ask, within its limits. <!-- Section 11 §5: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 
@@ -336,14 +344,14 @@ For example, Tend's refund for order 9912 is waiting for the payment provider. T
 - Carries out an erasure the erasure tool has confirmed.
 
 **What it owns.** <!-- Section 7: memory and knowledge -->
-- Links between situations, as its own records.
+- Which situations are linked. It decides this, and the Situation Registrar stores the links.
 - Learned items: lessons, business words, business events, learned subjects, and the candidates for settings it proposes. The business owns its knowledge.
 - Skills and procedures, versioned.
 - Its indexes, and its record of what it presented at each point.
 - Its own record of experience: what it presented, what was used, and what it learned.
 - The templates that put together Tend's instructions for each step. Improvement may edit these, within set limits.
 
-It writes no situation record, except when it carries out a confirmed erasure. <!-- N33; U7 -->
+It writes nothing into a situation, except when it carries out a confirmed erasure. <!-- N33; U7 -->
 
 **What it may decide.** What to look for, and how to arrange what it found. Nothing about the work: it never chooses between candidates, chooses the next step, or says a claim is true. Its links follow fixed rules: a shared number or incident code from records makes a link; a shared meaning alone stays unresolved until a signal. <!-- N20; A15 -->
 
@@ -468,14 +476,14 @@ Time, failure, and security are not parts either. Each one touches every part, s
 
 | Responsibility | Owning part |
 |---|---|
-| 1. One record per problem | Situation record; the conversation manager sets completed |
+| 1. One record per problem | Situation Registrar; the conversation manager sets completed |
 | 2. Routing | Conversation manager: routing, fixed code that carries out the understanding artifact |
 | 3. Understanding | Conversation manager: understanding the arrival, its one AI stage; situation worker: understanding the situation, when there is something new to place |
 | 4. Gathering | Situation worker's gathering stage, by its information plan, through the tool layer and memory and knowledge's retrieval |
 | 5. Weighing evidence | Situation worker's weighing stage: fixed code treating conflicts by the business's rules |
 | 6. Choosing the next step | Situation worker's deciding stage |
 | 7. Permission | The fixed check in the tool layer and the communication layer; configuration writes its store, its memberships, and its channel bindings |
-| 8. Time and waiting | Situation worker writes every wait, including those a tool declares, and sets each time signal; the book of waits is kept with the situation records; the status-check service waits on outside systems |
+| 8. Time and waiting | Situation worker writes every wait, including those a tool declares, and sets each time signal; the book of waits is kept by the Situation Registrar; the status-check service waits on outside systems |
 | 9. People | Situation worker creates the work; the communication layer sends it; the conversation manager records the answer |
 | 10. Meetings and partners | Situation worker; the communication layer contacts the partner |
 | 11. Communicating | Conversation manager decides whether to tell; communication layer sends |
@@ -523,7 +531,8 @@ Each of these was weighed and turned down on purpose: <!-- Section 7 archive: re
 - **Rejected:** a tool writing its result into the situation as truth. A tool returns evidence; the situation worker decides what it means.
 - **Rejected:** one part for each group of responsibilities. That would make many small parts that must constantly coordinate.
 - **Rejected:** a second writer of a situation's conclusions. A reply and the cancelling of the wait it answers must be saved together, in one version, by one writer.
-- **Rejected:** a separate timekeeper part to hold the book of waits, or the status-check service holding it. The book is data kept with the situation records. <!-- decided 2026-10-22: the book of waits -->
+- **Rejected (2026-11-04):** each writer sending its own notices. A writer that dies right after saving could not try again, and every writer would have to know who listens. <!-- decided by the owner, 2026-11-04: the registrar -->
+- **Rejected:** a separate timekeeper part to hold the book of waits, or the status-check service holding it. The book is data kept by the Situation Registrar. <!-- decided 2026-10-22: the book of waits -->
 - **Rejected:** a separate part for consent. The communication layer keeps the consent records; a part of its own becomes the path only if Tend connects to a registered consent manager. <!-- decided 2026-10-22: consent records -->
 - **Rejected:** a second way out of Tend for the status-check service. Its asks go through the tool layer. <!-- decided 2026-10-22: the service calls through the tool layer -->
 
