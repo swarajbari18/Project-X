@@ -520,15 +520,15 @@ Each part writes only its own kind of change: <!-- Section 7 writer table: who w
 - **The situation worker** writes what Tend concludes: gathered facts, conflicts, corrections, the next step, what should be said, waits, outcomes, work for a person, and a claim it decides to send to another situation, which reaches that situation only as an arrival through intake. <!-- Section 7 writer table: who writes what -->
 - **The communication layer** writes its own record of what was sent, and any delivery receipt. That record is not a version of the situation. <!-- Section 7 writer table: who writes what -->
 - **The tool layer** writes the state of its tries, and keeps each business's connection codes. <!-- Section 7: tool layer writes -->
-- **Memory and knowledge** creates and maintains the links between situations, as its own records, and writes no situation record except a confirmed erasure. It never records a fact as true on its own. <!-- Section 7 writer table: who writes what -->
+- **Memory and knowledge** creates and maintains the links between situations, which the Situation Registrar stores, and writes nothing into a situation. It never records a fact as true on its own. <!-- Section 7 writer table: who writes what -->
 - **Only the configurator's fixed tools** write grants and the business's settings, including its compliance settings. <!-- G7; Section 7 additions: compliance settings -->
 - **The product team** writes the list of tools and the test cases. <!-- U5; Level 2 security: the corpus is re-run -->
 - **The communication layer's fixed consent code** is the only writer of consent records; the AI never writes them. <!-- decided 2026-10-22: consent records -->
-- **The situation worker** adds each wait to the book of waits in the same save that writes the wait, and removes it in the save that ends it. <!-- decided 2026-10-22: the book of waits -->
+- **The situation worker** writes each wait with its situation's version, and ends it the same way; the book's business-wide list follows a moment later. <!-- decided 2026-10-22: the book of waits -->
 - **The conversation manager**, after a platform rule change, writes one version into each situation with a step pending on that channel. <!-- decided 2026-10-22: platform rule wake -->
 - **Configuration's fixed tools** write memberships and channel bindings. <!-- decided 2026-10-22: identity and permission -->
 
-When a tool hands a wait to the status-check service, the tool declares the wait, and the situation worker's fixed code saves it. The tool layer writes no situation record. <!-- construction record, entry 21: writer question; decided 2026-10-22: the wait a tool declares -->
+When a tool hands a wait to the status-check service, the tool declares the wait, and the situation worker's fixed code saves it. The tool layer writes nothing into a situation. <!-- construction record, entry 21: writer question; decided 2026-10-22: the wait a tool declares -->
 
 ## What this responsibility refuses
 

@@ -23,14 +23,14 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 ## The parts that do the work
 
 A **part** is a piece of Tend that does some of these jobs. One part can hold several responsibilities. There are ten parts; the intake step, listed below with them, is a step inside the conversation manager, not a part of its own. The parts are described in full in [the parts file](../boundary_view/the_parts.md).
-- The **situation record** is the saved history of one situation, kept as a list of versions. It acts on nothing itself. <!-- Section 7: the parts -->
+- The **Situation Registrar** keeps the saved history of each situation, as a list of versions. It sends every notice, keeps the registry of situations and people, and decides nothing. Older files call it the situation record. <!-- Section 7: the parts; decided by the owner, 2026-11-04: the registrar -->
 - The **conversation manager** reacts when something happens. It records each incoming message, decides whether a change is worth telling a person, and alone sets a situation to completed. It holds three smaller parts: the intake step, the situation worker, and the communication layer. <!-- Section 7: the parts; decided by the owner, 2026-10-10: what the conversation manager contains -->
 - The **intake step** is the fixed step inside the conversation manager that reads each new message as it arrives. <!-- Section 7: the parts -->
 - The **situation worker** reasons about one situation: it gathers what is needed, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts -->
 - The **communication layer** checks, sends, and records each message. <!-- Section 7: the parts -->
 - The **tool layer** is the only way Tend calls an outside system. It checks permission before every call. <!-- Section 7: the parts -->
 - The **status-check service** waits on a slow outside system and asks it for news, through the tool layer. Its answer comes back as an arrival (an arrival is anything that comes in from outside — a message, an outside system's answer — saved as a new version) on the wait it answers. <!-- Section 7: the parts; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer -->
-- **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a package of what it needs to know. It keeps the links between situations, skills and procedures, and what Tend learned. It decides nothing, and writes no situation record except an erasure the erasure tool has confirmed. <!-- Section 7: the parts; N19; A15; U7 -->
+- **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a package of what it needs to know. It decides the links between situations, skills and procedures, and what Tend learned. It decides nothing, and writes nothing into a situation except an erasure the erasure tool has confirmed. <!-- Section 7: the parts; N19; A15; U7 -->
 - **Configuration** holds the business's settings and grants. Only the configurator's fixed tools write to it. <!-- Section 7: the parts -->
 - The **owner view** builds the screens people open, from the saved records. It writes nothing. <!-- Section 7: the parts -->
 - **Improvement** is how the product team makes Tend behave better, for every business. It never changes a business rule. <!-- Section 7: the parts -->
@@ -40,7 +40,7 @@ A **part** is a piece of Tend that does some of these jobs. One part can hold se
 
 - **The AI** suggests the next step. **Fixed code** is code that always makes the same check. The AI never decides alone. <!-- Level 2 security: the spine -->
 - A **claim** is one statement from one source, with a time, such as the carrier's record "Shipment 8821 was delivered at 14:05". <!-- E1 -->
-- A **wait** is a pause on a situation until one named thing happens. Its **limit** is the longest the wait may honestly last. The **book of waits** lists every open wait that may outlast a run, and what will end it; it is data kept with the situation records. <!-- H2; H8; decided 2026-10-22: the book of waits -->
+- A **wait** is a pause on a situation until one named thing happens. Its **limit** is the longest the wait may honestly last. The **book of waits** lists every open wait that may outlast a run, and what will end it; it is data kept by the Situation Registrar. <!-- H2; H8; decided 2026-10-22: the book of waits -->
 - A **wake** is a signal that sends the situation worker back to one situation: a saved version's notice, a time signal, or the check-in. A **check-in** is the one regular wake each waiting situation gets, in case an earlier wake was lost. <!-- Level 2 time: the only regular wake --> A repeated job the business sets, such as reviewing stuck orders every morning, is its own situation, with a repeating wait; it wakes only itself. <!-- closed item: repeated jobs -->
 - A situation is **blocked** when no safe step is left and no one is left to escalate to. It then waits for a person. <!-- Section 8 states -->
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat. <!-- L1 -->
@@ -74,12 +74,12 @@ Told in full in [the situation file](the_situation.md).
 - **Outcome:** every problem has exactly one record. Every change is a new version; nothing is rewritten. <!-- A1 -->
 - **Takes in:** what arrives from any channel, any system, or time passing. <!-- B1 -->
 - **Passes on:** the newest version, which every part reads from; only the conversation manager and the situation worker write to it. <!-- Section 7: the parts never call each other -->
-- **Keeps:** the situation's versions, its links to other situations, and its state: running, waiting, blocked, or completed. <!-- A3; states: liveness -->
+- **Keeps:** the situation's versions, its state (running, waiting, blocked, or completed), the registry of situations and people, and the links memory and knowledge decides. <!-- A3; states: liveness -->
 - **Decides:**
   - The situation worker sets waiting or blocked.
   - Only the conversation manager sets completed, and only when no wait is open and the last message has gone out. <!-- decided by the owner, 2026-10-12 -->
   - Understanding the arrival decides whether a message reopens a closed situation; routing carries it out. <!-- A8; PL-3 -->
-- **Done by:** the conversation manager and the situation worker, each writing into the situation record. <!-- Section 7 writer table: who writes what -->
+- **Done by:** the conversation manager and the situation worker, each writing into the Situation Registrar. <!-- Section 7 writer table: who writes what -->
 - **When it goes wrong:** a wrongly closed problem is reopened, with its reason. A new problem gets a new, linked record. <!-- A8; A7 -->
 
 ## 2. Routing each change to the right problem, once it is understood

@@ -16,10 +16,10 @@ In plain words: part of what was asked can be answered now, the rest only later.
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -57,30 +57,30 @@ An investor writes: "Please send last quarter's revenue and your latest deck." N
 
 ```text
 1.  investor             -> conversation manager : "Revenue and the latest deck, please."
-2.  conversation manager -> situation record     : first version of a new situation, with two questions
-3.  situation record     -> situation worker     : notice
+2.  conversation manager -> registrar            : first version of a new situation, with two questions
+3.  registrar            -> situation worker     : notice
 4.  situation worker     -> tool layer           : fetch the deck
 5.  tool layer           -> tool layer           : permission check: a named person must approve each disclosure to an investor
 6a. tool layer           -> communication layer  : the request, with the exact deck
 6b. communication layer  -> approver             : the request, with a link to sign in, after the send check
 7.  approver             -> sign-in provider     : signs in (a fresh sign-in, within the last 15 minutes)
 8.  approver             -> conversation manager : "yes", with the proof of sign-in
-9.  conversation manager -> situation record     : new version: the approver's answer, saved as an arrival
-10. situation record     -> situation worker     : notice
+9.  conversation manager -> registrar            : new version: the approver's answer, saved as an arrival
+10. registrar            -> situation worker     : notice
 11. situation worker     -> tool layer           : the answer, as the waiting step's result
 12. tool layer           -> tool layer           : permission check again, then fetches the deck
 13. tool layer           -> situation worker     : the deck
-14. situation worker     -> situation record     : new version: deck question answered; revenue question open; work for the finance person
-15. situation record     -> conversation manager : notice
+14. situation worker     -> registrar            : new version: deck question answered; revenue question open; work for the finance person
+15. registrar            -> conversation manager : notice
 16. conversation manager -> communication layer  : worth telling the investor now, and worth sending the finance person the work item (the update decision)
 17. communication layer  -> communication layer  : send check, for each message
 18. communication layer  -> investor             : the deck, and "the revenue figure is still being checked" — sent through the tool layer
 19. communication layer  -> finance person       : work item: confirm last quarter's revenue — sent through the tool layer
 20. (later) finance person -> conversation manager : the confirmed figure
-21. conversation manager -> situation record     : new version, with the finance person's answer
-22. situation record     -> situation worker     : notice
-23. situation worker     -> situation record     : new version: revenue question answered
-24. situation record     -> conversation manager : notice
+21. conversation manager -> registrar            : new version, with the finance person's answer
+22. registrar            -> situation worker     : notice
+23. situation worker     -> registrar            : new version: revenue question answered
+24. registrar            -> conversation manager : notice
 25. conversation manager -> communication layer  : worth telling the investor (the update decision)
 26. communication layer  -> communication layer  : send check
 27. communication layer  -> investor             : the revenue figure — sent through the tool layer

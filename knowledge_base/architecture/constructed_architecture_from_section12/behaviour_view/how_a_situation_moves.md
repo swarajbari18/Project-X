@@ -37,13 +37,13 @@ Who is who in the diagrams:
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record**. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system. <!-- Section 7: tool layer -->
 - The **status-check service** waits on a slow outside system, asking it for news through the tool layer, while the work goes on. <!-- decided by the owner, 2026-10-17; decided 2026-10-22: the service calls through the tool layer -->
-- **Memory and knowledge** runs beside every loop. Before each stage that reasons, it hands that stage a **package** of what it needs to know, or an explicit empty answer. Before the conversation manager understands an arrival, it hands over what the arrival's words mean in this business, so the arrival is understood first. It also keeps the links between situations, and what Tend learned. It decides nothing. <!-- Section 7: memory and knowledge; N19; N20 -->
+- **Memory and knowledge** runs beside every loop. Before each stage that reasons, it hands that stage a **package** of what it needs to know, or an explicit empty answer. Before the conversation manager understands an arrival, it hands over what the arrival's words mean in this business, so the arrival is understood first. It also decides the links between situations, and what Tend learned. It decides nothing. <!-- Section 7: memory and knowledge; N19; N20 -->
 - The **understanding artifact** (until later on 2026-10-29, the **reading**) is what understanding the arrival, the conversation manager's one AI stage, writes before anything acts on an arrival: each ask and whether it is about the business; what each refers to, with time words turned into dates; the sender's claims; what is unknown; what Tend already holds that answers it; and where each ask fits. It is an interpretation, saved with the arrival, never a conclusion. (The status label "the design's reading" is a different thing: a rule worked out from its sources.) (Added 2026-10-29.)
 
 Words used in the diagrams:
 - A **version** is one saved state of a situation, after a change. An old version is never changed. <!-- HC-1 -->
 - A **notice** is a short internal signal that a new version exists. People never see it. <!-- Section 7: the change channel -->
-- A **wait** is a pause on a situation until one named thing happens. The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A **time signal** is the alarm the worker sets for one wait's due time. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- A **wait** is a pause on a situation until one named thing happens. The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A **time signal** is the alarm the worker sets for one wait's due time. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **wake** is a signal that sends the situation worker back to one situation: a saved version's notice, a time signal, or the check-in. A **check-in** is the one regular wake each waiting situation gets, in case an earlier wake was lost. <!-- Level 2 time: the only regular wake -->
 - **The AI** writes a reasoning artifact in the stages that reason, and in deciding proposes the next step. **Fixed code** checks it, and chooses which stage runs next. The AI never decides alone, and never decides to continue. <!-- Level 2 security: the spine; PL-1 -->
 - Tend's **product loop** (added 2026-10-29) is four loops made of **stages**: the **arrival loop** (intake, understanding the arrival, routing), the **situation loop** (understanding the situation, gathering, weighing evidence, deciding, acting), the **update loop** and the **message loop**. A stage with nothing to do is passed; a stage's finding may end the loop. The Level 2 page is [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md). <!-- PL-1 -->
@@ -63,10 +63,10 @@ The arrival loop
 2. conversation manager  -> conversation manager : intake: her person ID; no other arrival of hers running
 3. memory and knowledge  -> conversation manager : the package before understanding: her one open situation, with its last carrier claim (three days old), the time
 4. conversation manager  -> conversation manager : understanding the arrival: asks where her parcel is; about the business; fits her open parcel situation (a clear match); the carrier claim is not current, so not answered from what Tend holds
-5. conversation manager  -> situation record     : routing (fixed code): new version, with her message and its understanding artifact
+5. conversation manager  -> registrar            : routing (fixed code): new version, with her message and its understanding artifact
 
 The situation loop
-6. situation record      -> situation worker     : notice (wake)
+6. registrar             -> situation worker     : notice (wake)
 7. situation worker      -> situation worker     : understanding the situation: passed (her message is a status question; nothing new to place)
 8. memory and knowledge  -> situation worker     : the package before gathering: the carrier tool's form and its lesson, the tracking number
 9. situation worker      -> situation worker     : gathering: the information plan: ask the carrier for the parcel's status
@@ -79,10 +79,10 @@ The situation loop
 16. memory and knowledge -> situation worker     : the package before deciding: the work as Meera asked it, the plan, the claim
 17. the AI               -> fixed code           : deciding proposes: answered; tell Meera the status
 18. fixed code           -> situation worker     : the proposal passes shape, newest version, evidence, permission
-19. situation worker     -> situation record     : acting: new version: the claim, and what should be said
+19. situation worker     -> registrar            : acting: new version: the claim, and what should be said
 
 The update loop and the message loop
-20. situation record     -> conversation manager : notice
+20. registrar            -> conversation manager : notice
 21. conversation manager -> communication layer  : the update decision: worth telling Meera now
 22. memory and knowledge -> communication layer  : the package before writing: her preferences, WhatsApp's conventions
 23. communication layer  -> communication layer  : writing; then the send check: decision saved, Allow, channel rules, allowed fields

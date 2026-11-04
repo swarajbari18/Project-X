@@ -142,7 +142,7 @@ The three stages — prospect, customer, and returning customer — are the same
 
 A follow-up needs a clear purpose and a clear target. Tend invents neither. The wait before a follow-up is set by the business, not by a universal timer. <!-- Level 2 journey: J7 -->
 
-Tend is a coordinator, not a customer database. It may write entries into a business's own system when the business's rules allow it. Its own situation record is what it works from. <!-- Level 2 journey: J9 -->
+Tend is a coordinator, not a customer database. It may write entries into a business's own system when the business's rules allow it. Its own record of each situation is what it works from. <!-- Level 2 journey: J9 -->
 
 A reopen does not, by itself, change the person's relationship. Their stage is set from evidence, as always. <!-- Level 2 journey: J9; closed item: reopen check -->
 

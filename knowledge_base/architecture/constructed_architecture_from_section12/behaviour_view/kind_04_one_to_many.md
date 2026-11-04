@@ -16,10 +16,10 @@ In plain words: one instruction from the business means work with many people.
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -62,17 +62,17 @@ For example, the business owner gives Tend thirty people to contact about a new 
 
 ```text
 1.  business owner       -> conversation manager : a list of thirty people, and the follow-up rule
-2.  conversation manager -> situation record     : thirty first versions, one per person, and the central situation's first version
-3.  situation record     -> situation worker     : thirty notices, one per situation
-4.  situation worker     -> situation record     : for each: the first message to send, and a wait of three days
-5.  situation record     -> conversation manager : thirty notices
+2.  conversation manager -> registrar            : thirty first versions, one per person, and the central situation's first version
+3.  registrar            -> situation worker     : thirty notices, one per situation
+4.  situation worker     -> registrar            : for each: the first message to send, and a wait of three days
+5.  registrar            -> conversation manager : thirty notices
 6.  conversation manager -> communication layer  : each first message is worth sending
 7.  communication layer  -> communication layer  : send check, including each person's consent for a message the business starts
 8.  communication layer  -> each person          : the first message, on a channel the rules allow for a first contact — sent through the tool layer
 9.  memory and knowledge -> (its own records)     : thirty links, each person's situation to the central situation
 10. each person's situation -> conversation manager : its new version, as an arrival for the central situation
-11. conversation manager -> situation record     : the arrival saved on the central situation
-12. situation record     -> situation worker     : notice; the central situation's worker records the overall progress
+11. conversation manager -> registrar            : the arrival saved on the central situation
+12. registrar            -> situation worker     : notice; the central situation's worker records the overall progress
 13. owner view           -> business owner       : when asked: the central situation, with each person's state
 ```
 

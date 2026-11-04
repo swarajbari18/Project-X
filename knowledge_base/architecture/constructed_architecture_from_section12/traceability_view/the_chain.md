@@ -30,13 +30,13 @@ A rule with no status word next to it is **Decided**.
 ## Words used in this file
 
 The ten parts, one line each: <!-- Section 7: the parts table -->
-- the **situation record** keeps each problem's history, as a list of saved versions;
+- the **Situation Registrar** keeps each problem's history, as a list of saved versions, and sends every notice;
 - the **conversation manager** takes in each arrival — a message, or an outside system's answer — decides whether a person should hear an update, and alone sets a situation to completed; its **intake step** reads each new arrival first;
 - the **situation worker** reasons about one situation and decides its next step;
 - the **communication layer** sends messages to people, and keeps the consent records;
 - the **tool layer** makes every call to an outside system, such as a payment provider;
 - the **status-check service** waits on a slow outside system while the work goes on;
-- **memory and knowledge** runs beside every loop, hands each part the context it needs, keeps the links between situations, and keeps what Tend learned;
+- **memory and knowledge** runs beside every loop, hands each part the context it needs, decides the links between situations, and keeps what Tend learned;
 - **configuration** holds the business's settings, permissions, and members;
 - the **owner view** builds the screens the business owner opens;
 - **improvement** is how the product team makes Tend better for every business.
@@ -68,7 +68,7 @@ The names come first; the numbers point to the sections of the interactions file
 
 | Responsibility | Where it came from | Part that does it | Interactions | Decisions |
 |---|---|---|---|---|
-| 1. One record per problem | The problem statement (keep work moving on one situation); the business's answers on understanding the situation and on customer journeys; the project owner's 2026-10-12 decision | Situation record, written by the conversation manager and the situation worker; the book of waits kept beside it | A message arrives (1); one instruction for many (17); completed (14); reopened (15) | Every change is a new version (6); only the conversation manager sets completed (5); one situation per problem (12); reopen only when wrong (13); the book of waits (22) |
+| 1. One record per problem | The problem statement (keep work moving on one situation); the business's answers on understanding the situation and on customer journeys; the project owner's 2026-10-12 decision | Situation Registrar, written by the conversation manager and the situation worker; the book of waits kept beside it | A message arrives (1); one instruction for many (17); completed (14); reopened (15) | Every change is a new version (6); only the conversation manager sets completed (5); one situation per problem (12); reopen only when wrong (13); the book of waits (22) |
 | 2. Routing each change, from the understanding artifact | The business's answers on understanding the situation; the project owner's 2026-10-22 and 2026-10-29 decisions ("before routing you have to understand the situations first and then route"; "So routing is more code based") | Conversation manager: routing, fixed code, after understanding the arrival | A message arrives (1); a long wait's answer (6); reopened (15); an unrequested document (16); one instruction for many (17); a rule changes (21) | One situation per problem (12); the status-check answer as an arrival (20); waking after a platform rule change (24); understanding first (32); using knowledge is not showing records (33); the product loop: routing is fixed code (34, 35), answering what needs no situation (36) |
 | 3. Understanding a change before acting on it, and what it adds | The Product Vision ("Understand before acting"); the business's answers on understanding the situation (the ambiguity page's order; the 4 September note on MEANING); the project owner, 2026-10-29 | Conversation manager: understanding the arrival, its one AI stage, before anything acts on it; situation worker: understanding the situation, when there is new content to place | A message arrives (1); memory and knowledge hands a part its package (3); a correction (13) | One situation per problem (12); understanding first (32); the product loop: understanding the arrival (35), the stages that reason (34, 37) |
 | 4. Gathering | The business's answers on gathering information | Situation worker's gathering stage, by its information plan, through the tool layer and memory and knowledge's retrieval | Memory and knowledge hands a part its package (3); calls an outside system (4) | Steps outside Tend through the tool layer (7); the product loop: gathering as a stage (34) |
@@ -101,7 +101,7 @@ Rules that rest on the business's memory and knowledge answers are Decided: on 2
 
 | Part | Responsibilities it holds | Its main sources |
 |---|---|---|
-| Situation record | 1, 8 (the book of waits) | The problem statement; the business's answers on understanding the situation and on journeys; the business's coordination answers (the book of waits is the only list of waits) |
+| Situation Registrar | 1, 8 (the book of waits) | The problem statement; the business's answers on understanding the situation and on journeys; the business's coordination answers (the book of waits is the only list of waits); the project owner's rulings of 2026-11-04 (decisions 38 to 41) |
 | Situation worker | 3–6, 8–10, 13 | The business's answers on decision making, gathering, trust and evidence, time, human collaboration, meetings, and failure |
 | Conversation manager | 1–3, 9, 11, 12 | The business's answers on understanding the situation and on communication; the project owner's decisions of 2026-10-10 (it contains the intake step, the worker, and the communication layer), 2026-10-12 (it alone sets completed), and 2026-10-22 (it saves outside answers as arrivals, and wakes situations after a platform rule change) |
 | Communication layer | 7, 9–12 | The business's answers on communication and on channels; the project owner's 2026-10-22 decision (it writes the consent records) |
@@ -127,7 +127,7 @@ The fifteen kinds of situation are the tests of this chain. A kind is a type of 
 Each weak point found while this folder was written is closed. <!-- decided by the owner, 2026-10-22 -->
 - **Options not recorded** for decisions 5, 6, and 18. Decision 18's options were found in the business's compliance answers; those for decisions 5 and 6 were written down at completion, on 2026-10-22. <!-- settled 2026-10-22: options and reopen conditions; finding: options not recorded -->
 - **Reopen conditions not recorded** for decisions 1, 4, and 12. Written down at completion, on 2026-10-22. <!-- finding: reopen condition not recorded -->
-- **What would make each part change** was never worked out before this design. Each part's line is the design's reading, accepted by the project owner on 2026-10-22. <!-- change drivers: situation record -->
+- **What would make each part change** was never worked out before this design. Each part's line is the design's reading, accepted by the project owner on 2026-10-22. <!-- change drivers: situation registrar -->
 - **Two reasons come only from an earlier form of the design**: keeping the conversation manager thin, and keeping memory and knowledge apart from the worker. Accepted on 2026-10-22. <!-- Section 7 archive: conversation manager record -->
 - **The seven questions that blocked completion** — who writes a wait a tool hands off; which code writes the status-check answer; whether the service calls through the tool layer; which part holds the book of waits; who writes consent records; what wakes situations after a platform rule change; and how a checked person is matched to their permissions — were answered by the project owner on 2026-10-22, as decisions 19 to 25. <!-- decided by the owner, 2026-10-22 -->
 - **Older lines still say nothing checks on a fixed clock**, which the project owner's 2026-10-17 picture replaced. They sit in earlier files outside this folder, and are listed in [the conflict register](../checking/conflict_register.md). <!-- construction record, entry 21: polling rule changes -->

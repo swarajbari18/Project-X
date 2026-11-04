@@ -16,10 +16,10 @@ In plain words: a system Tend needs does not answer, or its answer is too old to
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -59,27 +59,27 @@ The business promised Meera an update by 17:00. The carrier is the only tracking
 
 ```text
 1.  Meera                -> conversation manager : "Where is my parcel?"
-2.  conversation manager -> situation record     : new version, on her delivery situation
-3.  situation record     -> situation worker     : notice
+2.  conversation manager -> registrar            : new version, on her delivery situation
+3.  registrar            -> situation worker     : notice
 4.  situation worker     -> tool layer           : ask the carrier
 5.  tool layer           -> carrier              : one call
 6.  carrier              -> (error)
 7.  tool layer           -> carrier              : retries a brief failure, within its limit
 8.  tool layer           -> carrier              : asks for news, up to five times for this wait
 9.  tool layer           -> situation worker     : evidence: no usable answer, and a declared wait on the carrier
-10. situation worker     -> situation record     : the started step and the declared wait, in one version, before the AI is told; the wait's entry in the book of waits, with its time signal
-11. situation record     -> status-check service : the saved wait's notice; the service reads the wait from the book and asks within its limits
+10. situation worker     -> registrar            : the started step and the declared wait, in one version, before the AI is told; the wait's entry in the book of waits, with its time signal
+11. registrar            -> status-check service : the saved wait's notice; the service reads the wait from the book and asks within its limits
 12. time signal          -> situation worker     : the promised update is due (16:30, before the 17:00 promise)
-13. situation worker     -> situation record     : what should be said: an interim update
-14. situation record     -> conversation manager : notice
+13. situation worker     -> registrar            : what should be said: an interim update
+14. registrar            -> conversation manager : notice
 15. conversation manager -> communication layer  : worth telling Meera now
 16. communication layer  -> communication layer  : send check
 17. communication layer  -> Meera                : "We are still waiting on the carrier. We will come back to you." — sent through the tool layer
 18. (the service's limits run out, still no answer; the wait's limit passes)
 19. time signal          -> situation worker     : the wait is due
-20. situation worker     -> situation record     : a declared failure: the carrier, the limit crossed, when, the latest state
-21. situation worker     -> situation record     : a work item for the employee who handles deliveries, the first name on the escalation path
-22. situation record     -> conversation manager : notice
+20. situation worker     -> registrar            : a declared failure: the carrier, the limit crossed, when, the latest state
+21. situation worker     -> registrar            : a work item for the employee who handles deliveries, the first name on the escalation path
+22. registrar            -> conversation manager : notice
 23. conversation manager -> communication layer  : tell the employee now (the update decision)
 24. communication layer  -> employee             : the work item, after the send check — sent through the tool layer
 ```
@@ -118,7 +118,7 @@ Two promises apply. The **response promise** — "we will tell you something use
 - **The escalation path reaches the carrier's own team.** If the business's policy allows partner contact, Tend sends only the tracking number and the problem. <!-- K4 -->
 - **The AI provider is down.** Situations wait, go to a person, or stop safely. Nothing is sent without a recorded decision. <!-- Section 6 additions: degraded service -->
 - **A provider retires a connection Tend uses.** A backup connection takes the work, what it cannot do is shown, and the business decides whether to move to a new system. Open situations move over only on purpose. <!-- Section 6 additions: a retired connection -->
-- **A part of Tend cannot be reached.** Its waits stay in place inside their limits. Past a limit, the situation worker records a failure. If the situation record itself cannot be reached, no step is taken that cannot be saved; arrivals are held until they can be saved, and every time signal is set again from the book of waits when it is back. <!-- Section 7: failure and unavailability; settled 2026-10-22: part outages -->
+- **A part of Tend cannot be reached.** Its waits stay in place inside their limits. Past a limit, the situation worker records a failure. If the Situation Registrar itself cannot be reached, no step is taken that cannot be saved; arrivals are held until they can be saved, and every time signal is set again from the book of waits when it is back. <!-- Section 7: failure and unavailability; settled 2026-10-22: part outages -->
 
 ## Values each business sets
 

@@ -19,7 +19,7 @@ Three stories run through this file.
 Who is who here:
 - The **situation worker** is the part that reasons about one situation. It decides the next step, and writes what Tend concludes.
 - The **conversation manager** is the part that reacts when something happens. It records each incoming message.
-- **Memory and knowledge** is the part that runs beside every loop. Before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It keeps the links between situations, skills and procedures, and what Tend learned. It decides nothing.
+- **Memory and knowledge** is the part that runs beside every loop. Before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It decides the links between situations, skills and procedures, and what Tend learned. It decides nothing.
 - **Configuration** is the part that holds the business's settings, policies, and grants. Only the configuration tools, which always make the same checks, write to it.
 - The **configurator** is the role of setting the business up. It is held by the owner who signed up, or by a person the owner names.
 - **Improvement** is the part through which the product team makes Tend behave better, for every business.
@@ -70,7 +70,7 @@ It has six jobs: <!-- N18; N19; N23; A15; N26; N28 -->
    The stages that are fixed code (intake, routing, the reply and update decisions, weighing evidence, acting, the send check) it observes, and does not serve. When a stage is passed and the version did not change, its package carries to the next stage. Understanding comes first: what an arrival's words mean in this business reaches the conversation manager before anything acts on the arrival. (Updated 2026-10-29.) <!-- PL-17 -->
 2. **Find things.** Its fixed parts fetch by exact keys. Its AI part works out what else a step needs, and asks its retrieval capability, which decides how to find it.
 3. **Keep the lookups ready.** The situations stay the truth of each problem. It keeps the views that find them fast: open situations by person; lookups by order number, tracking number, or invoice number; keyword and meaning indexes. Nobody searches every situation.
-4. **Link situations.** It creates and maintains the links between situations, as its own records.
+4. **Link situations.** It creates and maintains the links between situations, which the Situation Registrar stores.
 5. **Keep skills and procedures**, the product's and the business's, in object storage, versioned; and present, from the business's tools, the ones each part needs.
 6. **Learn, behind the loops.** From what happened, keep what helps the next situation start better. Never touch who someone is, what they may do, or the business's settings.
 
@@ -129,7 +129,7 @@ These are examples, not the whole list. The whole list is the one above.
 
 Memory and knowledge is not one store. Tend keeps several kinds, and keeps them apart. In the project owner's description, they become knowledge when they are linked together and reasoned over. The kinds: <!-- Level 2 memory: the kinds -->
 - **Conversation history:** what was said, by whom, when, and on which channel. It is evidence. It is not reusable knowledge by itself.
-- **The situation record:** the current state of one problem. It is not general business knowledge.
+- **The Situation Registrar:** the current state of one problem. It is not general business knowledge.
 - **Experience:** what Tend tried, which information and tools it used, what happened, who corrected it, and how it ended. Lessons are made from this.
 - **Business knowledge:** the terms, names, and local meanings that help Tend understand the next situation.
 - **Procedures and skills:** reusable guidance on how to handle a kind of task, including what to check first and known traps; the business's own and the product's, kept in object storage, versioned.
@@ -500,7 +500,7 @@ The project owner, 2026-10-28: skills, the product's and the business's, live in
 
 ## Nothing is erased, except through a confirmed tool
 
-The project owner, 2026-10-28: "We do not erase anything." In normal work, knowledge is retired, superseded or marked stale, never deleted. Where the law requires erasure, "not the AI will erase it": the AI may propose it inside the erasure tool; the tool's confirmation rule asks the business owner or the configurator; after their yes, memory and knowledge's cleaner erases the person's data everywhere it lives, situation records included, and keeps a record that an erasure happened, without the data. <!-- U7; IB-19 -->
+The project owner, 2026-10-28: "We do not erase anything." In normal work, knowledge is retired, superseded or marked stale, never deleted. Where the law requires erasure, "not the AI will erase it": the AI may propose it inside the erasure tool; the tool's confirmation rule asks the business owner or the configurator; after their yes, memory and knowledge's cleaner erases the person's data everywhere it lives, situations' saved histories included, and keeps a record that an erasure happened, without the data. <!-- U7; IB-19 -->
 
 ## One business's knowledge stays with that business
 
@@ -768,7 +768,7 @@ The step instructions and the stage rules are versioned separately, because they
 
 ## What this area writes
 
-- Memory and knowledge writes its own items: links between situations, lessons, business knowledge, candidates, skills and procedures, its lookup views and indexes. It writes nothing in a situation's record, except a confirmed erasure. <!-- Section 7 parts: memory writes; Section 7 writer table: links -->
+- Memory and knowledge writes its own items: lessons, business knowledge, candidates, skills and procedures, its lookup views and indexes. It decides links between situations, and the Situation Registrar stores them. It writes nothing in a situation's record; the Situation Registrar carries out a confirmed erasure. <!-- Section 7 parts: memory writes; Section 7 writer table: links -->
 - Memory and knowledge also owns the step instructions, which it versions. <!-- Section 7 parts: memory owns -->
 - Memory and knowledge creates and maintains the links between situations. Each situation's worker decides only what a link means for its own work. <!-- A15 -->
 - The configuration tools write grants, settings, membership, channel bindings, and the stored shapes that check them. Nothing else writes these. <!-- Section 7 parts: configuration writes; decided 2026-10-22: identity and permission -->

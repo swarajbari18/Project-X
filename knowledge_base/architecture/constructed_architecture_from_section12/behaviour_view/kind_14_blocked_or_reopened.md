@@ -16,10 +16,10 @@ In plain words: a situation can go no further, its work is cut short, or it was 
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -55,9 +55,9 @@ Meera's refund situation was completed last month. She writes: "You said my refu
 ```text
 1.  Meera                -> conversation manager : "You said my refund was done, but it never arrived."
 2.  conversation manager -> conversation manager : understanding the arrival: the message refers to the closed refund situation; the same problem has come back
-3.  conversation manager -> situation record     : routing (fixed code): new version on the closed situation, with her message and the understanding artifact's finding: the closure was wrong
-4.  situation record     -> situation worker     : notice
-5.  situation worker     -> situation record     : the same situation reopened, back to running, with the reason
+3.  conversation manager -> registrar            : routing (fixed code): new version on the closed situation, with her message and the understanding artifact's finding: the closure was wrong
+4.  registrar            -> situation worker     : notice
+5.  situation worker     -> registrar            : the same situation reopened, back to running, with the reason
 6.  situation worker     -> tool layer           : ask the payment provider about the refund
 7.  (from here, the common path, or kind 1 if the result is unknown)
 ```
@@ -103,15 +103,15 @@ When the business stops a blocked situation, the conversation manager completes 
 For example, Meera's carrier stays down. The delivery employee and their manager do not answer. The escalation path is used up. So Meera's situation is blocked. The business owner is told, because it is a decision only they can make. <!-- Section 8 states; O3 -->
 
 ```text
-1.  situation worker     -> situation record     : new version: blocked, with its reason — the carrier is down and no one on the escalation path has answered
-2.  situation record     -> conversation manager : notice
+1.  situation worker     -> registrar            : new version: blocked, with its reason — the carrier is down and no one on the escalation path has answered
+2.  registrar            -> conversation manager : notice
 3.  owner view           -> business owner       : the blocked situation, as a decision only they can make
 4a. business owner       -> conversation manager : "Refund the shipping cost and close it."
-5a. conversation manager -> situation record     : new version, with the business owner's decision
-6a. situation record     -> situation worker     : notice
-7a. situation worker     -> situation record     : new version: running again, to carry out the decision
+5a. conversation manager -> registrar            : new version, with the business owner's decision
+6a. registrar            -> situation worker     : notice
+7a. situation worker     -> registrar            : new version: running again, to carry out the decision
 4b. business owner       -> conversation manager : "Stop this one."
-5b. conversation manager -> situation record     : completed, with the reason shown
+5b. conversation manager -> registrar            : completed, with the reason shown
 ```
 
 <!-- Section 8: the states table; O3 -->
@@ -129,7 +129,7 @@ For example, the worker stopped after asking the carrier but before saving the a
 
 ```text
 1.  (the worker's run stops part-way: Tend restarts)
-2.  situation record     -> situation worker     : the newest saved version: the carrier question still has no answer
+2.  registrar            -> situation worker     : the newest saved version: the carrier question still has no answer
 3.  situation worker     -> tool layer           : ask the carrier again
 4.  (for the refund: the tool layer's note, written before the call, shows the refund was already started; it is not sent again)
 ```
