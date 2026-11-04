@@ -16,10 +16,10 @@ In plain words: the person who should act does not, or cannot be reached.
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -65,8 +65,8 @@ Two parts behave differently:
 An investor asked for last quarter's revenue ([kind 3](kind_03_partial_answer.md)). Tend gave the revenue question to the finance person, with a deadline of Wednesday. <!-- Section 8 CASE-3 -->
 
 ```text
-1.  situation worker     -> situation record     : new version: work item — confirm revenue, finance person, due Wednesday
-2.  situation record     -> conversation manager : notice
+1.  situation worker     -> registrar            : new version: work item — confirm revenue, finance person, due Wednesday
+2.  registrar            -> conversation manager : notice
 3.  conversation manager -> communication layer  : worth telling the finance person now (the update decision)
 4.  communication layer  -> communication layer  : send check
 5.  communication layer  -> finance person       : the request, with the evidence so far — sent through the tool layer
@@ -74,14 +74,14 @@ An investor asked for last quarter's revenue ([kind 3](kind_03_partial_answer.md
 7.  (Wednesday passes; no answer)
 8.  time signal          -> situation worker     : the work item's deadline has passed
 9.  situation worker     -> situation worker     : names the reason for the silence: delivered, but not acknowledged
-10. situation worker     -> situation record     : new version: the next step on the business's escalation path — remind the finance person
-11. situation record     -> conversation manager : notice
+10. situation worker     -> registrar            : new version: the next step on the business's escalation path — remind the finance person
+11. registrar            -> conversation manager : notice
 12. conversation manager -> communication layer  : worth sending the reminder now (the update decision)
 13. communication layer  -> communication layer  : send check
 14. communication layer  -> finance person       : a reminder — sent through the tool layer
 15. (still no answer, by the path's next limit)
-16. situation worker     -> situation record     : new version: the next step — tell the finance person's manager
-17. situation record     -> conversation manager : notice
+16. situation worker     -> registrar            : new version: the next step — tell the finance person's manager
+17. registrar            -> conversation manager : notice
 18. conversation manager -> communication layer  : worth telling the manager now (the update decision)
 19. communication layer  -> communication layer  : send check
 20. communication layer  -> manager              : the escalation, with the whole trail — sent through the tool layer

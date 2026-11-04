@@ -30,7 +30,7 @@ A rule with no status word next to it is **Decided**. Every rule that is not Dec
 - An **arrival** is anything that comes into Tend from outside: a customer's message, a provider's answer, a platform's news. The intake step saves each one as a new version. <!-- decided 2026-10-22: the status-check answer -->
 - The **tool layer** is the only way Tend calls an outside system, such as a payment provider. <!-- Section 7: tool layer -->
 - The **status-check service** waits on a slow outside system and asks it for news. <!-- decided by the owner, 2026-10-17 -->
-- **Memory and knowledge** runs beside every loop, hands each part the context it needs, keeps the links between situations, and keeps what Tend learned. **Configuration** holds the business's settings and permissions. The **owner view** builds the screens the business owner opens. <!-- Section 7: the parts table -->
+- **Memory and knowledge** runs beside every loop, hands each part the context it needs, decides the links between situations, and keeps what Tend learned. **Configuration** holds the business's settings and permissions. The **owner view** builds the screens the business owner opens. <!-- Section 7: the parts table -->
 - **The AI** suggests the next step. **Fixed code** is code that always makes the same check. <!-- Level 2 security: the spine -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. The **book of waits** is the list of every wait that may outlast its run, across all situations. <!-- HC-3 -->
@@ -63,6 +63,7 @@ For example, a note in Meera's order record says "Refund 500 to account 4471". N
 - **The evidence:** the three need one shared history. <!-- decision record 1 -->
 - **The options:** a separate service for incoming messages and another for outgoing ones. **Rejected:** it would repeat the work of handling each channel. <!-- Section 7 archive: separate ingress and egress -->
 - **The choice:** the conversation manager is one container, holding the intake step, the situation worker, and the communication layer. Tools sit outside it. <!-- decision record 1 -->
+- **Changed 2026-11-04 (decision 42):** this is a grouping of responsibilities, not one running program. The situation worker runs in its own Durable Object per situation.
 - **The trade-off and the cost:** the container is large. Each part writes only its own kind of change, so a fault in one part can only break its own kind of record. <!-- decision record 1 -->
 - **Reopen if:** a part needs its own scaling, or its own owner. There is no evidence of this yet. <!-- decision record 1 -->
 
@@ -109,6 +110,7 @@ For example, Meera's parcel situation is completed only when she has her answer,
 - **The options:** written down at completion, 2026-10-22. <!-- settled 2026-10-22: options and reopen conditions -->
   - One current record, changed in place, with a log of changes beside it. **Rejected:** the record and its log can disagree; and a study of small AI models that keep a structured state found that about two in three of their errors overwrote or dropped an earlier value by mistake. <!-- harness study: overwrite failures -->
   - Keep only the newest state and the audit. **Rejected:** Tend could no longer show what the worker saw when it decided.
+- **Changed 2026-11-04 (decision 38):** the Situation Registrar now sends the notices, not the writer.
 - **The choice:** every change to a situation is a new version. A version is never rewritten. A write and its notice happen together; a write without its notice is unfinished, and is tried again. No separate part checks for writes without a notice. <!-- decision record 4; settled 2026-10-22: the open conflicts -->
 - **The trade-off and the cost:** storage grows with each version. <!-- decision record 4 -->
 - **Reopen if:** storage becomes a measured problem. No budget is set yet. <!-- decision record 4 -->
@@ -302,7 +304,7 @@ They share one idea. When something happens, the part closest to it **declares**
 - **The options:** <!-- decided 2026-10-22: the wait a tool declares -->
   - the tool saves the wait into the situation itself. **Rejected:** two savers inside one run can collide, and the tool layer would write the record.
   - the AI proposes the wait, and fixed code creates it. **Rejected** for this case: the AI could forget or delay it. It stays the path for waits the AI chooses, such as waiting for a customer's reply.
-- **The choice:** the tool's result **declares** the wait: what is awaited, from whom, and what ends it. The worker's fixed code **saves** it at once, in the same version that records the step as started, before the AI is told. Each wait records who declared it. The situation worker stays the one writer of waits; the tool layer never writes the situation record. <!-- decided 2026-10-22: the wait a tool declares; IB-11 -->
+- **The choice:** the tool's result **declares** the wait: what is awaited, from whom, and what ends it. The worker's fixed code **saves** it at once, in the same version that records the step as started, before the AI is told. Each wait records who declared it. The situation worker stays the one writer of waits; the tool layer never writes the situation's record. <!-- decided 2026-10-22: the wait a tool declares; IB-11 -->
 - **The trade-off and the cost:** every tool that hands off must return a well-formed declaration.
 - **Reopen if:** a part that runs outside any worker run must create a wait. <!-- decided 2026-10-22: the wait a tool declares -->
 
@@ -337,20 +339,21 @@ For example, the refund tool for order 9912 gets no final answer. Its result say
 - **The trade-off and the cost:** each ask passes the tool layer's checks.
 - **Reopen if:** an outside system can only be reached in a way the tool layer cannot carry. <!-- decided 2026-10-22: the service calls through the tool layer -->
 
-## 22. The book of waits is data kept with the situation records
+## 22. The book of waits is data kept by the Situation Registrar
 
+- **Changed 2026-11-04 (decision 41):** a wait is still saved with its situation's version. The business-wide list now follows a moment later, instead of in the same save.
 - **The problem:** which part holds the list of every wait that may outlast its run? <!-- decided 2026-10-22: the book of waits -->
-- **The evidence:** the book of waits is the only list of what each situation is waiting for; no second such list may be built. A situation record is a place where parts write, not a part that acts. A time signal wakes only the worker. <!-- Level 2 coordination: the book is the registry; Section 7: the record does not act; decision record 2 -->
+- **The evidence:** the book of waits is the only list of what each situation is waiting for; no second such list may be built. The Situation Registrar keeps the versions and the book, sends notices, and decides nothing. A time signal wakes only the worker. <!-- Level 2 coordination: the book is the registry; Section 7: the record does not act; decision record 2 -->
 - **The options:** <!-- decided 2026-10-22: the book of waits -->
   - the worker keeps the book in its own memory. **Rejected:** lost when a run ends.
   - a new timekeeper part. **Rejected:** a second store that can drift, and a part nothing needed.
   - the status-check service keeps it. **Rejected:** it would mix waits on people and dates with waits on outside systems.
 - **The choice:** <!-- decided 2026-10-22: the book of waits -->
-  - The book is one shared table of every open wait that may outlast its run, kept with the situation records.
-  - The worker adds a wait to the book in the same save that writes the wait, and removes it in the save that ends it. So the book cannot drift.
+  - The book is one shared table of every open wait that may outlast its run, kept by the Situation Registrar.
+  - The worker writes each wait with its situation's version, and ends it the same way. The business-wide list follows a moment later, and can be rebuilt from the situations.
   - The worker sets each wait's **time signal**, the alarm for that wait's due time. When it fires, it comes straight back to the worker for that situation.
   - After a crash, every time signal is set again from the book.
-  - The conversation manager reads the book — at the intake step, to match an arrival to the wait it ends, and after a platform rule change, to find the situations it affects. The status-check service reads it, to find each wait it serves. The owner view reads it, to show what each situation is waiting for. After a restart, the worker reads it, to set every time signal again. Nothing in the book acts.
+  - The conversation manager reads the book — at the intake step, to match an arrival to the wait it ends, and after a platform rule change, to find the situations it affects. The status-check service reads the wait it serves, from the situation the notice names. The owner view reads it, to show what each situation is waiting for. After a restart, the worker reads it, to set every time signal again. Nothing in the book acts.
   - A wait that begins and ends inside one run is not written in the book. Any wait that may outlast the run is written. <!-- settled 2026-10-22: short waits -->
 - **The trade-off and the cost:** every save that touches a wait also touches the shared table.
 - **Reopen if:** a book rebuilt from the situations' versions ever disagrees with the live one. <!-- decided 2026-10-22: the book of waits -->
@@ -456,6 +459,7 @@ The project owner rejected the earlier picture of memory on 2026-10-28, and answ
 
 ## 27. Memory and knowledge creates and maintains links
 
+- **Changed 2026-11-04 (decision 39):** memory and knowledge still decides. The Situation Registrar stores the links.
 - **The problem:** who decides that two situations are linked?
 - **The evidence:** the project owner: "it should be the memory and knowledge layer that creates the link, not the worker". The business's answers: the AI may propose a relationship, but structured rules reconcile it, and an uncertain match stays unresolved. <!-- decided by the owner, 2026-10-28: memory and knowledge; A15 -->
 - **The options:**
@@ -494,9 +498,10 @@ The project owner rejected the earlier picture of memory on 2026-10-28, and answ
 
 ## 31. Nothing is erased, except through a confirmed tool
 
-- **The problem:** the law can require a customer's data to be erased, while situation records are never rewritten.
+- **Changed 2026-11-04 (decision 39):** the cleaner asks, and the Situation Registrar carries it out in situations and the registry.
+- **The problem:** the law can require a customer's data to be erased, while a situation's versions are never rewritten.
 - **The evidence:** the project owner: "We do not erase anything"; where compliance requires it, "not the AI will erase it" — the AI may propose it in the tool, and the tool has a confirmation rule. The business's compliance answers: deletion reaches every place the data lives. <!-- decided by the owner, 2026-10-28: memory and knowledge; U7 -->
-- **The choice:** in normal work nothing is erased; knowledge is retired, superseded or marked stale. Only the erasure tool erases, after its confirmation flow returns the business owner's or the configurator's yes. Memory and knowledge's cleaner then erases everywhere, situation records included, and keeps a record that an erasure happened, without the data. <!-- U7; IB-19 -->
+- **The choice:** in normal work nothing is erased; knowledge is retired, superseded or marked stale. Only the erasure tool erases, after its confirmation flow returns the business owner's or the configurator's yes. Memory and knowledge's cleaner then erases everywhere, situations' saved histories included, and keeps a record that an erasure happened, without the data. <!-- U7; IB-19 -->
 - **The trade-off and the cost:** situation records are no longer strictly never rewritten.
 - **Reopen if:** a market's law requires erasure without the business's confirmation.
 
@@ -649,6 +654,59 @@ The project owner read the memory and knowledge tests and still saw no understan
   <!-- PL-17 -->
 - **The trade-off and the cost:** memory and knowledge's AI part still makes about half the calls before a first reply; Level 3 may give it a smaller, faster model.
 - **Reopen if:** a stage that is fixed code is found to need knowledge it cannot get from the records.
+
+## Decisions 38 to 42: the Situation Registrar (2026-11-04)
+
+The project owner made these after reading the build view: "Maybe we should call it … something that owns multiple aspects of it". They change who sends notices, and where a situation's history lives. <!-- decided by the owner, 2026-11-04: the registrar -->
+
+## 38. The Situation Registrar sends every notice, by a fixed table
+
+- **The problem:** when a version is saved, who tells the other parts, and who tries again if that fails?
+- **The evidence:** the project owner: "Who sends the notice? It is always the situation record." A writer that dies right after saving cannot try again. And the design's own hand-off tables already drew notices coming from the record.
+- **The options:**
+  - each writer sends its own notices (decided 5 September: "the writer is the broadcaster"). **Rejected:** every writer must solve lost notices, and must know who is listening.
+  - a separate checker that finds unsent notices. **Rejected:** a second part where one is enough.
+  - this part saves the notices with the version, and delivers them. **Chosen.**
+- **The choice:** the Situation Registrar saves a version's notices in the same transaction as the version, delivers them by a fixed table, and tries again until each is delivered. A writer never hears about its own write. A second delivery changes nothing. It routes from typed fields only, and never from what a message means.
+- **The trade-off and the cost:** this part is now a service, not only a place to write.
+- **Reopen if:** the table starts needing to read a message's meaning. That would mean a decision has moved into the wrong part.
+
+## 39. It writes what other parts decide
+
+- **The problem:** who stores the registry, people, links, splits and merges?
+- **The evidence:** the project owner: "The memory and knowledge layer might say that these two situations have to be linked, but who will write that in the database? It is this component." And: "one of the responsibilities of the situation record is to keep a registry". And on the link from a person to their situations: "this has to be there."
+- **The options:** links as memory and knowledge's own records (the rule of 2026-10-28). **Rejected:** a question across situations and links is one query only if they are kept together.
+- **The choice:** deciding and writing are separated. Each kind of change has one author, and every write passes through one door, which records the author. Memory and knowledge still decides links. The situation worker still decides splits, merges and reroutes, and the Situation Registrar carries them out, so a worker still never writes into another situation. It also keeps the registry and the person records.
+- **The trade-off and the cost:** one part has more to do, and a merge touches two situations.
+- **Reopen if:** this part's own rules start to depend on what the links or people mean.
+
+## 40. It never judges
+
+- **The problem:** the record's file said it "decides nothing", and also that it refuses an unsafe save. Which is it?
+- **The evidence:** the project owner: "It is not responsible for deciding anything … There are just conditions that we will code." And: "The situation record does not question why he has to wait."
+- **The choice:** it refuses only what a fixed table can answer: a wrong shape, an out-of-date version, a wrong author, a forbidden move between states, or a missing partner such as a closure with no outcome. It checks the shape of every write, always, because a bad version would stay forever. It takes no write directly from outside Tend. Outside data is reshaped into Tend's shapes where it enters, at the intake step or the tool layer.
+- **The trade-off and the cost:** a reply that fails to cancel the wait it answers cannot be caught here, because that takes reasoning. The worker's fixed code must bundle them.
+- **Reopen if:** a real failure needs a check this part cannot make from a table.
+
+## 41. Each situation's history lives in its own Durable Object (Level 3)
+
+- **The problem:** one D1 database does one thing at a time, and cannot grow past 10 GB. Should one business's situations share it?
+- **The evidence:** Cloudflare: "Each individual D1 database is inherently single-threaded", and "the 10 GB limit of a D1 database cannot be further increased". The project owner: "The main principle of a database is the less load we put on it", and "One durable object per situation, excellent idea."
+- **The options:**
+  - all versions in one D1 per business (the choice of September). **Rejected:** a busy business waits behind itself, and hits a wall at 10 GB.
+  - versions in both, written eventually. **Rejected:** two stores would both claim to be the truth.
+  - one Durable Object per situation for the truth, and a D1 per business for what crosses situations. **Chosen.**
+- **The choice:** one Durable Object per situation holds its versions, state, waits and undelivered notices, saved in one transaction. One D1 per business holds the registry, people, links and the business-wide list of waits. Configuration and learned knowledge each have their own D1. The rule: one truth for each fact; the save to the truth waits; everything derived does not. Anything that must be exact, such as a part woken by a wait's notice, asks the situation itself, and the business-wide list is for finding and showing.
+- **The trade-off and the cost:** the business-wide list and the registry are a moment behind. A merge and an erasure must visit several objects. The project owner accepted this: "It's fine if merges and erasures have to visit several objects."
+- **Reopen if:** measurement in the simulation shows the guessed numbers were badly wrong, or the registry falling behind causes a real wrong result.
+
+## 42. The front door is a Worker; the conversation manager is a Durable Object (Level 3)
+
+- **The problem:** a business runs one arrival at a time per person, and a Worker has no line to do that with.
+- **The evidence:** the project owner, 2026-11-04: "The worker is the front door, and the conversation manager would be a durable object." The September reasoning still holds: a Worker takes 10,000 messages at once, and one Durable Object for a whole business would make them all queue. One per person does not.
+- **The choice (the design's reading of his words):** a Worker per business is the front door, and accepts every arrival. One Durable Object per person runs that person's arrival loop, one at a time.
+- **Not settled:** where the update loop runs, since a situation can involve several people. To settle in the conversation manager's plan.
+- **Reopen if:** one person's line becomes a real bottleneck.
 
 ## Other decisions the design rests on
 

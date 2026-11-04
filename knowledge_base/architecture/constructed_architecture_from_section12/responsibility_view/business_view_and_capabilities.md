@@ -126,7 +126,7 @@ Read each row as: when the owner has this need, Tend shows these things. A payme
 
 Every figure opens down to the situations it came from. <!-- O9 -->
 
-The snapshot is worked out from the situation records each time the owner asks. It is never a second store of the truth. **Decided.** <!-- O2; Section 11: the owner view -->
+The snapshot is worked out from the situations' records each time the owner asks. It is never a second store of the truth. **Decided.** <!-- O2; Section 11: the owner view -->
 
 The owner view writes nothing. Each screen shows when it was last updated. <!-- O2; Section 11: the owner view -->
 
@@ -304,7 +304,7 @@ What the tests contain, the limits, how often samples are taken, and how the scr
 
 ## Five kinds of unexpected behaviour
 
-"Expected" means what is already settled: the hard rules, the discipline of the situation record, and how Tend has behaved before. Unexpected behaviour comes in five kinds: <!-- Level 2 explainability: five kinds -->
+"Expected" means what is already settled: the hard rules, the discipline of the Situation Registrar, and how Tend has behaved before. Unexpected behaviour comes in five kinds: <!-- Level 2 explainability: five kinds -->
 1. **A hard rule broken.** A guess was sent. A failure was hidden. A step ran outside its grant. A working reading, not yet confirmed, reached a customer as fact. These must never happen.
 2. **A situation closed dishonestly.** It closed with a question that has no ending. It said "Tend cannot know this" when a source existed. A wait ended without following its rule for when the person cannot wait.
 3. **An answer that does not fit the question,** more often than a rate the product sets. The answer is about something else, or not backed by a source.

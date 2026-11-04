@@ -24,7 +24,7 @@ The project owner is the person designing Tend. On 2026-10-22 the project owner 
 - The **reply decision** is fixed code that decides whether, and how, to answer an arrival that ended at understanding.
 - The **update decision** is the choice: is this change worth telling this person now?
 - A **held note** records that a message may belong to a situation; it changes nothing there.
-- The **book of waits** is the list of every wait that may outlast its run, kept with the situation records. A **wait** is a pause until one named thing happens.
+- The **book of waits** is the list of every wait that may outlast its run, kept by the Situation Registrar. A **wait** is a pause until one named thing happens.
 - A **channel** is one way of reaching a person: WhatsApp, email, Telegram, or the website chat.
 - A **checked sender** is one whose identity Tend has confirmed from something it can check: a sign-in proves a person; a channel bound to a member proves only the channel, and names the member. A **member** is a person who works for the business, proved by the sign-in provider the business uses.
 - A **clear match** joins an ask to one situation for a reason code can check: the sender wrote a number only that situation holds; the sender is answering a question that situation asked; or it is the sender's only open situation of the ask's kind holding the values understanding resolved (dates, a store, an item).
@@ -33,6 +33,8 @@ The project owner is the person designing Tend. On 2026-10-22 the project owner 
 - A **closed situation** is one set to completed. "The worker" means the situation worker.
 
 <!-- A1; HC-1; decided 2026-10-22: the status-check answer; decided 2026-10-22: the book of waits; B9; decided: the update decision; L1; AC-1; decided 2026-10-22: identity and permission; PL-3; PL-4; PL-6; PL-8 -->
+
+**Updated 2026-11-04.** Every change this part writes passes through the [Situation Registrar](situation_registrar.md), which saves it and sends its notices. So "writes" here names this part as the author, and it sends no notices itself. <!-- decided by the owner, 2026-11-04: the registrar -->
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 

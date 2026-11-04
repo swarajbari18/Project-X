@@ -32,6 +32,8 @@ The project owner is the person designing Tend. On 2026-10-22 the project owner 
 
 <!-- A1; HC-1; S1; Level 2 security: the spine; T2; HC-3; E1; IA-14; J5; IA-23; Section 7: tool layer; IB-8; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the status-check answer; decided by the owner, 2026-10-12: refund setting; Level 2 failure: the numbers; decided 2026-10-22: the book of waits; PL-1; PL-12 -->
 
+**Updated 2026-11-04.** Every change this part writes passes through the [Situation Registrar](situation_registrar.md), which saves it and sends its notices. So "writes" here names this part as the author, and it sends no notices itself. <!-- decided by the owner, 2026-11-04: the registrar -->
+
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 
 **Rebuilt 2026-10-29: the situation loop.** The project owner: "the loops do not look natural to me. The natural would be the way we have designed it, understanding, routing, gathering information, etc., etc." The worker's run is now the situation loop of [how Tend's product loop works](../../../Level%202/the_product_loop/how_does_the_product_loop_work.md). It follows Level 1's order, "understanding, gathering, deciding and acting", and each stage is its own component:
@@ -99,7 +101,7 @@ Taking arrivals and working a situation change for different reasons. A new chan
 - **Acts**, in fixed code, on the one path for each kind of step. <!-- PL-15 -->
 - **Sends a claim to another situation**, when another situation waits for what this one holds. The worker's fixed code hands the claim to the conversation manager's intake, as an arrival for that situation. <!-- IB-16 -->
 - **Establishes subjects Tend does not know**, with explore steps using the web tools and the deep-research skill, when the business switched them on. <!-- N28; PL-12 -->
-- **Keeps work alive over time.** It writes each wait, with what will wake it, and its entry in the book of waits, in the same save. A wait that begins and ends inside one run is not written in the book. It sets each wait's time signal, which comes straight back to it. <!-- H2; closed item: short waits in the book; settled 2026-10-22: short waits; decided 2026-10-22: the book of waits -->
+- **Keeps work alive over time.** It writes each wait, with what will wake it. The wait is saved with the situation's version, and reaches the book's business-wide list a moment later. A wait that begins and ends inside one run is not written in the book. It sets each wait's time signal, which comes straight back to it. <!-- H2; closed item: short waits in the book; settled 2026-10-22: short waits; decided 2026-10-22: the book of waits -->
 - **Brings people in, and arranges meetings.** <!-- J1; K1 -->
 - **Contacts a partner** (an outside business the business works with, such as its carrier) only after escalation, and only when the business's policy allows. <!-- K4 -->
 - **Handles failure.** Past a wait's limit, it declares the outcome and moves to the next safe step. For a step that cannot be undone, the outcome is unknown; for a status no source answered, it is a failure. <!-- M1; M2; IB-10; Section 8: past the bound -->

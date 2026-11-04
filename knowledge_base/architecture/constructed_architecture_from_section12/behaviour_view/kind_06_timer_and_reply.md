@@ -16,10 +16,10 @@ In plain words: a timer and a person's reply arrive at almost the same moment.
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -59,15 +59,15 @@ Priya is one of thirty people Tend contacted for the business. Her follow-up is 
 
 ```text
 1.  Priya                -> conversation manager : "Yes, I'm interested — can you tell me more?" (09:58)
-2.  conversation manager -> situation record     : new version, with her reply
-3.  situation record     -> situation worker     : notice
-4.  situation worker     -> situation record     : one version: Tend's answer, and the follow-up wait cancelled
-5.  situation record     -> conversation manager : notice
+2.  conversation manager -> registrar            : new version, with her reply
+3.  registrar            -> situation worker     : notice
+4.  situation worker     -> registrar            : one version: Tend's answer, and the follow-up wait cancelled
+5.  registrar            -> conversation manager : notice
 6.  conversation manager -> communication layer  : worth sending
 7.  communication layer  -> communication layer  : send check
 8.  communication layer  -> Priya                : Tend's answer, on email — sent through the tool layer
 9.  (10:00) follow-up timer -> situation worker  : the timer for the follow-up wait goes off
-10. situation record     -> situation worker     : the newest version: no follow-up wait is left
+10. registrar            -> situation worker     : the newest version: no follow-up wait is left
 11. situation worker     -> (nothing)            : nothing is sent
 ```
 
@@ -101,7 +101,7 @@ Two other orders of events: <!-- Section 8: the nurture loop -->
   - The reply cannot be sent. The failure is recorded, and the worker decides the next step. <!-- IA-10 -->
 - **A person stepping in:** none.
 - **The outside system:** email.
-- **What it changes next:** the cancelled wait leaves the book of waits, in the same save; a new wait, if the business's rule sets one. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- **What it changes next:** the cancelled wait ends in the same save, and leaves the book's business-wide list a moment later; a new wait, if the business's rule sets one. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - **The final state:** waiting on Priya, or completed: the conversation manager sets completed once no wait is still running and the last message has gone out. <!-- decided by the owner, 2026-10-12: completed -->
 - **How it is checked:** the worker reads the newest version before any decision; only one run per situation at a time; the decision's proposal passes its shape and permission checks; the send check before the answer goes out. <!-- IB-4; S1; S2; T2; Section 8: the send check -->
 - **Rebuilt afterwards from:** Priya's message, the version that answered and cancelled, the sent record, and the timer's empty run. <!-- O7 -->

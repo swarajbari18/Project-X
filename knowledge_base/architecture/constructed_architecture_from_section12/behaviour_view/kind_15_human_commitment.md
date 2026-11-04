@@ -16,10 +16,10 @@ In plain words: a person's promise — a meeting, a piece of work, a handoff —
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -60,19 +60,19 @@ Priya, about to buy, asked to speak to a person. Ravi, a salesperson, takes sale
 ```text
 1.  (Tuesday 10:00) time signal -> situation worker : the meeting time arrives
 2.  Ravi                 -> conversation manager : "Priya didn't join."
-3.  conversation manager -> situation record     : new version, with Ravi's report
-4.  situation record     -> situation worker     : notice
-5.  situation worker     -> situation record     : new version: a meeting event — missed; Ravi's time used up; the next step: ask Priya
-6.  situation record     -> conversation manager : notice
+3.  conversation manager -> registrar            : new version, with Ravi's report
+4.  registrar            -> situation worker     : notice
+5.  situation worker     -> registrar            : new version: a meeting event — missed; Ravi's time used up; the next step: ask Priya
+6.  registrar            -> conversation manager : notice
 7.  conversation manager -> communication layer  : worth telling Priya (the update decision)
 8.  communication layer  -> communication layer  : send check
 9.  communication layer  -> Priya                : "We missed you today. Would another morning suit you?" — sent through the tool layer
 10. Priya                -> conversation manager : "Sorry — Thursday?"
-11. conversation manager -> situation record     : new version, with Priya's answer
-12. situation record     -> situation worker     : notice
+11. conversation manager -> registrar            : new version, with Priya's answer
+12. registrar            -> situation worker     : notice
 13. situation worker     -> tool layer           : book Thursday 10:00 in the calendar, through the meeting capability
-14. situation worker     -> situation record     : new version: a new wait — Thursday 10:00, inside Ravi's weekday mornings
-15. situation record     -> conversation manager : notice
+14. situation worker     -> registrar            : new version: a new wait — Thursday 10:00, inside Ravi's weekday mornings
+15. registrar            -> conversation manager : notice
 16. conversation manager -> communication layer  : worth telling Priya and Ravi (the update decision)
 17. communication layer  -> communication layer  : send check
 18. communication layer  -> Priya, Ravi          : the new time — sent through the tool layer
@@ -116,18 +116,18 @@ Each business sets the limits, the waivers, and the expiry rules. The design giv
 
 ```text
 1.  Kabir                -> conversation manager : "Please hand Meera's case to Sana; I am moving to another team."
-2.  conversation manager -> situation record     : new version: Kabir's request, saved as an arrival
-3.  situation record     -> situation worker     : notice
-4.  situation worker     -> situation record     : new version: a handoff — Meera's delivery case, from Kabir to Sana; pending, with the business's deadline for accepting
-5.  situation record     -> conversation manager : notice
+2.  conversation manager -> registrar            : new version: Kabir's request, saved as an arrival
+3.  registrar            -> situation worker     : notice
+4.  situation worker     -> registrar            : new version: a handoff — Meera's delivery case, from Kabir to Sana; pending, with the business's deadline for accepting
+5.  registrar            -> conversation manager : notice
 6.  conversation manager -> communication layer  : worth telling Sana (the update decision)
 7.  communication layer  -> communication layer  : send check
 8.  communication layer  -> Sana                 : the case, its deadline, and its history — sent through the tool layer
 9.  (until Sana accepts, Kabir stays responsible)
 10. Sana                 -> conversation manager : "I'll take it."
-11. conversation manager -> situation record     : new version, with Sana's answer
-12. situation record     -> situation worker     : notice
-13. situation worker     -> situation record     : new version: the handoff accepted; Sana is now responsible
+11. conversation manager -> registrar            : new version, with Sana's answer
+12. registrar            -> situation worker     : notice
+13. situation worker     -> registrar            : new version: the handoff accepted; Sana is now responsible
 ```
 
 <!-- J8; IA-14 -->

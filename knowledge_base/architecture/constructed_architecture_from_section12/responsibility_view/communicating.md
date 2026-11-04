@@ -72,7 +72,7 @@ The next step is chosen in the decision. Whether to tell the person is a differe
 
 **An answer from what Tend holds** (added 2026-10-29; the project owner's ruling of 2026-09-05). When every business ask in an arrival is answered by a current claim in the sender's own situation, with no open conflict on its field, or by a fact the business configured, the conversation manager tells the person at once. The worker records the asks as answered afterwards. Answering from a configured fact extends the ruling, and is a call, not yet confirmed. <!-- PL-10 -->
 
-The worker and the conversation manager never call each other. The worker saves a new version of the situation. That save sends a short notice that a new version exists. The conversation manager reads the new version. <!-- Level 2 communication: the ticket picture -->
+The worker and the conversation manager never call each other. The worker saves a new version of the situation. The Situation Registrar sends a short notice that a new version exists. The conversation manager reads the new version. <!-- Level 2 communication: the ticket picture -->
 
 Think of the situation as a work ticket. The worker updates the ticket with its work: done, waiting, and so on. The conversation manager watches the ticket. When the ticket changes, it reads the change, and tells the person. <!-- Level 2 communication: the ticket picture -->
 

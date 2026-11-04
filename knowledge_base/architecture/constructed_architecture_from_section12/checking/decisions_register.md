@@ -250,6 +250,16 @@ Also settled that day, from the Level 2 answers and the design:
 - the cost before a first reply follows the message: 2 + 2 AI calls for "hi", 4 + 4 for Arjun's Diwali message, where the morning's design took 10 to 23 for every business message;
 - one option was surfaced and not applied: answering "any update?" for every open situation at once, which would change decided rule B3.
 
+## 8. The decisions of 2026-11-04: the Situation Registrar
+
+| # | The decision | Where |
+|---|---|---|
+| 38 | The Situation Registrar sends every notice, by a fixed table | [the decisions file](../decision_view/the_decisions.md) |
+| 39 | It writes what other parts decide: the registry, people, links, splits, merges | The same |
+| 40 | It never judges; it refuses only what a table rules out | The same |
+| 41 | Each situation's history lives in its own Durable Object; a D1 per business holds what crosses situations | The same |
+| 42 | The front door is a Worker; the conversation manager is a Durable Object per person (the design's reading) | The same |
+
 ## Where each decision's reasoning lives
 
 - The twenty-five decisions, in full: [the decisions file](../decision_view/the_decisions.md).

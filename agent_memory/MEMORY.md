@@ -1,0 +1,22 @@
+- [Work environment execution preference](work-env-execution-preference.md) — execute end to end and verify live; don't gate on the spec baseline
+- [Work environment Phase A state](work-env-phase-a-state.md) — scripts, start time, report location, go-live verification
+- [Subagent usage](feedback_subagent_usage.md) — default model/effort only; gather and verify, never synthesize; Claude orchestrates
+- [Section 12 output shape](feedback_section12_output_shape.md) — all method views + build view (file per component); human + agent layers; constitution and architecture-folder audits after every write
+- [Ask before acting](feedback_ask_before_acting.md) — do only what was asked; ask before agents, scratch files, audits, extra edits
+- [Open labels: check the record first](feedback_open_labels_check_the_record.md) — decided, settled, agreed, or recorded means decided; correct the label, don't re-ask; never ask what the KB answers; stack answers short and direct
+- [Memory and knowledge redesign](project_memory_loop_redesign.md) — then the product loop (29 Oct): loops from stages, harness study rewritten, Section 12 reworked; drafts 40–53; uncommitted
+- [Section 12 full agency](project_section12_full_agency.md) — 2026-10-22: owner accepted all 7 answers + every recommendation; applied, audited; see decisions register part 4
+- [Working files location](feedback_working_files_location.md) — never /tmp or scratchpad for work files; keep them in the project folder; ask where
+- [Understanding before action](feedback_understanding_before_action.md) — establish what the arrival means before routing or acting; a lucky right result is a FAIL
+- [Loops from product stages](feedback_loops_from_product_stages.md) — stages are independent loop components with exits; routing is code; names must say what a thing does
+- [Factory rewritten learning-first](project_factory_learning_first.md) — 1 Nov 2026: learn→plan→translate→review per component; he reads code; proposals await his yes
+- [Stack: TypeScript decided](project_stack_typescript_decided.md) — 1 Nov 2026: TS backend; frameworks at implementation; front end from HTML/CSS/TS; landing page is Astro
+- [KB write audit sequence](feedback_kb_write_audit_sequence.md) — readability subagents + own reread, own technical audit, re-audit, then fidelity vs the conversation
+- [Agent memory lives here](feedback_agent_memory_visible.md) — only in agent_memory/ at the repo root, never under ~/.claude; on GitHub on purpose, so never a secret in it
+- [Situation Registrar rulings](project_situation_record_rulings.md) — 4 Nov: name, one Durable Object per situation, sends all notices, plans in knowledge_base/plans/; lessons 1 to 8 taught; views updated; no code yet; plan 1 is next; nothing creates a business
+- [Product names](feedback_product_names.md) — names say what a thing is in product terms, even if long; never make him decode a technical name
+- [AI scope is set by code](feedback_ai_scope_set_by_code.md) — the AI reasons inside a scope code sets; it never engineers its context or sees store IDs
+- [No Playwright](feedback_no_playwright.md) — never use or install it; browser automation only in a sandbox, after asking; what was removed on 4 Nov, and what remains
+- [Method and mechanism](feedback_explain_method_and_mechanism.md) — say what was done and how, with the real mechanism tied to what he knows; no results alone, no metaphors alone
+- [Delete teaching code](feedback_delete_teaching_code.md) — code written only to teach is deleted once its result is written down; it must not stay for agents to find
+- [No force push](feedback_no_force_push.md) — never rewrite commits already on GitHub or suggest a force push; if history must change, use a new branch

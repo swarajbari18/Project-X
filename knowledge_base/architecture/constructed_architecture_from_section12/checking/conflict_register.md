@@ -95,6 +95,19 @@ These do not change this folder. They sit in earlier files, outside it; anyone r
 | 35 | Whether gathering may ask a person | The product loop as first written on 2026-10-29: gathering only reads; asking is a decision's step | Level 2's gathering page: "Gathering may ask an employee or partner for information"; Level 1: "If information is missing, Tend asks the appropriate employee"; Section 6: gathering "asks for the smallest unresolved part" | Gathering may ask a person for information, as a question through the communication layer, with a wait; it takes no other step with an effect, and never judges whether the information is enough. Found by Claude when re-checking the records, and corrected the same day | Settled (Level 2) |
 | 34 | Whether "any update?" for several open situations may be answered for all of them at once | Decided rule B3: it gets a question | The product loop's tests (H6): a capable person would answer all three when each holds a current claim | Not changed: B3 stands. The option is listed for the project owner in the Level 2 page | Open option, not applied |
 
+## Conflicts of 2026-11-04: the Situation Registrar
+
+| # | The conflict | One source | The other source | The answer |
+|---|---|---|---|---|
+| 36 | Who sends a notice | Level 2 coordination, the harness study, and Level 1 framing: "the writer is the broadcaster"; "Whoever saves a new version … emits its event" | The project owner, 2026-11-04: "It is always the situation record" | The Situation Registrar sends every notice (decision 38). The Level 2 lines stand as a record of what was said |
+| 37 | Who keeps the links | Decision 27, and Level 2 memory and knowledge: links are memory and knowledge's "own records" | The project owner, 2026-11-04: "who will write that in the database? It is this component" | Memory and knowledge decides; the Situation Registrar stores (decision 39) |
+| 38 | Where a situation's versions live | The harness study of September, and Level 2 memory and knowledge's "written by the situation's own save": one D1 per business | The project owner, 2026-11-04: "One durable object per situation" | One Durable Object per situation; the registry's typed fields are a copy, a moment behind (decision 41) |
+| 39 | Whether the book of waits is saved in one save with the version | Decision 22 | Decision 41: the business-wide list lives elsewhere | The wait is saved with its version; the list follows a moment later, and can be rebuilt |
+| 40 | What the conversation manager runs on | The harness study of September: a Worker, one per business | The project owner, 2026-11-04: "the conversation manager would be a durable object" | A Worker is the front door; one Durable Object per person runs the arrival loop (decision 42) |
+| 41 | The record's own file on readers | Its question 8 left out the tool layer | Kind 1: the tool layer reads the saved starts | The file now lists it |
+| 42 | Person records | The responsibility view and Level 2 both require them | The state view's table of records had no row for them | Added to the state view; kept by the Situation Registrar (decision 39) |
+| 43 | The factory's isolation audit | "Used exactly as written" (2026-09-13); it asks for the query condition naming the shop | One database per business has no such condition (decision 15) | **Open for the project owner** |
+
 ## How a conflict is closed
 
 A conflict closes when the project owner answers it, or when it is settled under their instruction. The answer is written in the construction record, the governing line is kept, and every file that repeats the point is changed to match. An earlier line outside this folder closes when it is corrected where it sits. <!-- method: change after completion -->

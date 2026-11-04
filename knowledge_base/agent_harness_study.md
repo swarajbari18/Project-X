@@ -282,34 +282,38 @@ These are Level 3 choices, recorded in September because the build needs them. T
 **Conversations and situations are different things** (Swaraj's correction).
 - A conversation is one thread between Tend and one person on one channel.
 - A situation spans conversations, and holds references to every conversation and message it depends on.
-- The situation record is the point where the parts meet.
+- The Situation Registrar is the point where the parts meet.
 
 **Compute.**
-- **The conversation manager is a Worker, one per business.** It holds no state of its own and handles thousands of arrivals at once. It runs the arrival loop and the update loop.
+- **The front door is a Worker, one per business** (changed 4 November 2026). It holds no state of its own and accepts thousands of arrivals at once.
+- **The conversation manager is a Durable Object, one per person** (Swaraj, 4 November 2026: "the conversation manager would be a durable object"; one per person is the design's reading). It runs that person's arrival loop, one at a time. Where the update loop runs is not settled, because a situation can involve several people.
+- **The Situation Registrar is a Durable Object, one per situation, separate from the worker's** (4 November 2026). It holds the situation's versions, waits and undelivered notices, and sends the notices. It never calls an AI, so a slow AI call never holds up a save.
 - **The situation worker is a Durable Object, one per situation, all of one class.** It handles one event at a time, so no two runs touch one situation together. Its alarms serve check-ins, timeouts and deadlines. Its own small database holds only working state and logs. It runs the situation loop.
 - **Arrivals during a run wait in line.** An arrival that lands while a run is working queues inside the Durable Object. The next step reads the newest version and reassesses.
-- **No direct calls.** The conversation manager never calls the Durable Object; a new version of the situation wakes it.
-- **The communication layer and memory and knowledge's background parts** consume events from the queue.
+- **No direct calls between the two loops.** The conversation manager never calls the situation worker; the Situation Registrar's notice of a new version wakes it.
+- **The communication layer and memory and knowledge's background parts** receive the Situation Registrar's notices, some through a queue.
 
 **Where data lives.**
 
 | Data | Where | Why |
 |---|---|---|
-| Configuration: grants, policies, channels, roles | each business's D1 database | strongly consistent, small |
-| Learned knowledge | each business's D1 | typed, versioned, found by scope first |
-| Situation versions; the situation registry | each business's D1 | shared by the Worker and the Durable Objects |
+| Configuration: grants, policies, channels, roles | its own D1 per business | strongly consistent, small; a permission check must never queue behind a heavy read |
+| Learned knowledge | its own D1 per business | typed, versioned, found by scope first; heavy reads stay off other threads |
+| Situation versions, state, waits, undelivered notices | one Durable Object per situation (4 November 2026) | the truth, saved in one transaction; no situation waits for another |
+| The situation registry, person records, links, the business-wide list of waits | one D1 per business | answers questions across situations; a moment behind, and rebuildable, except people and links |
 | Conversations; message metadata | each business's D1 | indexed by person and by situation |
 | Message content; attachments | R2 object storage | large, cheap to keep |
-| Working state and logs of a run | the Durable Object's own database | not authoritative; rebuilt from D1 after a crash |
+| Working state and logs of a run | the situation worker's own Durable Object | not authoritative; rebuilt from the Situation Registrar after a crash |
 | Traces | R2, written in batches through a queue | very many, written once |
 | Training data; golden scenarios | R2 | immutable once checked |
 | Skills and procedures | object storage, versioned | they change often, independently of code (Swaraj, 28 October) |
 | Cache: context slices, sessions, summaries | KV | fast, short-lived, rebuildable |
-| Cross-business analytics; the tenant registry | a separate analytics D1 | fed by the event stream |
+| Cross-business analytics | Basin: events into R2 through Pipelines, read with Basin SQL (4 November 2026) | reports across millions of rows never touch live tables; D1's limits do not fit this |
+| The list of all businesses | not designed | nothing yet creates a business; see the gap register |
 | Meaning index | a scoped, per-business vector index (Vectorize is the candidate) | holds references only; a hit is a candidate, never an authority |
 
 **Growth.**
-- **Volume.** About 200 MB a month for a small business, against D1's 10 GB limit.
+- **Volume.** About 200 MB a month for a small business. D1's 10 GB limit cannot be raised, which is one reason versions moved out of D1 on 4 November 2026.
 - **Archival in tiers.** Hot for the first 90 days; warm from day 90 to day 365, with content moved to R2; after a year, cold in R2, with a pointer left in D1.
 - **Backup.** D1 point-in-time recovery, plus exports to R2.
 
@@ -324,7 +328,7 @@ These are Level 3 choices, recorded in September because the build needs them. T
    - read the newest version;
    - write on the version read;
    - reassess between events;
-   - recover from D1;
+   - recover from the situation's own Durable Object;
    - a bounded number of rounds.
 
 ## Part 9. Event-driven mechanics and the prompt constitution
@@ -332,13 +336,13 @@ These are Level 3 choices, recorded in September because the build needs them. T
 **No part polls.**
 - The book of waits is the subscription list: each waiting situation names what will wake it.
 - The situation registry, together with the arrival loop, finds which situation an event belongs to.
-- The only scheduled wake is each wait's check-in, which makes forgotten work impossible.
+- The scheduled wakes are each wait's time signal and its check-in. The check-in makes forgotten work impossible.
 
-**Write and announce together** (5 September). Whoever saves a new version of a situation emits its event in the same run. An unannounced write is an unfinished job, and is retried.
+**Write and announce together** (5 September; changed 4 November 2026). A version and its notices are saved together. The Situation Registrar, not the writer, delivers them, and tries again until each is delivered.
 
 **The cache never guards a decision** (5 September). A cache may make reads faster. Anything that allows or forbids an action reads the authoritative store.
 
-**A rule change needs no event.** Situations read rules fresh at every wake, and the permission check at each action is the hard gate. A business that wants situations woken on a rule change can have that as configuration later.
+**A rule change.** Situations read rules fresh at every wake, and the permission check at each action is the hard gate. After a platform rule change, the affected situations are also woken at once (decision 24).
 
 **When events go wrong.**
 - A duplicate delivery is harmless: the worker sees the version was already handled.

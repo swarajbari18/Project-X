@@ -18,7 +18,9 @@ A rule with no status word next to it is **Decided**: it has a source the projec
 
 <!-- Every rule below carries its code in a hidden note. Its meaning, source, and status sit in code_index.md in this folder. -->
 
-**Words used here.** **Tend** is the software this design describes. A **situation** is one operational problem, such as Meera's late parcel. **The AI** suggests a step; **fixed code** — code that always makes the same check — decides whether that step may run. A **version** is one saved state of a situation; a new version sends a short internal **notice**. A **wait** is a pause until one named thing happens; the **book of waits** lists every wait that may outlast its run, and is kept with the situation records. An **arrival** is anything that comes in from outside, saved as a new version. The **trusted permission store** is the one saved list of what the business allows. The **configurator** is the person who sets the business up: the business owner, or someone the business owner names. The **escalation path** is the business's own list of who to turn to next. A **walk** is one worked example of a kind of situation. <!-- A1; Level 2 security: the spine; HC-1; HC-3; decided 2026-10-22: the book of waits; AC-4; G7; J5 -->
+**Words used here.** **Tend** is the software this design describes. A **situation** is one operational problem, such as Meera's late parcel. **The AI** suggests a step; **fixed code** — code that always makes the same check — decides whether that step may run. A **version** is one saved state of a situation; a new version sends a short internal **notice**. A **wait** is a pause until one named thing happens; the **book of waits** lists every wait that may outlast its run, and is kept by the Situation Registrar. An **arrival** is anything that comes in from outside, saved as a new version. The **trusted permission store** is the one saved list of what the business allows. The **configurator** is the person who sets the business up: the business owner, or someone the business owner names. The **escalation path** is the business's own list of who to turn to next. A **walk** is one worked example of a kind of situation. <!-- A1; Level 2 security: the spine; HC-1; HC-3; decided 2026-10-22: the book of waits; AC-4; G7; J5 -->
+
+**Words added 2026-11-04.** The **registry** is the Situation Registrar's list of every situation and person in a business.
 
 **Words added 2026-10-29.**
 - Tend's **product loop** is four loops, each made of **stages** a capable person would recognise:
@@ -48,6 +50,8 @@ This file adds no rule of its own. Every rule here already appears in one of the
 - **The queue for arrivals** is per person.
 
 <!-- C7; C8; C10; N34; N37; B10; PL-1; PL-2; PL-5; PL-6; PL-17 -->
+
+**Updated 2026-11-04.** The part once called the situation record is now the **Situation Registrar**. It sends every notice, by a fixed table. It keeps the registry of situations and people. It writes links, splits and merges that other parts decide. It never judges. So "writes" below names the **author** of a change: every write to a situation passes through the registrar. <!-- decided by the owner, 2026-11-04: the registrar -->
 
 ## 1. The problem every part exists to solve
 
@@ -133,7 +137,7 @@ The fifteen kinds of situation in section 5 are not separate paths. They are tes
  STATUS-CHECK SERVICE ─────────▶   │  ▲    (intake step;            │
    (its answer, as an event)       │  │     update decision)        └── reads ──▶ CONSENT RECORDS (it writes them)
                      new version   ▼  │ notice
-                    SITUATION RECORD + BOOK OF WAITS ◀─────────────────────── OWNER VIEW (reads, when asked)
+                    SITUATION REGISTRAR + BOOK OF WAITS ◀─────────────────────── OWNER VIEW (reads, when asked)
                                    │  ▲
                             notice │  │ new version; each wait with its book entry
                                    ▼  │
@@ -152,13 +156,13 @@ The fifteen kinds of situation in section 5 are not separate paths. They are tes
  Later, in the background: each run's trace ──▶ MEMORY AND KNOWLEDGE, IMPROVEMENT; the observer runs alongside every part
 ```
 
-The diagram's lines are the hand-offs in the table below. The situation worker and the communication layer sit inside the conversation manager; they are drawn apart to show their hand-offs. The book of waits is data kept with the situation records; the worker writes it. The conversation manager reads the book — at the intake step, to match an arrival to the wait it ends, and after a platform rule change, to find the situations it affects. The status-check service reads it, to find each wait it serves. The owner view reads it, to show what each situation is waiting for. After a restart, the worker reads it, to set every time signal again. <!-- decided by the owner, 2026-10-10: what the conversation manager contains; decided 2026-10-22: the book of waits -->
+The diagram's lines are the hand-offs in the table below. The situation worker and the communication layer belong to the conversation manager as a grouping of responsibilities, though each runs on its own; they are drawn apart to show their hand-offs. The book of waits is data kept by the Situation Registrar; the worker is the author of each wait. The conversation manager reads the book — at the intake step, to match an arrival to the wait it ends, and after a platform rule change, to find the situations it affects. The status-check service reads it, to find each wait it serves. The owner view reads it, to show what each situation is waiting for. After a restart, the worker reads it, to set every time signal again. <!-- decided by the owner, 2026-10-10: what the conversation manager contains; decided 2026-10-22: the book of waits -->
 
 | From | To | What passes |
 |---|---|---|
 | A person or system | Conversation manager | A message, or another arrival |
-| Conversation manager | Situation record | A new version, with what came in |
-| Situation record | Situation worker | A notice |
+| Conversation manager | Situation Registrar | A new version, with what came in |
+| Situation Registrar | Situation worker | A notice |
 | A time signal the worker set | Situation worker | A due time or a check-in |
 | Conversation manager, situation worker, communication layer | Memory and knowledge | At each point, what the loop holds: the arrival, the situation and version, the reasoning artifact just produced, with any questions for memory and knowledge; and what each stage that is fixed code did, for it to observe |
 | Situation worker | Tool layer | A checked call |
@@ -166,30 +170,30 @@ The diagram's lines are the hand-offs in the table below. The situation worker a
 | Configuration | Trusted permission store and membership | Grants, settings, members, and channel bindings, written through the configurator's fixed tools |
 | Tool layer | Outside system | One call |
 | Memory and knowledge | Conversation manager, situation worker, communication layer | A package before each stage that reasons: knowledge to use, or an explicit empty answer |
-| Situation record | Memory and knowledge | Each version's notice, for its link keeper, indexer and learner |
+| Situation Registrar | Memory and knowledge | Each version's notice, for its link keeper, indexer and learner |
 | Situation worker | Conversation manager | A claim the worker decided to send to another situation, handed to intake as an arrival for that situation |
 | Situation worker's fixed code | Conversation manager | In an outreach, each new version of a person's situation, handed to intake as an arrival for the central situation |
 | Configuration | Memory and knowledge | The business's tool list, with each connected MCP server's captured tool list |
 | Tool layer (the erasure tool, after its confirmation) | Memory and knowledge | A confirmed erasure, for its cleaner |
 | Tool layer | Situation worker | Evidence; and, when it hands off the waiting after up to five asks, a declared wait in its result |
-| Situation worker | Situation record | The declared wait, saved with the started step in one version, before the AI is told |
-| Situation record | Status-check service | The saved wait's notice; the service reads the wait from the book of waits |
+| Situation worker | Situation Registrar | The declared wait, saved with the started step in one version, before the AI is told |
+| Situation Registrar | Status-check service | The saved wait's notice; the service reads the wait from the book of waits |
 | Status-check service | Tool layer | Each ask, when the service decides to ask |
 | An outside system | Status-check service | News the outside system sends on its own; no call goes out |
 | Status-check service | Conversation manager | Its answer, as an event addressed to its wait |
 | Product team | Communication layer | A channel's rule record, updated through a fixed tool; the update announces itself |
-| Conversation manager | Situation record | After a platform rule change, one version in each situation with a step pending on that channel, read from the book of waits, at a steady pace |
-| Situation record | Communication layer | The notice of an arrival that is an opt-in or an opt-out, which wakes the consent code |
-| Situation worker | Situation record | What Tend concludes, as a new version |
-| Situation record | Conversation manager | A notice |
+| Conversation manager | Situation Registrar | After a platform rule change, one version in each situation with a step pending on that channel, read from the book of waits, at a steady pace |
+| Situation Registrar | Communication layer | The notice of an arrival that is an opt-in or an opt-out, which wakes the consent code |
+| Situation worker | Situation Registrar | What Tend concludes, as a new version |
+| Situation Registrar | Conversation manager | A notice |
 | Conversation manager | Communication layer | Worth telling |
 | Communication layer | Tool layer | The send |
 | Communication layer | A person | A checked message |
 | Communication layer | Sent record and consent records | What was sent, and each consent entry; each save announced like any other |
 | A run's trace | Memory and knowledge, improvement, observer | Later, in the background |
 | Memory and knowledge | Configurator | A proposed setting |
-| Owner view | Situation record and book of waits | A read, when someone asks |
-| Situation record | Owner view | The notice of a change that may be one of the four kinds of alert |
+| Owner view | Situation Registrar and book of waits | A read, when someone asks |
+| Situation Registrar | Owner view | The notice of a change that may be one of the four kinds of alert |
 | Owner view | The business owner | An alert, without waiting to be asked |
 
 <!-- IB-15; IB-16; IB-17; IB-18; IB-19; N27; Section 7: how the two parts work together; Section 8: which change starts which part; AC-4; M4; M5; settled 2026-10-22: the five per wait; IB-12; decided 2026-10-22: the wait a tool declares; decided 2026-10-22: the service calls through the tool layer; decided 2026-10-22: the status-check answer; construction record, entry 21: the service serves several layers; decided 2026-10-22: identity and permission; decided 2026-10-22: platform rule wake; decided 2026-10-22: consent records; O3 -->
@@ -198,7 +202,7 @@ The diagram's lines are the hand-offs in the table below. The situation worker a
 
 | Part | What it is | Its file |
 |---|---|---|
-| Situation record | The saved history of one problem, kept as a list of versions | [situation record](situation_record.md) |
+| Situation Registrar | Keeps each problem's saved history as a list of versions, sends every notice, and keeps the list of situations and people. It decides nothing | [the Situation Registrar](situation_registrar.md) |
 | Situation worker | Decides the next step for one problem, and writes what Tend concludes | [situation worker](situation_worker.md) |
 | Conversation manager | Takes each arrival, puts it on the right problem, decides whether a person should hear an update, and sets completed. It contains the intake step, the situation worker, and the communication layer. | [conversation manager](conversation_manager.md) |
 | Communication layer | Shapes, checks, sends, and records each message; keeps the consent records | [communication layer](communication_layer.md) |
@@ -223,7 +227,7 @@ The table is split in two, so each half can be read on a narrow screen.
 
 **The record, the conversation manager, the worker, the communication layer, and the tool layer**
 
-| Kind | Situation record | Conversation manager | Situation worker | Communication layer | Tool layer |
+| Kind | Situation Registrar | Conversation manager | Situation worker | Communication layer | Tool layer |
 |---|---|---|---|---|---|
 | [1. An irreversible action's outcome stays unknown](../behaviour_view/kind_01_unknown_result.md) | Holds the step started, its unknown outcome, and the wait the tool declared, saved together in one version | Decides the customer should hear the business is waiting | Records the outcome unknown; waits; a person gets the timeline after the settle window | Sends the honest update | Checks for an earlier attempt; writes its note before the call; makes one call; asks up to five times for the wait; declares the wait in its result, which the worker saves; makes the status-check service's asks; never repeats |
 | [2. An outside system is down, slow, or too stale](../behaviour_view/kind_02_outside_system_down.md) | Holds the wait, then the declared failure | Decides the interim update is worth telling | Waits inside the limit; writes an interim update before the promised time; records a failure past the limit | Sends the interim update | Retries a brief failure; does not keep calling a service that stays down |
@@ -265,14 +269,14 @@ The table is split in two, so each half can be read on a narrow screen.
 
 ## 6. Who writes what
 
-| Record, or change to a situation | The one part allowed to write it |
+| Record, or change to a situation | Its one author |
 |---|---|
 | The first version of a new situation; the understanding artifact of each arrival that carries words, an interpretation; each reply decision, saved with its arrival in the person's message history; each arrival — an incoming message, a person's answer, an outside system's answer such as the status-check service's; whether an update is worth telling; one version in each situation affected by a platform rule change; completed | Conversation manager |
 | Its understanding of new content; the information plan; gathered facts and claims; conflicts; corrections; the next step; what should be said; waits that may outlast their run, each with its entry in the book of waits — including a wait a tool declares; what an outside answer means; outcomes; the work recorded as resolved; work for a person; a claim to send to another situation | Situation worker |
 | The sent record, and delivery receipts; consent records | Communication layer |
 | The status-check service's record of asks for each wait it serves | Status-check service |
 | The state of each call's tries; the note before a step that cannot be undone; connection codes | Tool layer |
-| Links between situations; learned items (lessons, business words, business events, learned subjects, proposed settings); skills and procedures; its indexes; its record of what it presented; a confirmed erasure, carried out everywhere | Memory and knowledge |
+| Links between situations (the Situation Registrar stores them); learned items (lessons, business words, business events, learned subjects, proposed settings); skills and procedures; its indexes; its record of what it presented; the start of a confirmed erasure | Memory and knowledge |
 | Grants, settings, compliance settings, membership, channel bindings, and each connected MCP server's captured tool list | Only fixed tools the configurator uses |
 | The channel rule records, which the communication layer holds; the list of tools | The product team |
 | Nothing | Owner view |
@@ -285,7 +289,7 @@ The full table, with every record and every change of state, is in [the records 
 
 This order is a recommendation. It is worked out from which part reads what another part writes. The technology stage may change it for technical reasons, and records why. <!-- method: the build order -->
 
-1. **The situation record, with the book of waits kept beside it.** Most parts depend on it: the conversation manager and the situation worker write to it; the communication layer, memory and knowledge, and the owner view read from it. <!-- build order: 1; decided 2026-10-22: the book of waits -->
+1. **The Situation Registrar, with the book of waits kept beside it.** Most parts depend on it: the conversation manager and the situation worker write to it; the communication layer, memory and knowledge, and the owner view read from it. <!-- build order: 1; decided 2026-10-22: the book of waits -->
 2. **Configuration, at its smallest:** the trusted permission store, membership, and a first set of grants and settings. The permission check reads it before any call or send. <!-- build order: 2 -->
 3. **The conversation manager's arrival loop:** intake; understanding the arrival (its understanding artifact and its endings); routing, as fixed code; the reply decision. <!-- build order: 3; C8; PL-3; PL-5; PL-6; PL-8 -->
    **Memory and knowledge's two fixed parts, at their smallest.** Every stage that reasons waits for a package, so the first slice needs one. The fixed parts' exact lookups, with an explicit empty answer where nothing fits, are enough for the first slices:
@@ -305,9 +309,9 @@ This order is a recommendation. It is worked out from which part reads what anot
 9. **The rest of memory and knowledge:** its AI part, its retrieval capability, its link keeper, indexer, link finder, learner and cleaner, and skills in object storage. Until then, packages hold only the fixed parts' items. If no package arrives, the loop waits a set time, then the step goes to a person. <!-- build order: 9; N31 -->
 10. **Improvement.** It only reads past records. <!-- build order: 10 -->
 
-The book of waits is built with the situation record, in step 1; the third later slice is the first to use it. <!-- closed item: book of waits holder -->
+The book of waits is built with the Situation Registrar, in step 1; the third later slice is the first to use it. <!-- closed item: book of waits holder -->
 
-**The first thin slice** is the smallest end-to-end path that does something real: a message arrives, it is understood and attached to a situation, the worker decides a reply, the reply is sent, and every step is recorded. Its first test is "hi": understood, answered, and no situation created. It touches the situation record, a minimal configuration, the intake step, memory and knowledge's fixed parts, the worker, the tool layer, and the communication layer — only the minimum of each. <!-- method: the first thin slice; build order: thin slice -->
+**The first thin slice** is the smallest end-to-end path that does something real: a message arrives, it is understood and attached to a situation, the worker decides a reply, the reply is sent, and every step is recorded. Its first test is "hi": understood, answered, and no situation created. It touches the Situation Registrar, a minimal configuration, the intake step, memory and knowledge's fixed parts, the worker, the tool layer, and the communication layer — only the minimum of each. <!-- method: the first thin slice; build order: thin slice -->
 
 Each later slice adds one kind of situation from section 5, and is checked against that kind's walk before the next one starts. A slice that needs a part not yet built brings that part in, in the order above. A suggested order, starting with the kinds that need only the thin slice's parts: <!-- method: the first thin slice; build order: later slices -->
 1. kind 8, a message that cannot be pinned to one situation;

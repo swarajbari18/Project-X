@@ -16,10 +16,10 @@ In plain words: a step that cannot be undone, such as a refund, has a result nob
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -58,17 +58,17 @@ Meera's order 9912 arrived damaged. The business agreed a refund within its refu
 1.  situation worker     -> tool layer           : refund order 9912
 2.  tool layer           -> tool layer           : a source can do refunds: the payment provider is connected
 3.  tool layer           -> tool layer           : permission check says Allow
-4.  tool layer           -> situation record     : reads the saved starts, and its own notes: no earlier refund was started
+4.  tool layer           -> registrar            : reads the saved starts, and its own notes: no earlier refund was started
 5.  tool layer           -> tool layer           : writes the note: "refund 9912 about to go", with its reference
 6.  tool layer           -> payment provider     : one call
 7.  payment provider     -> (no answer)
 8.  tool layer           -> payment provider     : asks for the payment's status, up to five times for this wait, as the provider's usual answer time allows
 9.  payment provider     -> (no answer)
 10. tool layer           -> situation worker     : evidence: started, result unknown; declares the wait: "waiting on the payment provider for refund 9912"
-11. situation worker     -> situation record     : one version, by fixed code, before the AI is told: refund started, result unknown, the wait (and its entry in the book of waits)
+11. situation worker     -> registrar            : one version, by fixed code, before the AI is told: refund started, result unknown, the wait (and its entry in the book of waits)
 12. situation worker     -> situation worker     : sets the wait's time signal, for when the provider's limits run out
-13. situation record     -> status-check service : the saved wait's notice; the service reads the wait from the book of waits
-14. situation record     -> conversation manager : notice
+13. registrar            -> status-check service : the saved wait's notice; the service reads the wait from the book of waits
+14. registrar            -> conversation manager : notice
 15. conversation manager -> communication layer  : worth telling Meera (the update decision)
 16. communication layer  -> communication layer  : send check
 17. communication layer  -> Meera                : "We are waiting on the payment provider to confirm your refund." — sent through the tool layer
@@ -83,20 +83,20 @@ Later, one of two things happens. The **settle window** is the time the payment 
 ```text
 18a. payment provider     -> status-check service : "refund 9912 paid"
 19a. status-check service -> conversation manager : the answer, as an event for the refund's wait, with the provider's reference
-20a. conversation manager -> situation record     : new version: the provider's answer, saved as an arrival
-21a. situation record     -> situation worker     : notice
+20a. conversation manager -> registrar            : new version: the provider's answer, saved as an arrival
+21a. registrar            -> situation worker     : notice
 22a. situation worker     -> tool layer           : the answer, for the refund tool's fixed code to return as evidence
 22b. tool layer           -> situation worker     : structured evidence
-23a. situation worker     -> situation record     : new version: refund recorded as paid; the wait ends, and leaves the book
-24a. situation record     -> conversation manager : notice
+23a. situation worker     -> registrar            : new version: refund recorded as paid; the wait ends, and leaves the book
+24a. registrar            -> conversation manager : notice
 25a. conversation manager -> communication layer  : worth telling Meera (the update decision)
 26a. communication layer  -> communication layer  : send check
 27a. communication layer  -> Meera                : "Your refund for order 9912 has been paid." — sent through the tool layer
 
 18b. (the settle window ends, still no answer; the service's limits run out)
 19b. time signal          -> situation worker     : the wait is due
-20b. situation worker     -> situation record     : new version: outcome unknown; work for a person, with the whole timeline
-21b. situation record     -> conversation manager : notice
+20b. situation worker     -> registrar            : new version: outcome unknown; work for a person, with the whole timeline
+21b. registrar            -> conversation manager : notice
 22b. conversation manager -> communication layer  : worth sending the work item (the update decision)
 23b. communication layer  -> a person             : the work item, with the whole timeline — after the send check, sent through the tool layer
 ```

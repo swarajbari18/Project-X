@@ -16,10 +16,10 @@ In plain words: nothing connected and nobody in the business can answer a questi
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -58,12 +58,12 @@ A customer asks where her package is. The business has connected payments and re
 
 ```text
 1.  customer             -> conversation manager : "Where is my package?"
-2.  conversation manager -> situation record     : new version, on her order situation
-3.  situation record     -> situation worker     : notice
+2.  conversation manager -> registrar            : new version, on her order situation
+3.  registrar            -> situation worker     : notice
 4.  situation worker     -> situation worker     : which source can answer? no shipping system is connected
 5.  situation worker     -> situation worker     : can a person answer? the business has no one who tracks parcels
-6.  situation worker     -> situation record     : one version: "Tend cannot know this here", with its evidence
-7.  situation record     -> conversation manager : notice
+6.  situation worker     -> registrar            : one version: "Tend cannot know this here", with its evidence
+7.  registrar            -> conversation manager : notice
 8.  conversation manager -> communication layer  : worth telling her now
 9.  communication layer  -> communication layer  : send check
 10. communication layer  -> customer             : "We cannot see where your package is from here. Here is what you can do." — sent through the tool layer

@@ -16,10 +16,10 @@ In plain words: a step needs a person's approval first, or is not allowed at all
 - The **situation worker** reasons about one situation: it gathers, decides the next step, and writes what Tend concludes. <!-- Section 7: the parts table -->
 - The **communication layer** checks and sends each message, through the tool layer, and keeps the **sent record** of what went out. <!-- Section 7: the parts table; M4 -->
 - The **tool layer** is the only way Tend calls an outside system: a payment provider, a carrier, or a messaging channel. <!-- Section 7: tool layer -->
-- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also keeps the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
+- The **status-check service** waits on an outside system while the work goes on; its asks go out through the tool layer. **Memory and knowledge** runs beside every loop: before each part of a loop, it hands that part a **package** of what it needs to know, or an explicit empty answer. It also decides the links between situations, and what Tend learned. **Configuration** holds the business's settings, permissions, and members. <!-- Section 7: the parts table; decided 2026-10-22: the service calls through the tool layer -->
 - A **version** is one saved state of a situation. A **notice** is the short internal signal a new version sends; people never see it. A **wake** is a signal that sends the worker back to a situation: a saved version's notice, a time signal, or the check-in. <!-- HC-1 -->
 - A **wait** is a pause until one named thing happens. <!-- HC-3 -->
-- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept with the situation records. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
+- The **book of waits** lists every wait that may outlast its run, and what will end it; it is data kept by the Situation Registrar. A timer in a diagram is the **time signal** the worker set for one of its waits; it wakes only the worker. <!-- HC-3; decided 2026-10-22: the book of waits -->
 - A **check-in** is the one regular wake each waiting situation gets.
 - A **held note** records that a message may belong to a situation. It changes nothing there. <!-- B9 -->
 - **Evidence** is what a source said, with its time. A **claim** is one such statement. <!-- E1 -->
@@ -66,8 +66,8 @@ Meera's refund on order 9912 is 1,500. The business's refund setting is 500. <!-
 6.  communication layer  -> Kabir                : "Approve a refund of 1,500 on order 9912?", with a link to sign in — sent through the tool layer to his bound WhatsApp
 7.  Kabir                -> sign-in provider     : signs in (a fresh sign-in, within the last 15 minutes)
 8.  Kabir                -> conversation manager : "yes", with the proof of sign-in
-9.  conversation manager -> situation record     : new version: Kabir's answer, saved as an arrival
-10. situation record     -> situation worker     : notice
+9.  conversation manager -> registrar            : new version: Kabir's answer, saved as an arrival
+10. registrar            -> situation worker     : notice
 11. situation worker     -> tool layer           : the answer, as the waiting approval step's result
 12. tool layer           -> tool layer           : reads Kabir's live membership, roles, and grants; permission checked again, just before acting
 13. tool layer           -> audit                : the approval: Kabir, his sign-in identity, when he signed in, and the exact refund approved
@@ -114,8 +114,8 @@ A refusal travels like this: <!-- Level 2 refusal: two kinds; Section 8: communi
 ```text
 1.  tool layer           -> tool layer           : permission check says Deny
 2.  tool layer           -> situation worker     : the refusal, with its reason
-3.  situation worker     -> situation record     : new version: what should be said — what is not allowed, why, and, if someone could allow it, who
-4.  situation record     -> conversation manager : notice
+3.  situation worker     -> registrar            : new version: what should be said — what is not allowed, why, and, if someone could allow it, who
+4.  registrar            -> conversation manager : notice
 5.  conversation manager -> communication layer  : worth telling the person now (the update decision)
 6.  communication layer  -> communication layer  : send check
 7.  communication layer  -> the person           : the honest refusal — sent through the tool layer

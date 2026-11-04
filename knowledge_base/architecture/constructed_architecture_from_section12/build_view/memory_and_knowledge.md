@@ -76,7 +76,7 @@ A situation worker sees one situation. The conversation manager handles one send
   - the checks that guard a step that cannot be undone.
 - It never sends a message.
 - It never applies a setting. It proposes; the configurator checks; only the configuration tools apply it. <!-- N13 -->
-- It never writes a situation record, except when its cleaner carries out an erasure that the erasure tool has confirmed. <!-- N33; U7 -->
+- It never writes into a situation. Its cleaner asks the Situation Registrar to carry out an erasure the erasure tool has confirmed. <!-- N33; U7; decided by the owner, 2026-11-04: the registrar -->
 - It never erases anything on its own. <!-- U7 -->
 - It never decides that two records are one person. It may suggest it; fixed rules or a person decide. <!-- A14 -->
 - It never shows a step a record outside that step's boundary, never lets another person's record shape a step's understanding, and never hints that such a record exists. It may use the business's own knowledge to help any step understand, and marks each item with who may be told it. <!-- N34 -->
@@ -88,7 +88,7 @@ A situation worker sees one situation. The conversation manager handles one send
 - It never keeps a standing copy of a business's orders. <!-- N24 -->
 
 **5. What does it own and write?** <!-- Section 7: memory and knowledge -->
-- **Links**, its own records: the two situations, why they are linked, the type, when, and who made or removed it.
+- **Which situations are linked.** It decides, and the Situation Registrar stores each link: the two situations, why they are linked, the type, when, and who made or removed it. <!-- decided by the owner, 2026-11-04: the registrar -->
 - **Learned items**: lessons, business words, business events, learned subjects, proposed settings, each with its origin, scope, version, standing and allowed influence. <!-- N16 -->
 - **Skills and procedures**, in object storage, versioned. The business owns its own; the product team owns the product's. <!-- N26 -->
 - **Its indexes**: the keyword and meaning indexes it searches. An index is a key for finding; the record it points to is the value that is cited. <!-- N23 -->
@@ -96,7 +96,7 @@ A situation worker sees one situation. The conversation manager handles one send
 - **Its record of experience**: what it presented, what was used, and what it learned.
 - **The instruction templates** that put together Tend's instructions for each step. Improvement may edit these, within set limits. <!-- R2 -->
 
-It writes no situation record. The one exception is a confirmed erasure. <!-- N33 -->
+It writes nothing into a situation. For a confirmed erasure, its cleaner asks the Situation Registrar to carry it out. <!-- N33; decided by the owner, 2026-11-04: the registrar -->
 
 **6. What does it decide, and what may it not decide?**
 
@@ -127,7 +127,7 @@ Each business's knowledge stays in that business's own storage. Nothing learned 
 
 **8. What starts it, what does it read, and what does it hand on?**
 - **Starts it:** each point in each loop, and each stage it observes; each version notice (for its link keeper, indexer and learner); each saved trace; a confirmed erasure; a daily timer for marking past items. <!-- N19; IB-18; IB-12; IB-19; N33 -->
-- **Reads:** what the loop hands over at a point (the arrival, the sender, the situation and its version, the written reasoning just produced); the situation records; its own learned items, skills, procedures, links and indexes; the business's tool list; the business's configuration, read-only. <!-- N19; N22 -->
+- **Reads:** what the loop hands over at a point (the arrival, the sender, the situation and its version, the written reasoning just produced); the situations' records and the registry; the links; its own learned items, skills, procedures and indexes; the business's tool list; the business's configuration, read-only. <!-- N19; N22 -->
 - **Hands on:** a package at each point; links; learned items; proposed settings, to the configurator. <!-- N20; A15; N13 -->
 
 **9. How does it work inside?**
@@ -320,7 +320,7 @@ The walks are in [how a situation moves](../behaviour_view/how_a_situation_moves
 | Every item cites its record | A package item whose record cannot be found |
 | A step uses only presented tools | A tool call whose tool was not in any package of that run |
 | A decision is made on the newest version | An action whose decision named an older version than the one saved before it |
-| It writes no situation record, except a confirmed erasure | A situation version written by memory and knowledge with no erasure confirmation behind it |
+| It writes nothing into a situation; a confirmed erasure is carried out by the Situation Registrar | A situation version written by memory and knowledge |
 | Learning about one business stays with that business | One business's lesson used for another |
 
 <!-- N20; release check: planted memory; N34; N27; F7; N33; U7; accepted call: learning across businesses -->

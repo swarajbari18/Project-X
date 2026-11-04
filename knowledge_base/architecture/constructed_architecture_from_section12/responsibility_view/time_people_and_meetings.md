@@ -114,8 +114,8 @@ The **book of waits** lists every wait that may outlast its run, and the change 
 
 It is the only list of who waits for what. No second list is kept. The status-check service keeps only a record of its own asks for each wait it serves, rebuilt from the book after a restart; it is never used to find who waits for what. <!-- Level 2 coordination: book of waits; settled 2026-10-22: the service's own list -->
 
-The book is data kept with the situation records: one shared table of every open wait that may outlast its run. Nothing in the book acts by itself; parts read it. <!-- decided 2026-10-22: the book of waits -->
-- The situation worker adds a wait to the book in the same save that writes the wait, and removes it in the save that ends it. So the book and the situations cannot disagree.
+The book is data kept by the Situation Registrar: one shared table of every open wait that may outlast its run. Nothing in the book acts by itself; parts read it. <!-- decided 2026-10-22: the book of waits -->
+- The situation worker writes each wait with its situation's version, and ends it the same way. The book's business-wide list follows a moment later, and can be rebuilt from the situations.
 - The worker also sets each wait's **time signal**, the alarm for its due time. When it fires, it comes straight back to the worker for that situation.
 - After a crash, every time signal is set again from the book.
 - Nothing in the book acts.
