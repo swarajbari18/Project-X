@@ -7,7 +7,7 @@
 **Corrected on 4 November 2026.** This lesson first said a trustworthy test uses "no AI model", while also naming a story in the simulation as an end-to-end test. Swaraj caught the contradiction: the simulation uses real AI. Section 5 now separates the two, and section 6 is new.
 
 **How to read the labels.**
-- **Measured:** I ran it. The script is `experiments/lesson_03_what_a_test_is.py`, beside this file, and you can run it yourself.
+- **Measured:** I ran it. The script was deleted on 4 November 2026, at Swaraj's request, and its output is copied here.
 - **Fact:** a source says it, and the source is named at the end.
 - **Proposal:** a suggestion nobody has approved yet.
 

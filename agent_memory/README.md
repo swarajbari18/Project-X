@@ -17,9 +17,11 @@ The four types of note:
 
 ## How it stays current
 
-Claude Code loads its memory from a hidden folder outside this project. These files started as a copy of that folder, on 4 November 2026. From now on, each new or changed note is written in both places. This folder is the one to read and correct.
+This is the only place agent memory lives. Claude Code reads and writes it here, because `.claude/settings.local.json` in this project sets `autoMemoryDirectory` to this folder. `CLAUDE.md` at the root says the same to any agent.
 
-If a note here is wrong, change it or delete it, and tell the assistant. The two copies can drift if only one is edited.
+Older copies remain in a hidden folder under `~/.claude`. Nothing is written there any more.
+
+If a note here is wrong, change it or delete it, and tell the assistant.
 
 ## This folder is on GitHub, on purpose
 

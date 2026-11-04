@@ -61,6 +61,11 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | The runtime holds a WebSocket, and the object is only JavaScript memory | Lesson 7, section 5 | Not yet | — | — |
 | A connection is a hint: a nudge, then the page catches up | Lesson 7, section 6 | Not yet | — | — |
 | Checking who may open a live connection | Lesson 7, section 7 | Not yet | — | — |
+| TCP has no rule about who speaks; HTTP adds one | Lesson 8, sections 2 and 3 | Not yet | — | — |
+| The handshake: an HTTP request that asks to stop being HTTP | Lesson 8, section 4 | Not yet | — | — |
+| Frames: kind, length and masking | Lesson 8, section 5 | Not yet | — | — |
+| Why connections drop, and the two jobs of a ping | Lesson 8, section 6 | Not yet | — | — |
+| What one-way and two-way mean on the wire | Lesson 8, section 7 | Not yet | — | — |
 
 ---
 
@@ -116,6 +121,8 @@ Recorded so they are not repeated.
 
 - **An overstated conclusion.** The teacher said Meera's reply "waits in line" for about 8 minutes during a campaign. The arithmetic was right, but she would not wait that long. Corrected in lesson 1, section 7.
 - **Technical names.** "state" meant nothing to him. He asked for product-minded names, even long ones, as long as they follow technical convention. From lesson 2 on, the examples use them.
+- **Comparisons instead of bytes.** Even after being told, the teacher still described sockets with radios and phone calls. Swaraj: "Explain me how, why, exactly. This is not how you teach me stuff." Lesson 8 was written from the real bytes.
+- **Wrote memory where Swaraj could not reach it.** Told on 4 November to keep memory in the project, the teacher kept writing to the hidden folder as well, and treated that as following the rule. Swaraj had to say it twice. Memory now lives only in `agent_memory/`.
 - **Results and metaphors instead of the mechanism.** Lesson 7 first called a WebSocket "a phone call", and reported that an object sleeps, without saying who holds the connection or how that was measured. Swaraj: "Do not just tell me the results. Tell me what you did, how you did it." Section 5 was written with a by-hand test.
 - **A page with no heartbeat.** The first version of lesson 7's page sent none, although Cloudflare closes quiet connections. Swaraj's mention of ping and pong led to finding this.
 - **Labelled files by role.** The teacher called one file "the Worker" and another "the Durable Object", named an object after a person, and said a Worker could reach nothing outside its bindings. Swaraj: "You lost me at bindings." Those questions exposed all of it. Lesson 6 was rewritten, with each claim tested by breaking the project on purpose.

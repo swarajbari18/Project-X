@@ -14,7 +14,6 @@ Never use or install Playwright, on this laptop or for this project. Any browser
 
 **How to apply:**
 - If a real browser check seems needed, ask first, and offer a by-hand check in two windows instead.
-- `lesson_07_real_browser_check.mjs` is not Playwright, but it is also not sandboxed. It runs the installed Chrome with its debug port open on 127.0.0.1. Do not run it outside a sandbox.
 - Do not add a dependency that pulls Playwright in. Look before installing.
 
 **Removed on 4 November 2026:**

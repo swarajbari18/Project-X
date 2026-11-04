@@ -1,7 +1,7 @@
 # Plan 1: The bench and the first whiteboard
 
 **Component:** the Situation Registrar.
-**Status:** not written. The lessons for it have been taught (lessons 3, 4, 6 and 7, on 4 November 2026). Swaraj and the planning agent write this together next. Nothing below is decided unless it says so.
+**Status:** not written. The lessons for it have been taught (lessons 3, 4, 6, 7 and 8, on 4 November 2026). Swaraj and the planning agent write this together next. Nothing below is decided unless it says so.
 
 ## What this plan is for
 
@@ -26,7 +26,7 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 - A Worker with no bindings can still call the public internet (lesson 6, measured). Do Outbound Workers, in Workers for Platforms, belong in Tend's design?
 - How does one Worker per business, through Workers for Platforms, behave locally? Untested.
 - Where does the code live? Perhaps `tend/components/situation_registrar/`, with tests beside the code.
-- Which exact tool versions do we lock? Lesson 6's project uses `wrangler`, `vitest` and `@cloudflare/vitest-plugin`.
+- Which exact tool versions do we lock? Lesson 6 used `wrangler`, `vitest` and `@cloudflare/vitest-plugin`.
 
 ## How we will know it works
 

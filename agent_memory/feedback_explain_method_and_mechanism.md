@@ -19,7 +19,7 @@ His doubt was right on every fact, and testing it exposed a real bug: the lesson
 - Give the mechanism in real terms: which process, which connection, which line of code.
 - Connect new things to what he already knows: Python, Kubernetes, pods, and Pydantic.
 - When his experience clashes with a claim, test the clash. Do not defend the claim.
-- A metaphor may be added after the mechanism, and never instead of it.
+- A metaphor may be added after the mechanism, and never instead of it. Better still, leave it out, and show the real bytes or the real output. Swaraj, the same day: "What are you explaining about one-way radio and two-way radio? Explain me how, why, exactly. This is not how you teach me stuff."
 - Say plainly what could not be tested.
 
 Related: [[feedback-product-names]], [[project-factory-learning-first]].

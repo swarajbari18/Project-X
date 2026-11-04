@@ -3,7 +3,7 @@
 **Taught on:** 4 November 2026. Swaraj asked for this as a deviation: "I don't want to follow fashion blindly. Can you do some proper research whether I am even correct in my assumptions at this point or not? And explain both these runtimes to me in proper detail."
 
 **How to read the labels.**
-- **Measured:** I ran it on this laptop (12th Gen Intel i5, Python 3.12, Node 24), at least twice. Scripts are in `experiments/`. Treat results as a sense of scale.
+- **Measured:** I ran it on this laptop (12th Gen Intel i5, Python 3.12, Node 24), at least twice. The scripts were deleted on 4 November 2026, at Swaraj's request, and their output is copied here. Treat results as a sense of scale.
 - **Fact:** a source says it, and it is named at the end.
 - **From memory:** general knowledge I did not re-check today.
 - **My read:** my reasoning. Challenge it.
@@ -231,4 +231,3 @@ This has nothing to do with Python's quality as a web language. It comes from ho
 - Instagram's Django scale, a conference abstract: https://atscaleconference.com/?p=1022
 - Python 3.14, performance: https://blog.miguelgrinberg.com/post/python-3-14-is-here-how-fast-is-it
 
-**The experiments:** `experiments/lesson_05_python_types_at_runtime.py`, `lesson_05_typescript_types_at_runtime.ts`, `lesson_05_speed.py`, `lesson_05_speed.ts`.

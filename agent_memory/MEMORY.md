@@ -12,9 +12,10 @@
 - [Factory rewritten learning-first](project_factory_learning_first.md) — 1 Nov 2026: learn→plan→translate→review per component; he reads code; proposals await his yes
 - [Stack: TypeScript decided](project_stack_typescript_decided.md) — 1 Nov 2026: TS backend; frameworks at implementation; front end from HTML/CSS/TS; landing page is Astro
 - [KB write audit sequence](feedback_kb_write_audit_sequence.md) — readability subagents + own reread, own technical audit, re-audit, then fidelity vs the conversation
-- [Agent memory is visible](feedback_agent_memory_visible.md) — every note also goes in agent_memory/ at the repo root; on GitHub on purpose, so never a secret in it
-- [Situation Registrar rulings](project_situation_record_rulings.md) — 4 Nov: name, one Durable Object per situation, sends all notices, plans in knowledge_base/plans/; lessons 1 to 7 taught; views updated; no code yet; plan 1 is next; nothing creates a business
+- [Agent memory lives here](feedback_agent_memory_visible.md) — only in agent_memory/ at the repo root, never under ~/.claude; on GitHub on purpose, so never a secret in it
+- [Situation Registrar rulings](project_situation_record_rulings.md) — 4 Nov: name, one Durable Object per situation, sends all notices, plans in knowledge_base/plans/; lessons 1 to 8 taught; views updated; no code yet; plan 1 is next; nothing creates a business
 - [Product names](feedback_product_names.md) — names say what a thing is in product terms, even if long; never make him decode a technical name
 - [AI scope is set by code](feedback_ai_scope_set_by_code.md) — the AI reasons inside a scope code sets; it never engineers its context or sees store IDs
 - [No Playwright](feedback_no_playwright.md) — never use or install it; browser automation only in a sandbox, after asking; what was removed on 4 Nov, and what remains
 - [Method and mechanism](feedback_explain_method_and_mechanism.md) — say what was done and how, with the real mechanism tied to what he knows; no results alone, no metaphors alone
+- [Delete teaching code](feedback_delete_teaching_code.md) — code written only to teach is deleted once its result is written down; it must not stay for agents to find

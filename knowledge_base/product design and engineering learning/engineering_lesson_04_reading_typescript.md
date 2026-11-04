@@ -5,7 +5,7 @@
 **Why this is on the list now.** You will read every line the agent writes. You said in an interview you must be able to answer "what does this code do?", and you warned on 1 November: "if I come from a Python mindset and I am trying to understand async and TypeScript, I will definitely make a very bad software." This lesson shows you were right, with real output.
 
 **How to read the labels.**
-- **Measured:** I ran it. The scripts are in `experiments/`, beside this file, and you can run them yourself.
+- **Measured:** I ran it. The scripts were deleted on 4 November 2026, at Swaraj's request, and their output is copied here.
 - **Fact:** a source says it, and the source is named at the end.
 - **Proposal:** a suggestion nobody has approved yet.
 
@@ -164,13 +164,11 @@ Research on people learning to code found this exact difference. Asked to explai
 
 ## 6. Swaraj's questions, answered with a run
 
-The script is `experiments/lesson_04_your_questions.ts`.
-
 **"If types disappear, how did you get those errors?"** There are two separate moments.
 - **Building:** a checker called `tsc` reads your source code as text. Types exist here. It runs nothing.
 - **Running:** the types are deleted, and the program runs. Nothing checks anything.
 
-**Measured:** `experiments/lesson_04_two_moments.ts` holds a type error. `node` ran it and printed `written by owner view`. `tsc` refused the same file. So a type error stops the build only if the build runs the checker. That is why the checker belongs in the gate.
+**Measured:** a small file held a type error. `node` ran it and printed `written by owner view`. `tsc` refused the same file. So a type error stops the build only if the build runs the checker. That is why the checker belongs in the gate.
 
 **"Why did JSON.parse pass?"** The checker reads source code, and that string's contents only exist while running. So it cannot know. `JSON.parse` returns `any`, and `as` tells the checker a story.
 
@@ -235,4 +233,3 @@ async function recordTheCarriersAnswer(situation: SituationRegistrar, answer: un
 
 - Rules of Durable Objects, "Always await RPC calls": https://developers.cloudflare.com/durable-objects/best-practices/rules-of-durable-objects/
 - The research on reading and explaining code: the factory file, Stage 1, "What understood means".
-- The experiments: `experiments/lesson_04_reading_typescript.ts`, `lesson_04_the_compiler_refuses.ts`, `lesson_04_the_same_mistake_in_python.py`.

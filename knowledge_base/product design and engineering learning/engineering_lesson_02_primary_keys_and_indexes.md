@@ -5,7 +5,7 @@
 **Why this is on the list now.** Swaraj asked: "What is the difference between a primary key and an index?" Every lookup the registry makes depends on the answer, and every arrival makes several lookups. It decides how much of Tend's one thread gets wasted.
 
 **How to read the labels.**
-- **Measured:** I ran this. The script is `experiments/lesson_02_what_an_index_costs.py`, beside this file, and you can run it yourself. It used SQLite, the engine inside D1 and Durable Objects, on this laptop, with 1,000,000 made-up situations. Treat the numbers as a sense of scale. Cloudflare's own speed will differ.
+- **Measured:** I ran this. The script was deleted on 4 November 2026, at Swaraj's request, and its output is copied here. It used SQLite, the engine inside D1 and Durable Objects, on this laptop, with 1,000,000 made-up situations. Treat the numbers as a sense of scale. Cloudflare's own speed will differ.
 - **Fact:** a source says it, and the source is named at the end.
 - **From memory:** general knowledge I did not re-check today.
 - **Proposal:** a suggestion nobody has approved yet.

@@ -10,16 +10,7 @@
 
 **Why this is on the list now.** Plan 1 sets up the real project. You cannot plan a layout you have never seen.
 
-**This lesson is a real project.** I built a tiny Situation Registrar and ran it. It lives in `experiments/lesson_06_tiny_cloudflare_project/`. It is a lesson, and it is not Tend's real code. You need no Cloudflare account for any of this.
-
-```text
-npm install
-npm run check      # type checks everything
-npm test           # runs the tests inside Cloudflare's runtime
-npm run dev        # starts it at localhost:8787
-```
-
-To see every result below for yourself, run `npm install`, then go up one folder, and run `python3 lesson_06_break_it_on_purpose.py`. It breaks one thing at a time, on throwaway copies.
+**This lesson came from a real project.** I built a tiny Situation Registrar, ran it, and broke one thing at a time. It was not Tend's real code. It was only for teaching, so it was deleted on 4 November 2026, at Swaraj's request. The output below is copied from those runs. Tend's real project starts in plan 1.
 
 **Labels:** **Measured** (it ran on this laptop), **Fact** (the source is named at the end), **Proposal** (nobody has approved it yet).
 
@@ -402,7 +393,7 @@ env.SITUATION_REGISTRAR (SituationRegistrar)      Durable Object
 
 **Fact.** The local simulator is called Miniflare. Cloudflare warns it "is not a hardened sandbox", so never use it to run untrusted code.
 
-**Secrets.** Local secrets go in a `.dev.vars` file. **Your repo is public, so that file must always be ignored by git.** The tiny project's `.gitignore` already does that.
+**Secrets.** Local secrets go in a `.dev.vars` file. **Your repo is public, so that file must always be ignored by git.** Plan 1's `.gitignore` must do the same.
 
 **Cloudflare Tunnel.** You named this earlier. You only need it when something outside must reach your laptop, such as WhatsApp sending a message to code you are running locally. You do not need it for anything in this lesson.
 
@@ -456,8 +447,6 @@ function isSaveRequest(value: unknown): value is SaveRequest {
 ---
 
 ## 11. Swaraj's questions on reading the code
-
-To run these yourself: `python3 lesson_06_break_it_on_purpose.py 13 14 15 16 17`.
 
 **"Can I read a binding as a simple secret? It's a key-value pair."** Half right. `env` is key-value. But a secret's value is text, and a binding's value is a live object with methods. **Measured:**
 
@@ -589,4 +578,3 @@ export { SituationRegistrar } from "./situation_registrar";
 - Local development: https://developers.cloudflare.com/workers/local-development/
 - Writing your first test: https://developers.cloudflare.com/workers/testing/vitest-integration/write-your-first-test/
 - Secrets: https://developers.cloudflare.com/workers/configuration/secrets/
-- The experiments: `experiments/lesson_06_tiny_cloudflare_project/`, and `experiments/lesson_06_break_it_on_purpose.py`.

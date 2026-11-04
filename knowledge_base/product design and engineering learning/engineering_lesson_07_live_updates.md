@@ -4,24 +4,9 @@
 
 **Why this is on the list now.** You want to watch Tend work: "I want to see my components on a whiteboard. I want to see them light up." A page cannot do that by default.
 
-**This lesson is a real project.** It is a lesson, and it is not Tend's real code. You need no Cloudflare account. Try it yourself:
+**This lesson came from a real project.** I built a small page with a Worker and a Durable Object, and ran it. It was not Tend's real code. It was only for teaching, so it was deleted on 4 November 2026, at Swaraj's request. The output below is copied from those runs.
 
-```text
-cd experiments/lesson_07_live_page
-npm install
-npm run dev
-```
-
-Open `localhost:8787` in two windows, and put them side by side.
-1. Click **Save a step** in one. The other window changes, without being reloaded.
-2. Click **Cut the connection for 8 seconds** in the first window.
-3. Click **Save a step** three times in the second window. The first window shows nothing new.
-4. Wait. The first window reconnects by itself, and shows what it missed.
-
-To see the numbers below, run `npm install` as above, and then run these from `experiments/`:
-- `node lesson_07_measure_live_updates.mjs`
-- `node lesson_07_who_holds_the_connection.mjs`, which builds a WebSocket by hand, and shows who holds it
-- `node lesson_07_real_browser_check.mjs`, which drives two real Chrome tabs. It does not use Playwright, but it is not sandboxed either, so read its first lines before running it. The two-window check above is safer
+**If WebSockets themselves are unclear, read lesson 8 first.** It shows them byte by byte.
 
 **Labels:** **Measured** (it ran on this laptop, with no real network), **Fact** (the source is named at the end), **Proposal** (nobody has approved it yet).
 
@@ -167,7 +152,7 @@ So "the object sleeps" means exactly this: the JavaScript instance is gone. The 
 
 ### What I did to check this
 
-The script is `experiments/lesson_07_who_holds_the_connection.mjs`. It hides nothing:
+I wrote a script that hides nothing:
 - It uses no WebSocket library. It opens a plain TCP connection with Node's `net` module, writes the upgrade request by hand, and builds each frame byte by byte.
 - It counts how often the object was built. The class's constructor prints a line, and the script reads the server's log.
 - It asks the operating system who holds the connection, using the `ss` command.
@@ -207,7 +192,7 @@ The script is `experiments/lesson_07_who_holds_the_connection.mjs`. It hides not
 
 **A browser cannot send a protocol ping** (from memory: the browser's WebSocket API has no ping method). So a page sends the text `ping`, and the runtime answers it.
 
-**My page had a bug.** Its first version had no heartbeat, so a quiet page could have been closed. It would have recovered through catch-up, but it should not rely on that. It now sends `ping` every 30 seconds. I chose 30 seconds, because the page I read does not state the limit. I tested the same text with the by-hand script. I did not rerun it in Chrome, because of your rule about browser automation, so please check it by hand in two windows.
+**My page had a bug.** Its first version had no heartbeat, so a quiet page could have been closed. It would have recovered through catch-up, but it should not rely on that. It now sends `ping` every 30 seconds. I chose 30 seconds, because the page I read does not state the limit. I tested the same text with the by-hand script. I did not rerun it in Chrome, because of your rule about browser automation, and the code has since been deleted. So that heartbeat was never tested in a real browser. Whichever plan builds a live page must test it.
 
 ---
 
@@ -342,4 +327,3 @@ These are for the planning conversations, and nothing here is decided.
 - WebSocket security: https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html
 - The owner view's design: `knowledge_base/architecture/constructed_architecture_from_section12/build_view/owner_view.md`
 - The whiteboard's first version: `environments_simulation_and_whiteboard.md`
-- The experiments: `experiments/lesson_07_live_page/`, `experiments/lesson_07_measure_live_updates.mjs`, `experiments/lesson_07_who_holds_the_connection.mjs`, `experiments/lesson_07_real_browser_check.mjs`.

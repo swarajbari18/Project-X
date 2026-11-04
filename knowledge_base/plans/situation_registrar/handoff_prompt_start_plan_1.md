@@ -1,4 +1,4 @@
-We just completed the Learn stage for the first component of Tend, the Situation Registrar. In the last conversation, I renamed and widened the component, decided where its data lives, wrote down how Tend gets tested and watched, updated the software factory and the design, created the plan folders, and was taught seven engineering lessons with experiments I can run. Nothing of Tend is built yet. There is no plan, no locked test, and no line of Tend's code.
+We just completed the Learn stage for the first component of Tend, the Situation Registrar. In the last conversation, I renamed and widened the component, decided where its data lives, wrote down how Tend gets tested and watched, updated the software factory and the design, created the plan folders, and was taught eight engineering lessons. The experiment code from those lessons was then deleted, on my instruction, because it would only confuse an agent. Nothing of Tend is built yet. There is no plan, no locked test, and no line of Tend's code.
 
 Now I want to continue with plan 1: the bench and the first whiteboard. We will write it together, using the factory's Stage 2.
 
@@ -47,20 +47,12 @@ All of these are in `knowledge_base/product design and engineering learning/`.
 22. `engineering_lesson_05_runtimes.md`: my challenge to TypeScript versus Python, tested.
 23. `engineering_lesson_06_a_cloudflare_project.md`: how a Cloudflare project is laid out, and what a binding is.
 24. `engineering_lesson_07_live_updates.md`: live pages, and who really holds a WebSocket.
-25. `engineering_learning_record.md`: what I have shown, what I got wrong, and what the teacher got wrong. Being taught does not count as understanding. Use this to know where to slow down.
+25. `engineering_lesson_08_websockets_from_the_bytes_up.md`: what a WebSocket is, byte by byte.
+26. `engineering_learning_record.md`: what I have shown, what I got wrong, and what the teacher got wrong. Being taught does not count as understanding. Use this to know where to slow down.
 
-**E. The code I have been shown**
+That is about 64 files, and about 160,000 tokens.
 
-All of these are in `knowledge_base/product design and engineering learning/experiments/`.
-
-26. Every file in `lesson_06_tiny_cloudflare_project/`, except `package-lock.json`: the closest thing to plan 1's layout.
-27. `lesson_06_break_it_on_purpose.py`: what each line of that project really does.
-28. Every file in `lesson_07_live_page/`, except `package-lock.json`.
-29. `lesson_07_who_holds_the_connection.mjs`: the by-hand WebSocket test.
-
-That is about 76 files, and about 160,000 tokens.
-
-**F. Read in full only when the plan touches them, and read the whole file when you do**
+**E. Read in full only when the plan touches them, and read the whole file when you do**
 
 The whole design is about 700,000 tokens, which is too much to hold at once. So open these when we need them, and never quote them from memory. All but the last two are in `knowledge_base/architecture/constructed_architecture_from_section12/`.
 - `decision_view/the_decisions.md`: every design decision. Decisions 38 to 42 are the Registrar's.
@@ -88,7 +80,9 @@ Do not re-derive any of this. It is settled, unless a file marks it as a Proposa
 | Built the story registry | Stories are how we confirm the build | `story_registry.md` |
 | Updated the factory | A component is built completely, over several plans. Simulation uses real AI. Plans live in the knowledge base | The factory, "What changed on 4 November 2026" |
 | Created eight plan skeletons | One component takes several plans | `knowledge_base/plans/situation_registrar/` |
-| Taught seven lessons | First sharpen the axe, then plan | Part D above |
+| Taught eight lessons | First sharpen the axe, then plan | Part D above |
+| Deleted all the lessons' experiment code | It was only there to teach me, and it would confuse an agent. The results stay in the lessons. **Do not recreate it, and do not look for it** | `agent_memory/feedback_delete_teaching_code.md` |
+| Moved all memory to `agent_memory/` | I cannot always reach `~/.claude` | `agent_memory/feedback_agent_memory_visible.md`; `CLAUDE.md`; `.claude/settings.local.json` |
 | Tested my doubt about TypeScript. It stays, because of Cloudflare, and not fashion or speed | I will not follow fashion blindly | Lesson 5 |
 | Ruled that we write our own run-time shape checks, and add a library only if needed | Stay lean | Lesson 6, section 10; the factory's Decided list, item 16 |
 | Made agent memory visible, in the public repository | I want to see and correct it. So never write a secret in it | `agent_memory/` |
@@ -141,11 +135,12 @@ We are planning, not teaching. If I get stuck on a concept, stop, go back to the
 - Do not spawn subagents unless I ask.
 - Work files live in this project, and never only in a temporary folder.
 - Never write a secret into this repository. It is public.
-- Every memory note goes in both `agent_memory/` and the hidden memory folder.
+- Memory lives only in `agent_memory/`. Never write memory under `~/.claude`.
+- If you write code only to teach me something, delete it once the result is written down.
 - Commit messages end with the attribution line your instructions give you.
 
 **Open items that are mine, in case they come up**
 - how to read the isolation audit's "tenant predicate" (conflict 43);
 - the factory's 16 proposals;
-- my push;
+- my push. If the branch shows two incoming commits, they are old copies from before my commits were split across days. Never pull or merge them;
 - removing the copy of Playwright inside the ChatGPT app, which needs my admin rights.

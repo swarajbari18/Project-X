@@ -6,7 +6,7 @@ The status in part 4 is a snapshot of this date. The live records are the plan f
 
 ---
 
-## The seven lessons
+## The eight lessons
 
 | Lesson | What it taught | File |
 |---|---|---|
@@ -17,10 +17,11 @@ The status in part 4 is a snapshot of this date. The live records are the plan f
 | 5 | How Python and JavaScript really run, and why TypeScript here | `engineering_lesson_05_runtimes.md` |
 | 6 | How a Cloudflare project is laid out, and what a binding is | `engineering_lesson_06_a_cloudflare_project.md` |
 | 7 | How a page gets live updates, and survives losing them | `engineering_lesson_07_live_updates.md` |
+| 8 | What a WebSocket actually is, byte by byte | `engineering_lesson_08_websockets_from_the_bytes_up.md` |
 
 ---
 
-## 1. One message, through all seven lessons
+## 1. One message, through the lessons
 
 Meera writes about her late parcel. That is situation `s-42`. You have the whiteboard open. This is simplified: it leaves out the conversation manager's and the worker's own steps, which come in later components.
 
@@ -80,7 +81,7 @@ The lessons look like separate topics. They keep teaching the same six ideas.
 
 | Plan | Leans on | Why |
 |---|---|---|
-| 1. The bench and the first whiteboard | 3, 4, 6 | Tests in the real runtime, reading the code, the project's layout. Lesson 7 only if you want a live run |
+| 1. The bench and the first whiteboard | 3, 4, 6 | Tests in the real runtime, reading the code, the project's layout. Lessons 7 and 8 only if you want a live run |
 | 2. Versions | 1, 2, 3, 4 | The version check, primary keys, test tables, shape checks |
 | 3. Notices | 1, 7 | One transaction; a repeat does nothing; a loss repairs itself |
 | 4. The book of waits | 1, 2 | The shared list is derived, and it needs the right index |
@@ -99,9 +100,9 @@ The lessons look like separate topics. They keep teaching the same six ideas.
 
 | Stage | State | The evidence |
 |---|---|---|
-| **1. Learn** | Taught, and mostly not yet shown | 7 lessons, 49 concepts. Swaraj has shown a rung on 4 of them, and part of one more |
+| **1. Learn** | Taught, and mostly not yet shown | 8 lessons, 54 concepts. Swaraj has shown a rung on 4 of them, and part of one more |
 | **2. Plan** | Not started | 8 plan skeletons exist. None is written. No rule or test is locked |
-| **3. Translate** | Not started | Tend has no code. All code in the repository is lesson experiments |
+| **3. Translate** | Not started | Tend has no code. The lessons' experiment code was deleted on 4 November |
 | **4. Review** | Not started | Nothing to review. The gate's checks do not exist yet |
 | **5. Record** | Started | The learning record is live. The 8 plan records are empty |
 
@@ -115,7 +116,7 @@ The lessons look like separate topics. They keep teaching the same six ideas.
 - **The research insights,** where you can see them: `research_insights.md`.
 - **The design, updated** for the Situation Registrar: the build view, all the views, decisions 38 to 42, and conflict rows 36 to 43.
 - **The starting point and the plan folders:** `knowledge_base/plans/situation_registrar/`.
-- **Seven lessons, with experiments you can run,** and the learning record.
+- **Eight lessons,** and the learning record. The code behind them was deleted, and their results are written in the lessons.
 - **The agent memory,** where you can read it: `agent_memory/`.
 - **The prompt that starts plan 1:** `knowledge_base/plans/situation_registrar/handoff_prompt_start_plan_1.md`.
 - **The language decision:** TypeScript, because of Cloudflare.
@@ -143,6 +144,7 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 | 4 | Why `claim: answer` needs no `as` after the check |
 | 6 | Add a second class: every line, and which file |
 | 7 | The laptop that slept overnight |
+| 8 | Read the bytes `81 05 68 65 6c 6c 6f` |
 
 **Your decisions.**
 1. **How to read the isolation audit's "tenant predicate".** It asks for a query condition naming the shop, and one database per business has none (conflict 43).
@@ -151,14 +153,14 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 4. **What creates a business, and how people join it.** Open, and deliberately later.
 
 **Housekeeping.**
-- **Your push.** The branch was rewritten, so it needs `git push --force-with-lease`. Your SSH key may still fail. Check github.com/settings/keys.
+- **Your push.** The branch was rewritten, so it needs `git push --force-with-lease`. Until then, GitHub's two older commits show as incoming. Do not pull or sync them. Your SSH key may still fail. Check github.com/settings/keys.
 - **The empty days in your commit graph.** Your call. I did not invent commits for days when no work happened.
 - **A pointer at the repository's root,** so other agents find `agent_memory/`. Your call.
 - **`backup/before-splitting-commits`** is a local branch you can delete.
 - **The copy of Playwright inside the ChatGPT app,** in `/usr/lib/chatgpt/`, needs your admin rights to remove. Your Assignment project's `package.json` also still names Playwright.
 - **`handoff_writing_instructions.md` names a `status_quo.md`** that does not exist anywhere in this repository.
 
-**What the assistant still owes.** A fresh-reader audit of lessons 3 to 7, this file, and the root files. Plan 1's agents must also follow your rule that the AI never sees store IDs.
+**What the assistant still owes.** A fresh-reader audit of lessons 3 to 8, this file, and the root files. Plan 1's agents must also follow your rule that the AI never sees store IDs.
 
 ### The next step (Proposal)
 
