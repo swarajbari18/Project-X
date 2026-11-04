@@ -183,6 +183,8 @@ The screen follows the language decision of 1 November:
 
 The context window comes when the first AI step exists.
 
+None of the five needs a live connection, because walking a finished run comes first, and it only reads saved rows. Lesson 7 tested a live connection for when you want to watch a run as it happens.
+
 **Each component adds its own piece:**
 
 | A component adds | Example, for this first component |

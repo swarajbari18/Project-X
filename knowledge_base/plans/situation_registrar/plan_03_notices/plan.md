@@ -18,6 +18,7 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 
 ## Questions to settle in the planning conversation
 
+- Can a nudge overtake its save? Cloudflare says outgoing messages are paused until writes are confirmed, but that sentence sits under `put()`, and the Registrar uses SQL. This needs confirming on real Cloudflare (lesson 7).
 - What is the full routing table, for every kind of change?
 - What does the receiver do with a second copy?
 - Which notices go directly, and which through a queue?

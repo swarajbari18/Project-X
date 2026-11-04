@@ -1325,6 +1325,9 @@ These are for anyone who wants the full source. Nothing above requires opening t
 
 ## Changelog
 
+- **2026-11-04 (fifth pass).**
+  - Recorded that the Learn stage has taught seven lessons for plan 1. How they connect, and the factory's status, are in `knowledge_base/product design and engineering learning/engineering_lessons_how_they_connect_and_where_we_are.md`.
+  - Recorded the lean rule for shape checks in the decisions list.
 - **2026-11-04 (fourth pass).**
   - Added the road to customers, the simulation, the whiteboard, and the run store, from Swaraj's words.
   - Recorded that a component is built completely, over several plans.

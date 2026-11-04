@@ -1,7 +1,7 @@
 # Plan 1: The bench and the first whiteboard
 
 **Component:** the Situation Registrar.
-**Status:** not written. The lessons come first, and then Swaraj and the planning agent write this together. Nothing below is decided unless it says so.
+**Status:** not written. The lessons for it have been taught (lessons 3, 4, 6 and 7, on 4 November 2026). Swaraj and the planning agent write this together next. Nothing below is decided unless it says so.
 
 ## What this plan is for
 
@@ -18,6 +18,7 @@ Each of these gets taught before this plan is written. The list is a **Proposal*
 
 ## Questions to settle in the planning conversation
 
+- Does the first whiteboard need a live connection at all? Its five things need none, because walking a finished run comes first and only reads saved rows (lesson 7). The assistant leans towards no.
 - Can a Durable Object's alarm be fired early in a deployed environment?
 - Which test runner and framework choices, if any, does this plan need? (Frameworks are chosen when implementation starts.)
 - Does the run store write a SQLite file, or JSON, on your machine? (Locally, a Durable Object is already a real SQLite file, in `.wrangler/state/`.)

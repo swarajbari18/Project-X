@@ -56,6 +56,10 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | `getByName` fetches nothing, and a wrong name makes a new empty object | Lesson 6, section 5 | Not yet | — | — |
 | What local can and cannot prove | Lesson 6, section 8 | Not yet | — | — |
 | Reading a TypeScript class from Python: `extends`, `this`, a method's `()` and `{ }` | Lesson 6, section 11 | Not yet | — | — |
+| Asking again and again, a one-way stream, a two-way socket | Lesson 7, section 2 | Not yet | — | — |
+| An object can sleep while a page stays connected | Lesson 7, section 4 | Not yet | — | — |
+| A connection is a hint: a nudge, then the page catches up | Lesson 7, section 5 | Not yet | — | — |
+| Checking who may open a live connection | Lesson 7, section 6 | Not yet | — | — |
 
 ---
 

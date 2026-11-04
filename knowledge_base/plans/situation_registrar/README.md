@@ -19,4 +19,4 @@ Eight is an estimate, and it may grow.
 
 **The order of work for each plan:** the lessons, then the plan, then the agent writes tests and code, then the machines check it and Swaraj reads it, then the record.
 
-**Where we are.** Lesson 1, how Tend stores its data, has been taught. It waits for Swaraj to explain it back. It is in `knowledge_base/product design and engineering learning/engineering_lesson_01_how_tend_stores_data.md`.
+**Where we are (4 November 2026).** All seven lessons have been taught. No plan is written, and Tend has no code yet. The next step is the plan 1 conversation. The full status, and how the lessons connect, are in `knowledge_base/product design and engineering learning/engineering_lessons_how_they_connect_and_where_we_are.md`.
