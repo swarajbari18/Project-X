@@ -25,6 +25,7 @@ let newestVersionShown = 0;
 let waitBeforeTryingAgain = 1000;
 let stayAwayUntil = 0;
 let socket;
+let heartbeat;
 
 document.getElementById("situation").textContent = situationId;
 
@@ -47,9 +48,14 @@ function connect() {
     document.getElementById("connection").textContent = "live";
     waitBeforeTryingAgain = 1000;
     catchUp(); // Whatever was missed while away.
+    // Cloudflare closes a connection with no traffic. The runtime answers this without waking the object.
+    heartbeat = setInterval(() => socket.send("ping"), 30000);
   };
-  socket.onmessage = () => catchUp(); // The nudge says only that something changed.
+  socket.onmessage = (event) => {
+    if (event.data !== "pong") catchUp(); // The nudge says only that something changed.
+  };
   socket.onclose = () => {
+    clearInterval(heartbeat);
     document.getElementById("connection").textContent = "away, will try again";
     const wait = Math.max(waitBeforeTryingAgain, stayAwayUntil - Date.now());
     setTimeout(connect, wait);

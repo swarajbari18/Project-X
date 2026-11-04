@@ -16,3 +16,5 @@
 - [Situation Registrar rulings](project_situation_record_rulings.md) — 4 Nov: name, one Durable Object per situation, sends all notices, plans in knowledge_base/plans/; lessons 1 to 7 taught; views updated; no code yet; plan 1 is next; nothing creates a business
 - [Product names](feedback_product_names.md) — names say what a thing is in product terms, even if long; never make him decode a technical name
 - [AI scope is set by code](feedback_ai_scope_set_by_code.md) — the AI reasons inside a scope code sets; it never engineers its context or sees store IDs
+- [No Playwright](feedback_no_playwright.md) — never use or install it; browser automation only in a sandbox, after asking; what was removed on 4 Nov, and what remains
+- [Method and mechanism](feedback_explain_method_and_mechanism.md) — say what was done and how, with the real mechanism tied to what he knows; no results alone, no metaphors alone

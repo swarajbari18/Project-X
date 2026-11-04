@@ -20,7 +20,8 @@ Open `localhost:8787` in two windows, and put them side by side.
 
 To see the numbers below, run `npm install` as above, and then run these from `experiments/`:
 - `node lesson_07_measure_live_updates.mjs`
-- `node lesson_07_real_browser_check.mjs`, which drives two real Chrome tabs
+- `node lesson_07_who_holds_the_connection.mjs`, which builds a WebSocket by hand, and shows who holds it
+- `node lesson_07_real_browser_check.mjs`, which drives two real Chrome tabs. It does not use Playwright, but it is not sandboxed either, so read its first lines before running it. The two-window check above is safer
 
 **Labels:** **Measured** (it ran on this laptop, with no real network), **Fact** (the source is named at the end), **Proposal** (nobody has approved it yet).
 
@@ -36,18 +37,18 @@ After that, the server has no way to reach the page. So lesson 6's project could
 
 ## 2. Three ways to keep a page current
 
-| Way | What it is like | How it works |
-|---|---|---|
-| **Asking again and again** (polling) | A child asking "are we there yet?" | The page sends a normal request on a timer |
-| **A one-way stream** (Server-Sent Events) | A radio: one side talks, the other listens | One request whose answer never ends |
-| **A two-way socket** (WebSocket) | A phone call: either side can talk at any time | One request that turns into an open line |
+| Way | What actually happens on the network |
+|---|---|
+| **Asking again and again** (polling) | A new HTTP request on a timer. Each one gets an answer, and ends |
+| **A one-way stream** (Server-Sent Events) | One HTTP request. The server keeps its response open, and writes a line of text each time something happens |
+| **A two-way socket** (WebSocket) | One HTTP request asking to upgrade. The server answers `101`, and that same TCP connection then carries messages both ways |
 
-**Measured,** with 20 saves, as ranges across three runs:
+**Measured,** with 20 saves, as ranges across four runs:
 
 | Way | Typical delay | Worst delay | Requests made just to watch | Does the object sleep? |
 |---|---|---|---|---|
 | Asking every second | 542 to 681 ms | 970 to 1,024 ms | About one a second | Not while the asking continues (my reading, see section 4) |
-| One-way stream | 21 to 22 ms | 23 to 24 ms | 1 | **No** |
+| One-way stream | 21 to 22 ms | 23 to 26 ms | 1 | **No** |
 | Two-way socket | 14 ms | 15 to 16 ms | 1 | **Yes** |
 
 Asking again and again is simple, and it is a fair choice when a few seconds of delay do not matter. It costs a request every time, even when nothing changed.
@@ -62,7 +63,7 @@ Tend's pages only need to listen, so a socket is more than we need. It is still 
 
 ```text
 Page ── one ordinary request ──▶ front door ──▶ the object for s-42
-Page ◀═══════════ the line stays open ════════▶ the object for s-42
+Page ◀═══ the same TCP connection stays open ═▶ the runtime, on behalf of s-42
 ```
 
 **The page asks:**
@@ -79,7 +80,7 @@ if (whatIsWanted === "live" || whatIsWanted === "one-way-stream") {
 }
 ```
 
-This calls the object's own `fetch`, and it is not the front door's `fetch`. Cloudflare's docs use it to hand back an open line.
+This calls the object's own `fetch`, and it is not the front door's `fetch`. Cloudflare's docs use it to hand back an open connection.
 
 **The object keeps one end, and gives the page the other:**
 
@@ -113,7 +114,7 @@ private tellEveryPageWatching(newestVersion: number): void {
 | One-way stream | **No** | Yes | Yes |
 | Two-way socket | **Yes** | **Yes** | **Yes** |
 
-So the object left memory, the phone line stayed up, and the next save still reached the page.
+So the object left memory, the TCP connection stayed open, and the next save still reached the page. Section 5 shows how.
 
 **Fact.** "WebSocket clients remain connected to the Cloudflare network" during hibernation, and "In-memory state is reset". After 10 seconds with nothing to do, an object that qualifies goes to sleep. When an event arrives, its constructor runs again.
 
@@ -133,7 +134,84 @@ So the object left memory, the phone line stayed up, and the next save still rea
 
 ---
 
-## 5. The rule: a connection is a hint, and never the truth
+## 5. How can a sleeping object hold a WebSocket?
+
+**Swaraj's challenge.** "WebSocket is an active connection, active all the time. If either of the server side or the front end side goes down, the connection goes off. So your claim about the object being able to sleep in a two-way socket is kind of hard to digest." And: "Is it an actual WebSocket, or is there some other layer that is managing the networking?"
+
+**Both answers are yes.** It is a real WebSocket, and there is another layer. That layer holds the connection, and the object does not. Every fact in the challenge is correct.
+
+### Who holds what
+
+In a Node.js pod running a WebSocket library:
+- One process holds the TCP connection, as a file descriptor. That is the operating system's handle for an open connection.
+- The same process holds your JavaScript handlers.
+- So when that process stops, the operating system closes the connection.
+
+On Cloudflare, these are two separate things:
+
+| | What it is | When the object sleeps |
+|---|---|---|
+| **The runtime** | A long-running program written in C++. Locally, it is the `workerd` process. It holds the connection | It keeps running, and keeps reading the connection |
+| **The object** | An instance of your class: JavaScript memory inside the runtime | Its memory is freed |
+
+So "the object sleeps" means exactly this: the JavaScript instance is gone. The process is not gone, and the connection is not gone.
+
+**One line of code decides this:**
+
+| The line | What it tells the runtime | Can the object sleep? |
+|---|---|---|
+| `this.ctx.acceptWebSocket(objectEnd)` | "You hold this connection, and call my class when a message arrives" | Yes |
+| `objectEnd.accept()` | "My running code holds this connection" | No |
+
+**Fact, from the runtime's own source code.** "api::WebSockets cannot survive hibernation, but kj::WebSockets do." `api::WebSocket` is the JavaScript object your code sees. `kj::WebSocket` is the runtime's C++ connection. The same file says hibernating "converts our activeOrPackage from an api::WebSocket to a HibernationPackage", which keeps a few saved values such as the `url`. A loop in the runtime, `readLoop`, keeps reading the connection.
+
+### What I did to check this
+
+The script is `experiments/lesson_07_who_holds_the_connection.mjs`. It hides nothing:
+- It uses no WebSocket library. It opens a plain TCP connection with Node's `net` module, writes the upgrade request by hand, and builds each frame byte by byte.
+- It counts how often the object was built. The class's constructor prints a line, and the script reads the server's log.
+- It asks the operating system who holds the connection, using the `ss` command.
+
+**Measured:**
+
+| Time | What I did | What happened | What this shows |
+|---|---|---|---|
+| 0 s | Wrote the upgrade request by hand | `HTTP/1.1 101 Switching Protocols`, and the accept value matched the formula in the WebSocket standard | It is a real WebSocket |
+| 1 s | Asked who holds the other end | `workerd, process 371508, file descriptor 45`. The constructor had run once | A runtime process holds it |
+| 26 s | Sent a protocol ping | A pong came back. The constructor count stayed at 1 | The runtime answered, without your code |
+| 26 s | Sent the text `ping` | `pong` came back. The count stayed at 1 | `setWebSocketAutoResponse` works the same way |
+| 26 s | Asked who holds it again | The same process, and the same file descriptor | It is the same connection |
+| 38 s | Sent the text `are you there` | The class's code answered. The count went to 2 | The runtime rebuilt the object to deliver it |
+| 39 s | Checked a second connection, made with `accept()` | Its object never slept | The same connection type, with a different holder |
+| 54 s | Saved a version from elsewhere | The nudge reached my same connection. The count went to 3 | A save can wake the object and still find the connection |
+| 54 s | Killed the runtime | My connection closed 35 ms later | Your experience holds here too |
+
+### What this does not prove
+
+- **My laptop has an extra hop.** `ss` shows two `workerd` processes. My connection ends at the first, and the first forwards over a second connection to the other process. My reading is that your code runs in the second one. It is the same shape as an ingress in front of a pod.
+- **I have not tested real Cloudflare.** Its docs say only that clients "remain connected to the Cloudflare network". Its exact layout is not public. A comment in the runtime's source says this code path is what production uses, which suggests the same design. That is my reading, and it is not proof.
+
+### Your Kubernetes experience still applies
+
+**The connection is as fragile here as anywhere else.**
+
+| What you have seen | On Cloudflare |
+|---|---|
+| Idle connections get dropped, so you ping | **Fact:** "Cloudflare will close a WebSocket connection when no data is transmitted in either direction for a period of time." It tells you to use a client-side heartbeat |
+| A server restart drops connections | **Fact:** "we may restart servers, which terminates WebSockets connections" |
+| Process down means connection down | **Measured:** closed in 35 ms |
+
+**Why pings helped you on Kubernetes (my reading of a fact).** Ingress-nginx says of `proxy-read-timeout` and `proxy-send-timeout`: "The default value of these settings is 60 seconds." So a connection that is quiet for 60 seconds gets closed by the ingress, and not by your application. Traffic resets that clock.
+
+**What is different here: a heartbeat does not need your code running.** **Fact:** "This behavior keeps connections alive without waking the Durable Object." The measurements above agree.
+
+**A browser cannot send a protocol ping** (from memory: the browser's WebSocket API has no ping method). So a page sends the text `ping`, and the runtime answers it.
+
+**My page had a bug.** Its first version had no heartbeat, so a quiet page could have been closed. It would have recovered through catch-up, but it should not rely on that. It now sends `ping` every 30 seconds. I chose 30 seconds, because the page I read does not state the limit. I tested the same text with the by-hand script. I did not rerun it in Chrome, because of your rule about browser automation, so please check it by hand in two windows.
+
+---
+
+## 6. The rule: a connection is a hint, and never the truth
 
 Connections break. Laptops close, Wi-Fi drops, and servers restart. So a page can never treat what it was told as complete.
 
@@ -188,30 +266,30 @@ A came back by itself after 8 seconds        A: live, 4 versions   B: live, 4 ve
 
 **Can a nudge overtake its save?** **Fact, with a limit.** Cloudflare says storage operations use "input gates and output gates", and that "outgoing network messages" are paused "until all previous writes have been confirmed flushed to disk". That sentence sits under the `put()` method, and we use SQL. Writes on this laptop are too fast to test it. Plan 3 should confirm it for SQL on real Cloudflare.
 
-**A crowd uses the same line.** **Measured,** as ranges across three runs, on this laptop only, where the same machine ran both sides:
+**A crowd uses the same line.** **Measured,** as ranges across four runs, on this laptop only, where the same machine ran both sides:
 
 | Pages watching | The save answered in | The last page knew after |
 |---|---|---|
 | 1 | 24 to 31 ms | 12 to 16 ms |
 | 100 | 41 to 51 ms | 23 to 37 ms |
-| 1,000 | 138 to 247 ms | 96 to 164 ms |
+| 1,000 | 138 to 247 ms | 92 to 164 ms |
 
 Telling pages happens inside the object's one line, so the next save waits behind it. **Fact:** one object can serve "thousands of clients". Real numbers need real Cloudflare.
 
 ---
 
-## 6. Who may connect
+## 7. Who may connect
 
 **This lesson's project checks nobody.** Anyone who can type the address can watch that situation. Real Tend cannot work this way.
 
 - **Check at the door.** A socket starts as an ordinary request. So the front door checks who is asking before it passes the request on, using the same sign-in check as any other page.
 - **Check where the request came from.** **Fact:** OWASP lists "Cross-Site WebSocket Hijacking", where "Attackers hijack authenticated connections from malicious websites". Browsers send sign-in cookies along by themselves, so the front door must also check the `Origin` header.
-- **The nudge helps here (my reading).** A nudge carries no business data. The data comes through an ordinary read, and that read is checked each time. So if someone's permission is removed, their next read fails, even if their line is still open.
+- **The nudge helps here (my reading).** A nudge carries no business data. The data comes through an ordinary read, and that read is checked each time. So if someone's permission is removed, their next read fails, even if their connection is still open.
 - **Never show a customer's words as code.** The page uses `textContent`, and never `innerHTML`. **Measured:** a message containing `<img src=x onerror=...>` showed up as plain text, and created no picture.
 
 ---
 
-## 7. What this means for Tend (Proposal)
+## 8. What this means for Tend (Proposal)
 
 These are for the planning conversations, and nothing here is decided.
 
@@ -221,19 +299,20 @@ These are for the planning conversations, and nothing here is decided.
 
 **The owner view comes eighth in the build order, and it has a harder problem.** Its design says a screen is built "when asked", and shows when it was last updated. Nudges fit that. But one owner's screen shows many situations, and each situation's object knows only itself. So who nudges that screen? That is open, and it belongs to the owner view's own plans.
 
-**Deploys.** **Fact:** a deploy can make an active object "reset". I could not test what that does to open lines on real Cloudflare. **Measured** locally: a stop closes them. So every page must assume its line can drop at any time.
+**Deploys.** **Fact:** a deploy can make an active object "reset", and Cloudflare restarts its own servers too. I could not test what a deploy does to open connections on real Cloudflare. **Measured** locally: a stop closes them. So every page must expect its connection to drop at any time.
 
 ---
 
-## 8. What a senior would remember
+## 9. What a senior would remember
 
-1. A page only hears what it asked for, so something must keep a line open, or keep asking.
+1. A page only hears what it asked for, so something must keep a connection open, or keep asking.
 2. On Cloudflare, choose the socket because the object can sleep, not because it is faster.
-3. An object can leave memory while the page stays connected.
-4. A connection is a hint. Send a nudge, and let the page ask the truth.
-5. Normal updates and recovery should be the same code.
-6. A repeat should do nothing, and a loss should repair itself.
-7. Check who is asking before opening the line.
+3. The runtime holds the connection, and the object is only JavaScript memory. So the object can leave while the connection stays.
+4. The connection is still fragile. It needs a heartbeat, and a page that reconnects.
+5. A connection is a hint. Send a nudge, and let the page ask the truth.
+6. Normal updates and recovery should be the same code.
+7. A repeat should do nothing, and a loss should repair itself.
+8. Check who is asking before opening the connection.
 
 ---
 
@@ -248,6 +327,11 @@ These are for the planning conversations, and nothing here is decided.
 ## Sources
 
 - WebSockets and hibernation: https://developers.cloudflare.com/durable-objects/best-practices/websockets/
+- Idle connections and server restarts: https://developers.cloudflare.com/network/websockets/
+- How long a connection lasts: https://developers.cloudflare.com/workers/runtime-apis/websockets/
+- The runtime's source, on who holds the connection: https://github.com/cloudflare/workerd/blob/main/src/workerd/io/legacy-hibernation-manager.h
+- The WebSocket standard: https://www.rfc-editor.org/rfc/rfc6455
+- Ingress-nginx on WebSockets: https://kubernetes.github.io/ingress-nginx/user-guide/miscellaneous/
 - Lifecycle, and the conditions for sleeping: https://developers.cloudflare.com/durable-objects/concepts/durable-object-lifecycle/
 - Pricing: https://developers.cloudflare.com/durable-objects/platform/pricing/
 - Limits, including what keeps an object active: https://developers.cloudflare.com/durable-objects/platform/limits/
@@ -258,4 +342,4 @@ These are for the planning conversations, and nothing here is decided.
 - WebSocket security: https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html
 - The owner view's design: `knowledge_base/architecture/constructed_architecture_from_section12/build_view/owner_view.md`
 - The whiteboard's first version: `environments_simulation_and_whiteboard.md`
-- The experiments: `experiments/lesson_07_live_page/`, `experiments/lesson_07_measure_live_updates.mjs`, `experiments/lesson_07_real_browser_check.mjs`.
+- The experiments: `experiments/lesson_07_live_page/`, `experiments/lesson_07_measure_live_updates.mjs`, `experiments/lesson_07_who_holds_the_connection.mjs`, `experiments/lesson_07_real_browser_check.mjs`.

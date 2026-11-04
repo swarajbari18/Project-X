@@ -58,8 +58,9 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 | Reading a TypeScript class from Python: `extends`, `this`, a method's `()` and `{ }` | Lesson 6, section 11 | Not yet | — | — |
 | Asking again and again, a one-way stream, a two-way socket | Lesson 7, section 2 | Not yet | — | — |
 | An object can sleep while a page stays connected | Lesson 7, section 4 | Not yet | — | — |
-| A connection is a hint: a nudge, then the page catches up | Lesson 7, section 5 | Not yet | — | — |
-| Checking who may open a live connection | Lesson 7, section 6 | Not yet | — | — |
+| The runtime holds a WebSocket, and the object is only JavaScript memory | Lesson 7, section 5 | Not yet | — | — |
+| A connection is a hint: a nudge, then the page catches up | Lesson 7, section 6 | Not yet | — | — |
+| Checking who may open a live connection | Lesson 7, section 7 | Not yet | — | — |
 
 ---
 
@@ -70,6 +71,7 @@ This is Swaraj's record of what he has been taught, where, and how it has been u
 - **He notices what is missing.** He insisted the person-to-situation link "has to be there". It was missing from the views, and he was right.
 - **He drops his own idea when the facts say so.** He worked through a large cross-business idea, then saw for himself that each business's own channel already answers it, and scrapped it.
 - **He refuses to follow fashion.** He asked whether TypeScript's popularity had a real reason, and asked for evidence even on a decision already made.
+- **Tests a claim against production experience.** Running WebSockets on Kubernetes made the claim that an object sleeps sound wrong. That doubt was right on every fact, and testing it exposed a real bug in the lesson's page.
 - **Says exactly where the confusion starts.** "You lost me at bindings" came with seven precise questions, and answering them exposed mistakes in the lesson.
 - **He catches contradictions.** He saw that lesson 3 banned AI from tests, while naming a simulated story with real AI as a test.
 
@@ -114,6 +116,8 @@ Recorded so they are not repeated.
 
 - **An overstated conclusion.** The teacher said Meera's reply "waits in line" for about 8 minutes during a campaign. The arithmetic was right, but she would not wait that long. Corrected in lesson 1, section 7.
 - **Technical names.** "state" meant nothing to him. He asked for product-minded names, even long ones, as long as they follow technical convention. From lesson 2 on, the examples use them.
+- **Results and metaphors instead of the mechanism.** Lesson 7 first called a WebSocket "a phone call", and reported that an object sleeps, without saying who holds the connection or how that was measured. Swaraj: "Do not just tell me the results. Tell me what you did, how you did it." Section 5 was written with a by-hand test.
+- **A page with no heartbeat.** The first version of lesson 7's page sent none, although Cloudflare closes quiet connections. Swaraj's mention of ping and pong led to finding this.
 - **Labelled files by role.** The teacher called one file "the Worker" and another "the Durable Object", named an object after a person, and said a Worker could reach nothing outside its bindings. Swaraj: "You lost me at bindings." Those questions exposed all of it. Lesson 6 was rewritten, with each claim tested by breaking the project on purpose.
 - **Simplified too far.** A shortened snippet cut a method's body and hid the `import`, which raised two new questions. Swaraj's instinct about the missing import was right.
 - **Staying current.** The older test plugin and the older `migrations` list had both been replaced. Checking Cloudflare's docs first avoided teaching them.

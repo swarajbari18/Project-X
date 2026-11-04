@@ -1,5 +1,10 @@
 // Lesson 7: the same page in two real Chrome tabs, with its real buttons clicked by this script.
 //
+// READ THIS FIRST. Swaraj's rule, 4 November 2026: no Playwright, and browser automation only in a sandbox.
+// This script does not use Playwright. It drives Chrome directly, through Chrome's own debug port.
+// It is NOT sandboxed: it runs your installed Chrome on this machine, with a throwaway profile, and while
+// it runs, any program on this machine can reach that debug port. Do not run it outside a sandbox.
+//
 // You can do all of this by hand: run `npm run dev` in lesson_07_live_page, and open localhost:8787 in two windows.
 //
 // First run `npm install` inside lesson_07_live_page. Then, from this folder:

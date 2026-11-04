@@ -99,7 +99,7 @@ The lessons look like separate topics. They keep teaching the same six ideas.
 
 | Stage | State | The evidence |
 |---|---|---|
-| **1. Learn** | Taught, and mostly not yet shown | 7 lessons, 48 concepts. Swaraj has shown a rung on 4 of them, and part of one more |
+| **1. Learn** | Taught, and mostly not yet shown | 7 lessons, 49 concepts. Swaraj has shown a rung on 4 of them, and part of one more |
 | **2. Plan** | Not started | 8 plan skeletons exist. None is written. No rule or test is locked |
 | **3. Translate** | Not started | Tend has no code. All code in the repository is lesson experiments |
 | **4. Review** | Not started | Nothing to review. The gate's checks do not exist yet |
@@ -117,6 +117,7 @@ The lessons look like separate topics. They keep teaching the same six ideas.
 - **The starting point and the plan folders:** `knowledge_base/plans/situation_registrar/`.
 - **Seven lessons, with experiments you can run,** and the learning record.
 - **The agent memory,** where you can read it: `agent_memory/`.
+- **The prompt that starts plan 1:** `knowledge_base/plans/situation_registrar/handoff_prompt_start_plan_1.md`.
 - **The language decision:** TypeScript, because of Cloudflare.
 
 ### What does not exist yet
@@ -154,6 +155,8 @@ The factory's own file lists "The first real cycle" as **Open**: "the experiment
 - **The empty days in your commit graph.** Your call. I did not invent commits for days when no work happened.
 - **A pointer at the repository's root,** so other agents find `agent_memory/`. Your call.
 - **`backup/before-splitting-commits`** is a local branch you can delete.
+- **The copy of Playwright inside the ChatGPT app,** in `/usr/lib/chatgpt/`, needs your admin rights to remove. Your Assignment project's `package.json` also still names Playwright.
+- **`handoff_writing_instructions.md` names a `status_quo.md`** that does not exist anywhere in this repository.
 
 **What the assistant still owes.** A fresh-reader audit of lessons 3 to 7, this file, and the root files. Plan 1's agents must also follow your rule that the AI never sees store IDs.
 

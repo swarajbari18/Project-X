@@ -16,7 +16,7 @@ export default {
 
     // A live connection starts as an ordinary request, passed through the door to the object.
     // In real Tend, this is where the front door must check who is asking. This lesson checks nothing.
-    if (whatIsWanted === "live" || whatIsWanted === "one-way-stream") {
+    if (whatIsWanted === "live" || whatIsWanted === "one-way-stream" || whatIsWanted === "live-plain-accept") {
       return registrar.fetch(request);
     }
     if (whatIsWanted === "versions-since") {

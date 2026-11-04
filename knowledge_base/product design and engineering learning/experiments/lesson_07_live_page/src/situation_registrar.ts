@@ -18,6 +18,10 @@ export class SituationRegistrar extends DurableObject<Env> {
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
+    // Printed so you can see each time this object is built again.
+    console.log(`ran: the constructor, for the object named ${this.ctx.id.name}`);
+    // The runtime answers this text itself, without waking the object. Pages send it as a heartbeat.
+    this.ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair("ping", "pong"));
     this.ctx.storage.sql.exec(`
       CREATE TABLE IF NOT EXISTS versions_of_this_situation (
         version_number INTEGER PRIMARY KEY,
@@ -73,6 +77,12 @@ export class SituationRegistrar extends DurableObject<Env> {
     }
   }
 
+  // The runtime calls this when a page sends a message, building the object first if it is asleep.
+  webSocketMessage(socket: WebSocket, message: string | ArrayBuffer): void {
+    console.log("ran: webSocketMessage");
+    socket.send(JSON.stringify({ heard: String(message), iWokeUpAt: this.wokeUpAt }));
+  }
+
   // A page asks for a live connection. The object keeps one end, and the page gets the other.
   fetch(request: Request): Response {
     if (new URL(request.url).pathname.endsWith("/one-way-stream")) {
@@ -84,7 +94,12 @@ export class SituationRegistrar extends DurableObject<Env> {
       return new Response("this address expects a WebSocket", { status: 426 });
     }
     const { 0: pageEnd, 1: objectEnd } = new WebSocketPair();
-    // acceptWebSocket, and not accept: this is what lets the object sleep while the page stays connected.
+    // Only for the comparison in lesson 7: the same connection, but this object's own code holds it.
+    if (new URL(request.url).pathname.endsWith("/live-plain-accept")) {
+      objectEnd.accept();
+      return new Response(null, { status: 101, webSocket: pageEnd });
+    }
+    // acceptWebSocket, and not accept: the runtime holds the connection, so the object can leave memory.
     this.ctx.acceptWebSocket(objectEnd);
     return new Response(null, { status: 101, webSocket: pageEnd });
   }
